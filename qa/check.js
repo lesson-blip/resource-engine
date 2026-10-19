@@ -10,7 +10,7 @@ const IMG = path.join(__dirname, "..", "assets", "img");
 const errs = [], warns = [], qa = [];
 const E = (w, m) => errs.push(`${w}: ${m}`), Wn = (w, m) => warns.push(`${w}: ${m}`);
 const KINDS = new Set(["fractionStrip", "fractionWall", "numberLine", "collection", "array", "barModel", "grid", "compass", "angle", "angleSet", "pvChart", "decimalGrid", "mab", "jug", "cubes", "money", "algorithm", "roundLine", "figure", "ribbon", "ruler", "stripStack", "shapeSet", "patternBlocks", "tangram", "notebook"]);
-const TYPES = new Set(["reallife", "warmup", "definition", "rows", "visual", "worked", "examples", "talk", "hinge", "cfu", "activity", "levels", "discuss", "display"]);
+const TYPES = new Set(["reveal", "mentor", "anchor", "model", "criteria", "tag", "reallife", "warmup", "definition", "rows", "visual", "worked", "examples", "talk", "hinge", "cfu", "activity", "levels", "discuss", "display"]);
 const dash = /[—–]/;
 
 function visual(v, w) {
@@ -45,7 +45,9 @@ for (const k of ["id", "title", "subtitle", "stage", "lessons", "assessment", "v
   text(l.title, w, 44); text(l.menu, w, 24); text(l.li, w, 140); (l.sc || []).forEach(s => text(s, w, 80)); pics(l.pics, w);
   if (!l.sc || l.sc.length < 2) E(w, "needs 2 or 3 success criteria");
   const types = l.slides.map(s => s.type);
-  for (const need of ["hinge", "cfu", "activity", "levels", "discuss"]) if (!types.includes(need)) E(w, `no ${need} slide`);
+  const NEED = U.subject === "english" ? (l.focus ? [] : ["activity", "discuss"]) : ["hinge", "cfu", "activity", "levels", "discuss"];
+  for (const need of NEED) if (!types.includes(need)) E(w, `no ${need} slide`);
+  if (U.subject === "english" && !l.focus && !l.week) E(w, "english lesson needs week");
   l.slides.forEach((s, i) => {
     const sw = `${w} slide ${i + 1} (${s.type})`;
     if (!TYPES.has(s.type)) E(sw, "unknown slide type");
@@ -61,6 +63,13 @@ for (const k of ["id", "title", "subtitle", "stage", "lessons", "assessment", "v
     if (s.type === "levels") ["support", "core", "extend"].forEach(k => { if (!s[k]) E(sw, `levels missing ${k}`); text(s[k], sw, 140); });
     if (s.type === "warmup" && s.answers) s.items.forEach((q, j) => qa.push([`${sw} q${j + 1}`, q, s.answers[j]]));
     if (s.type === "worked") (s.steps || []).forEach(st => text(st.text, sw));
+    if (s.type === "reveal") { if (!s.steps || !s.steps.length) E(sw, "reveal needs steps"); (s.steps || []).forEach(st => { if (!st.locator || !st.questions) E(sw, "reveal step needs locator and questions"); }); }
+    if (s.type === "mentor") { if (!s.locator || !s.task) E(sw, "mentor needs locator and task"); }
+    if (s.type === "model") { if (!s.parts && !s.text) E(sw, "model needs parts or text"); }
+    if (s.type === "anchor" && !(s.points || []).length) E(sw, "anchor needs points");
+    if (s.type === "criteria" && !(s.points || []).length) E(sw, "criteria needs points");
+    // no quoting the mentor book: quoted runs longer than 4 words are flagged
+    if (U.subject === "english") JSON.stringify(s).replace(/['‘’"]([^'‘’"]{3,200})['‘’"]/g, (m, q) => { if (q.trim().split(/\s+/).length > 4 && /locator|Chapter|p \d/.test(JSON.stringify(s))) Wn(sw, `long quote? "${q.slice(0, 60)}"`); return m; });
   });
   (l.printables || []).forEach(p => {
     const pw = `${w} ${p.id}`;
@@ -72,10 +81,24 @@ for (const k of ["id", "title", "subtitle", "stage", "lessons", "assessment", "v
   });
   (l.exitTicket || []).forEach((e, j) => { visual(e.visual, `${w} exit`); qa.push([`${w} exit ${j + 1}`, e.q, e.answer]); });
 });
+(U.skills || []).forEach(l => {
+  const w = `A${l.n}`;
+  if (!l.focus) E(w, "skill needs focus"); if (!l.week) E(w, "skill needs week");
+  if (!l.slides || l.slides.length < 2) E(w, "skill needs slides");
+  (l.slides || []).forEach((s, i) => {
+    const sw = `${w} slide ${i + 1} (${s.type})`;
+    if (!TYPES.has(s.type)) E(sw, "unknown slide type");
+    text(s.title, sw, 48); visual(s.visual, sw); pics(s.pics, sw);
+    if (s.type === "cfu") { if (!s.answers || s.answers.length !== s.questions.length) E(sw, "cfu answers count"); s.questions.forEach((q, j) => qa.push([`${sw} q${j + 1}`, q, s.answers && s.answers[j]])); }
+    if (s.type === "hinge") qa.push([sw, s.question, s.options && s.options[s.answer]]);
+  });
+  (l.printables || []).forEach(p => { if (p.kind === "worksheet") (p.levels || []).forEach(lv => lv.items.forEach((it, j) => item(it, `${w} ${p.id} ${lv.level} ${j + 1}`))); });
+});
 const A = U.assessment || {};
 (A.pretest || []).forEach((it, j) => item(it, `pretest ${j + 1}`));
 (A.sections || []).forEach((s, si) => s.items.forEach((it, j) => item(it, `test ${si + 1}.${j + 1}`)));
 
+for (const k of ["outcomes", "vocab"]) if (!U[k] || !U[k].length) E("unit", "missing " + k);
 if (!quiet || showAnswers) for (const [w, q, a] of qa) console.log(`${w} | ${q} => ${a}`);
 console.log(`${path.basename(file)}: ${U.lessons.length} lessons, ${qa.length} answered questions, ${errs.length} errors, ${warns.length} warnings`);
 warns.slice(0, 30).forEach(m => console.log("  warn " + m));

@@ -35,10 +35,11 @@ const note = (title, items, fill = T.tints.teal) => new Table({ width: { size: C
 const k = [];
 const img = f => new ImageRun({ type: "png", data: fs.readFileSync(K.img(f)), transformation: { width: 80, height: 80 } });
 k.push(new Paragraph({ spacing: { before: 1000, after: 300 }, alignment: AlignmentType.CENTER, children: (UNIT.lessons[0].pics || []).filter(K.hasImg).slice(0, 3).map(img) }));
-k.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [R(`${UNIT.stage} · ${UNIT.years} · NSW Mathematics`, { color: UC, bold: true, size: 28 })] }));
+const GC = UNIT.guide || {};
+k.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [R(`${UNIT.stage} · ${UNIT.years} · ${GC.subjectName || "NSW Mathematics"}`, { color: UC, bold: true, size: 28 })] }));
 k.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [R(UNIT.title, { bold: true, size: 60, color: NAVY })] }));
 k.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 600 }, children: [R(`${UNIT.subtitle} · Teacher guide`, { size: 30, color: NAVY })] }));
-k.push(note("In this pack", [
+k.push(note("In this pack", GC.inPack || [
   `Teaching slides for ${UNIT.lessons.length} lessons (PowerPoint, also opens in Google Slides). Teacher notes and answers are in the slide notes.`,
   `Worksheets for every lesson at three levels: Support, Core and Extension (students see ${LVN.join(", ")}), in colour and black and white.`,
   "An answer key: the same pages with the answers written in.",
@@ -60,6 +61,8 @@ k.push(PB());
 k.push(H1("2. How a lesson runs"));
 k.push(table([2300, 4000, 3338], [
   ["Part", "What happens", "Why"],
+  ...(GC.routine || []),
+].concat(GC.routine ? [] : [
   ["Learning intention and success criteria", "Read them together. Students say them in their own words.", "Students who know what success looks like do better (CESE What Works Best)."],
   ["Warm-up (5 min)", "Revisit earlier learning on mini whiteboards. No scores.", "Spaced retrieval is one of the best supported practices (AERO)."],
   ["I do, We do", "Model with strips and number lines, then try one together.", "Explicit teaching helps most with new content, especially for students who find maths hard (CESE 2025)."],
@@ -68,13 +71,13 @@ k.push(table([2300, 4000, 3338], [
   ["Show me", "Three or four questions on mini whiteboards, then the answer slide.", "Decide who goes to the activity and who stays for another We do."],
   ["Activity and Choose your challenge", "One task at three levels. Students choose and can change.", "Enabling and extending prompts keep everyone on the same maths (Sullivan and colleagues)."],
   ["Discuss and connect, exit ticket", "Share two or three pieces of work, link to the success criteria, then two exit questions.", "Exit tickets form tomorrow's teacher table group."],
-]));
+])));
 
 k.push(H1("3. Every learner"));
 k.push(P(`Every lesson has one main task (Core) with an easier way in (Support) and a way to go further (Extension). Students see them as ${LVN[0]}, ${LVN[1]} and ${LVN[2]}, marked with one, two or three dots, so nobody wears a label. Everyone aims for the main task. Students choose where to start and can move at any time. Never label tables or groups by level: fixed ability groups widen gaps (Siemon; Victorian Department of Education). This follows Sullivan's enabling and extending prompts.`));
 [`Offer ${LVN[0]} after a genuine try, so students still get the benefit of productive struggle.`,
   "Use the exit ticket to choose four to six students for a 10 to 15 minute teacher table the next day. Change the group often.",
-  "Keep paper strips and number lines out for anyone who wants them. Let students put them away when they are ready.",
+  ...(GC.learnerTip ? [GC.learnerTip] : ["Keep paper strips and number lines out for anyone who wants them. Let students put them away when they are ready."]),
   `Extension (${LVN[2]}) tasks ask students to explain, prove and generalise, not to do more of the same.`].forEach(x => k.push(B(x)));
 k.push(H2("Common misconceptions"));
 k.push(table([4600, 5038], [["Students may think", "What helps"], ...UNIT.misconceptions.map(m => [m.think, m.fix])]));
@@ -100,7 +103,7 @@ k.push(P("Give the pre-test before Lesson 1 to plan your first teacher table gro
 k.push(table([2400, 1450, 1450, 1450, 1450, 1438], [["Criteria", "A", "B", "C", "D", "E"], ...UNIT.assessment.rubric.map(r => [r.criteria, r.A, r.B, r.C, r.D, r.E])]));
 
 k.push(H1("6. References"));
-[["NSW Education Standards Authority (2022). Mathematics K-10 Syllabus.", "https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-k-10-2022"],
+(GC.references || [["NSW Education Standards Authority (2022). Mathematics K-10 Syllabus.", "https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-k-10-2022"],
  ["CESE (2025). What Works Best 2025: Explicit teaching.", "https://education.nsw.gov.au/content/dam/main-education/about-us/educational-data/cese/What_Works_Best_2025_Evidence_guide_explicit_teaching.pdf"],
  ["AERO (2021, updated 2026). Spacing and retrieval practice guide.", "https://www.edresearch.edu.au/guides-resources/practice-guides/spacing-and-retrieval-practice-guide-full-publication"],
  ["Attard, C. (2015). Engagement and mathematics: What does it look like in your classroom? Journal of Professional Learning, NSW Teachers Federation.", "https://cpl.nswtf.org.au/journal/semester-2-2015/engagement-and-mathematics-what-does-it-look-like-in-your-classroom/"],
@@ -108,7 +111,7 @@ k.push(H1("6. References"));
  ["Clarke, D., Roche, A., Cheeseman, J. & Sullivan, P. (2014). Encouraging students to persist when working on challenging tasks.", "https://files.eric.ed.gov/fulltext/EJ1093262.pdf"],
  ["Clarke, D. M., Roche, A. & Mitchell, A. (2008). Ten practical tips for making fractions come alive and make sense.", "https://acuresearchbank.acu.edu.au/item/8v1wx/ten-practical-tips-for-making-fractions-come-alive-and-make-sense"],
  ["Siemon, D. Issues in the Teaching of Mathematics: Ability Grouping. Victorian Department of Education.", "https://www.education.vic.gov.au/Documents/school/teachers/teachingresources/discipline/maths/ability-grouping.pdf"],
-].forEach(([t, u]) => k.push(P([R(t + " "), link(u, u)])));
+]).forEach(([t, u]) => k.push(P([R(t + " "), link(u, u)])));
 k.push(H2("Licence and credits"));
 k.push(P("One licence covers one teacher and their own students. Pictures: Microsoft Fluent Emoji (MIT licence) and photos from Pexels (Pexels Licence; photographers listed on the slides' Thank you page). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Syllabus outcomes © NESA. Not endorsed by NESA or the NSW Department of Education."));
 

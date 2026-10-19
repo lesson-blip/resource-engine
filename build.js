@@ -30,8 +30,11 @@ if (UNIT.photos) { step("Photos"); run("node", [path.join(__dirname, "src", "pho
 step("Printables");
 run("node", [path.join(__dirname, "src", "printables.js"), unitFile, DIR, theme]);
 step("Slides");
-const deck = path.join(DIR, `${t}_Slides.pptx`);
+const HAS_A = (UNIT.skills || []).length > 0;
+const deck = path.join(DIR, HAS_A ? `${t}_Component_B_Slides.pptx` : `${t}_Slides.pptx`);
 const out = run("node", [path.join(__dirname, "src", "deck.js"), unitFile, deck, theme]);
+const deckA = path.join(DIR, `${t}_Component_A_Slides.pptx`);
+if (HAS_A) { run("node", [path.join(__dirname, "src", "deck.js"), unitFile, deckA, theme, "A"]); run("node", [path.join(__dirname, "src", "embed.js"), deckA]); run("python3", [path.join(__dirname, "src", "finalize.py"), deckA]); }
 fs.writeFileSync(path.join(WORK, "slidecount.txt"), (out.match(/: (\d+) slides/) || [0, 0])[1]);
 run("node", [path.join(__dirname, "src", "embed.js"), deck]);
 run("python3", [path.join(__dirname, "src", "finalize.py"), deck]);
@@ -39,10 +42,12 @@ if (extraThemes.length) {
   const XD = path.join(DIR, "Slides in other themes");
   fs.mkdirSync(XD, { recursive: true });
   for (const k of extraThemes) {
-    const xf = path.join(XD, `${t}_Slides_${K.THEMES[k].name.replace(/[^A-Za-z]+/g, "_")}.pptx`);
-    run("node", [path.join(__dirname, "src", "deck.js"), unitFile, xf, k]);
-    run("node", [path.join(__dirname, "src", "embed.js"), xf]);
-    run("python3", [path.join(__dirname, "src", "finalize.py"), xf]);
+    for (const part of HAS_A ? ["B", "A"] : [""]) {
+      const xf = path.join(XD, `${t}_${part ? `Component_${part}_` : ""}Slides_${K.THEMES[k].name.replace(/[^A-Za-z]+/g, "_")}.pptx`);
+      run("node", [path.join(__dirname, "src", "deck.js"), unitFile, xf, k, part === "A" ? "A" : ""]);
+      run("node", [path.join(__dirname, "src", "embed.js"), xf]);
+      run("python3", [path.join(__dirname, "src", "finalize.py"), xf]);
+    }
   }
 }
 fs.writeFileSync(path.join(WORK, "themes.json"), JSON.stringify([theme, ...extraThemes]));
@@ -52,7 +57,7 @@ run("node", [path.join(__dirname, "src", "guide.js"), unitFile, path.join(DIR, `
 if (!args.includes("--skip-listing")) {
   step("Listing (cover tiles, preview, listing text)");
   run("python3", ["/mnt/skills/public/pptx/scripts/office/soffice.py", "--headless", "--convert-to", "pdf", "--outdir", WORK, deck]);
-  fs.renameSync(path.join(WORK, `${t}_Slides.pdf`), path.join(WORK, "deck.pdf"));
+  fs.renameSync(path.join(WORK, path.basename(deck).replace(/\.pptx$/, ".pdf")), path.join(WORK, "deck.pdf"));
   run("node", [path.join(__dirname, "src", "listing.js"), unitFile, DIR, theme]);
 }
 step("Packaging");
@@ -62,7 +67,7 @@ One licence covers one teacher and their own students. Please do not share, rese
 
 Pictures: Microsoft Fluent Emoji, MIT licence (https://github.com/microsoft/fluentui-emoji). Photos: Pexels, Pexels Licence (https://www.pexels.com/license/); photographers are listed on the last slide.
 Fonts: Nunito Sans and Edu NSW ACT Foundation, SIL Open Font License 1.1 (full licence in Fonts_Licence.txt).
-Syllabus outcomes and content: NSW Mathematics K-10 Syllabus, NSW Education Standards Authority. Not endorsed by NESA or the NSW Department of Education.
+${UNIT.subject === "english" ? `Syllabus outcomes: NSW English K-10 Syllabus, NSW Education Standards Authority.${UNIT.departmentUnit ? ` Designed to accompany the NSW Department of Education ${UNIT.departmentUnit} (© State of New South Wales (Department of Education), 2023, CC BY 4.0).` : ""}${UNIT.mentorText ? `\nYou need a copy of ${UNIT.mentorText.title} by ${UNIT.mentorText.author}. No text or pictures from the book are reproduced; slides show page references so you can read from your own copy.` : ""}` : "Syllabus outcomes and content: NSW Mathematics K-10 Syllabus, NSW Education Standards Authority."} Not endorsed by NESA or the NSW Department of Education.
 
 If the slides show a different font, install Nunito Sans (free, Google Fonts).
 `;

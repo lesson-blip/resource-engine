@@ -39,14 +39,14 @@ function pages(pdf, prefix, list, dpi = 110) {
   return out;
 }
 const deckPdf = path.relative(DIR, path.join(WORK, "deck.pdf"));
-const wsPdf = find(/_Worksheets_Colour\.pdf$/), keyPdf = find(/_Answer_Key\.pdf$/), asPdf = find(/_Assessment\.pdf$/), fbPdf = find(/_Flip_Book\.pdf$/), wwPdf = find(/_Word_Wall\.pdf$/), poPdf = find(/_Posters\.pdf$/);
+const wsPdf = find(/_Worksheets_Colour\.pdf$/), keyPdf = find(/_Answer_Key\.pdf$/), asPdf = find(/_Assessment\.pdf$/), fbPdf = find(/_Flip_Book\.pdf$/) || find(/_Component_A_Printables\.pdf$/) || find(/_Worksheets_Colour\.pdf$/), wwPdf = find(/_Word_Wall\.pdf$/), poPdf = find(/_Posters\.pdf$/);
 // the first lesson starts at slide 4; pick a spread of slide types from lesson 1
 const S = pages(deckPdf, "s", [1, 4, 5, 7, 8, 10, 11, 12, 13, 15, 16], 110);
 const TPL = (UNIT.templates || []).length;
-const WS = pages(wsPdf, "w", [2 + TPL, 3 + TPL, 4 + TPL, 1]);
+const WS = pages(wsPdf, "w", (UNIT.copy && UNIT.copy.wsPages) || [2 + TPL, 3 + TPL, 4 + TPL, 1]);
 const KEY = pages(keyPdf, "k", [3]);
 const AS = pages(asPdf, "a", [2]);
-const FB = pages(fbPdf, "f", [1]);
+const FB = pages(fbPdf, "f", [(UNIT.copy && UNIT.copy.extraPage) || 1]);
 const WW = pages(wwPdf, "ww", [1]);
 const PO = pages(poPdf, "p", [3, 1]);
 
@@ -75,8 +75,8 @@ const peps = n => LVS.marker === "chillies" ? `<img class="p" src="${FILE(K.img(
 const THM = (() => { try { return JSON.parse(fs.readFileSync(path.join(WORK, "themes.json"), "utf8")); } catch (e) { return []; } })();
 const nThemes = THM.length;
 const slidesLine = nThemes > 1 ? `${L.length} lessons, slides in ${nThemes} themes` : `${L.length} lessons on editable slides`;
-const tileIncluded = [slidesLine, `${nWs} worksheets in 3 levels`, `Handwritten answer keys`, `Exit tickets and strips`, `Flip book, word wall, posters`, `Teacher guide and research`];
-const included = [nThemes > 1 ? `${L.length} lessons on editable slides in ${nThemes} colour themes: ${THM.map(k => K.THEMES[k].name).join(", ")}` : `${L.length} lessons on editable slides`, `${nWs} worksheets in 3 levels`, `Answer keys in NSW handwriting font`, `Exit ticket slips, paper strips and squared strips`, `Flip book, word wall, posters`, `Teacher notes and research`];
+const tileIncluded = (UNIT.copy && UNIT.copy.tileIncluded && UNIT.copy.tileIncluded.map(t => t.replace(/\{(\w+)\}/g, (m, k) => ({ lessons: L.length, skills: (UNIT.skills || []).length, themes: nThemes, worksheets: nWs })[k] ?? m))) || [slidesLine, `${nWs} worksheets in 3 levels`, `Handwritten answer keys`, `Exit tickets and strips`, `Flip book, word wall, posters`, `Teacher guide and research`];
+const included = (UNIT.copy && UNIT.copy.included && UNIT.copy.included.map(t => t.replace(/\{(\w+)\}/g, (m, k) => ({ lessons: L.length, skills: (UNIT.skills || []).length, themes: nThemes, worksheets: nWs })[k] ?? m))) || [nThemes > 1 ? `${L.length} lessons on editable slides in ${nThemes} colour themes: ${THM.map(k => K.THEMES[k].name).join(", ")}` : `${L.length} lessons on editable slides`, `${nWs} worksheets in 3 levels`, `Answer keys in NSW handwriting font`, `Exit ticket slips, paper strips and squared strips`, `Flip book, word wall, posters`, `Teacher notes and research`];
 
 const tiles = [
   `<div class="tile">
@@ -95,7 +95,7 @@ const tiles = [
   `<div class="tile">
     <div class="h2">3 levels every lesson</div>
     ${[0, 1, 2].map(i => [LVS.names[i], i + 1, ["mint", "sky", "indigo"][i], i]).map(([n, k, c, i]) => `<div class="lv" style="left:${45 + i * 335}px"><div class="tag" style="background:${C[c]}">${peps(k)} ${n}</div><div class="pg" style="position:relative; width:300px"><img src="${WS[i]}"></div></div>`).join("")}
-    <div class="pill" style="background:${C.lav}; left:50%; transform:translateX(-50%); top:760px; white-space:nowrap">Same maths, every student challenged</div>
+    <div class="pill" style="background:${C.lav}; left:50%; transform:translateX(-50%); top:760px; white-space:nowrap">${esc(COPY.tileClaim)}</div>
     <div class="banner">Differentiated for every learner</div></div>`,
   `<div class="tile">
     <div class="h2">Teaching slides</div>
@@ -106,10 +106,10 @@ const tiles = [
     <div class="pg" style="width:380px; left:50px; top:190px; transform:rotate(-3deg)"><img src="${FB[0]}"></div>
     <div class="pg" style="width:380px; left:350px; top:250px; transform:rotate(2deg)"><img src="${WW[0]}"></div>
     <div class="pg" style="width:380px; left:650px; top:200px; transform:rotate(4deg)"><img src="${PO[0]}"></div>
-    <div class="pill" style="background:${C.teal}; left:60px; top:820px">Flip book</div>
+    <div class="pill" style="background:${C.teal}; left:60px; top:820px">${esc((UNIT.copy && UNIT.copy.extraLabel) || "Flip book")}</div>
     <div class="pill" style="background:${C.sky}; left:390px; top:840px">Word wall</div>
     <div class="pill" style="background:${C.lav}; left:720px; top:820px">Posters</div>
-    <div class="banner">${nGames} games and card sets</div></div>`,
+    <div class="banner">${(UNIT.copy && UNIT.copy.extrasBanner) || `${nGames} games and card sets`}</div></div>`,
 ];
 
 // ---------- preview PDF (a short sales deck, A4 portrait) ----------
@@ -126,7 +126,28 @@ const pcss = css + `
 .ul li { margin-left: 6mm; }
 .cover1 img { width: 100%; border-radius: 4mm; }
 `;
-const ev = [
+// Product copy: maths defaults below; a unit can override any field with "copy": {...}
+const DEF = {
+  hook: ["teach fractions as lengths and number lines, the way the NSW syllabus asks?", "have a ready lesson for every day, with slides, worksheets and a test that all match?", "challenge your strugglers and your high flyers in the same lesson?", "mark in minutes with answer keys already written in?"],
+  tileClaim: "Same maths, every student challenged",
+  insideLesson: "Learning intention and success criteria, warm-up, explicit teaching, turn and talk, a hinge question with a reveal slide, a mini whiteboard check, the activity, Choose your challenge, and Discuss and Connect. Teacher notes are in every slide's notes.",
+  worksheetsPara: `Every lesson has a Support, Core and Extension worksheet on the same maths (students see ${LVS.names.join(", ")}), each with a teaching box at the top. The answer key is the same pages with the answers written in.`,
+  credits: "Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Syllabus content paraphrased from the NSW Mathematics K-10 Syllabus © NESA. This resource is not endorsed by NESA or the NSW Department of Education.",
+  heading: `${UNIT.title}: ${UNIT.subtitle} | ${UNIT.stage} NSW Maths Unit | Slides, Differentiated Worksheets, Assessment`,
+  titles: [`${UNIT.subtitle} ${UNIT.stage} NSW Maths Unit | Fractions on a Number Line | Differentiated`, "Fractions as Lengths Unit | Year 3 and 4 NSW | Slides, Worksheets, Assessment", `${UNIT.stage} Fractions Unit | Number Lines and Fraction Strips | NSW Syllabus`],
+  description: `Teach fractions as lengths and numbers on a number line with a complete, ready-to-teach ${L.length}-lesson unit written for the NSW Mathematics K-10 Syllabus (${UNIT.subtitle}). Every lesson comes with editable teaching slides, three levels of worksheets and answer keys, so every student works on the same maths at the right level of challenge.`,
+  extraIncluded: [`${nAssess}-question assessment with a student self-check and an A to E marking rubric`, "A 5-question pre-test to plan your groups", "Printable exit ticket slips for every lesson"],
+  everyLesson: ["Learning intention and success criteria", "Warm-up that revisits earlier learning", "Explicit teaching (I do, We do, You do) with fraction strips and number lines", "Turn and talk, a hinge question with a reveal slide, and a mini whiteboard check", `Differentiated at 3 levels: Support, Core and Extension versions of the same task (students see ${LVS.names.join(", ")}, marked with dots, never ability labels)`, "Discuss and Connect, and an exit ticket", "Teacher notes in the slide notes"],
+  whyItWorks: ["Every worksheet, card set, game board and strip the slides mention is included. You supply string, rulers, scissors and dice.", "Differentiated in every lesson, not just the test", "Built on Australian research (CESE What Works Best, AERO) and the NSW syllabus", "Australian spelling throughout"],
+  formats: "PowerPoint slides (open in Google Slides), Word teacher guide, PDF worksheets in colour and black and white, PDF answer key, assessment, exit tickets, flip book, word wall and posters.",
+  tags: "fractions, number line, fraction strips, unit fractions, fraction wall, stage 2, year 3, year 4, NSW syllabus, partitioned fractions, differentiated, maths unit, australian",
+  price: "Single unit: A$15 to A$19 (TpT US$9 to US$12). Bundle with the next fractions unit for a 20% saving.",
+  evidence: null,
+};
+const SUBV = { lessons: L.length, skills: (UNIT.skills || []).length, themes: nThemes, worksheets: nWs, assess: nAssess, slides: nSlides };
+const SUB = v => typeof v === "string" ? v.replace(/\{(\w+)\}/g, (m, k) => SUBV[k] != null ? SUBV[k] : m) : Array.isArray(v) ? v.map(SUB) : v;
+const COPY = Object.fromEntries(Object.entries(Object.assign({}, DEF, UNIT.copy || {})).map(([k, v]) => [k, SUB(v)]));
+const ev = COPY.evidence || [
   ["Explicit teaching", "I do, We do, You do with mini whiteboard checks every lesson (CESE What Works Best 2025; AERO)."],
   ["Fractions as lengths", "Strips and number lines, not just pizzas, so students see fractions as numbers (Clarke, Roche and Mitchell)."],
   ["Every learner challenged", "One main task with an easier way in and a way to go further, following Sullivan's enabling and extending prompts. Students choose; nobody is labelled."],
@@ -134,70 +155,53 @@ const ev = [
 ];
 const preview = `
 <section class="pp cover1"><img src="TILE0"></section>
-<section class="pp"><h2>Would you love to...</h2><div class="box"><ul class="ul">
-  <li>teach fractions as lengths and number lines, the way the NSW syllabus asks?</li>
-  <li>have a ready lesson for every day, with slides, worksheets and a test that all match?</li>
-  <li>challenge your strugglers and your high flyers in the same lesson?</li>
-  <li>mark in minutes with answer keys already written in?</li></ul></div>
+<section class="pp"><h2>Would you love to...</h2><div class="box"><ul class="ul">${COPY.hook.map(h => `<li>${esc(h)}</li>`).join("")}</ul></div>
   <h2>What's included</h2><div class="box"><ul class="ul">${included.map(i => `<li>${esc(i)}</li>`).join("")}<li>${nAssess}-question assessment with self-check and A to E rubric</li></ul></div>
   <div class="box"><p><b>Lessons:</b> ${L.map(l => `${l.n}. ${esc(l.title)}`).join(" · ")}</p></div></section>
 <section class="pp"><h2>Inside every lesson</h2><div class="grid2">${[1, 2, 3, 4, 5, 6, 7, 8].map(i => `<div class="shot">${`<img src="${S[i]}">`}</div>`).join("")}</div>
-  <div class="box"><p>Learning intention and success criteria, warm-up, explicit teaching, turn and talk, a hinge question with a reveal slide, a mini whiteboard check, the activity, Choose your challenge, and Discuss and Connect. Teacher notes are in every slide's notes.</p></div></section>
+  <div class="box"><p>${esc(COPY.insideLesson)}</p></div></section>
 <section class="pp"><h2>Worksheets in 3 levels</h2><div class="grid2">${WS.slice(0, 3).map(s => `<div class="shot wm"><img src="${s}"></div>`).join("")}<div class="shot wm"><img src="${KEY[0]}"></div></div>
-  <div class="box"><p>Every lesson has a Support, Core and Extension worksheet on the same maths (students see ${LVS.names.join(", ")}), each with a teaching box at the top. The answer key is the same pages with the answers written in.</p></div></section>
+  <div class="box"><p>${esc(COPY.worksheetsPara)}</p></div></section>
 <section class="pp"><h2>Why it works</h2>${ev.map(([h, p]) => `<div class="box"><p><b>${h}.</b> ${esc(p)}</p></div>`).join("")}
   <div class="grid2"><div class="shot wm"><img src="${AS[0]}"></div><div class="shot wm"><img src="${FB[0]}"></div></div></section>
 <section class="pp"><h2>Terms of use</h2><div class="box"><p>One licence is for one teacher and their own students. Additional licences are available at a discount. Please do not share, resell or upload any part of this resource.</p></div>
-  <div class="box"><p>Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Syllabus content paraphrased from the NSW Mathematics K-10 Syllabus © NESA. This resource is not endorsed by NESA or the NSW Department of Education.</p></div></section>`;
+  <div class="box"><p>${esc(COPY.credits)}</p></div></section>`;
 
 // ---------- listing text ----------
-const listing = `# ${UNIT.title}: ${UNIT.subtitle} | ${UNIT.stage} NSW Maths Unit | Slides, Differentiated Worksheets, Assessment
+const listing = `# ${COPY.heading}
 
 ## Suggested titles (pick one, max 80 characters on TpT)
-- ${UNIT.subtitle} ${UNIT.stage} NSW Maths Unit | Fractions on a Number Line | Differentiated
-- Fractions as Lengths Unit | Year 3 and 4 NSW | Slides, Worksheets, Assessment
-- ${UNIT.stage} Fractions Unit | Number Lines and Fraction Strips | NSW Syllabus
+${COPY.titles.map(t => `- ${t}`).join("\n")}
 
 ## Description
 
-Teach fractions as lengths and numbers on a number line with a complete, ready-to-teach ${L.length}-lesson unit written for the NSW Mathematics K-10 Syllabus (${UNIT.subtitle}). Every lesson comes with editable teaching slides, three levels of worksheets and answer keys, so every student works on the same maths at the right level of challenge.
+${COPY.description}
 
 **What's included**
 ${included.map(i => `- ${i}`).join("\n")}
-- ${nAssess}-question assessment with a student self-check and an A to E marking rubric
-- A 5-question pre-test to plan your groups
-- Printable exit ticket slips for every lesson
+${COPY.extraIncluded.map(i => `- ${i}`).join("\n")}
 
 **Lessons**
 ${L.map(l => `${l.n}. ${l.title}`).join("\n")}
 
 **Every lesson includes**
-- Learning intention and success criteria
-- Warm-up that revisits earlier learning
-- Explicit teaching (I do, We do, You do) with fraction strips and number lines
-- Turn and talk, a hinge question with a reveal slide, and a mini whiteboard check
-- Differentiated at 3 levels: Support, Core and Extension versions of the same task (students see ${LVS.names.join(", ")}, marked with dots, never ability labels)
-- Discuss and Connect, and an exit ticket
-- Teacher notes in the slide notes
+${COPY.everyLesson.map(i => `- ${i}`).join("\n")}
 
 **Why it works**
-- Every worksheet, card set, game board and strip the slides mention is included. You supply string, rulers, scissors and dice.
-- Differentiated in every lesson, not just the test
-- Built on Australian research (CESE What Works Best, AERO) and the NSW syllabus
-- Australian spelling throughout
+${COPY.whyItWorks.map(i => `- ${i}`).join("\n")}
 
 **Syllabus**
 ${UNIT.outcomes.map(o => `- ${o.code}: ${o.text}`).join("\n")}
 ${UNIT.fit ? `\n${UNIT.fit}.` : ""}
 
 **Formats**
-PowerPoint slides (open in Google Slides), Word teacher guide, PDF worksheets in colour and black and white, PDF answer key, assessment, exit tickets, flip book, word wall and posters.
+${COPY.formats}
 
 ## Tags / keywords
-fractions, number line, fraction strips, unit fractions, fraction wall, stage 2, year 3, year 4, NSW syllabus, partitioned fractions, differentiated, maths unit, australian
+${COPY.tags}
 
 ## Price suggestion
-Single unit: A$15 to A$19 (TpT US$9 to US$12). Bundle with the next fractions unit for a 20% saving.
+${COPY.price}
 `;
 
 (async () => {

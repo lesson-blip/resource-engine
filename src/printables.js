@@ -20,7 +20,8 @@ const FILE = f => "file://" + f;
 const IMG = k => FILE(path.join(K.IMGDIR, k + ".png"));
 const FONTS = path.join(K.ASSETS, "fonts");
 const esc = s => K.clean(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const fr = s => esc(s).replace(/(^|[^\d/])(\d+)\/(\d+)(?![\d/])/g, '$1<span class="frac"><span>$2</span><span>$3</span></span>');
+const MK = s => s.replace(/\[(adj|verb|adv|noun|conj):([^\]]+)\]/g, '<span class="mk m-$1">$2</span>').replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+const fr = s => MK(esc(s)).replace(/(^|[^\d/])(\d+)\/(\d+)(?![\d/])/g, '$1<span class="frac"><span>$2</span><span>$3</span></span>');
 const LVS = K.levels(UNIT);
 const RES = K.resources(UNIT);
 const LEVEL = { Support: [LVS.names[0], 1, "mint"], Core: [LVS.names[1], 2, "sky"], Extend: [LVS.names[2], 3, "indigo"] };
@@ -96,7 +97,71 @@ async function cardsPage(p, ls, key) {
     ${p.instructions ? `<p class="intro">${fr(p.instructions)}</p>` : ""}<div class="cards ${hasVis ? "c3" : "c4"}">${cs}</div></section>`;
 }
 
+// ---------- English graphic organisers ----------
+const OCOL = ["teal", "sky", "mint", "indigo", "lav"];
+function organiserPage(p, ls, key) {
+  const d = p.data || {}, sub = `Resource ${RES[p.id]} · ${ls.week ? "Week " + ls.week + " · " : ""}${PART_LABEL(ls)} · ${UNIT.title}`;
+  const head = (pic, name = true) => header({ title: p.title, sub, pic: pic || (ls.pics || [])[0], name });
+  const page = (inner, cls = "") => `<section class="page ${cls}" data-foot="${PART_LABEL(ls)} · ${esc(p.title)}">${inner}</section>`;
+  const lines = n => '<div class="ln"></div>'.repeat(n);
+  const T = p.template;
+  if (key && T !== "vocabTable") return "";
+  if (T === "orientation") {
+    const bx = [["Characters", "Who is in the story? What are they like?"], ["Setting", "Where does it happen?"], ["Time", "When does it happen?"], ["A hint of the problem", "What might go wrong?"], ["Engaging details", "Which words will hook the reader?"]];
+    return page(head("memo") + `<div class="og2">${bx.map(([h, q], i) => `<div class="obox b-${OCOL[i]}-l ${i === 4 ? "wide" : ""}"><b>${h}</b><p class="oq">${q}</p>${lines(i === 4 ? 3 : 4)}</div>`).join("")}</div>`);
+  }
+  if (T === "swbst") {
+    const n = d.rows || 4, rows = [["Somebody", "Who is the main character?"], ["Wanted", "What did they want?"]];
+    for (let i = 0; i < n; i++) rows.push(["But", "What got in the way?"], ["So", "What did they do about it?"]);
+    rows.push(["Then", "How did it end?"]);
+    return page(head("thinking_face") + `<table class="otbl">${rows.map(([h, q], i) => `<tr><th class="b-${OCOL[i % 5]}">${h}</th><td><span class="oq">${q}</span>${lines(1)}</td></tr>`).join("")}</table>`);
+  }
+  if (T === "storyMap") {
+    return page(head("national_park") + `<div class="smap"><div class="smdraw"><span class="oq">Draw the places in the story. Label them with words from the book.</span></div><div class="smev">${[1, 2, 3, 4, 5, 6].map(i => `<div class="obox b-${OCOL[(i - 1) % 5]}-l"><b>${i}</b>${lines(2)}</div>`).join("")}</div></div>`);
+  }
+  if (T === "arc") {
+    const st = [["Orientation", 8, 82], ["Complication", 22, 62], ["Rising events", 40, 40], ["Climax", 60, 14], ["Falling events", 76, 44], ["Resolution", 88, 76]];
+    return page(head("snow_capped_mountain") + `<div class="arc"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="2,96 30,70 62,18 80,52 98,96" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 1.5"/></svg>${st.map(([h, x, y], i) => `<div class="abox b-${OCOL[i % 5]}-l" style="left:${x - 8}%;top:${y - 6}%"><b>${h}</b>${lines(3)}</div>`).join("")}</div>`);
+  }
+  if (T === "adjectiveSort") {
+    const ex = d.examples || ["three", "rich", "chicken"];
+    const cols = [["Quantifying", "How many? How much?"], ["Descriptive", "What is it like?"], ["Classifying", "What kind is it?"]];
+    return page(head("magnifying_glass_tilted_left") + `<table class="otbl cols"><tr>${cols.map(([h, q], i) => `<th class="b-${OCOL[i + 1]}">${h}<br><span class="oq w">${q}</span></th>`).join("")}</tr><tr>${ex.map(e => `<td class="ex">${esc(e)}</td>`).join("")}</tr>${'<tr><td></td><td></td><td></td></tr>'.repeat(9)}</table>`);
+  }
+  if (T === "traitBank") {
+    const tr = d.traits || [];
+    return page(head("thinking_face", false) + `<div class="traits">${tr.map((t, i) => `<div class="trait b-${OCOL[i % 5]}-l"><b>${esc(t.word || t)}</b>${t.means ? `<span>${esc(t.means)}</span>` : ""}</div>`).join("")}</div>`);
+  }
+  if (T === "vocabTable") {
+    const ws = d.words || [];
+    return page(head("books") + `<table class="otbl vocab"><tr><th class="b-sky">Word</th><th class="b-mint">Where</th><th class="b-indigo">Base word + suffix</th><th class="b-lav">What it means (my words)</th></tr>${ws.map(w => `<tr><td><b>${esc(w.word)}</b></td><td class="small">${esc(w.locator || "")}</td><td>${key ? `<span class="ans2">${esc(w.base || "")} + ${esc(w.suffix || "")}</span>` : ""}</td><td>${key && w.means ? `<span class="ans2">${esc(w.means)}</span>` : ""}</td></tr>`).join("")}</table>`);
+  }
+  if (T === "passage") {
+    const pr = d.prompts || ["Synopsis: what happens in this passage?", "Structure: how is it organised?", "Language features: which words and sentences stand out?", "Words to teach", "Fluency focus"];
+    return page(head("open_book", false) + `<div class="obox b-sky-l"><b>Passage</b><p>${fr(d.locator || "")}</p><p class="oq">Teacher planning page. Read the passage in your copy and make notes here.</p></div>${pr.map((t, i) => `<div class="obox b-${OCOL[(i + 1) % 5]}-l"><b>${fr(t)}</b>${lines(3)}</div>`).join("")}`);
+  }
+  if (T === "protocols") {
+    const g = [["Partner", "busts_in_silhouette", d.partner], ["Small group", "people_hugging", d.group], ["Whole class", "school", d.whole]];
+    return page(head("speech_balloon", false) + g.map(([h, pic, l], i) => `<div class="pfact b-${OCOL[i + 1]}-l"><div class="pfh">${K.hasImg(pic) ? `<img src="${IMG(pic)}" style="width:10mm">` : ""}<b>${h}</b></div>${(l || []).map(x => `<p>• ${fr(x)}</p>`).join("")}<p class="oq">• Our class adds: ____________________________</p></div>`).join(""), "poster");
+  }
+  if (T === "tag") {
+    const card = `<div class="tagc"><div class="b-teal"><b>Tell</b> one thing they did well. <i>I like how you ...</i></div><div class="b-sky"><b>Ask</b> a question. <i>Why did you ...?</i></div><div class="b-lav"><b>Give</b> one idea. <i>You could add ...</i></div></div>`;
+    return page(head("speech_balloon", false) + `<div class="tagg">${card.repeat(4)}</div>`);
+  }
+  if (T === "resolutionTypes") {
+    const ty = d.types || [];
+    return page(head("party_popper", false) + ty.map((t, i) => `<div class="pfact b-${OCOL[i % 5]}-l"><p><b>${esc(t.name)}:</b> ${fr(t.means)}</p></div>`).join(""), "poster");
+  }
+  if (T === "writing") {
+    const cr = d.criteria || ls.sc || [];
+    return page(head("memo") + `${d.plan ? `<div class="obox b-lav-l"><b>My plan</b>${lines(3)}</div>` : ""}<div class="wlines">${lines(d.lines || 14)}</div><div class="obox b-mint-l"><b>Check my writing</b>${cr.map(c => `<p class="chk"><i class="cb"></i> ${fr(c)}</p>`).join("")}</div>`);
+  }
+  return "";
+}
+const PART_LABEL = ls => (UNIT.skills || []).includes(ls) ? `Skill ${ls.n}` : `Lesson ${ls.n}`;
+
 async function printable(p, ls, key) {
+  if (p.kind === "organiser") return organiserPage(p, ls, key);
   if (p.kind === "worksheet") return worksheetPages(p, ls, key);
   if (p.kind === "game") return gamePage(p, ls, key);
   if (p.kind === "cards") return key ? "" : cardsPage(p, ls, key);
@@ -136,9 +201,10 @@ function templates() {
   return h;
 }
 
-async function worksheets(key) {
-  let h = key ? "" : contentsPage() + templates();
-  for (const ls of UNIT.lessons) for (const p of ls.printables || []) h += await printable(p, ls, key);
+async function worksheets(key, part) {
+  const list = part === "A" ? (UNIT.skills || []) : UNIT.lessons;
+  let h = key || part === "A" ? "" : contentsPage() + templates();
+  for (const ls of list) for (const p of ls.printables || []) h += await printable(p, ls, key);
   return h;
 }
 
@@ -197,7 +263,7 @@ async function wordwall() {
 async function posters() {
   const big = [];
   for (const ls of UNIT.lessons) {
-    const disp = ls.slides.find(s => s.type === "definition" && s.visual) || ls.slides.find(s => (s.type === "visual" || s.type === "worked") && s.visual);
+    const disp = ls.slides.find(s => s.type === "definition" && s.visual) || ls.slides.find(s => (s.type === "visual" || s.type === "worked") && s.visual) || ls.slides.find(s => s.type === "anchor");
     big.push({ ls, disp });
   }
   let h = `<section class="page poster" data-foot="Poster">${header({ title: "Choose your challenge", sub: "Every lesson has three levels. You can change level at any time.", pic: LVS.marker === "chillies" ? "hot_pepper" : "bullseye", name: false })}
@@ -207,10 +273,10 @@ async function posters() {
     ${UNIT.misconceptions.map((m, i) => `<div class="pfact b-${["teal", "sky", "mint", "indigo", "lav"][i % 5]}-l"><p class="think">Some people think: ${fr(m.think)}</p><p><b>Remember:</b> ${fr(m.fix)}</p></div>`).join("")}</section>`;
   for (const { ls, disp } of big) {
     if (!disp) continue;
-    const rows = disp.type === "definition" ? [{ label: disp.term, text: disp.means }] : (disp.rows || disp.steps || []).slice(0, 3);
-    const main = ls.poster ? `<div class="pfact b-${UC}-l big"><p>${fr(ls.poster)}</p></div>` : rows.map((r, i) => `<div class="pfact b-${["teal", "sky", "indigo"][i % 3]}-l"><p><b>${fr(r.label || "")}${r.label ? ": " : ""}</b>${fr(r.text)}</p></div>`).join("");
+    const rows = disp.type === "definition" ? [{ label: disp.term, text: disp.means }] : disp.type === "anchor" ? disp.points.slice(0, 6).map(p => { const m = p.match(/^([^:]{2,24}):\s*(.+)$/); return m ? { label: m[1], text: m[2] } : { label: "", text: p }; }) : (disp.rows || disp.steps || []).slice(0, 3);
+    const main = ls.poster ? `<div class="pfact b-${UC}-l big"><p>${fr(ls.poster)}</p></div>` : rows.map((r, i) => `<div class="pfact b-${["teal", "sky", "indigo", "mint", "lav"][i % 5]}-l"><p><b>${fr(r.label || "")}${r.label ? ": " : ""}</b>${fr(r.text)}</p></div>`).join("");
     h += `<section class="page poster" data-foot="Poster · Lesson ${ls.n}">${header({ title: ls.title, sub: `Lesson ${ls.n}`, pic: (ls.pics || [])[0], name: false })}
-      <div class="pvis">${await vis(disp.visual, 110, "pw")}</div>${main}
+      ${disp.visual ? `<div class="pvis">${await vis(disp.visual, 110, "pw")}</div>` : ""}${main}
       <div class="pfact b-mint-l"><p><b>I can</b></p>${ls.sc.map(t => `<p>${fr(t.replace(/^I can /, "• "))}</p>`).join("")}</div></section>`;
   }
   return h;
@@ -281,6 +347,20 @@ h2 { font-size: 13pt; color: ${C[UC]}; margin-top: 2mm; }
 .cards.c4 .card { width: 25%; } .cards.c3 .card { width: 33.333%; }
 .card { border: 1.4px dashed #9FB1C5; min-height: 30mm; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5mm; padding: 2.5mm; text-align: center; break-inside: avoid; }
 .card.tall { min-height: 50mm; }
+.mk { font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; } .m-adj { color: ${C.sky}; } .m-verb { color: ${C.teal}; } .m-adv { color: ${C.lav}; } .m-noun { color: ${C.indigo}; } .m-conj { color: ${C.mint}; }
+.bw .mk { color: #000; }
+.og2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; } .og2 .wide { grid-column: span 2; }
+.obox { border-left: 2.5mm solid; border-radius: 3.5mm; padding: 3mm 5mm; } .obox b { font-size: 13pt; } .obox .ln { height: 10mm; }
+.oq { color: #${T.muted}; font-size: 10.5pt; } .oq.w { color: #fff; opacity: .9; }
+.otbl { width: 100%; border-collapse: separate; border-spacing: 0 2.5mm; } .otbl th { color: #fff; border-radius: 3mm; padding: 3mm; width: 32mm; font-size: 13pt; text-align: left; } .otbl td { border-bottom: 1.3px solid #9FB1C5; padding: 2mm 4mm; } .otbl td .ln { height: 9mm; border: none; }
+.otbl.cols { border-spacing: 2mm; } .otbl.cols th { width: auto; text-align: center; } .otbl.cols td { height: 13mm; border: 1.3px solid #C9D4E0; border-radius: 2mm; text-align: center; font-size: 13pt; } .otbl td.ex { font-family: HW, NS; color: #3A6EA5; font-size: 16pt; }
+.otbl.vocab td { height: 18mm; vertical-align: top; } .otbl.vocab .small { font-size: 9.5pt; color: #${T.muted}; } .otbl.vocab th { width: auto; }
+.ans2 { font-family: HW, NS; color: #3A6EA5; font-size: 13pt; }
+.smap { display: grid; grid-template-columns: 1.4fr 1fr; gap: 4mm; flex: 1; } .smdraw { border: 2px dashed #9FB1C5; border-radius: 4mm; padding: 3mm; min-height: 200mm; } .smev { display: flex; flex-direction: column; gap: 3mm; } .smev .obox .ln { height: 9mm; }
+.arc { position: relative; height: 215mm; color: #9FB1C5; } .arc svg { position: absolute; inset: 0; width: 100%; height: 100%; } .abox { position: absolute; width: 44mm; background: #fff; border-left: 2.5mm solid; border-radius: 3mm; padding: 2mm 3mm; color: #222; box-shadow: 0 1px 4px #0002; } .abox b { font-size: 11pt; } .abox .ln { height: 8mm; }
+.traits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5mm; } .trait { border-left: 2mm solid; border-radius: 2.5mm; padding: 1.8mm 3mm; } .trait b { display: block; font-size: 12pt; } .trait span { font-size: 9.5pt; color: #444; }
+.tagg { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; } .tagc { border: 1.6px dashed #9FB1C5; border-radius: 4mm; padding: 3mm; display: flex; flex-direction: column; gap: 2mm; height: 118mm; justify-content: space-around; } .tagc div { color: #fff; border-radius: 3mm; padding: 3mm; font-size: 12.5pt; } .tagc i { display: block; opacity: .9; }
+.wlines .ln { height: 11mm; } .chk { font-size: 11.5pt; margin: 1mm 0; }
 .teach.stack { flex-direction: column; align-items: stretch; } .teach.stack .vis { max-width: none; justify-content: center; }
 .slips { gap: 0; padding-top: 8mm; }
 .slip { border: 1.6px dashed #9FB1C5; height: 86mm; overflow: hidden; padding: 3mm 5mm; display: flex; flex-direction: column; gap: 1.5mm; break-inside: avoid; }
@@ -369,9 +449,10 @@ async function render(browser, name, body, cls = "") {
   const ws = await worksheets(false);
   await render(b, `${t}_Worksheets_Colour`, ws);
   await render(b, `${t}_Worksheets_BW`, ws, "bw");
-  await render(b, `${t}_Answer_Key`, (await worksheets(true)) + (await assessment(true)), "bw");
+  if ((UNIT.skills || []).some(l => (l.printables || []).length)) await render(b, `${t}_Component_A_Printables`, await worksheets(false, "A"));
+  await render(b, `${t}_Answer_Key`, (await worksheets(true)) + (await worksheets(true, "A")) + (await assessment(true)), "bw");
   await render(b, `${t}_Assessment`, await assessment(false), "bw");
-  await render(b, `${t}_Flip_Book`, await flipbook());
+  if (UNIT.signature) await render(b, `${t}_Flip_Book`, await flipbook());
   await render(b, `${t}_Word_Wall`, await wordwall());
   await render(b, `${t}_Posters`, await posters());
   await render(b, `${t}_Exit_Tickets`, await exitSlips());

@@ -95,7 +95,7 @@ async function photo(key, w, h, r = 0.18, opt = {}) {
   return f;
 }
 function photoCredits() { try { return JSON.parse(fs.readFileSync(path.join(PHOTOS, "credits.json"), "utf8")); } catch (e) { return {}; } }
-function resources(unit) { const m = {}; let n = 0; for (const l of unit.lessons || []) for (const p of l.printables || []) m[p.id] = ++n; return m; }
+function resources(unit) { const m = {}; let n = 0; for (const l of unit.lessons || []) for (const p of l.printables || []) m[p.id] = ++n; let a = 0; for (const l of unit.skills || []) for (const p of l.printables || []) m[p.id] = "A" + (++a); return m; }
 const levels = unit => LEVEL_STYLES[(unit && unit.levelStyle) || "plain"] || LEVEL_STYLES.plain;
 const THEME_KEYS = ["ocean", "pastel", "gumleaf", "boho", "creamgold", "blushsage", "blushnavy"];
 

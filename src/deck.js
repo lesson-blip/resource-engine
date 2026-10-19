@@ -16,9 +16,14 @@ for (const [r, c] of Object.entries(T.roles)) if (K.contrast("#FFFFFF", "#" + c)
 const COL = Object.assign({ navy: T.text, muted: T.muted, white: "FFFFFF" }, T.roles);
 const TINT = T.tints;
 const UC = UNIT.colour || "teal";
+const PART = process.argv[5] || "";                       // "A" builds the Component A (skills) deck of an English unit
+const ENGLISH = UNIT.subject === "english";
+const LESSONS = PART === "A" ? (UNIT.skills || []) : UNIT.lessons;
+const LTAG = PART === "A" ? "Skill" : "Lesson";
+const lessonName = ls => `${LTAG} ${ls.n}`;
 const LVS = K.levels(UNIT);
 const RES = K.resources(UNIT);
-const PHASE = { lessonTitle: "Beginning the lesson", lisc: "Beginning the lesson", warmup: "Beginning the lesson", reallife: "Beginning the lesson", discuss: "Concluding the lesson", exit: "Concluding the lesson" };
+const PHASE = { lessonTitle: "Beginning the lesson", lisc: "Beginning the lesson", warmup: "Beginning the lesson", reallife: "Beginning the lesson", reveal: "Beginning the lesson", discuss: "Concluding the lesson", exit: "Concluding the lesson" };
 function phaseOf(ctx) { if (!ctx || !ctx.ls) return ""; if (PHASE[ctx.kind]) return PHASE[ctx.kind]; if (ctx.s) return PHASE[ctx.s.type] || "Core lesson"; return ""; }
 function resTag(ctx) { if (!ctx || !ctx.ls || !ctx.s || !["activity", "levels"].includes(ctx.s.type)) return ""; const ns = (ctx.ls.printables || []).map(p => RES[p.id]).filter(Boolean); return ns.length ? (ns.length === 1 ? `Resource ${ns[0]}` : `Resources ${ns.slice(0, -1).join(", ")} and ${ns[ns.length - 1]}`) : ""; }
 // level marker: 1 to 3 dots (or chillies), centred in a box of width w starting at x
@@ -46,7 +51,32 @@ function neededH(text, w, o) {
   for (const p of paras) h += K.linesFor(p.t || " ", w, p.pt || o.fontSize, p.b, mh) * (p.pt || o.fontSize) * K.LH / 72;
   return h;
 }
+// colour markup for grammar: [adj:word] [verb:word] [adv:phrase] [noun:word] [conj:word] and **bold**
+const TAGC = { adj: ["sky", "Adjective"], verb: ["teal", "Verb"], adv: ["lav", "Adverbial"], noun: ["indigo", "Noun"], conj: ["mint", "Conjunction"] };
+let USED_TAGS = new Set();
+const MARK = /\[(adj|verb|adv|noun|conj):([^\]]+)\]|\*\*([^*]+)\*\*/;
+function rich(str) {
+  const out = []; let rest = K.clean(str);
+  while (rest.length) {
+    const m = rest.match(MARK);
+    if (!m) { out.push({ text: rest, options: {} }); break; }
+    if (m.index) out.push({ text: rest.slice(0, m.index), options: {} });
+    if (m[1]) { USED_TAGS.add(m[1]); out.push({ text: m[2], options: { bold: true, color: COL[TAGC[m[1]][0]], underline: { style: "sng", color: COL[TAGC[m[1]][0]] } } }); }
+    else out.push({ text: m[3], options: { bold: true } });
+    rest = rest.slice(m.index + m[0].length);
+  }
+  return out;
+}
+function legend(slide) {
+  if (!USED_TAGS.size) return;
+  const tags = [...USED_TAGS]; let x = W - M - 1.45;
+  const ws = tags.map(t => K.textW(TAGC[t][1], 11, true) + 0.35);
+  x -= ws.reduce((a, b) => a + b + 0.08, 0);
+  tags.forEach((t, i) => { box(slide, TAGC[t][1], { x, y: 6.92, w: ws[i], h: 0.34, fontSize: 11, bold: true, color: "FFFFFF", fillColor: COL[TAGC[t][0]], align: "center", margin: 1 }); x += ws[i] + 0.08; });
+  USED_TAGS = new Set();
+}
 function box(slide, text, o) {
+  if (typeof text === "string" && MARK.test(text)) text = rich(text);
   if (typeof text === "string") text = K.clean(text);
   else text = text.map(r => Object.assign({}, r, { text: K.clean(r.text) }));
   const opts = Object.assign({ shape: pres.shapes.ROUNDED_RECTANGLE, fontFace: K.FONT, fontSize: 18, color: COL.navy, valign: "middle", align: "left", margin: [6, 12, 6, 12], fill: { color: "FFFFFF" } }, o);
@@ -88,7 +118,7 @@ const MODE = { "I do": ["ido", "sky"], "We do": ["wedo", "mint"], "You do": ["yo
 async function header(slide, title, ctx, mode) {
   let x = M;
   if (ctx && ctx.ls) {
-    box(slide, `Lesson ${ctx.ls.n}`, { x, y: 0.4, w: 1.45, h: 0.8, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center", margin: 2 });
+    box(slide, lessonName(ctx.ls), { x, y: 0.4, w: 1.45, h: 0.8, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center", margin: 2 });
     x += 1.6;
   }
   const mw = mode ? 1.85 : 0;
@@ -104,9 +134,10 @@ async function header(slide, title, ctx, mode) {
   }
 }
 function footer(slide, ctx) {
-  const label = ctx && ctx.ls ? `${UNIT.title} · Lesson ${ctx.ls.n}` : UNIT.title;
+  const label = ctx && ctx.ls ? `${UNIT.title} · ${lessonName(ctx.ls)}` : UNIT.title;
   const lw = Math.min(6, K.textW(label, 11, false) + 0.45);
   box(slide, label, { x: M, y: 6.92, w: lw, h: 0.34, fontSize: 11, color: COL.muted, fillColor: "FFFFFF", align: "center", margin: 1 });
+  legend(slide);
   const ph = phaseOf(ctx);
   if (ph) box(slide, ph, { x: M + lw + 0.12, y: 6.92, w: K.textW(ph, 11, true) + 0.45, h: 0.34, fontSize: 11, bold: true, color: COL[UC], fillColor: TINT[UC], align: "center", margin: 1 });
   box(slide, [{ text: "Menu", options: { hyperlink: { slide: 1, tooltip: "Back to the lesson menu" }, color: COL.navy, bold: true } }],
@@ -153,7 +184,7 @@ const lessonStart = {};
 const anchor = {};
 
 R.cover = async (slide) => {
-  const pics = UNIT.coverPics || (UNIT.lessons[0].pics || []).slice(0, 2);
+  const pics = UNIT.coverPics || (LESSONS[0].pics || []).slice(0, 2);
   let tpt = 40; while (tpt > 26 && K.linesFor(UNIT.title, 7.6, tpt, true, 0.6) > 1) tpt--;
   box(slide, [
     { text: UNIT.title, options: { fontSize: tpt, bold: true, breakLine: true } },
@@ -164,7 +195,8 @@ R.cover = async (slide) => {
   const bw = 1.36, bx0 = W - M - 2 * bw - 0.1;
   btns.forEach(([t, k, c], i) => box(slide, [{ text: t, options: { hyperlink: { slide: anchor[k], tooltip: t }, color: COL.navy, bold: true } }],
     { x: bx0 + (i % 2) * (bw + 0.1), y: 0.45 + Math.floor(i / 2) * 0.7, w: bw, h: 0.55, fontSize: 12, fillColor: TINT[c], align: "center", margin: 2 }));
-  const ls = UNIT.lessons, half = Math.ceil(ls.length / 2), colW = (W - 2 * M - 0.3) / 2;
+  if (LESSONS.length > 10 && LESSONS.every(l => l.week)) return coverWeeks(slide);
+  const ls = LESSONS, half = Math.ceil(ls.length / 2), colW = (W - 2 * M - 0.3) / 2;
   const rowH = Math.min(0.9, (6.75 - 2.05 - 0.14 * (half - 1)) / half);
   ls.forEach((l, i) => {
     const c = i < half ? 0 : 1, r = i % half;
@@ -178,6 +210,25 @@ R.cover = async (slide) => {
   });
   slide.addNotes(`Lesson menu. Click a lesson to jump to it. Every slide has a Menu button in the bottom right to come back here.\n\n${UNIT.fit || ""}`);
 };
+
+async function coverWeeks(slide) {
+  const weeks = [...new Set(LESSONS.map(l => l.week))].sort((a, b) => a - b);
+  const gap = 0.18, cw = (W - 2 * M - gap * (weeks.length - 1)) / weeks.length, y0 = 2.05;
+  const per = Math.max(...weeks.map(w => LESSONS.filter(l => l.week === w).length));
+  const rh = Math.min(0.95, (6.75 - y0 - 0.55 - 0.1 * (per - 1)) / per);
+  const cols = ["teal", "sky", "mint", "indigo", "lav"];
+  weeks.forEach((w, i) => {
+    const x = M + i * (cw + gap), c = cols[i % 5];
+    box(slide, `Week ${w}`, { x, y: y0, w: cw, h: 0.45, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center", margin: 1 });
+    LESSONS.filter(l => l.week === w).forEach((l, j) => {
+      const t = `${l.n}. ${l.menu || l.title}`;
+      const longest = t.split(/\s+/).reduce((a, b) => K.textW(b, 14, true) > K.textW(a, 14, true) ? b : a, "");
+      let pt = 14; while (pt > 9 && (K.linesFor(t, cw, pt, true, 0.3) > 2 || K.textW(longest, pt, true) > cw - 0.35)) pt--;
+      box(slide, [{ text: t, options: { hyperlink: { slide: lessonStart[l.id], tooltip: l.title }, color: COL.navy, bold: true } }], { x, y: y0 + 0.55 + j * (rh + 0.1), w: cw, h: rh, fontSize: pt, fillColor: "FFFFFF", sh: true, margin: [2, 8, 2, 8] });
+    });
+  });
+  slide.addNotes(`${PART === "A" ? "Component A skills" : "Lesson"} menu. Click any ${LTAG.toLowerCase()} to jump to it. Every slide has a Menu button in the bottom right to come back here.\n\n${UNIT.fit || ""}`);
+}
 
 R.howto = async (slide) => {
   await header(slide, "How this pack works");
@@ -224,7 +275,7 @@ R.lessonTitle = async (slide, it) => {
   const pics = (ls.pics || []).filter(K.hasImg).slice(0, 3);
   const ps = 1.4, pg = 0.35, tot = pics.length * ps + (pics.length - 1) * pg;
   pics.forEach((k, i) => slide.addImage({ path: K.img(k), x: W / 2 - tot / 2 + i * (ps + pg), y: 0.75, w: ps, h: ps }));
-  const tag = `Lesson ${ls.n}`;
+  const tag = lessonName(ls);
   box(slide, tag, { x: W / 2 - 0.9, y: 2.35, w: 1.8, h: 0.5, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center" });
   let tpt = 40; while (tpt > 26 && K.linesFor(ls.title, W - 2.8, tpt, true) > 1) tpt--;
   box(slide, ls.title, { x: 1.4, y: 3.05, w: W - 2.8, h: 1.2, fontSize: tpt, bold: true, align: "center", sh: true });
@@ -234,7 +285,7 @@ R.lessonTitle = async (slide, it) => {
     box(slide, t, { x: 2.2, y: 4.5, w: W - 4.4, h, fontSize: 19, align: "center", fillColor: TINT.sky });
   }
   footer(slide, it);
-  slide.addNotes(`Lesson ${ls.n}: ${ls.title}.\n\n${ls.teacherNotes || ""}`);
+  slide.addNotes(`${lessonName(ls)}: ${ls.title}.\n\n${ls.teacherNotes || ""}`);
 };
 
 async function lessonTitlePhoto(slide, it) {
@@ -243,7 +294,7 @@ async function lessonTitlePhoto(slide, it) {
   const px = 6.75, pw = W - M - px, py = 1.9, ph = 4.75;
   slide.addImage({ path: await K.photo(ls.photo, pw, ph, 0.28), x: px, y: py, w: pw, h: ph });
   const lx = M + 0.25, lw = px - lx - 0.4;
-  box(slide, `Lesson ${ls.n}`, { x: lx, y: py, w: 1.8, h: 0.55, fontSize: 17, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center" });
+  box(slide, lessonName(ls), { x: lx, y: py, w: 1.8, h: 0.55, fontSize: 17, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center" });
   let tpt = 40; while (tpt > 26 && K.linesFor(ls.title, lw, tpt, true, 0.5) > 2) tpt--;
   const th = neededH(ls.title, lw, { fontSize: tpt, bold: true, margin: [8, 18, 8, 18] }) + 0.1;
   box(slide, ls.title, { x: lx, y: py + 0.75, w: lw, h: th, fontSize: tpt, bold: true, sh: true, margin: [8, 18, 8, 18] });
@@ -255,7 +306,7 @@ async function lessonTitlePhoto(slide, it) {
     box(slide, t, { x: lx, y, w: lw, h, fontSize: pt, fillColor: TINT.sky });
   }
   footer(slide, it);
-  slide.addNotes(`Lesson ${ls.n}: ${ls.title}.\n\n${ls.teacherNotes || ""}`);
+  slide.addNotes(`${lessonName(ls)}: ${ls.title}.\n\n${ls.teacherNotes || ""}`);
 }
 
 R.reallife = async (slide, s, it) => {
@@ -578,9 +629,29 @@ R.exit = async (slide, it) => {
 
 
 // ---------- unit at a glance ----------
+async function glanceWeeks(slide) {
+  await header(slide, PART === "A" ? "Component A at a glance" : "Unit at a glance");
+  const weeks = [...new Set(LESSONS.map(l => l.week))].sort((a, b) => a - b), gap = 0.12;
+  const rh = (BOTTOM - TOP - 0.5 - gap * (weeks.length - 1)) / weeks.length;
+  const cols = ["teal", "sky", "mint", "indigo", "lav"];
+  pill(slide, `${UNIT.departmentUnit ? UNIT.departmentUnit + " · " : ""}${UNIT.mentorText ? UNIT.mentorText.title + " by " + UNIT.mentorText.author + " · " : ""}${LESSONS.length} ${LTAG.toLowerCase()}s`, M, TOP, UC, 13, 0.4);
+  const wp = UNIT.weeksPlan || [];
+  const lw = 4.6, rx = M + 1.1 + lw + 0.12;
+  weeks.forEach((w, i) => {
+    const y = TOP + 0.5 + i * (rh + gap), c = cols[i % 5], ls = LESSONS.filter(l => l.week === w);
+    box(slide, `Week ${w}`, { x: M, y, w: 1.0, h: rh, fontSize: 14, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center", margin: 1 });
+    const li = PART === "A" ? [...new Set(ls.map(l => l.focus))].join(", ") : ((wp.find(x => x.week === w) || {}).li || "");
+    box(slide, li, { x: M + 1.1, y, w: lw, h: rh, fontSize: fitPt([li], lw, rh, 13, 9, false, 0.2), fillColor: TINT[c], margin: [3, 8, 3, 8] });
+    const t = ls.map(l => `${l.n}. ${l.menu || l.title}`).join("   ");
+    box(slide, [{ text: t, options: {} }], { x: rx, y, w: W - M - rx, h: rh, fontSize: fitPt([t], W - M - rx, rh, 13, 9, false, 0.2), fillColor: "FFFFFF", sh: true, margin: [3, 8, 3, 8] });
+  });
+  footer(slide);
+  slide.addNotes("Unit overview for your program. Use the menu to jump to any lesson.");
+}
 R.glance = async (slide) => {
+  if (LESSONS.length > 10 && LESSONS.every(l => l.week)) return glanceWeeks(slide);
   await header(slide, "Unit at a glance");
-  const ls = UNIT.lessons, lw = 6.55, gap = 0.08;
+  const ls = LESSONS, lw = 6.55, gap = 0.08;
   const rh = Math.min(0.62, (BOTTOM - TOP - gap * (ls.length - 1)) / ls.length);
   let pt = 20; while (pt > 12 && (ls.some(l => K.linesFor(l.title, lw - 0.7, pt, true, 0.3) > 1) || pt * K.LH / 72 + 0.12 > rh)) pt--;
   ls.forEach((l, i) => {
@@ -674,13 +745,103 @@ R.tplTwo = async (slide) => {
   footer(slide); slide.addNotes(TPL_NOTE);
 };
 
+// ---------- English slide types ----------
+function pasteFrame(slide, x, y, w, h, locator, hint) {
+  slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, fill: { color: "FFFFFF" }, line: { color: COL.sky, width: 2, dashType: "dash" }, rectRadius: 0.18 });
+  box(slide, locator, { x: x + 0.2, y: y + 0.18, w: w - 0.4, h: Math.max(0.55, K.hFor(locator, w - 0.4, 16, true, 0.25)), fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL.sky, margin: [3, 10, 3, 10] });
+  const ty = y + 0.3 + Math.max(0.55, K.hFor(locator, w - 0.4, 16, true, 0.25));
+  box(slide, hint, { x: x + 0.2, y: ty, w: w - 0.4, h: Math.min(y + h - ty - 0.2, 1.1), fontSize: 14, color: COL.muted, fillColor: TINT.sky, margin: [3, 10, 3, 10] });
+}
+const BOOK = () => UNIT.mentorText ? `your copy of ${UNIT.mentorText.title}` : "your copy of the text";
+R.reveal = async (slide, s, it) => {
+  const st = s.steps[it.step || 0], n = s.steps.length;
+  await header(slide, `${s.title || "Slow reveal"} (${(it.step || 0) + 1} of ${n})`, it, "We do");
+  let y = TOP + 0.05;
+  if (s.intro && !(it.step)) { const h = K.hFor(s.intro, RIGHT - M, 18, false, 0.25); box(slide, s.intro, { x: M, y, w: RIGHT - M, h, fontSize: 18, fillColor: TINT.lav }); y += h + 0.2; }
+  const lw = 5.6;
+  pasteFrame(slide, M, y, lw, BOTTOM - y, `Read aloud: ${st.locator}`, `Read it from ${BOOK()}, or type it here. Keep the cover hidden.`);
+  const rx = M + lw + 0.35, rw = RIGHT - rx;
+  box(slide, st.focus, { x: rx, y, w: rw, h: 0.6, fontSize: 20, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center" });
+  drawRows(slide, st.questions.map((q, i) => ({ label: "?", text: q, color: ["sky", "mint", "indigo", "lav"][i % 4] })), { x: rx, y: y + 0.75, w: rw, labelW: 0.55, pt: 22, minPt: 15 });
+  s._notes = s.notes || "Read only the part named in the blue box. Give think time, take predictions, and ask students why they think so. Do not confirm or correct yet.";
+};
+R.mentor = async (slide, s, it) => {
+  await header(slide, s.title, it, s.mode || "We do");
+  let y = TOP + 0.05;
+  const th = Math.max(0.7, K.hFor(s.task, RIGHT - M - 0.8, 22, true, 0.3));
+  slide.addImage({ data: await K.icon("eye", COL[UC]), x: M, y: y + th / 2 - 0.3, w: 0.6, h: 0.6 });
+  box(slide, s.task, { x: M + 0.8, y, w: RIGHT - M - 0.8, h: th, fontSize: 22, bold: true, sh: true });
+  y += th + 0.25;
+  const lw = 6.1, rx = M + lw + 0.35, rw = RIGHT - rx;
+  const qs = s.questions || [];
+  if (s.example) {
+    const eh = Math.min(1.8, Math.max(0.9, K.hFor(s.example.replace(/\[\w+:|\]|\*\*/g, ""), lw, 20, false, 0.4)));
+    pasteFrame(slide, M, y, lw, BOTTOM - y - eh - 0.2, s.locator, `Paste or type the passage from ${BOOK()} here.`);
+    box(slide, [{ text: "Our example: ", options: { bold: true, color: COL.muted } }, ...rich(s.example)], { x: M, y: BOTTOM - eh, w: lw, h: eh, fontSize: 20, fillColor: "FFFFFF", sh: true, margin: [6, 14, 6, 14] });
+  } else pasteFrame(slide, M, y, lw, BOTTOM - y, s.locator, `Paste or type the passage from ${BOOK()} here.`);
+  if (qs.length) drawRows(slide, qs.map((q, i) => ({ label: "?", text: q, color: ["sky", "mint", "indigo", "lav"][i % 4] })), { x: rx, y, w: rw, labelW: 0.55, pt: 22, minPt: 14 });
+  s._notes = s.notes || `Display the passage from ${BOOK()} (${s.locator}). Read it aloud first, then reread it with the task in mind.`;
+};
+R.anchor = async (slide, s, it) => {
+  await header(slide, s.title, it, s.mode || "We do");
+  const rows = s.points.map((p, i) => { const m = p.match(/^([^:]{2,24}):\s*(.+)$/); return m ? { label: m[1], text: m[2], color: ["teal", "sky", "mint", "indigo", "lav"][i % 5] } : { label: String(i + 1), text: p, color: ["teal", "sky", "mint", "indigo", "lav"][i % 5] }; });
+  for (let i = 0; i < (s.blank || 0); i++) rows.push({ label: "+", text: "Add the class's idea here.", color: "lav" });
+  const lw = Math.max(0.7, Math.min(2.6, Math.max(...rows.map(r => K.textW(r.label, 18, true))) + 0.5));
+  drawRows(slide, rows, { y: TOP + 0.05, labelW: lw, pt: 24, minPt: 14 });
+  s._notes = s.notes || "Build this chart with the class: ask for ideas before revealing each point. Keep it on display and add to it in later lessons.";
+};
+R.model = async (slide, s, it) => {
+  await header(slide, s.title, it, s.mode || "I do");
+  let y = TOP + 0.05;
+  if (s.intro) { const h = Math.max(0.6, K.hFor(s.intro, RIGHT - M, 18, false, 0.25)); box(slide, s.intro, { x: M, y, w: RIGHT - M, h, fontSize: 18, fillColor: TINT.lav }); y += h + 0.2; }
+  if (s.parts) {
+    const lw = Math.max(1.4, Math.min(2.8, Math.max(...s.parts.map(r => K.textW(r.label, 16, true))) + 0.5));
+    drawRows(slide, s.parts.map((p, i) => ({ label: p.label, text: p.text, color: ["teal", "sky", "mint", "indigo", "lav"][i % 5] })), { y, labelW: lw, pt: 22, minPt: 13, hw: true });
+  } else {
+    const plain = s.text.replace(/\[\w+:|\]|\*\*/g, "");
+    let pt = 26; while (pt > 14 && neededH(plain, RIGHT - M, { fontSize: Math.round(pt * 1.25), margin: [12, 20, 12, 20] }) > BOTTOM - y) pt--;
+    box(slide, s.text, { x: M, y, w: RIGHT - M, h: BOTTOM - y, fontSize: pt, fillColor: "FFFFFF", sh: true, valign: "top", margin: [12, 20, 12, 20], hw: true });
+  }
+  s._notes = s.notes || "Think aloud as you write: say why you chose each word and sentence. Students watch first, then help with the next sentence.";
+};
+R.criteria = async (slide, s, it) => {
+  await header(slide, s.title || "Our success criteria", it, s.mode || "We do");
+  const sh = Math.max(0.7, K.hFor(s.stem, RIGHT - M - 0.8, 22, true, 0.3));
+  slide.addImage({ data: await K.icon("list", COL.mint), x: M, y: TOP + 0.05 + sh / 2 - 0.3, w: 0.6, h: 0.6 });
+  box(slide, s.stem, { x: M + 0.8, y: TOP + 0.05, w: RIGHT - M - 0.8, h: sh, fontSize: 22, bold: true, sh: true });
+  const rows = s.points.map(p => ({ label: "☐", text: p, color: "mint" }));
+  for (let i = 0; i < (s.blank || 0); i++) rows.push({ label: "☐", text: "Our class adds one here.", color: "lav" });
+  drawRows(slide, rows, { y: TOP + 0.05 + sh + 0.25, labelW: 0.6, pt: 22, minPt: 14 });
+  s._notes = s.notes || "Co-construct: ask students what a good piece would include before you reveal each point. Students tick each one when they check their own work.";
+};
+R.tag = async (slide, s, it) => {
+  await header(slide, s.title || "Peer feedback: Tell, Ask, Give", it, "We do");
+  const cw = (RIGHT - M - 0.6) / 3, parts = [["Tell", "teal", "Tell your partner one thing they did well.", "I like how you ...  You used ... well."], ["Ask", "sky", "Ask a question about their writing.", "Why did you ...?  What happens when ...?"], ["Give", "lav", "Give one idea to make it even better.", "You could add ...  Try changing ... to ..."]];
+  parts.forEach(([h, c, t, st], i) => {
+    const x = M + i * (cw + 0.3);
+    box(slide, h, { x, y: TOP + 0.05, w: cw, h: 0.75, fontSize: 30, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center" });
+    box(slide, t, { x, y: TOP + 0.95, w: cw, h: 1.5, fontSize: 21, fillColor: TINT[c], align: "center" });
+    box(slide, st, { x, y: TOP + 2.6, w: cw, h: 1.6, fontSize: 19, fillColor: "FFFFFF", sh: true, align: "center", hw: true });
+  });
+  box(slide, "Use our success criteria. Listen, then say thank you.", { x: M, y: BOTTOM - 0.6, w: RIGHT - M, h: 0.6, fontSize: 18, fillColor: TINT.mint, align: "center" });
+  s._notes = s.notes || "Model one round of Tell, Ask, Give with a student's permission before pairs begin. Give students time to revise straight after.";
+};
+R.tplMentor = async (slide) => {
+  await header(slide, "Type your title here", null, "We do");
+  pasteFrame(slide, M, TOP + 0.05, 6.1, BOTTOM - TOP - 0.05, "Chapter __, p __: the passage beginning ...", `Paste or type the passage from ${BOOK()} here.`);
+  drawRows(slide, [{ label: "?", text: "Type a question here.", color: "sky" }, { label: "?", text: "Type a question here.", color: "mint" }], { x: M + 6.45, y: TOP + 0.05, w: RIGHT - M - 6.45, labelW: 0.55, pt: 22 });
+  footer(slide); slide.addNotes("Template for any passage. Duplicate it, add the page reference and your questions.");
+};
+
 R.credits = async (slide) => {
   await header(slide, "Thank you");
   const t1 = "This resource is for use by one teacher in their own classroom. Please buy an additional licence for each extra teacher. You may not share, resell or upload this resource or any part of it.";
   const cr = K.photoCredits(), used = Object.keys(UNIT.photos || {}).filter(k => cr[k]);
   const names = [...new Set(used.map(k => cr[k].photographer.replace(/^https?:\/\/(www\.)?/, "").replace(/\.com\/?$/, "").replace(/\/$/, "").replace(/[^\p{Script=Latin}\s.'-]/gu, "").replace(/\s+/g, " ").trim()).filter(Boolean))];
   const t2 = "Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Diagrams drawn for this resource." + (names.length ? ` Photos from Pexels (pexels.com, Pexels Licence) by ${names.join(", ")}.` : "");
-  const t3 = `Syllabus outcomes and content: NSW Mathematics K-10 Syllabus © NSW Education Standards Authority (NESA). ${UNIT.fit ? UNIT.fit + "." : ""} Not endorsed by NESA or the NSW Department of Education.`;
+  const t3 = ENGLISH
+    ? `Syllabus outcomes: NSW English K-10 Syllabus © NSW Education Standards Authority (NESA). ${UNIT.departmentUnit ? `Designed to accompany the NSW Department of Education ${UNIT.departmentUnit} (© State of New South Wales (Department of Education), 2023, CC BY 4.0). ` : ""}${UNIT.mentorText ? `You need a copy of ${UNIT.mentorText.title} by ${UNIT.mentorText.author}; no text from the book is reproduced here. ` : ""}Not endorsed by NESA or the NSW Department of Education.`
+    : `Syllabus outcomes and content: NSW Mathematics K-10 Syllabus © NSW Education Standards Authority (NESA). ${UNIT.fit ? UNIT.fit + "." : ""} Not endorsed by NESA or the NSW Department of Education.`;
   let y = TOP + 0.1;
   const ts = [[t1, "teal"], [t2, "sky"], [t3, "lav"]];
   let cpt = 20; const hs = p => ts.map(([t]) => neededH(t, RIGHT - M, { fontSize: p, margin: [6, 12, 6, 12] }) + 0.06);
@@ -708,11 +869,12 @@ anchor.glance = plan.length + 1; plan.push({ kind: "glance" });
 anchor.howto = plan.length + 1; plan.push({ kind: "howto" });
 anchor.wordwall = plan.length + 1;
 for (let i = 0; i < Math.ceil(UNIT.vocab.length / WW_PER); i++) plan.push({ kind: "wordwall", page: i });
-for (const ls of UNIT.lessons) {
+for (const ls of LESSONS) {
   lessonStart[ls.id] = plan.length + 1;
   plan.push({ kind: "lessonTitle", ls }, { kind: "lisc", ls });
   if (ls.reallife) plan.push({ kind: "content", ls, s: Object.assign({ type: "reallife" }, ls.reallife) });
   for (const s of ls.slides) {
+    if (s.type === "reveal") { s.steps.forEach((_, k) => plan.push({ kind: "content", ls, s: Object.assign({}, s), step: k })); continue; }
     plan.push({ kind: "content", ls, s });
     if (s.type === "hinge") plan.push({ kind: "content", ls, s: Object.assign({}, s, { type: "hingeReveal" }) });
     if (s.type === "cfu") plan.push({ kind: "content", ls, s: Object.assign({}, s, { type: "cfuReveal" }) });
@@ -723,15 +885,15 @@ const TOOLS = { fractionStrips: "toolStrips", numberLine: "toolLine", counters: 
 const tools = (UNIT.toolkit || []).filter(t => TOOLS[t]);
 if (tools.length) { anchor.toolkit = plan.length + 1; tools.forEach(t => plan.push({ kind: TOOLS[t] })); }
 anchor.templates = plan.length + 1;
-plan.push({ kind: "tplText" }, { kind: "tplTwo" }, { kind: "tplGrid" }, { kind: "tplTalk" }, { kind: "tplLevels" });
+plan.push(...(ENGLISH ? ["tplText", "tplTwo", "tplMentor", "tplTalk", "tplLevels"] : ["tplText", "tplTwo", "tplGrid", "tplTalk", "tplLevels"]).map(k => ({ kind: k })));
 plan.push({ kind: "credits" });
 
 // ---------- build ----------
 const pres = new pptxgen();
 pres.layout = "LAYOUT_WIDE";
 pres.theme = { headFontFace: K.FONT, bodyFontFace: K.FONT };
-pres.title = `${UNIT.title}: ${UNIT.subtitle}`;
-pres.subject = `${UNIT.stage} mathematics`;
+pres.title = `${UNIT.title}: ${UNIT.subtitle}${PART === "A" ? " (Component A)" : ""}`;
+pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
 
 (async () => {
   pres.defineSlideMaster({ title: "Content", background: { path: await K.themeBackground(THEME_KEY, "content") }, objects: [] });
