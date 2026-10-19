@@ -909,7 +909,7 @@
           "visual": null
         }
       ],
-      "photo": "l1_measure",
+      "photo": "watermelon_halves",
       "reallife": {
         "title": "Halves in real life",
         "items": [
@@ -919,7 +919,7 @@
           },
           {
             "photo": "apple_halves",
-            "caption": "An apple cut into 2 equal parts: halves."
+            "caption": "An apple cut into 2 equal parts: two halves."
           },
           {
             "photo": "bar_unequal",
@@ -1528,21 +1528,20 @@
           "visual": null
         }
       ],
-      "photo": "cake_eighths",
+      "photo": "sandwich_quarters",
       "reallife": {
         "title": "Quarters and eighths in real life",
         "items": [
           {
-            "photo": "cake_quarters",
-            "caption": "A cake cut into 4 pieces about the same size: quarters.",
-            "whole": true
+            "photo": "sandwich_quarters",
+            "caption": "A sandwich cut corner to corner into 4 pieces the same size: quarters."
           },
           {
             "photo": "cake_eighths",
             "caption": "A cake cut into 8 equal slices: eighths."
           }
         ],
-        "question": "How could you cut each quarter to make eighths?"
+        "question": "How could you cut each quarter of the sandwich to make eighths?"
       }
     },
     {
@@ -2069,13 +2068,17 @@
           "visual": null
         }
       ],
-      "photo": "flag_thirds",
+      "photo": "flag_ireland",
       "reallife": {
         "title": "Thirds in real life",
         "items": [
           {
             "photo": "flag_thirds",
-            "caption": "This flag has 3 stripes, all the same width. Each stripe is one third of the flag."
+            "caption": "The flag of Italy has 3 stripes the same width. Each stripe is one third."
+          },
+          {
+            "photo": "flag_france",
+            "caption": "The flag of France is also made of 3 equal stripes."
           }
         ],
         "question": "Find something in our classroom that is cut into 3 equal parts."
@@ -3309,17 +3312,17 @@
           }
         }
       ],
-      "photo": "tape",
+      "photo": "tape_orange",
       "reallife": {
         "title": "Counting along a length",
         "items": [
           {
-            "photo": "tape",
+            "photo": "tape_orange",
             "caption": "A tape measure: the marks are all the same distance apart."
           },
           {
             "photo": "ruler_book",
-            "caption": "A ruler has marks the same distance apart, so we can measure equal lengths."
+            "caption": "A ruler has equal marks, so we can measure equal lengths."
           }
         ],
         "question": "Why do the marks on a tape measure need to be equal?"
@@ -3927,7 +3930,7 @@
         }
       ],
       "poster": "We have 3/4. The missing part is 1/4. 3/4 + 1/4 = 1",
-      "photo": "cake_quarters",
+      "photo": "watermelon_halves",
       "reallife": {
         "title": "How much more?",
         "items": [
@@ -3937,7 +3940,7 @@
             "whole": true
           }
         ],
-        "question": "How much of the cake is left? How much more would make one whole cake again?"
+        "question": "How much of the cake is left after one quarter is taken? How much more would make one whole cake?"
       }
     },
     {
@@ -4489,16 +4492,20 @@
           "visual": null
         }
       ],
-      "photo": "apple_halves",
+      "photo": "kiwi_halves",
       "reallife": {
         "title": "Rebuild the whole",
         "items": [
           {
-            "photo": "cake_eighths",
-            "caption": "Each slice of this cake is one eighth. Count the slices."
+            "photo": "kiwi_halves",
+            "caption": "One kiwi fruit cut into 2 halves."
+          },
+          {
+            "photo": "bread_loaf",
+            "caption": "A loaf cut into slices of the same thickness."
           }
         ],
-        "question": "If you only had one slice, how many slices like it would rebuild the whole cake? What if the slice was one quarter?"
+        "question": "If you had only one half of the kiwi, how many halves make the whole? If one slice were one tenth of the loaf, how many slices make the whole loaf?"
       }
     },
     {
@@ -5116,6 +5123,10 @@
           {
             "photo": "brick_wall",
             "caption": "Rows of bricks the same size, like a fraction wall."
+          },
+          {
+            "photo": "muffin_tray",
+            "caption": "A muffin tray has rows of cups, all the same size."
           }
         ],
         "question": "How is a brick wall like our fraction wall? How is it different?"
@@ -6030,10 +6041,6 @@
       "pexels": 7236893,
       "note": "star fruit slices, 5 equal points"
     },
-    "tape": {
-      "pexels": 10895042,
-      "note": "tape measure on blue"
-    },
     "ruler_book": {
       "pexels": 3986613,
       "note": "ruling a line in a maths book"
@@ -6049,6 +6056,38 @@
     "cake_quarters": {
       "pexels": 28853982,
       "note": "cake cut into 4 pieces, a hand taking one"
+    },
+    "kiwi_halves": {
+      "pexels": 6156998,
+      "note": "kiwi fruit cut into 2 halves"
+    },
+    "sandwich_quarters": {
+      "pexels": 8478413,
+      "note": "square toasted sandwich cut corner to corner into 4 pieces"
+    },
+    "flag_france": {
+      "pexels": 12467785,
+      "note": "French flag, 3 stripes"
+    },
+    "flag_ireland": {
+      "pexels": 13992181,
+      "note": "Irish flag, 3 stripes"
+    },
+    "tape_orange": {
+      "pexels": 4088537,
+      "note": "tape measure straight on orange"
+    },
+    "watermelon_halves": {
+      "pexels": 4966362,
+      "note": "watermelon cut into 2 halves"
+    },
+    "bread_loaf": {
+      "pexels": 8599583,
+      "note": "loaf cut into slices"
+    },
+    "muffin_tray": {
+      "pexels": 7966013,
+      "note": "muffin tray, 3 rows of 4 equal cups"
     }
   },
   "people": {

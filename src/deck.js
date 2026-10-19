@@ -627,7 +627,7 @@ R.credits = async (slide) => {
   await header(slide, "Thank you");
   const t1 = "This resource is for use by one teacher in their own classroom. Please buy an additional licence for each extra teacher. You may not share, resell or upload this resource or any part of it.";
   const cr = K.photoCredits(), used = Object.keys(UNIT.photos || {}).filter(k => cr[k]);
-  const names = [...new Set(used.map(k => cr[k].photographer.replace(/[^\p{Script=Latin}\s.'-]/gu, "").replace(/\s+/g, " ").trim()).filter(Boolean))];
+  const names = [...new Set(used.map(k => cr[k].photographer.replace(/^https?:\/\/(www\.)?/, "").replace(/\.com\/?$/, "").replace(/\/$/, "").replace(/[^\p{Script=Latin}\s.'-]/gu, "").replace(/\s+/g, " ").trim()).filter(Boolean))];
   const t2 = "Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Diagrams drawn for this resource." + (names.length ? ` Photos from Pexels (pexels.com, Pexels Licence) by ${names.join(", ")}.` : "");
   const t3 = `Syllabus outcomes and content: NSW Mathematics K-10 Syllabus © NSW Education Standards Authority (NESA). ${UNIT.fit ? UNIT.fit + "." : ""} Not endorsed by NESA or the NSW Department of Education.`;
   let y = TOP + 0.1;
