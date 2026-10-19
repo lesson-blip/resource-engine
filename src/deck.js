@@ -137,6 +137,7 @@ async function introBox(slide, text, y, pt = 22) {
 const R = {};
 const plan = [];
 const lessonStart = {};
+const anchor = {};
 
 R.cover = async (slide) => {
   const pics = UNIT.coverPics || (UNIT.lessons[0].pics || []).slice(0, 2);
@@ -145,9 +146,11 @@ R.cover = async (slide) => {
     { text: UNIT.title, options: { fontSize: tpt, bold: true, breakLine: true } },
     { text: `${UNIT.subtitle} · ${UNIT.stage} · ${UNIT.years}`, options: { fontSize: 16, color: COL.muted } },
   ], { x: M, y: 0.4, w: 8.2, h: 1.35, sh: true, margin: [6, 20, 6, 20] });
-  pics.filter(K.hasImg).slice(0, 2).forEach((k, i) => slide.addImage({ path: K.img(k), x: 8.95 + i * 1.25, y: 0.45, w: 1.15, h: 1.15 }));
-  box(slide, [{ text: "How it works", options: { hyperlink: { slide: 2, tooltip: "How this pack works" }, color: COL.navy, bold: true } }], { x: W - M - 1.6, y: 0.45, w: 1.6, h: 0.55, fontSize: 13, fillColor: TINT.sky, align: "center", margin: 2 });
-  box(slide, [{ text: "Word wall", options: { hyperlink: { slide: 3, tooltip: "Words we will use" }, color: COL.navy, bold: true } }], { x: W - M - 1.6, y: 1.15, w: 1.6, h: 0.55, fontSize: 13, fillColor: TINT.mint, align: "center", margin: 2 });
+  pics.filter(K.hasImg).slice(0, 1).forEach(k => slide.addImage({ path: K.img(k), x: 8.9, y: 0.5, w: 1.05, h: 1.05 }));
+  const btns = [["At a glance", "glance", "teal"], ["How it works", "howto", "sky"], ["Word wall", "wordwall", "mint"], ["Toolkit", "toolkit", "lav"]].filter(b => anchor[b[1]]);
+  const bw = 1.36, bx0 = W - M - 2 * bw - 0.1;
+  btns.forEach(([t, k, c], i) => box(slide, [{ text: t, options: { hyperlink: { slide: anchor[k], tooltip: t }, color: COL.navy, bold: true } }],
+    { x: bx0 + (i % 2) * (bw + 0.1), y: 0.45 + Math.floor(i / 2) * 0.7, w: bw, h: 0.55, fontSize: 12, fillColor: TINT[c], align: "center", margin: 2 }));
   const ls = UNIT.lessons, half = Math.ceil(ls.length / 2), colW = (W - 2 * M - 0.3) / 2;
   const rowH = Math.min(0.9, (6.75 - 2.05 - 0.14 * (half - 1)) / half);
   ls.forEach((l, i) => {
@@ -462,6 +465,91 @@ R.exit = async (slide, it) => {
   it._notes = "Exit ticket answers: " + ex.map((q, i) => `${i + 1}) ${q.answer}`).join("  ") + "\nSort the tickets into got it / nearly / not yet. Use the not yet pile to choose tomorrow's teacher table group.";
 };
 
+
+// ---------- unit at a glance ----------
+R.glance = async (slide) => {
+  await header(slide, "Unit at a glance");
+  const ls = UNIT.lessons, lw = 6.55, gap = 0.08;
+  const rh = Math.min(0.62, (BOTTOM - TOP - gap * (ls.length - 1)) / ls.length);
+  let pt = 20; while (pt > 12 && (ls.some(l => K.linesFor(l.title, lw - 0.7, pt, true, 0.3) > 1) || pt * K.LH / 72 + 0.12 > rh)) pt--;
+  ls.forEach((l, i) => {
+    const y = TOP + i * (rh + gap);
+    box(slide, `${l.n}`, { x: M, y, w: 0.6, h: rh, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL[["teal", "sky", "mint", "indigo", "lav"][i % 5]], align: "center", margin: 1 });
+    box(slide, [{ text: l.title, options: { hyperlink: { slide: lessonStart[l.id], tooltip: l.title }, color: COL.navy, bold: true } }], { x: M + 0.7, y, w: lw - 0.7, h: rh, fontSize: pt, fillColor: "FFFFFF", sh: true, margin: [2, 12, 2, 12] });
+  });
+  const rx = M + lw + 0.3, rw = W - M - rx;
+  const outc = (UNIT.outcomes || []).map(o => `${o.code}: ${o.short || o.text}`).join("\n");
+  const mats = UNIT.unitMaterials || [...new Set(ls.flatMap(l => l.materials || []).map(m => m.trim().replace(/\.$/, "")))];
+  const blocks = [["Syllabus", outc, "teal"], ["You will need", mats.join(", ") + ".", "mint"], ["Assessment", "Pre-test, a hinge question and mini whiteboard check every lesson, exit tickets, and an end of unit test with self-check and rubric.", "lav"]];
+  const runs = (b, p) => [{ text: b[0], options: { bold: true, breakLine: true, fontSize: p } }, { text: b[1], options: { fontSize: p } }];
+  const avail = BOTTOM - TOP - 0.5 - 0.15 * 2;
+  const hs = p => blocks.map(b => neededH(runs(b, p), rw, { fontSize: p, margin: [6, 14, 6, 14] }) + 0.04);
+  let bp = 20; while (bp > 11 && hs(bp).reduce((a, b) => a + b, 0) > avail) bp--;
+  let y = TOP;
+  pill(slide, `${UNIT.subtitle} · ${UNIT.stage} · ${ls.length} lessons`, rx, y, UC, 13, 0.4); y += 0.5;
+  hs(bp).forEach((h, i) => { box(slide, runs(blocks[i], bp), { x: rx, y, w: rw, h, fontSize: bp, fillColor: TINT[blocks[i][2]], margin: [6, 14, 6, 14] }); y += h + 0.15; });
+  footer(slide);
+  slide.addNotes(`Unit overview for your program. Click a lesson to jump to it.\n\n${UNIT.fit || ""}`);
+};
+
+// ---------- toolkit: pieces to drag in edit mode ----------
+const TOOL_NOTE = "Toolkit slide. In PowerPoint or Google Slides edit mode, drag the pieces to model the maths. Press Ctrl+D (Cmd+D on a Mac) to copy a piece. Close without saving to put everything back.";
+R.toolStrips = async (slide) => {
+  await header(slide, "Toolkit: fraction strips", null, "We do");
+  const sw = 10.4, x0 = (W - sw) / 2, rh = 0.62, g = 0.12;
+  const rows = [[1, "teal"], [2, "sky"], [3, "mint"], [4, "indigo"], [5, "lav"], [8, "teal"]];
+  rows.forEach(([n, c], r) => {
+    const y = TOP + 0.1 + r * (rh + g), pw = sw / n;
+    for (let i = 0; i < n; i++) box(slide, n === 1 ? "1" : `1/${n}`, { x: x0 + i * pw, y, w: pw, h: rh, fontSize: n >= 8 ? 15 : 18, bold: true, color: r === 0 ? COL.navy : "FFFFFF", fillColor: r === 0 ? TINT[c] : COL[c], align: "center", margin: 1, rectRadius: 0.06, line: { color: "FFFFFF", width: 1.5 } });
+  });
+  footer(slide);
+  slide.addNotes(TOOL_NOTE + " Drag pieces under the whole to show how many make one, or line up two strips to compare.");
+};
+R.toolLine = async (slide) => {
+  await header(slide, "Toolkit: number line", null, "We do");
+  const x0 = 1.4, x1 = W - 1.4, y = 3.1;
+  slide.addShape(pres.shapes.LINE, { x: x0 - 0.2, y, w: x1 - x0 + 0.5, h: 0, line: { color: COL.navy, width: 3, endArrowType: "triangle" } });
+  for (const [t, xx] of [["0", x0], ["1", x1]]) {
+    slide.addShape(pres.shapes.LINE, { x: xx, y: y - 0.25, w: 0, h: 0.5, line: { color: COL.navy, width: 3 } });
+    box(slide, t, { x: xx - 0.3, y: y + 0.35, w: 0.6, h: 0.5, fontSize: 22, bold: true, align: "center", fillColor: "FFFFFF", margin: 1 });
+  }
+  // movable tick marks and dots
+  for (let i = 0; i < 9; i++) slide.addShape(pres.shapes.LINE, { x: 1.6 + i * 0.32, y: 4.35, w: 0, h: 0.4, line: { color: COL.navy, width: 2.5 } });
+  for (let i = 0; i < 4; i++) slide.addShape(pres.shapes.OVAL, { x: 4.8 + i * 0.5, y: 4.4, w: 0.32, h: 0.32, fill: { color: COL[["teal", "lav", "mint", "sky"][i]] }, line: { color: "FFFFFF", width: 1 } });
+  box(slide, "Drag a tick or a dot onto the line", { x: 7.1, y: 4.3, w: 4.8, h: 0.5, fontSize: 14, color: COL.muted, fillColor: "FFFFFF", align: "center", margin: 1 });
+  const cards = ["1/2", "1/4", "2/4", "3/4", "1/3", "2/3", "1/5", "2/5", "3/5", "4/5", "1/8", "3/8", "5/8", "4/4"];
+  const cw = 0.78, cg = 0.1, per = 7, cx0 = (W - (per * cw + (per - 1) * cg)) / 2;
+  cards.forEach((t, i) => box(slide, t, { x: cx0 + (i % per) * (cw + cg), y: 5.0 + Math.floor(i / per) * 0.7, w: cw, h: 0.58, fontSize: 18, bold: true, align: "center", fillColor: TINT[["teal", "sky", "mint", "indigo", "lav"][i % 5]], margin: 1 }));
+  footer(slide);
+  slide.addNotes(TOOL_NOTE + " Drag ticks onto the line to make equal parts, then drag a fraction card to name a point. Ask: how many equal spaces from 0 to 1?");
+};
+R.toolCounters = async (slide) => {
+  await header(slide, "Toolkit: counters and ten frames", null, "We do");
+  const cs = 0.62, fx = [M + 0.2, M + 0.2 + 5 * cs + 0.5];
+  for (const x of fx) for (let r = 0; r < 2; r++) for (let c = 0; c < 5; c++) slide.addShape(pres.shapes.RECTANGLE, { x: x + c * cs, y: TOP + 0.3 + r * cs, w: cs, h: cs, fill: { color: "FFFFFF" }, line: { color: COL.navy, width: 1.5 } });
+  for (let i = 0; i < 20; i++) slide.addShape(pres.shapes.OVAL, { x: 7.6 + (i % 10) * 0.5, y: TOP + 0.35 + Math.floor(i / 10) * 0.6, w: 0.42, h: 0.42, fill: { color: COL[i < 10 ? "teal" : "lav"] }, line: { color: "FFFFFF", width: 1 } });
+  box(slide, "Drag counters into the frames. Copy more with Ctrl+D.", { x: M, y: 3.2, w: W - 2 * M, h: 0.6, fontSize: 16, color: COL.muted, fillColor: "FFFFFF", align: "center" });
+  footer(slide);
+  slide.addNotes(TOOL_NOTE);
+};
+
+// ---------- blank templates ----------
+const TPL_NOTE = "Template. Right-click the slide in the side panel and choose Duplicate, then type over the text. The boxes keep the theme colours.";
+R.tplText = async (slide) => {
+  await header(slide, "Type your title here", null, "I do");
+  box(slide, "Type here. Keep it short: one idea per box.", { x: M, y: TOP + 0.1, w: W - 2 * M, h: 1.6, fontSize: 24, fillColor: "FFFFFF", sh: true });
+  box(slide, "Type an example or a question here.", { x: M, y: TOP + 1.95, w: W - 2 * M, h: 1.4, fontSize: 22, fillColor: TINT.sky });
+  footer(slide); slide.addNotes(TPL_NOTE);
+};
+R.tplTalk = async (slide) => { await R.talk(slide, { prompt: "Type your question here" }, null); footer(slide); slide.addNotes(TPL_NOTE); };
+R.tplLevels = async (slide) => { const s = { support: "Type the easier way in here.", core: "Type the main task here.", extend: "Type the go further task here." }; await R.levels(slide, s, null); footer(slide); slide.addNotes(TPL_NOTE + " " + s._notes); };
+R.tplTwo = async (slide) => {
+  await header(slide, "Type your title here", null, "We do");
+  const cw = (W - 2 * M - 0.3) / 2;
+  [["Type here", "teal"], ["Type here", "mint"]].forEach(([t, c], i) => box(slide, t, { x: M + i * (cw + 0.3), y: TOP + 0.1, w: cw, h: 4.9, fontSize: 24, fillColor: TINT[c], valign: "top", margin: [12, 16, 12, 16] }));
+  footer(slide); slide.addNotes(TPL_NOTE);
+};
+
 R.credits = async (slide) => {
   await header(slide, "Thank you");
   const t1 = "This resource is for use by one teacher in their own classroom. Please buy an additional licence for each extra teacher. You may not share, resell or upload this resource or any part of it.";
@@ -486,7 +574,10 @@ const DEFAULT_NOTES = {
 };
 
 // ---------- plan ----------
-plan.push({ kind: "cover" }, { kind: "howto" });
+plan.push({ kind: "cover" });
+anchor.glance = plan.length + 1; plan.push({ kind: "glance" });
+anchor.howto = plan.length + 1; plan.push({ kind: "howto" });
+anchor.wordwall = plan.length + 1;
 for (let i = 0; i < Math.ceil(UNIT.vocab.length / WW_PER); i++) plan.push({ kind: "wordwall", page: i });
 for (const ls of UNIT.lessons) {
   lessonStart[ls.id] = plan.length + 1;
@@ -498,6 +589,11 @@ for (const ls of UNIT.lessons) {
   }
   if (ls.exitTicket && ls.exitTicket.length) plan.push({ kind: "exit", ls });
 }
+const TOOLS = { fractionStrips: "toolStrips", numberLine: "toolLine", counters: "toolCounters" };
+const tools = (UNIT.toolkit || []).filter(t => TOOLS[t]);
+if (tools.length) { anchor.toolkit = plan.length + 1; tools.forEach(t => plan.push({ kind: TOOLS[t] })); }
+anchor.templates = plan.length + 1;
+plan.push({ kind: "tplText" }, { kind: "tplTwo" }, { kind: "tplTalk" }, { kind: "tplLevels" });
 plan.push({ kind: "credits" });
 
 // ---------- build ----------

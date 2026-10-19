@@ -5868,5 +5868,18 @@
   "templates": [
     "blankStrips",
     "squaredStrips"
+  ],
+  "toolkit": [
+    "fractionStrips",
+    "numberLine"
+  ],
+  "unitMaterials": [
+    "paper strips (blank and squared strips are in the pack)",
+    "string or ribbon",
+    "rulers",
+    "scissors and glue",
+    "mini whiteboards",
+    "dice and counters for the games",
+    "printed card sets from the pack"
   ]
 }
