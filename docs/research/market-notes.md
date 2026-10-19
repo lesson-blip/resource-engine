@@ -51,3 +51,12 @@ Products: Spiral Review (One Stop Teacher Shop, ~US$40-52, 5.5k), 35 No Prep Mul
 - Slides choose 3 themes (Brights, Calm, Honey Bee). Font: Edu NSW ACT Foundation (Google, school handwriting font). Header bar: Lesson N pill, title, Resource N, I do/We do/You do tag. Real photos (Australian banknotes), teacher cut-out photo, Turn and Talk, drag-and-drop digital manipulatives (counters, MAB) in edit mode, game links, simplified unit of work, LI/SC per lesson.
 - Assessments: 3 columns below / at / above stage, editable Word + PDF + answer key; wombat/kangaroo icons mark ES1/S1 in multi-age.
 - Gaps vs us: worksheets and differentiation are separate purchases, not in each lesson; teacher must insert DoE resources; busy pastel design with many display fonts; no research/teacher guide.
+
+## NSW Department unit companion market on TPT (product pages checked 20 Oct 2026, 206 products)
+Product-level review counts are small across this niche; bundles collect the most.
+- The Busy Honey Bee: Stage 2 Year A Term 1 Maths Mega Bundle US$40 (18 reviews), Stage 3 Term 1 Maths $40 (15), Stage 2 Term 2 Maths $40 (14), Stage 2 Term 1 English slides bundle $32 (12), ES1 English Term 1 $47.50 (11). Single units: English slides $16, maths slides $8, Component A bundle $25. Already sells Stage 2 Year A Unit 1 (Fantastic Mr Fox) Component A and B.
+- Literacy Guru: "MEGA Bundle ... NESA Support Resources" per novel unit, $17 to $20 (up to 12 reviews); single slideshow $10. 230 to 500 slide decks, mostly non-editable.
+- Teach With Sonya: editable Google Slides per Department unit, Components A and B, $22 to $24 (up to 9 reviews), Component A alone $12.
+- Australian novel and picture book studies outside the Department units: Rainbow Sky Creations, Teaching Treats, Galarious Goods, $4 to $8 (24 to 68 reviews on the best).
+- How they handle the book: none include the novel's text. Teach With Sonya puts red prompt boxes on slides ("Insert pages ... beginning with ... here"). The Busy Honey Bee: "due to copyright licensing ... prompts within the slides" for what the teacher inserts. Both credit "© State of New South Wales (Department of Education), 2023".
+- Selling points they use: designed to complement the NSW sample unit, mentor text named, unit number in the title, Components A and B, editable, no prep, term mega bundles.
