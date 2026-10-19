@@ -79,9 +79,16 @@ const hasPhoto = k => !!k && fs.existsSync(path.join(PHOTOS, k + ".jpg"));
 async function photo(key, w, h, r = 0.18, opt = {}) {
   const src = path.join(PHOTOS, key + ".jpg");
   const px = 150, W = Math.round(w * px), H = Math.round(h * px), R = Math.round(r * px);
-  const f = path.join(CACHE, `ph_${key}_${W}x${H}_${R}${opt.grey ? "_g" : ""}.png`);
+  const f = path.join(CACHE, `ph_${key}_${W}x${H}_${R}${opt.grey ? "_g" : ""}${opt.whole ? "_w" : ""}.png`);
   if (fs.existsSync(f)) return f;
   let im = sharp(src).resize(W, H, { fit: "cover", position: opt.position || "attention" });
+  if (opt.whole) {
+    // show the whole photo (nothing the caption refers to is cropped off), on a soft blurred copy of itself
+    const bg = await sharp(src).resize(W, H, { fit: "cover" }).blur(28).modulate({ brightness: 1.05 }).toBuffer();
+    const fg = await sharp(src).resize(W - 8, H - 8, { fit: "inside" }).toBuffer();
+    const m = await sharp(fg).metadata();
+    im = sharp(bg).composite([{ input: fg, left: Math.round((W - m.width) / 2), top: Math.round((H - m.height) / 2) }]);
+  }
   if (opt.grey) im = im.grayscale().linear(1.08, -6);
   const mask = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="${W}" height="${H}" rx="${R}" ry="${R}" fill="#fff"/></svg>`);
   await sharp(await im.png().toBuffer()).composite([{ input: mask, blend: "dest-in" }]).png().toFile(f);

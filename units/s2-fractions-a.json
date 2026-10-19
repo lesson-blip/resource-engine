@@ -1528,24 +1528,21 @@
           "visual": null
         }
       ],
-      "photo": "track_lanes",
+      "photo": "cake_eighths",
       "reallife": {
         "title": "Quarters and eighths in real life",
         "items": [
           {
             "photo": "cake_quarters",
-            "caption": "A cake cut into 4 pieces. Equal pieces are quarters."
+            "caption": "A cake cut into 4 pieces about the same size: quarters.",
+            "whole": true
           },
           {
             "photo": "cake_eighths",
             "caption": "A cake cut into 8 equal slices: eighths."
-          },
-          {
-            "photo": "track_lanes",
-            "caption": "A running track with 8 lanes, all the same width."
           }
         ],
-        "question": "How could you halve the quarters to make eighths?"
+        "question": "How could you cut each quarter to make eighths?"
       }
     },
     {
@@ -2625,14 +2622,11 @@
         "items": [
           {
             "photo": "starfruit",
-            "caption": "A star fruit slice has 5 points, all the same size."
-          },
-          {
-            "photo": "eggs_tenths",
-            "caption": "A carton of 10 eggs. Each egg is one tenth of the carton."
+            "caption": "Each star fruit slice has 5 points, all about the same size.",
+            "whole": true
           }
         ],
-        "question": "How many eggs make one fifth of the carton? How do you know?"
+        "question": "Each slice has 5 points. What fraction of the points is one point? What fraction is 3 points?"
       }
     },
     {
@@ -3325,7 +3319,7 @@
           },
           {
             "photo": "ruler_book",
-            "caption": "We use a ruler to make equal jumps."
+            "caption": "A ruler has marks the same distance apart, so we can measure equal lengths."
           }
         ],
         "question": "Why do the marks on a tape measure need to be equal?"
@@ -3939,14 +3933,11 @@
         "items": [
           {
             "photo": "cake_quarters",
-            "caption": "One quarter of the cake is being taken. How much is left?"
-          },
-          {
-            "photo": "eggs_tenths",
-            "caption": "One egg is cracked. How many tenths are not cracked?"
+            "caption": "This cake is cut into 4 pieces. One quarter is being taken away.",
+            "whole": true
           }
         ],
-        "question": "How much more would make one whole each time?"
+        "question": "How much of the cake is left? How much more would make one whole cake again?"
       }
     },
     {
@@ -4498,20 +4489,16 @@
           "visual": null
         }
       ],
-      "photo": "cake_slice",
+      "photo": "apple_halves",
       "reallife": {
         "title": "Rebuild the whole",
         "items": [
           {
-            "photo": "cake_slice",
-            "caption": "This slice is one eighth of a cake."
-          },
-          {
             "photo": "cake_eighths",
-            "caption": "8 slices like it make the whole cake."
+            "caption": "Each slice of this cake is one eighth. Count the slices."
           }
         ],
-        "question": "If a slice was one quarter of the cake, how many slices would make the whole?"
+        "question": "If you only had one slice, how many slices like it would rebuild the whole cake? What if the slice was one quarter?"
       }
     },
     {
@@ -5682,7 +5669,8 @@
         "items": [
           {
             "photo": "cake_quarters",
-            "caption": "A cake cut into quarters."
+            "caption": "A cake cut into quarters.",
+            "whole": true
           },
           {
             "photo": "cake_eighths",
@@ -6034,14 +6022,6 @@
       "pexels": 13111782,
       "note": "muesli bar snapped into 2 unequal pieces (non-example)"
     },
-    "track_lanes": {
-      "pexels": 3905827,
-      "note": "running track, 8 equal lanes"
-    },
-    "pool_lanes": {
-      "pexels": 36018788,
-      "note": "pool from above, equal lanes"
-    },
     "flag_thirds": {
       "pexels": 17881598,
       "note": "Italian flag, 3 equal stripes"
@@ -6057,14 +6037,6 @@
     "ruler_book": {
       "pexels": 3986613,
       "note": "ruling a line in a maths book"
-    },
-    "eggs_tenths": {
-      "pexels": 4110224,
-      "note": "carton of 10 eggs, 1 cracked"
-    },
-    "cake_slice": {
-      "pexels": 24038977,
-      "note": "one slice of cake"
     },
     "brick_wall": {
       "pexels": 7394220,

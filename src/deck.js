@@ -267,13 +267,13 @@ R.reallife = async (slide, s, it) => {
   const phH = bottom - top - capH - 0.15;
   if (n === 1) {
     const x = M;
-    slide.addImage({ path: await K.photo(items[0].photo, cw, bottom - top, 0.22), x, y: top, w: cw, h: bottom - top });
+    slide.addImage({ path: await K.photo(items[0].photo, cw, bottom - top, 0.22, { whole: !!items[0].whole }), x, y: top, w: cw, h: bottom - top });
     const rx = M + cw + 0.35, rw = RIGHT - rx;
     box(slide, items[0].caption, { x: rx, y: top, w: rw, h: Math.min(bottom - top, neededH(items[0].caption, rw, { fontSize: 22, margin: [10, 16, 10, 16] }) + 0.1), fontSize: 22, fillColor: TINT.sky, margin: [10, 16, 10, 16] });
   } else {
     for (let i = 0; i < n; i++) {
       const x = M + i * (cw + gap);
-      slide.addImage({ path: await K.photo(items[i].photo, cw, phH, 0.2), x, y: top, w: cw, h: phH });
+      slide.addImage({ path: await K.photo(items[i].photo, cw, phH, 0.2, { whole: !!items[i].whole }), x, y: top, w: cw, h: phH });
       box(slide, items[i].caption, { x, y: top + phH + 0.15, w: cw, h: capH, fontSize: capPt, fillColor: TINT[["sky", "mint", "lav"][i]], margin: [6, 12, 6, 12] });
     }
   }
