@@ -9,7 +9,7 @@ It must parse with `node -e "JSON.parse(require('fs').readFileSync('units/<id>.j
 - Content is ORIGINAL, written from the NESA syllabus content points and the research. Never copy wording from NSW DoE sample units, Teach Starter, Twinkl, TpT products or textbooks.
 - Everything the teacher is told to show or hand out must exist in the unit (slides or printables).
 - Maths 100% correct. Every answer is checked. Prefer questions whose answers can be computed.
-- Every lesson: explicit teaching (I do, We do), one hinge question, a Show me check, an activity, Choose your challenge (Mild / Medium / Spicy), Discuss and Connect.
+- Every lesson: explicit teaching (I do, We do), one hinge question, a Show me check, an activity, Choose your challenge (Support / Core / Extension; students see Get started / Main task / Go further with 1 to 3 dots; set `"levelStyle": "chillies"` for Mild / Medium / Spicy), Discuss and Connect.
 - CPA: materials, then pictures, then symbols. Fractions as lengths on number lines (Clarke, Roche and Mitchell 2008).
 - Kid-friendly definitions with close non-examples.
 - Short strings. Titles max 44 chars. Box text max ~130 chars. Lists max 5 items.
@@ -65,7 +65,7 @@ Every slide may have `"mode": "I do" | "We do" | "You do"` (shown as a tag) and 
 - `{"type":"hinge","title":"Which one?","question":"...","visual":VISUAL_OR_NULL,"options":["A text","B text","C text","D text"],"answer":1,"why":["why A is wrong (misconception)","why B is right","...","..."]}` options are short (max 30 chars) or describe visuals in words; every wrong option is a known misconception.
 - `{"type":"cfu","title":"Show me: ...","prompt":"Write on your mini whiteboard.","questions":["..."],"answers":["..."],"visual":VISUAL_OR_NULL}` 3 or 4 questions
 - `{"type":"activity","title":"Activity: ...","steps":["..."],"resource":"printable title","time":"20 min"}`
-- `{"type":"levels","support":"Mild task","core":"Medium task","extend":"Spicy task"}` each max 120; Sullivan enabling / extending prompts
+- `{"type":"levels","support":"Get started task","core":"Main task","extend":"Go further task"}` each max 120; Sullivan enabling / extending prompts
 - `{"type":"discuss","questions":["..."],"connect":"Link back to the success criteria."}` 2 or 3 questions
 - `{"type":"display","title":"...","visual":VISUAL}`
 

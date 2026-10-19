@@ -68,8 +68,10 @@ body { font-family: NS, sans-serif; color: #${T.text}; }
 .lv { position: absolute; top: 200px; width: 300px; text-align: center; }
 .lv .tag { color: #fff; font-weight: 800; font-size: 34px; border-radius: 99px; padding: 8px 0; margin-bottom: 14px; }
 .lv img.p { width: 34px; }
+.dots { display: inline-flex; gap: 7px; vertical-align: middle; margin-right: 6px; } .dots i { width: 16px; height: 16px; border-radius: 50%; background: #fff; display: inline-block; }
 `;
-const peps = n => `<img class="p" src="${FILE(K.img("hot_pepper"))}">`.repeat(n);
+const LVS = K.levels(UNIT);
+const peps = n => LVS.marker === "chillies" ? `<img class="p" src="${FILE(K.img("hot_pepper"))}">`.repeat(n) : `<span class="dots">${"<i></i>".repeat(n)}</span>`;
 const THM = (() => { try { return JSON.parse(fs.readFileSync(path.join(WORK, "themes.json"), "utf8")); } catch (e) { return []; } })();
 const nThemes = THM.length;
 const slidesLine = nThemes > 1 ? `${L.length} lessons, slides in ${nThemes} themes` : `${L.length} lessons on editable slides`;
@@ -92,7 +94,7 @@ const tiles = [
     <div class="banner">Every printable included</div></div>`,
   `<div class="tile">
     <div class="h2">3 levels every lesson</div>
-    ${[["Mild", 1, "mint", 0], ["Medium", 2, "sky", 1], ["Spicy", 3, "indigo", 2]].map(([n, k, c, i]) => `<div class="lv" style="left:${45 + i * 335}px"><div class="tag" style="background:${C[c]}">${peps(k)} ${n}</div><div class="pg" style="position:relative; width:300px"><img src="${WS[i]}"></div></div>`).join("")}
+    ${[0, 1, 2].map(i => [LVS.names[i], i + 1, ["mint", "sky", "indigo"][i], i]).map(([n, k, c, i]) => `<div class="lv" style="left:${45 + i * 335}px"><div class="tag" style="background:${C[c]}">${peps(k)} ${n}</div><div class="pg" style="position:relative; width:300px"><img src="${WS[i]}"></div></div>`).join("")}
     <div class="pill" style="background:${C.lav}; left:50%; transform:translateX(-50%); top:760px; white-space:nowrap">Same maths, every student challenged</div>
     <div class="banner">Differentiated for every learner</div></div>`,
   `<div class="tile">
@@ -127,7 +129,7 @@ const pcss = css + `
 const ev = [
   ["Explicit teaching", "I do, We do, You do with mini whiteboard checks every lesson (CESE What Works Best 2025; AERO)."],
   ["Fractions as lengths", "Strips and number lines, not just pizzas, so students see fractions as numbers (Clarke, Roche and Mitchell)."],
-  ["Every learner challenged", "Mild, Medium and Spicy versions of the same task, in the style of Sullivan's enabling and extending prompts."],
+  ["Every learner challenged", "One main task with an easier way in and a way to go further, following Sullivan's enabling and extending prompts. Students choose; nobody is labelled."],
   ["Hinge questions", "Each wrong answer matches a common misconception, so you know who to reteach (AERO formative assessment)."],
 ];
 const preview = `
@@ -142,7 +144,7 @@ const preview = `
 <section class="pp"><h2>Inside every lesson</h2><div class="grid2">${[1, 2, 3, 4, 5, 6, 7, 8].map(i => `<div class="shot">${`<img src="${S[i]}">`}</div>`).join("")}</div>
   <div class="box"><p>Learning intention and success criteria, warm-up, explicit teaching, turn and talk, a hinge question with a reveal slide, a mini whiteboard check, the activity, Choose your challenge, and Discuss and Connect. Teacher notes are in every slide's notes.</p></div></section>
 <section class="pp"><h2>Worksheets in 3 levels</h2><div class="grid2">${WS.slice(0, 3).map(s => `<div class="shot wm"><img src="${s}"></div>`).join("")}<div class="shot wm"><img src="${KEY[0]}"></div></div>
-  <div class="box"><p>Every lesson has a Mild, Medium and Spicy worksheet on the same maths, each with a teaching box at the top. The answer key is the same pages with the answers written in.</p></div></section>
+  <div class="box"><p>Every lesson has a Support, Core and Extension worksheet on the same maths (students see ${LVS.names.join(", ")}), each with a teaching box at the top. The answer key is the same pages with the answers written in.</p></div></section>
 <section class="pp"><h2>Why it works</h2>${ev.map(([h, p]) => `<div class="box"><p><b>${h}.</b> ${esc(p)}</p></div>`).join("")}
   <div class="grid2"><div class="shot wm"><img src="${AS[0]}"></div><div class="shot wm"><img src="${FB[0]}"></div></div></section>
 <section class="pp"><h2>Terms of use</h2><div class="box"><p>One licence is for one teacher and their own students. Additional licences are available at a discount. Please do not share, resell or upload any part of this resource.</p></div>
@@ -174,7 +176,7 @@ ${L.map(l => `${l.n}. ${l.title}`).join("\n")}
 - Warm-up that revisits earlier learning
 - Explicit teaching (I do, We do, You do) with fraction strips and number lines
 - Turn and talk, a hinge question with a reveal slide, and a mini whiteboard check
-- Choose your challenge: Mild, Medium and Spicy versions of the task
+- Differentiated at 3 levels: Support, Core and Extension versions of the same task (students see ${LVS.names.join(", ")}, marked with dots, never ability labels)
 - Discuss and Connect, and an exit ticket
 - Teacher notes in the slide notes
 

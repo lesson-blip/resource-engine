@@ -61,6 +61,18 @@ const THEMES = {
   },
 };
 THEMES.cool = THEMES.ocean; // old name
+
+// Level names. Students see `names` with a small dot marker (1, 2 or 3 dots); teachers see `teacher`.
+// Default "plain" follows Sullivan: everyone aims for the main task; enabling and extending versions sit either side.
+// "chillies" is an option for teachers who like Mild/Medium/Spicy.
+const LEVEL_STYLES = {
+  plain: { names: ["Get started", "Main task", "Go further"], marker: "dots",
+    blurbs: ["An easier way into the same maths. Use materials and pictures.", "Where everyone aims to be. Try it on your own first.", "Ready for more? Explain, prove or find all the answers."] },
+  chillies: { names: ["Mild", "Medium", "Spicy"], marker: "chillies",
+    blurbs: ["Start here to build confidence. Use materials and pictures.", "The main task. Try it on your own first.", "Ready for more? Explain, prove or find all the answers."] },
+};
+const TEACHER_LEVELS = ["Support", "Core", "Extension"];
+const levels = unit => LEVEL_STYLES[(unit && unit.levelStyle) || "plain"] || LEVEL_STYLES.plain;
 const THEME_KEYS = ["ocean", "pastel", "gumleaf", "boho", "creamgold", "blushsage", "blushnavy"];
 
 function lum(hex) { const c = hex.replace("#", "").match(/../g).map(h => parseInt(h, 16) / 255).map(v => v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; }
@@ -170,4 +182,4 @@ async function browser() {
   }
 }
 
-module.exports = { browser, ROOT, ASSETS, IMGDIR, CACHE, THEMES, THEME_KEYS, contrast, themeBackground, FONT, LH, textW, linesFor, hFor, img, hasImg, icon, hash, clean };
+module.exports = { browser, ROOT, ASSETS, IMGDIR, CACHE, THEMES, THEME_KEYS, LEVEL_STYLES, TEACHER_LEVELS, levels, contrast, themeBackground, FONT, LH, textW, linesFor, hFor, img, hasImg, icon, hash, clean };

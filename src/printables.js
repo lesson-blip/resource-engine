@@ -21,8 +21,9 @@ const IMG = k => FILE(path.join(K.IMGDIR, k + ".png"));
 const FONTS = path.join(K.ASSETS, "fonts");
 const esc = s => K.clean(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const fr = s => esc(s).replace(/(^|[^\d/])(\d+)\/(\d+)(?![\d/])/g, '$1<span class="frac"><span>$2</span><span>$3</span></span>');
-const LEVEL = { Support: ["Mild", 1, "mint"], Core: ["Medium", 2, "sky"], Extend: ["Spicy", 3, "indigo"] };
-const peppers = n => `<span class="pep">${`<img src="${IMG("hot_pepper")}">`.repeat(n)}</span>`;
+const LVS = K.levels(UNIT);
+const LEVEL = { Support: [LVS.names[0], 1, "mint"], Core: [LVS.names[1], 2, "sky"], Extend: [LVS.names[2], 3, "indigo"] };
+const peppers = n => LVS.marker === "chillies" ? `<span class="pep">${`<img src="${IMG("hot_pepper")}">`.repeat(n)}</span>` : `<span class="pep dots">${"<i></i>".repeat(n)}</span>`;
 
 const WIDE = v => v && (v.kind === "numberLine" || v.kind === "fractionWall" || v.kind === "barModel");
 async function vis(v, maxH = 30, cls = "", wideW = 150) {
@@ -198,8 +199,8 @@ async function posters() {
     const disp = ls.slides.find(s => s.type === "definition" && s.visual) || ls.slides.find(s => (s.type === "visual" || s.type === "worked") && s.visual);
     big.push({ ls, disp });
   }
-  let h = `<section class="page poster" data-foot="Poster">${header({ title: "Choose your challenge", sub: "Every lesson has three levels. You can change level at any time.", pic: "hot_pepper", name: false })}
-    ${[["Mild", 1, "mint", "Start here to build confidence. Use materials and pictures."], ["Medium", 2, "sky", "The main task. Try it on your own first."], ["Spicy", 3, "indigo", "Ready for more? Explain, prove or find all the answers."]].map(([n, k, c, t]) => `<div class="pfact b-${c}-l"><div class="pfh">${peppers(k)}<b>${n}</b></div><p>${t}</p></div>`).join("")}
+  let h = `<section class="page poster" data-foot="Poster">${header({ title: "Choose your challenge", sub: "Every lesson has three levels. You can change level at any time.", pic: LVS.marker === "chillies" ? "hot_pepper" : "bullseye", name: false })}
+    ${[0, 1, 2].map(i => [LVS.names[i], i + 1, ["mint", "sky", "indigo"][i], LVS.blurbs[i]]).map(([n, k, c, t]) => `<div class="pfact b-${c}-l"><div class="pfh">${peppers(k)}<b>${n}</b></div><p>${t}</p></div>`).join("")}
     <div class="pfact b-lav-l"><div class="pfh"><b>Stuck?</b></div><p>Read it again. Draw it. Use materials. Try a smaller number. Ask a partner.</p></div></section>`;
   h += `<section class="page poster" data-foot="Poster">${header({ title: "Watch out for these", sub: UNIT.title, pic: "warning", name: false })}
     ${UNIT.misconceptions.map((m, i) => `<div class="pfact b-${["teal", "sky", "mint", "indigo", "lav"][i % 5]}-l"><p class="think">Some people think: ${fr(m.think)}</p><p><b>Remember:</b> ${fr(m.fix)}</p></div>`).join("")}</section>`;
@@ -234,6 +235,7 @@ h1 { font-size: 19pt; line-height: 1.1; }
 .right { display: flex; flex-direction: column; align-items: flex-end; gap: 2mm; flex: none; }
 .lvl { display: flex; align-items: center; gap: 1.5mm; color: #fff; font-weight: 700; font-size: 10.5pt; padding: 0.8mm 3.5mm; border-radius: 99px; }
 .pep img { width: 5mm; vertical-align: middle; }
+.pep.dots { display: inline-flex; gap: 0.35em; align-items: center; } .pep.dots i { width: 0.6em; height: 0.6em; border-radius: 50%; background: currentColor; display: inline-block; }
 .namef { display: flex; align-items: flex-end; gap: 2mm; font-size: 10pt; width: 64mm; }
 .l1 { flex: 1; border-bottom: 1.3px solid #9FB1C5; height: 6mm; }
 .b-teal { background: ${C.teal}; } .b-sky { background: ${C.sky}; } .b-mint { background: ${C.mint}; } .b-indigo { background: ${C.indigo}; } .b-lav { background: ${C.lav}; }

@@ -7,6 +7,7 @@ const K = require("./kit.js");
 const { Document, Packer, Paragraph, TextRun, HeadingLevel, Table, TableRow, TableCell, WidthType, ShadingType, AlignmentType, PageBreak, LevelFormat, BorderStyle, ExternalHyperlink, Footer, PageNumber, TableLayoutType, ImageRun } = D;
 
 const UNIT = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
+const LVN = require("./kit.js").levels(UNIT).names;
 const OUT = process.argv[3];
 const T = K.THEMES[process.argv[4] || "ocean"], UC = T.roles[UNIT.colour || "teal"];
 const NAVY = T.text, MINT = T.roles.mint, SKY = T.roles.sky;
@@ -39,7 +40,7 @@ k.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 },
 k.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 600 }, children: [R(`${UNIT.subtitle} · Teacher guide`, { size: 30, color: NAVY })] }));
 k.push(note("In this pack", [
   `Teaching slides for ${UNIT.lessons.length} lessons (PowerPoint, also opens in Google Slides). Teacher notes and answers are in the slide notes.`,
-  "Worksheets for every lesson in three levels (Mild, Medium, Spicy), in colour and black and white.",
+  `Worksheets for every lesson at three levels: Support, Core and Extension (students see ${LVN.join(", ")}), in colour and black and white.`,
   "An answer key: the same pages with the answers written in.",
   "A pre-test, an end of unit assessment with student self-check, and an A to E rubric.",
   "Games and card sets, the flip book, word wall cards and posters.",
@@ -70,11 +71,11 @@ k.push(table([2300, 4000, 3338], [
 ]));
 
 k.push(H1("3. Every learner"));
-k.push(P("Mild, Medium and Spicy are three versions of the same task. Students choose where to start and can move at any time. Never label tables or groups by level: fixed ability groups widen gaps (Siemon; Victorian Department of Education)."));
-["Give the Mild version after a genuine try, so students still get the benefit of productive struggle.",
+k.push(P(`Every lesson has one main task (Core) with an easier way in (Support) and a way to go further (Extension). Students see them as ${LVN[0]}, ${LVN[1]} and ${LVN[2]}, marked with one, two or three dots, so nobody wears a label. Everyone aims for the main task. Students choose where to start and can move at any time. Never label tables or groups by level: fixed ability groups widen gaps (Siemon; Victorian Department of Education). This follows Sullivan's enabling and extending prompts.`));
+[`Offer ${LVN[0]} after a genuine try, so students still get the benefit of productive struggle.`,
   "Use the exit ticket to choose four to six students for a 10 to 15 minute teacher table the next day. Change the group often.",
   "Keep paper strips and number lines out for anyone who wants them. Let students put them away when they are ready.",
-  "Spicy tasks ask students to explain, prove and generalise, not to do more of the same."].forEach(x => k.push(B(x)));
+  `Extension (${LVN[2]}) tasks ask students to explain, prove and generalise, not to do more of the same.`].forEach(x => k.push(B(x)));
 k.push(H2("Common misconceptions"));
 k.push(table([4600, 5038], [["Students may think", "What helps"], ...UNIT.misconceptions.map(m => [m.think, m.fix])]));
 k.push(H2("Words we use"));

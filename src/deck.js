@@ -16,6 +16,15 @@ for (const [r, c] of Object.entries(T.roles)) if (K.contrast("#FFFFFF", "#" + c)
 const COL = Object.assign({ navy: T.text, muted: T.muted, white: "FFFFFF" }, T.roles);
 const TINT = T.tints;
 const UC = UNIT.colour || "teal";
+const LVS = K.levels(UNIT);
+// level marker: 1 to 3 dots (or chillies), centred in a box of width w starting at x
+function marker(slide, n, c, x, y, w, size) {
+  const g = size * 0.35, tot = n * size + (n - 1) * g, x0 = x + (w - tot) / 2;
+  for (let k = 0; k < n; k++) {
+    if (LVS.marker === "chillies") slide.addImage({ path: K.img("hot_pepper"), x: x0 + k * (size + g), y, w: size, h: size });
+    else slide.addShape("ellipse", { x: x0 + k * (size + g), y, w: size, h: size, fill: { color: COL[c] }, line: { color: COL[c], width: 0 } });
+  }
+}
 
 const W = 13.333, M = 0.5, TOP = 1.45, BOTTOM = 6.7;
 let RIGHT = W - M;
@@ -164,16 +173,16 @@ R.howto = async (slide) => {
     box(slide, m, { x, y: 2.55, w: cw, h: 0.6, fontSize: 22, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center" });
     box(slide, t, { x, y: 3.25, w: cw, h: 0.95, fontSize: 18, fillColor: TINT[c], align: "center" });
   }
-  const lv = [["Mild", 1, "mint", "Start here to build confidence."], ["Medium", 2, "sky", "The main task. Try it first."], ["Spicy", 3, "indigo", "Ready for more? Explain and prove."]];
+  const lv = [0, 1, 2].map(i => [LVS.names[i], i + 1, ["mint", "sky", "indigo"][i], ["An easier way in.", "Where everyone aims to be.", "Ready for more? Explain and prove."][i]]);
   lv.forEach(([n, k, c, t], i) => {
     const x = M + i * (cw + 0.3), y = 4.5;
-    const ps = 0.5, tot = k * ps + (k - 1) * 0.05;
-    for (let j = 0; j < k; j++) slide.addImage({ path: K.img("hot_pepper"), x: x + 0.25 + j * (ps + 0.05), y: y + 0.12, w: ps, h: ps });
+    const ps = LVS.marker === "chillies" ? 0.5 : 0.26, tot = 3 * ps + 2 * ps * 0.35;
+    marker(slide, k, c, x + 0.2, y + 0.37 - ps / 2, tot, ps);
     box(slide, n, { x: x + 0.3 + tot + 0.15, y: y + 0.07, w: cw - tot - 0.45, h: 0.6, fontSize: 20, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center" });
     box(slide, t, { x, y: y + 0.85, w: cw, h: 0.95, fontSize: 17, fillColor: TINT[c], align: "center" });
   });
   footer(slide);
-  slide.addNotes("Show this slide on the first day. Students can choose their level in every lesson and move up or down at any time. Never label tables or groups by level.");
+  slide.addNotes("Show this slide on the first day. Every lesson has one main task with an easier way in (Get started) and a way to go further. Students choose where to start and move at any time. Never label tables or groups by level.");
 };
 
 const WW_PER = 6;
@@ -408,16 +417,16 @@ R.activity = async (slide, s, it) => {
 
 R.levels = async (slide, s, it) => {
   await header(slide, s.title || "Choose your challenge", it, "You do");
-  const cols = [["Mild", s.support, "mint", 1], ["Medium", s.core, "sky", 2], ["Spicy", s.extend, "indigo", 3]];
+  const cols = [[LVS.names[0], s.support, "mint", 1], [LVS.names[1], s.core, "sky", 2], [LVS.names[2], s.extend, "indigo", 3]];
   const gap = 0.3, cw = (RIGHT - M - 2 * gap) / 3;
   const pt = fitPt(cols.map(c => c[1] || ""), cw, 3.3, 24, 14, false, 0.45);
   cols.forEach(([name, text, c, n], i) => {
-    const x = M + i * (cw + gap), ps = 0.62, tot = n * ps + (n - 1) * 0.05;
-    for (let k = 0; k < n; k++) slide.addImage({ path: K.img("hot_pepper"), x: x + cw / 2 - tot / 2 + k * (ps + 0.05), y: 1.6, w: ps, h: ps });
+    const x = M + i * (cw + gap), ps = LVS.marker === "chillies" ? 0.62 : 0.3;
+    marker(slide, n, c, x, 1.6 + (0.62 - ps) / 2, cw, ps);
     box(slide, name, { x, y: 2.38, w: cw, h: 0.62, fontSize: 22, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center" });
     box(slide, text || "", { x, y: 3.15, w: cw, h: 3.4, fontSize: pt, fillColor: TINT[c], valign: "top", margin: [10, 14, 10, 14] });
   });
-  s._notes = s.notes || "Students choose where to start. Give the Mild task after a genuine try, not straight away. Students who finish Medium move to Spicy.";
+  s._notes = s.notes || `Everyone aims for the ${LVS.names[1]}. Students choose where to start. Offer ${LVS.names[0]} after a genuine try, not straight away. Students who finish move to ${LVS.names[2]}.`;
 };
 
 R.discuss = async (slide, s, it) => {

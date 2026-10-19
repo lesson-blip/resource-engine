@@ -5,7 +5,7 @@ The standard every product from this engine must meet. Built from: best-selling 
 ## 1. What we sell
 - **Complete units, not loose sheets.** One topic, every lesson, everything the teacher needs. The best sellers are complete units with a teacher guide, assessment and answer keys.
 - **Nothing to find or insert.** Competitors' slides tell teachers to add department resources. Ours include every resource. Say so in the listing.
-- **Differentiated in every lesson,** not just the test: Mild, Medium, Spicy versions of the same task (Sullivan's enabling and extending prompts).
+- **Differentiated in every lesson,** not just the test: one main task with an easier way in and a way to go further (Sullivan's enabling and extending prompts). Teachers see Support, Core, Extension; students see Get started, Main task, Go further, marked with 1 to 3 dots, never ability labels. The top Australian TPT maths seller (Mrs Chalmers' Cherubs) sells on "Differentiated" and "3 levels" in the title, so always put both in listing titles. Chillies are an option (`levelStyle`).
 - **Australian first:** NSW syllabus wording for content, Australian spelling, A$ prices in Australian stores. Name the NSW focus area in the title. Mention where the unit fits a school's scope and sequence in our own words, never copying department unit text.
 - **Honest claims only:** "classroom tested" only when it was; never invent reviews or results.
 
