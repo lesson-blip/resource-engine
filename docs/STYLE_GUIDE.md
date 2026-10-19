@@ -1,0 +1,47 @@
+# Style guide v1
+
+The standard every product from this engine must meet. Built from: best-selling TpT products (Oct 2026 sweep), Teach Starter decks, Mathletics Series D books, The Busy Honey Bee (main Australian competitor), a live classroom trial of Word Detective (Year 3, Oct 2026), and the evidence base in `research/maths-evidence.md`. Details and sources: `research/market-notes.md`.
+
+## 1. What we sell
+- **Complete units, not loose sheets.** One topic, every lesson, everything the teacher needs. The best sellers are complete units with a teacher guide, assessment and answer keys.
+- **Nothing to find or insert.** Competitors' slides tell teachers to add department resources. Ours include every resource. Say so in the listing.
+- **Differentiated in every lesson,** not just the test: Mild, Medium, Spicy versions of the same task (Sullivan's enabling and extending prompts).
+- **Australian first:** NSW syllabus wording for content, Australian spelling, A$ prices in Australian stores. Name the NSW focus area in the title. Mention where the unit fits a school's scope and sequence in our own words, never copying department unit text.
+- **Honest claims only:** "classroom tested" only when it was; never invent reviews or results.
+
+## 2. Teaching design (every lesson)
+Learning intention and success criteria → warm-up (retrieval of earlier content) → explicit teaching (I do, We do) with concrete, pictorial, then symbols → examples and close non-examples → turn and talk → hinge question (4 options, each wrong option a real misconception) with a reveal slide → Show me (mini whiteboards) with an answer slide → activity → Choose your challenge → Discuss and connect → exit ticket.
+
+- Plain sentence starters beat abstract instructions. (Trial: "This IS it / This is NOT it" confused Year 3; "I would / would NOT use my word for..." worked.)
+- Give Year 3 more writing space than you think: lines at least 9.5 to 11 mm.
+- Never label groups by ability. Students choose a level and can move.
+
+## 3. Slides
+- PowerPoint, 16:9, opens in Google Slides. Nunito Sans embedded. All text sits in rounded boxes sized to the text; boxes never overlap; nothing off-slide (`src/finalize.py` checks).
+- Header: Lesson pill, title, mode tag (I do sky, We do mint, You do lavender). Footer: unit and lesson label, Menu button.
+- Cover is a clickable lesson menu. Slide 2 explains the modes and levels. Slide 3 is the word wall.
+- Themes: `cool` (default), `calm`, `bright`. Cool colours, modern, never loud 90s colours.
+- Real images or Microsoft Fluent 3D emoji, never clip art or amateur drawings. Maths diagrams are drawn exactly by `src/visuals.js`.
+- Teacher notes and answers live in the slide notes.
+
+## 4. Printables
+- Page anatomy (from Mathletics): title and level badge, Name line, teaching box with a worked example, numbered questions with a/b/c parts, dotted dividers, "How did I go? Not yet / Kind of / Got it" at the bottom, footer with page number.
+- One A4 page per level. Colour and black-and-white versions.
+- Answer key = the same pages with answers written in the NSW school handwriting font (Edu NSW ACT Foundation).
+- A "My progress" tracker page, a pre-test, an assessment with self-check and an A to E rubric.
+- A signature make-and-keep item (flip book) and a word wall.
+
+## 5. Listing
+- Five square cover tiles: (1) huge 2 to 4 word title, product shown fanned on a soft background, one bold claim, counts in the banner; (2) What's included; (3) 3 levels every lesson; (4) Teaching slides; (5) Hands-on extras.
+- Best results come from adding one real photo of the printed product in use (George to take per unit).
+- Preview PDF is a short sales deck: hook ("Would you love to..."), what's included, inside a lesson, sample pages watermarked PREVIEW, why it works (research), terms of use.
+- Listing text: intro, bold headings, bullet lists, lessons, syllabus outcomes, formats, tags.
+- Price: single unit A$15 to A$19 (US$9 to US$12); term bundle; multi-teacher licences.
+
+## 6. Copy rules
+Plain teacher voice. No em dashes or heavy dashes. No hype words. Short sentences for students. Australian spelling (colour, metre, practise as a verb).
+
+## 7. Legal
+- Content is original. Never copy text from department sample units, Teach Starter, Twinkl, TpT products or textbooks. Use their structure and ideas only.
+- Fluent Emoji are MIT; fonts are SIL OFL; credit both. Syllabus outcome codes and short outcome text © NESA, credited, with "not endorsed by NESA or the NSW Department of Education".
+- Check with your employer before selling anything built from a school program.

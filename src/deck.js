@@ -134,10 +134,8 @@ R.cover = async (slide) => {
     { text: `${UNIT.subtitle} · ${UNIT.stage} · ${UNIT.years}`, options: { fontSize: 16, color: COL.muted } },
   ], { x: M, y: 0.4, w: 8.2, h: 1.35, sh: true, margin: [6, 20, 6, 20] });
   pics.filter(K.hasImg).slice(0, 2).forEach((k, i) => slide.addImage({ path: K.img(k), x: 8.95 + i * 1.25, y: 0.45, w: 1.15, h: 1.15 }));
-  box(slide, "How it works", { x: W - M - 1.6, y: 0.45, w: 1.6, h: 0.55, fontSize: 13, bold: true, color: COL.navy, fillColor: TINT.sky, align: "center", margin: 2 });
-  slide.addText("", { x: W - M - 1.6, y: 0.45, w: 1.6, h: 0.55, hyperlink: { slide: 2, tooltip: "How this pack works" } });
-  box(slide, "Word wall", { x: W - M - 1.6, y: 1.15, w: 1.6, h: 0.55, fontSize: 13, bold: true, color: COL.navy, fillColor: TINT.mint, align: "center", margin: 2 });
-  slide.addText("", { x: W - M - 1.6, y: 1.15, w: 1.6, h: 0.55, hyperlink: { slide: 3, tooltip: "Words we will use" } });
+  box(slide, [{ text: "How it works", options: { hyperlink: { slide: 2, tooltip: "How this pack works" }, color: COL.navy, bold: true } }], { x: W - M - 1.6, y: 0.45, w: 1.6, h: 0.55, fontSize: 13, fillColor: TINT.sky, align: "center", margin: 2 });
+  box(slide, [{ text: "Word wall", options: { hyperlink: { slide: 3, tooltip: "Words we will use" }, color: COL.navy, bold: true } }], { x: W - M - 1.6, y: 1.15, w: 1.6, h: 0.55, fontSize: 13, fillColor: TINT.mint, align: "center", margin: 2 });
   const ls = UNIT.lessons, half = Math.ceil(ls.length / 2), colW = (W - 2 * M - 0.3) / 2;
   const rowH = Math.min(0.9, (6.75 - 2.05 - 0.14 * (half - 1)) / half);
   ls.forEach((l, i) => {
@@ -322,11 +320,11 @@ R.talk = async (slide, s, it) => {
   const ph = Math.max(1.6, nh(tpt) + 0.05);
   slide.addImage({ data: await K.icon("comments", COL.teal), x: M, y: 1.65, w: 0.8, h: 0.8 });
   box(slide, s.prompt, { x: M + 1.0, y: 1.6, w: lw - 1.0, h: ph, fontSize: tpt, bold: true, sh: true, margin: [10, 18, 10, 18] });
-  const sec = s.seconds || 30, tx = s.visual ? M + 0.2 : RIGHT - 2.7;
-  const ty = s.visual ? Math.min(1.6 + ph + 0.4, BOTTOM - 2.4) : 1.6;
-  slide.addShape(pres.shapes.OVAL, { x: tx, y: ty, w: 2.4, h: 2.4, fill: { color: TINT.lav }, line: { color: COL.lav, width: 6 } });
-  box(slide, `${sec}`, { x: tx + 0.3, y: ty + 0.55, w: 1.8, h: 1.0, fontSize: 48, bold: true, color: COL.lav, fillColor: TINT.lav, align: "center", margin: 0 });
-  box(slide, "seconds", { x: tx + 0.4, y: ty + 1.5, w: 1.6, h: 0.45, fontSize: 16, color: COL.lav, fillColor: TINT.lav, align: "center", margin: 0 });
+  const sec = s.seconds || 30, tx = s.visual ? M + 1.0 : RIGHT - 2.7;
+  const ty = s.visual ? 1.6 + ph + 0.3 : 1.6;
+  const ts = Math.max(1.3, Math.min(2.4, BOTTOM - ty));
+  slide.addText([{ text: `${sec}`, options: { fontSize: Math.round(48 * ts / 2.4), bold: true, breakLine: true } }, { text: "seconds", options: { fontSize: Math.round(16 * Math.max(0.8, ts / 2.4)) } }],
+    { shape: pres.shapes.OVAL, x: tx, y: ty, w: ts, h: ts, fill: { color: TINT.lav }, line: { color: COL.lav, width: 6 }, fontFace: K.FONT, color: COL.lav, align: "center", valign: "middle", margin: 0 });
   if (s.visual) await placeVisual(slide, s.visual, M + lw + 0.35, 1.6, RIGHT - M - lw - 0.35, BOTTOM - 1.6);
   else box(slide, "Think on your own first. Then share with your partner. Be ready to share your partner's idea.", { x: M + 1.0, y: 1.6 + ph + 0.35, w: lw - 1.0, h: 1.1, fontSize: 20, fillColor: TINT.teal });
 };

@@ -155,8 +155,8 @@ async function wordwall() {
   const vs = UNIT.vocab;
   for (let i = 0; i < vs.length; i += 2) {
     h += `<section class="page ww" data-foot="Word wall">`;
-    for (const v of vs.slice(i, i + 2)) {
-      h += `<div class="wcard b-${["teal", "sky", "mint", "indigo", "lav"][i % 5]}-l"><div class="word">${fr(v.word)}</div><div class="wrow"><div class="means">${fr(v.means)}</div>${v.visual ? await vis(v.visual, 45) : v.pic && K.hasImg(v.pic) ? `<img class="wpic" src="${IMG(v.pic)}">` : ""}</div></div>`;
+    for (const [j, v] of vs.slice(i, i + 2).entries()) {
+      h += `<div class="wcard b-${["teal", "sky", "mint", "indigo", "lav"][(i + j) % 5]}-l"><div class="word">${fr(v.word)}</div><div class="wrow"><div class="means">${fr(v.means)}</div>${v.visual ? await vis(v.visual, 45) : v.pic && K.hasImg(v.pic) ? `<img class="wpic" src="${IMG(v.pic)}">` : ""}</div></div>`;
     }
     h += `</section>`;
   }
@@ -274,8 +274,8 @@ h2 { font-size: 13pt; color: ${C[UC]}; margin-top: 2mm; }
 .ww { justify-content: space-around; }
 .wcard { border: 2px solid; border-radius: 6mm; padding: 8mm 10mm; height: 128mm; display: flex; flex-direction: column; gap: 5mm; }
 .word { font-size: 44pt; font-weight: 700; }
-.wrow { display: flex; gap: 8mm; align-items: center; flex: 1; }
-.means { font-size: 17pt; line-height: 1.4; flex: 1; }
+.wrow { display: flex; flex-direction: column; gap: 6mm; align-items: flex-start; flex: 1; }
+.means { font-size: 18pt; line-height: 1.4; }
 .wpic { width: 40mm; }
 .poster h1 { font-size: 30pt; } .poster .hpic { width: 18mm; } .poster .sub { font-size: 12pt; }
 .pfact { border-left: 3mm solid; border-radius: 4mm; padding: 4mm 6mm; font-size: 15pt; line-height: 1.4; }
