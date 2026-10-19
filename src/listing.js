@@ -33,7 +33,7 @@ function pages(pdf, prefix, list, dpi = 110) {
   const out = [];
   for (const p of list) {
     const base = path.join(WORK, `${prefix}-${p}`);
-    if (!fs.existsSync(base + ".jpg")) execFileSync("pdftoppm", ["-jpeg", "-r", String(dpi), "-f", String(p), "-l", String(p), "-singlefile", path.join(DIR, pdf), base]);
+    execFileSync("pdftoppm", ["-jpeg", "-r", String(dpi), "-f", String(p), "-l", String(p), "-singlefile", path.join(DIR, pdf), base]);
     out.push(FILE(base + ".jpg"));
   }
   return out;
@@ -42,7 +42,8 @@ const deckPdf = path.relative(DIR, path.join(WORK, "deck.pdf"));
 const wsPdf = find(/_Worksheets_Colour\.pdf$/), keyPdf = find(/_Answer_Key\.pdf$/), asPdf = find(/_Assessment\.pdf$/), fbPdf = find(/_Flip_Book\.pdf$/), wwPdf = find(/_Word_Wall\.pdf$/), poPdf = find(/_Posters\.pdf$/);
 // the first lesson starts at slide 4; pick a spread of slide types from lesson 1
 const S = pages(deckPdf, "s", [1, 4, 5, 7, 8, 10, 11, 12, 13, 15, 16], 110);
-const WS = pages(wsPdf, "w", [2, 3, 4, 1]);
+const TPL = (UNIT.templates || []).length;
+const WS = pages(wsPdf, "w", [2 + TPL, 3 + TPL, 4 + TPL, 1]);
 const KEY = pages(keyPdf, "k", [3]);
 const AS = pages(asPdf, "a", [2]);
 const FB = pages(fbPdf, "f", [1]);
@@ -69,7 +70,8 @@ body { font-family: NS, sans-serif; color: #${T.text}; }
 .lv img.p { width: 34px; }
 `;
 const peps = n => `<img class="p" src="${FILE(K.img("hot_pepper"))}">`.repeat(n);
-const included = [`${L.length} lessons on editable slides`, `${nWs} worksheets in 3 levels`, `Answer keys written in`, `Pre-test and assessment`, `Flip book, word wall, posters`, `Teacher notes and research`];
+const tileIncluded = [`${L.length} lessons on editable slides`, `${nWs} worksheets in 3 levels`, `Handwritten answer keys`, `Exit tickets and strips`, `Flip book, word wall, posters`, `Teacher guide and research`];
+const included = [`${L.length} lessons on editable slides`, `${nWs} worksheets in 3 levels`, `Answer keys in NSW handwriting font`, `Exit ticket slips, paper strips and squared strips`, `Flip book, word wall, posters`, `Teacher notes and research`];
 
 const tiles = [
   `<div class="tile">
@@ -81,10 +83,10 @@ const tiles = [
     <div class="banner">${L.length} lessons · ${nWs} levelled worksheets</div></div>`,
   `<div class="tile">
     <div class="h2">What's included</div>
-    <ul class="check">${included.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+    <ul class="check">${tileIncluded.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
     <div class="pg" style="width:330px; right:40px; top:200px; transform:rotate(4deg)"><img src="${KEY[0]}"></div>
     <div class="pg" style="width:330px; right:120px; top:520px; transform:rotate(-4deg)"><img src="${AS[0]}"></div>
-    <div class="banner">Print and go · No prep</div></div>`,
+    <div class="banner">Every printable included</div></div>`,
   `<div class="tile">
     <div class="h2">3 levels every lesson</div>
     ${[["Mild", 1, "mint", 0], ["Medium", 2, "sky", 1], ["Spicy", 3, "indigo", 2]].map(([n, k, c, i]) => `<div class="lv" style="left:${45 + i * 335}px"><div class="tag" style="background:${C[c]}">${peps(k)} ${n}</div><div class="pg" style="position:relative; width:300px"><img src="${WS[i]}"></div></div>`).join("")}
@@ -123,7 +125,7 @@ const ev = [
   ["Explicit teaching", "I do, We do, You do with mini whiteboard checks every lesson (CESE What Works Best 2025; AERO)."],
   ["Fractions as lengths", "Strips and number lines, not just pizzas, so students see fractions as numbers (Clarke, Roche and Mitchell)."],
   ["Every learner challenged", "Mild, Medium and Spicy versions of the same task, in the style of Sullivan's enabling and extending prompts."],
-  ["Hinge questions", "Each wrong answer matches a common misconception, so you know who to reteach (CESE assessment guide)."],
+  ["Hinge questions", "Each wrong answer matches a common misconception, so you know who to reteach (AERO formative assessment)."],
 ];
 const preview = `
 <section class="pp cover1"><img src="TILE0"></section>
@@ -141,7 +143,7 @@ const preview = `
 <section class="pp"><h2>Why it works</h2>${ev.map(([h, p]) => `<div class="box"><p><b>${h}.</b> ${esc(p)}</p></div>`).join("")}
   <div class="grid2"><div class="shot wm"><img src="${AS[0]}"></div><div class="shot wm"><img src="${FB[0]}"></div></div></section>
 <section class="pp"><h2>Terms of use</h2><div class="box"><p>One licence is for one teacher and their own students. Additional licences are available at a discount. Please do not share, resell or upload any part of this resource.</p></div>
-  <div class="box"><p>Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Syllabus content paraphrased from the NSW Mathematics K–10 Syllabus © NESA. This resource is not endorsed by NESA or the NSW Department of Education.</p></div></section>`;
+  <div class="box"><p>Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Syllabus content paraphrased from the NSW Mathematics K-10 Syllabus © NESA. This resource is not endorsed by NESA or the NSW Department of Education.</p></div></section>`;
 
 // ---------- listing text ----------
 const listing = `# ${UNIT.title}: ${UNIT.subtitle} | ${UNIT.stage} NSW Maths Unit | Slides, Differentiated Worksheets, Assessment
@@ -149,17 +151,17 @@ const listing = `# ${UNIT.title}: ${UNIT.subtitle} | ${UNIT.stage} NSW Maths Uni
 ## Suggested titles (pick one, max 80 characters on TpT)
 - ${UNIT.subtitle} ${UNIT.stage} NSW Maths Unit | Fractions on a Number Line | Differentiated
 - Fractions as Lengths Unit | Year 3 and 4 NSW | Slides, Worksheets, Assessment
-- ${UNIT.stage} Fractions Unit | Number Lines and Fraction Strips | Australian Curriculum Spelling
+- ${UNIT.stage} Fractions Unit | Number Lines and Fraction Strips | NSW Syllabus
 
 ## Description
 
-Teach fractions as lengths and numbers on a number line with a complete, ready-to-teach ${L.length}-lesson unit written for the NSW Mathematics K–10 Syllabus (${UNIT.subtitle}). Every lesson comes with editable teaching slides, three levels of worksheets and answer keys, so every student works on the same maths at the right level of challenge.
+Teach fractions as lengths and numbers on a number line with a complete, ready-to-teach ${L.length}-lesson unit written for the NSW Mathematics K-10 Syllabus (${UNIT.subtitle}). Every lesson comes with editable teaching slides, three levels of worksheets and answer keys, so every student works on the same maths at the right level of challenge.
 
 **What's included**
 ${included.map(i => `- ${i}`).join("\n")}
 - ${nAssess}-question assessment with a student self-check and an A to E marking rubric
 - A 5-question pre-test to plan your groups
-- Exit tickets for every lesson
+- Printable exit ticket slips for every lesson
 
 **Lessons**
 ${L.map(l => `${l.n}. ${l.title}`).join("\n")}
@@ -173,8 +175,8 @@ ${L.map(l => `${l.n}. ${l.title}`).join("\n")}
 - Discuss and Connect, and an exit ticket
 - Teacher notes in the slide notes
 
-**Why teachers love it**
-- Print and go: no extra resources to find or insert
+**Why it works**
+- Every worksheet, card set, game board and strip the slides mention is included. You supply string, rulers, scissors and dice.
 - Differentiated in every lesson, not just the test
 - Built on Australian research (CESE What Works Best, AERO) and the NSW syllabus
 - Australian spelling throughout
@@ -184,10 +186,10 @@ ${UNIT.outcomes.map(o => `- ${o.code}: ${o.text}`).join("\n")}
 ${UNIT.fit ? `\n${UNIT.fit}.` : ""}
 
 **Formats**
-PowerPoint slides (open in Google Slides), PDF worksheets in colour and black and white, PDF answer key.
+PowerPoint slides (open in Google Slides), Word teacher guide, PDF worksheets in colour and black and white, PDF answer key, assessment, exit tickets, flip book, word wall and posters.
 
 ## Tags / keywords
-fractions, number line, fraction strips, unit fractions, equivalent fractions, stage 2, year 3, year 4, NSW syllabus, partitioned fractions, differentiated, maths unit, australian
+fractions, number line, fraction strips, unit fractions, fraction wall, stage 2, year 3, year 4, NSW syllabus, partitioned fractions, differentiated, maths unit, australian
 
 ## Price suggestion
 Single unit: A$15 to A$19 (TpT US$9 to US$12). Bundle with the next fractions unit for a 20% saving.

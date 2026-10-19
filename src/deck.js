@@ -173,16 +173,18 @@ R.howto = async (slide) => {
   slide.addNotes("Show this slide on the first day. Students can choose their level in every lesson and move up or down at any time. Never label tables or groups by level.");
 };
 
-R.wordwall = async (slide) => {
-  await header(slide, "Words we will use");
-  const vs = UNIT.vocab.slice(0, 10), cols = vs.length > 6 ? 2 : 1;
+const WW_PER = 6;
+R.wordwall = async (slide, it) => {
+  const page = (it && it.page) || 0, pages = Math.ceil(UNIT.vocab.length / WW_PER);
+  await header(slide, pages > 1 ? `Words we will use (${page + 1} of ${pages})` : "Words we will use");
+  const vs = UNIT.vocab.slice(page * WW_PER, page * WW_PER + WW_PER), cols = 1;
   const cw = (W - 2 * M - 0.3 * (cols - 1)) / cols, rowsN = Math.ceil(vs.length / cols);
-  const rh = Math.min(1.0, (BOTTOM - TOP - 0.12 * (rowsN - 1)) / rowsN);
-  const pt = fitPt(vs.map(v => v.means), cw - 2.35, rh, 17, 12);
+  const rh = Math.min(0.95, (BOTTOM - TOP - 0.12 * (rowsN - 1)) / rowsN);
+  const pt = fitPt(vs.map(v => v.means), cw - 3.25, rh, 20, 15);
   vs.forEach((v, i) => {
     const c = i % cols, r = Math.floor(i / cols), x = M + c * (cw + 0.3), y = TOP + r * (rh + 0.12);
-    box(slide, v.word, { x, y, w: 2.2, h: rh, fontSize: 17, bold: true, color: "FFFFFF", fillColor: COL[["teal", "sky", "mint", "indigo", "lav"][i % 5]], align: "center", margin: 2 });
-    box(slide, v.means, { x: x + 2.3, y, w: cw - 2.3, h: rh, fontSize: pt, fillColor: "FFFFFF", sh: true });
+    box(slide, v.word, { x, y, w: 3.1, h: rh, fontSize: 20, bold: true, color: "FFFFFF", fillColor: COL[["teal", "sky", "mint", "indigo", "lav"][i % 5]], align: "center", margin: 2 });
+    box(slide, v.means, { x: x + 3.2, y, w: cw - 3.2, h: rh, fontSize: pt, fillColor: "FFFFFF", sh: true });
   });
   footer(slide);
   slide.addNotes("Use this as a word wall during the unit. The same words are on the printable word wall cards.");
@@ -452,14 +454,28 @@ R.credits = async (slide) => {
   await header(slide, "Thank you");
   const t1 = "This resource is for use by one teacher in their own classroom. Please buy an additional licence for each extra teacher. You may not share, resell or upload this resource or any part of it.";
   const t2 = "Pictures: Microsoft Fluent Emoji (MIT licence). Font: Nunito Sans (SIL Open Font License). Diagrams drawn for this resource.";
-  const t3 = `Syllabus outcomes and content: NSW Mathematics K–10 Syllabus © NSW Education Standards Authority (NESA). ${UNIT.fit ? UNIT.fit + "." : ""} Not endorsed by NESA or the NSW Department of Education.`;
+  const t3 = `Syllabus outcomes and content: NSW Mathematics K-10 Syllabus © NSW Education Standards Authority (NESA). ${UNIT.fit ? UNIT.fit + "." : ""} Not endorsed by NESA or the NSW Department of Education.`;
   let y = TOP + 0.1;
   for (const [t, c] of [[t1, "teal"], [t2, "sky"], [t3, "lav"]]) { const h = K.hFor(t, RIGHT - M, 20, false, 0.4); box(slide, t, { x: M, y, w: RIGHT - M, h, fontSize: 20, fillColor: TINT[c] }); y += h + 0.25; }
   footer(slide);
 };
 
+const DEFAULT_NOTES = {
+  definition: "Say the word together. Read the meaning aloud and point to the picture. Ask two students to say it in their own words.",
+  rows: "Read each part aloud. Pause after each one and ask a student to explain it with an example.",
+  visual: "Point to each part of the picture as you read the explanation. Ask students to show the same thing with their strips or on their whiteboards.",
+  worked: "Think aloud as you go through each step. Model it with real materials first, then point to the picture. Ask students what you did and why.",
+  examples: "Ask students to say why each example fits. Spend the most time on the 'no' examples, because they are close on purpose.",
+  talk: "Give think time first, then partner talk. Listen in and choose two pairs to share.",
+  activity: "Model the first step. Check everyone has started before you work with a small group.",
+  display: "Display this while students work so they can refer back to it.",
+  cfuReveal: "Students tick their own answers or fix them. Note who got two or more wrong and see them at the teacher table.",
+  discuss: "Choose two or three pieces of work to share, from least to most efficient. Name the maths and link it to the success criteria.",
+};
+
 // ---------- plan ----------
-plan.push({ kind: "cover" }, { kind: "howto" }, { kind: "wordwall" });
+plan.push({ kind: "cover" }, { kind: "howto" });
+for (let i = 0; i < Math.ceil(UNIT.vocab.length / WW_PER); i++) plan.push({ kind: "wordwall", page: i });
 for (const ls of UNIT.lessons) {
   lessonStart[ls.id] = plan.length + 1;
   plan.push({ kind: "lessonTitle", ls }, { kind: "lisc", ls });
@@ -497,11 +513,12 @@ pres.subject = `${UNIT.stage} mathematics`;
         pics.forEach((k, i) => slide.addImage({ path: K.img(k), x: W - M - 2.2 + (2.2 - ps) / 2, y: top + i * (ps + 0.35), w: ps, h: ps }));
       } else await fn(slide, s, item);
       footer(slide, item);
-      const notes = [s.notes, s._notes].filter(Boolean).join("\n\n");
+      const notes = [s.notes || DEFAULT_NOTES[s.type], s._notes].filter(Boolean).join("\n\n");
       if (notes) slide.addNotes(K.clean(notes));
     } else if (item.kind === "exit") {
       await R.exit(slide, item); footer(slide, item); slide.addNotes(item._notes);
     } else await R[item.kind](slide, item);
+    void 0;
   }
   await pres.writeFile({ fileName: OUT });
   await require("./theme.js").applyTheme(OUT, T);

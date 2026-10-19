@@ -63,7 +63,7 @@ k.push(table([2300, 4000, 3338], [
   ["Warm-up (5 min)", "Revisit earlier learning on mini whiteboards. No scores.", "Spaced retrieval is one of the best supported practices (AERO)."],
   ["I do, We do", "Model with strips and number lines, then try one together.", "Explicit teaching helps most with new content, especially for students who find maths hard (CESE 2025)."],
   ["Turn and talk", "30 to 45 seconds of partner talk on one question.", "Talk builds reasoning and gives every student a turn (Attard)."],
-  ["Hinge question", "Everyone answers A, B, C or D at once. Each wrong answer is a known misconception.", "Shows in seconds who is ready to move on (CESE assessment guide)."],
+  ["Hinge question", "Everyone answers A, B, C or D at once. Each wrong answer is a known misconception.", "Shows in seconds who is ready to move on (AERO formative assessment)."],
   ["Show me", "Three or four questions on mini whiteboards, then the answer slide.", "Decide who goes to the activity and who stays for another We do."],
   ["Activity and Choose your challenge", "One task at three levels. Students choose and can change.", "Enabling and extending prompts keep everyone on the same maths (Sullivan and colleagues)."],
   ["Discuss and connect, exit ticket", "Share two or three pieces of work, link to the success criteria, then two exit questions.", "Exit tickets form tomorrow's teacher table group."],
@@ -85,7 +85,7 @@ k.push(H1("4. Lesson notes"));
 for (const l of UNIT.lessons) {
   k.push(H2(`Lesson ${l.n}: ${l.title}`));
   k.push(P([R("Learning intention: ", { bold: true }), R(l.li)]));
-  k.push(P([R("Success criteria: ", { bold: true }), R(l.sc.join(" "))]));
+  k.push(P([R("Success criteria: ", { bold: true }), R(l.sc.join("; "))]));
   if (l.materials) k.push(P([R("You need: ", { bold: true }), R(l.materials.join(", "))]));
   k.push(P([R("Notes: ", { bold: true }), R(l.teacherNotes || "")]));
   const pr = (l.printables || []).map(p => p.title + (p.kind === "worksheet" ? " (3 levels)" : ""));
@@ -99,9 +99,11 @@ k.push(P("Give the pre-test before Lesson 1 to plan your first teacher table gro
 k.push(table([2400, 1450, 1450, 1450, 1450, 1438], [["Criteria", "A", "B", "C", "D", "E"], ...UNIT.assessment.rubric.map(r => [r.criteria, r.A, r.B, r.C, r.D, r.E])]));
 
 k.push(H1("6. References"));
-[["NSW Education Standards Authority (2022). Mathematics K–10 Syllabus.", "https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-k-10-2022"],
+[["NSW Education Standards Authority (2022). Mathematics K-10 Syllabus.", "https://curriculum.nsw.edu.au/learning-areas/mathematics/mathematics-k-10-2022"],
  ["CESE (2025). What Works Best 2025: Explicit teaching.", "https://education.nsw.gov.au/content/dam/main-education/about-us/educational-data/cese/What_Works_Best_2025_Evidence_guide_explicit_teaching.pdf"],
  ["AERO (2021, updated 2026). Spacing and retrieval practice guide.", "https://www.edresearch.edu.au/guides-resources/practice-guides/spacing-and-retrieval-practice-guide-full-publication"],
+ ["Attard, C. (2015). Engagement and mathematics: What does it look like in your classroom? Journal of Professional Learning, NSW Teachers Federation.", "https://cpl.nswtf.org.au/journal/semester-2-2015/engagement-and-mathematics-what-does-it-look-like-in-your-classroom/"],
+ ["AERO (2026). At a glance: Formative assessment.", "https://www.edresearch.edu.au/guides-resources/practice-guides/glance-formative-assessment"],
  ["Clarke, D., Roche, A., Cheeseman, J. & Sullivan, P. (2014). Encouraging students to persist when working on challenging tasks.", "https://files.eric.ed.gov/fulltext/EJ1093262.pdf"],
  ["Clarke, D. M., Roche, A. & Mitchell, A. (2008). Ten practical tips for making fractions come alive and make sense.", "https://acuresearchbank.acu.edu.au/item/8v1wx/ten-practical-tips-for-making-fractions-come-alive-and-make-sense"],
  ["Siemon, D. Issues in the Teaching of Mathematics: Ability Grouping. Victorian Department of Education.", "https://www.education.vic.gov.au/Documents/school/teachers/teachingresources/discipline/maths/ability-grouping.pdf"],

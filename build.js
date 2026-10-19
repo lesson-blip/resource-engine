@@ -43,12 +43,14 @@ const licence = `${UNIT.title}: licence and credits
 One licence covers one teacher and their own students. Please do not share, resell or upload this resource or any part of it.
 
 Pictures: Microsoft Fluent Emoji, MIT licence (https://github.com/microsoft/fluentui-emoji).
-Fonts: Nunito Sans and Edu NSW ACT Foundation, SIL Open Font License 1.1 (included in this folder's Fonts readme).
+Fonts: Nunito Sans and Edu NSW ACT Foundation, SIL Open Font License 1.1 (full licence in Fonts_Licence.txt).
 Syllabus outcomes and content: NSW Mathematics K-10 Syllabus, NSW Education Standards Authority. Not endorsed by NESA or the NSW Department of Education.
 
 If the slides show a different font, install Nunito Sans (free, Google Fonts).
 `;
 fs.writeFileSync(path.join(DIR, "Read_Me_First.txt"), licence);
+const F = p => fs.readFileSync(path.join(__dirname, "assets", "fonts", p), "utf8");
+fs.writeFileSync(path.join(DIR, "Fonts_Licence.txt"), "Nunito Sans\n\n" + F("OFL-NunitoSans.txt") + "\n\n----------\n\nEdu NSW ACT Foundation\n\n" + F("OFL-EduNSWACTFoundation.txt"));
 const files = fs.readdirSync(DIR).filter(f => !f.startsWith(".") && f !== "Listing");
 run("zip", ["-qr", path.join(DIR, "Listing", `${t}_PRODUCT.zip`), ...files], { cwd: DIR });
 console.log("\nDone: " + path.relative(__dirname, DIR));

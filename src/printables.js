@@ -23,10 +23,12 @@ const fr = s => esc(s).replace(/(^|[^\d/])(\d+)\/(\d+)(?![\d/])/g, '$1<span clas
 const LEVEL = { Support: ["Mild", 1, "mint"], Core: ["Medium", 2, "sky"], Extend: ["Spicy", 3, "indigo"] };
 const peppers = n => `<span class="pep">${`<img src="${IMG("hot_pepper")}">`.repeat(n)}</span>`;
 
-async function vis(v, maxH = 30, cls = "") {
+const WIDE = v => v && (v.kind === "numberLine" || v.kind === "fractionWall" || v.kind === "barModel");
+async function vis(v, maxH = 30, cls = "", wideW = 150) {
   if (!v) return "";
   const r = await V.render(v);
-  return `<div class="vis ${cls}"><img src="${FILE(r.path)}" style="max-height:${maxH}mm"></div>`;
+  const st = cls.includes("pw") ? "width:100%;max-height:none" : WIDE(v) && !cls.includes("free") ? `width:min(100%, ${wideW}mm)` : `max-height:${maxH}mm`;
+  return `<div class="vis ${cls}"><img src="${FILE(r.path)}" style="${st}"></div>`;
 }
 
 // ---------- building blocks ----------
@@ -67,7 +69,9 @@ async function worksheetPages(p, ls, key) {
   for (const lv of p.levels) {
     let items = ""; let i = 1;
     for (const it of lv.items) items += await item(it, i++, key);
-    const teach = lv.teach ? `<div class="teach"><div class="tt">${fr(lv.teach.text)}</div>${await vis(lv.teach.visual, 26)}</div>` : "";
+    const tv = lv.teach && lv.teach.visual;
+    const stack = tv && (tv.kind === "fractionWall" || (tv.kind === "numberLine" && tv.ticks > 6));
+    const teach = lv.teach ? `<div class="teach ${stack ? "stack" : ""}"><div class="tt">${fr(lv.teach.text)}</div>${await vis(tv, 26, "", stack ? 130 : 70)}</div>` : "";
     h += `<section class="page" data-foot="Lesson ${ls.n} · ${esc(p.title)}">${header({ title: p.title, sub: `Lesson ${ls.n} · ${UNIT.title}`, level: lv.level, pic: (ls.pics || [])[0] })}${teach}<div class="items">${items}</div>${selfCheck()}</section>`;
   }
   return h;
@@ -105,8 +109,32 @@ function contentsPage() {
     <table class="prog"><tr><th>Lesson</th><th>What I learnt</th><th>Levels I finished</th><th>Date</th></tr>${rows}</table></section>`;
 }
 
+async function exitSlips() {
+  let h = "";
+  for (const ls of UNIT.lessons) {
+    if (!ls.exitTicket || !ls.exitTicket.length) continue;
+    let slip = "";
+    let i = 1;
+    for (const e of ls.exitTicket) slip += `<div class="eq"><span class="qn">${i++}</span><div class="qb"><p class="q">${fr(e.q)}</p>${await vis(e.visual, 16, "", 95)}<div class="ln"></div>${e.visual ? "" : '<div class="ln"></div>'}</div></div>`;
+    const one = `<div class="slip"><div class="sh"><b>Exit ticket · Lesson ${ls.n}</b><span>Name <i class="l1"></i></span></div>${slip}</div>`;
+    h += `<section class="page multi slips" data-foot="Exit tickets · Lesson ${ls.n}">${one.repeat(3)}</section>`;
+  }
+  return h;
+}
+
+function templates() {
+  const T = UNIT.templates || [];
+  let h = "";
+  if (T.includes("blankStrips")) h += `<section class="page" data-foot="Paper strips">${header({ title: "Paper strips", sub: "Print on card if you can. Every strip is the same length (18 cm), so they are equal wholes.", pic: "scissors", name: false })}${'<div class="bstrip"></div>'.repeat(7)}</section>`;
+  if (T.includes("squaredStrips")) {
+    const row = n => `<div class="sqs"><span class="sqn">${n} squares</span><div class="sq" style="grid-template-columns:repeat(${n}, 9mm)">${"<i></i>".repeat(n)}</div></div>`;
+    h += `<section class="page" data-foot="Squared strips">${header({ title: "Squared strips", sub: "Cut out a strip. Count squares to check your thirds and fifths.", pic: "straight_ruler", name: false })}${[15, 15, 10, 10, 12, 12, 20].map(row).join("")}</section>`;
+  }
+  return h;
+}
+
 async function worksheets(key) {
-  let h = key ? "" : contentsPage();
+  let h = key ? "" : contentsPage() + templates();
   for (const ls of UNIT.lessons) for (const p of ls.printables || []) h += await printable(p, ls, key);
   return h;
 }
@@ -176,10 +204,11 @@ async function posters() {
     ${UNIT.misconceptions.map((m, i) => `<div class="pfact b-${["teal", "sky", "mint", "indigo", "lav"][i % 5]}-l"><p class="think">Some people think: ${fr(m.think)}</p><p><b>Remember:</b> ${fr(m.fix)}</p></div>`).join("")}</section>`;
   for (const { ls, disp } of big) {
     if (!disp) continue;
-    const text = disp.type === "definition" ? disp.means : (disp.rows || disp.steps || []).map(r => r.text).slice(0, 2).join(" ");
+    const rows = disp.type === "definition" ? [{ label: disp.term, text: disp.means }] : (disp.rows || disp.steps || []).slice(0, 3);
+    const main = ls.poster ? `<div class="pfact b-${UC}-l big"><p>${fr(ls.poster)}</p></div>` : rows.map((r, i) => `<div class="pfact b-${["teal", "sky", "indigo"][i % 3]}-l"><p><b>${fr(r.label || "")}${r.label ? ": " : ""}</b>${fr(r.text)}</p></div>`).join("");
     h += `<section class="page poster" data-foot="Poster · Lesson ${ls.n}">${header({ title: ls.title, sub: `Lesson ${ls.n}`, pic: (ls.pics || [])[0], name: false })}
-      <div class="pvis">${await vis(disp.visual, 95)}</div><div class="pfact b-${UC}-l big"><p>${fr(text)}</p></div>
-      <div class="pfact b-mint-l"><p><b>I can:</b> ${ls.sc.map(fr).join(" · ")}</p></div></section>`;
+      <div class="pvis">${await vis(disp.visual, 110, "pw")}</div>${main}
+      <div class="pfact b-mint-l"><p><b>I can</b></p>${ls.sc.map(t => `<p>${fr(t.replace(/^I can /, "• "))}</p>`).join("")}</div></section>`;
   }
   return h;
 }
@@ -229,7 +258,7 @@ h2 { font-size: 13pt; color: ${C[UC]}; margin-top: 2mm; }
 .pl { width: 5.5mm; height: 5.5mm; border-radius: 99px; border: 1.3px solid ${C[UC]}; color: ${C[UC]}; font-size: 9pt; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none; margin-bottom: 1mm; }
 .pq { padding-bottom: 1mm; }
 .pa { flex: 1; min-width: 22mm; border-bottom: 1.3px solid #9FB1C5; height: 8mm; position: relative; }
-.ans { font-family: HW, NS; color: #3A6EA5; font-size: 14pt; position: absolute; left: 2mm; bottom: 0.6mm; white-space: nowrap; }
+.ans { font-family: HW, NS; color: #3A6EA5; font-size: 13.5pt; line-height: 1.15; position: absolute; left: 2mm; right: 0; bottom: 0.6mm; }
 .keynote { position: relative; height: 8mm; }
 .tbl { border-collapse: collapse; width: 100%; font-size: 11pt; }
 .tbl th { background: ${TI[UC]}; padding: 1.8mm; border: 1.2px solid #9FB1C5; }
@@ -244,10 +273,19 @@ h2 { font-size: 13pt; color: ${C[UC]}; margin-top: 2mm; }
 .rules ol { padding-left: 6mm; line-height: 1.5; margin-top: 1.5mm; }
 .need { display: flex; flex-wrap: wrap; gap: 2mm; align-items: center; }
 .chip { background: #fff; border-radius: 99px; padding: 0.5mm 3mm; font-size: 10pt; font-weight: 700; }
-.cards { display: grid; }
-.cards.c4 { grid-template-columns: repeat(4, 1fr); } .cards.c3 { grid-template-columns: repeat(3, 1fr); }
+.cards { display: flex; flex-wrap: wrap; }
+.cards.c4 .card { width: 25%; } .cards.c3 .card { width: 33.333%; }
 .card { border: 1.4px dashed #9FB1C5; min-height: 30mm; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5mm; padding: 2.5mm; text-align: center; break-inside: avoid; }
 .card.tall { min-height: 50mm; }
+.teach.stack { flex-direction: column; align-items: stretch; } .teach.stack .vis { max-width: none; justify-content: center; }
+.slips { gap: 0; padding-top: 8mm; }
+.slip { border: 1.6px dashed #9FB1C5; height: 86mm; overflow: hidden; padding: 3mm 5mm; display: flex; flex-direction: column; gap: 1.5mm; break-inside: avoid; }
+.sh { display: flex; justify-content: space-between; align-items: center; font-size: 11pt; color: ${C[UC]}; }
+.sh span { display: flex; gap: 2mm; align-items: flex-end; color: #333; } .sh .l1 { width: 50mm; display: inline-block; }
+.eq { display: flex; gap: 3mm; } .eq .q { font-size: 11pt; } .eq .ln { height: 11mm; } .eq .ln + .ln { margin-top: 0; }
+.bstrip { height: 24mm; width: 180mm; border: 1.6px dashed #7A8BA0; border-radius: 1mm; align-self: center; }
+.sqs { display: flex; flex-direction: column; gap: 1mm; } .sqn { font-size: 9pt; color: #5B6B7F; }
+.sq { display: grid; grid-auto-rows: 14mm; border: 1.6px solid #333; width: max-content; } .sq i { border-right: 1px solid #555; } .sq i:last-child { border-right: none; }
 .card .vis { justify-content: center; }
 .ct { font-size: 15pt; font-weight: 700; }
 .prog { width: 100%; border-collapse: collapse; font-size: 11pt; }
@@ -279,7 +317,9 @@ h2 { font-size: 13pt; color: ${C[UC]}; margin-top: 2mm; }
 .wpic { width: 40mm; }
 .poster h1 { font-size: 30pt; } .poster .hpic { width: 18mm; } .poster .sub { font-size: 12pt; }
 .pfact { border-left: 3mm solid; border-radius: 4mm; padding: 4mm 6mm; font-size: 15pt; line-height: 1.4; }
-.pfact.big { font-size: 18pt; }
+.pfact.big { font-size: 24pt; }
+.poster .pfact { font-size: 21pt; } .poster .pfact.big { font-size: 26pt; } .poster .think { font-size: 14pt; }
+.poster .inner { justify-content: space-between; } .poster .pvis { flex: 1; align-items: center; } .poster .pvis .vis { width: 100%; }
 .pfh { display: flex; align-items: center; gap: 3mm; font-size: 18pt; margin-bottom: 1mm; } .pfh .pep img { width: 8mm; }
 .think { color: #${T.muted}; font-size: 13pt; }
 .pvis { display: flex; justify-content: center; padding: 4mm 0; } .pvis .vis { justify-content: center; } .pvis .vis img, .wcard .vis img { max-width: 100%; }
@@ -330,5 +370,6 @@ async function render(browser, name, body, cls = "") {
   await render(b, `${t}_Flip_Book`, await flipbook());
   await render(b, `${t}_Word_Wall`, await wordwall());
   await render(b, `${t}_Posters`, await posters());
+  await render(b, `${t}_Exit_Tickets`, await exitSlips());
   await b.close();
 })().catch(e => { console.error(e); process.exit(1); });
