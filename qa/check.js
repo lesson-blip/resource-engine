@@ -10,7 +10,7 @@ const IMG = path.join(__dirname, "..", "assets", "img");
 const errs = [], warns = [], qa = [];
 const E = (w, m) => errs.push(`${w}: ${m}`), Wn = (w, m) => warns.push(`${w}: ${m}`);
 const KINDS = new Set(["fractionStrip", "fractionWall", "numberLine", "collection", "array", "barModel", "grid", "compass", "angle", "angleSet", "pvChart", "decimalGrid", "mab", "jug", "cubes", "money", "algorithm", "roundLine", "figure"]);
-const TYPES = new Set(["warmup", "definition", "rows", "visual", "worked", "examples", "talk", "hinge", "cfu", "activity", "levels", "discuss", "display"]);
+const TYPES = new Set(["reallife", "warmup", "definition", "rows", "visual", "worked", "examples", "talk", "hinge", "cfu", "activity", "levels", "discuss", "display"]);
 const dash = /[—–]/;
 
 function visual(v, w) {
@@ -38,6 +38,10 @@ for (const k of ["id", "title", "subtitle", "stage", "lessons", "assessment", "v
 (U.vocab || []).forEach((v, i) => { visual(v.visual, `vocab ${i + 1}`); text(v.means, `vocab ${v.word}`); });
 (U.lessons || []).forEach(l => {
   const w = `L${l.n}`;
+  const PH = path.join(__dirname, "..", "assets", "photos");
+  const phs = [l.photo, ...((l.reallife && l.reallife.items) || []).map(x => x.photo)].filter(Boolean);
+  phs.forEach(k => { if (!(U.photos || {})[k]) E(w, `photo ${k} not in unit.photos`); else if (!fs.existsSync(path.join(PH, k + ".jpg"))) Wn(w, `photo ${k} not downloaded (node src/photos.js fetch)`); });
+  if (l.reallife) { text(l.reallife.question, w); l.reallife.items.forEach(x => text(x.caption, w, 110)); }
   text(l.title, w, 44); text(l.menu, w, 24); text(l.li, w, 140); (l.sc || []).forEach(s => text(s, w, 80)); pics(l.pics, w);
   if (!l.sc || l.sc.length < 2) E(w, "needs 2 or 3 success criteria");
   const types = l.slides.map(s => s.type);

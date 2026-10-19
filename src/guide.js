@@ -110,7 +110,7 @@ k.push(H1("6. References"));
  ["Siemon, D. Issues in the Teaching of Mathematics: Ability Grouping. Victorian Department of Education.", "https://www.education.vic.gov.au/Documents/school/teachers/teachingresources/discipline/maths/ability-grouping.pdf"],
 ].forEach(([t, u]) => k.push(P([R(t + " "), link(u, u)])));
 k.push(H2("Licence and credits"));
-k.push(P("One licence covers one teacher and their own students. Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Syllabus outcomes © NESA. Not endorsed by NESA or the NSW Department of Education."));
+k.push(P("One licence covers one teacher and their own students. Pictures: Microsoft Fluent Emoji (MIT licence) and photos from Pexels (Pexels Licence; photographers listed on the slides' Thank you page). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Syllabus outcomes © NESA. Not endorsed by NESA or the NSW Department of Education."));
 
 const doc = new Document({
   creator: "Resource Engine", title: `${UNIT.title}: Teacher guide`,

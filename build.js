@@ -26,6 +26,7 @@ step("Checking the unit file");
 run("node", [path.join(__dirname, "qa", "check.js"), unitFile, "--quiet"]);
 step("Images");
 run("python3", [path.join(__dirname, "src", "images.py"), unitFile]);
+if (UNIT.photos) { step("Photos"); run("node", [path.join(__dirname, "src", "photos.js"), "fetch", unitFile]); }
 step("Slides");
 const deck = path.join(DIR, `${t}_Slides.pptx`);
 const out = run("node", [path.join(__dirname, "src", "deck.js"), unitFile, deck, theme]);
@@ -58,7 +59,7 @@ const licence = `${UNIT.title}: licence and credits
 
 One licence covers one teacher and their own students. Please do not share, resell or upload this resource or any part of it.
 
-Pictures: Microsoft Fluent Emoji, MIT licence (https://github.com/microsoft/fluentui-emoji).
+Pictures: Microsoft Fluent Emoji, MIT licence (https://github.com/microsoft/fluentui-emoji). Photos: Pexels, Pexels Licence (https://www.pexels.com/license/); photographers are listed on the last slide.
 Fonts: Nunito Sans and Edu NSW ACT Foundation, SIL Open Font License 1.1 (full licence in Fonts_Licence.txt).
 Syllabus outcomes and content: NSW Mathematics K-10 Syllabus, NSW Education Standards Authority. Not endorsed by NESA or the NSW Department of Education.
 

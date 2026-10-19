@@ -18,7 +18,7 @@ const TINT = T.tints;
 const UC = UNIT.colour || "teal";
 const LVS = K.levels(UNIT);
 const RES = K.resources(UNIT);
-const PHASE = { lessonTitle: "Beginning the lesson", lisc: "Beginning the lesson", warmup: "Beginning the lesson", discuss: "Concluding the lesson", exit: "Concluding the lesson" };
+const PHASE = { lessonTitle: "Beginning the lesson", lisc: "Beginning the lesson", warmup: "Beginning the lesson", reallife: "Beginning the lesson", discuss: "Concluding the lesson", exit: "Concluding the lesson" };
 function phaseOf(ctx) { if (!ctx || !ctx.ls) return ""; if (PHASE[ctx.kind]) return PHASE[ctx.kind]; if (ctx.s) return PHASE[ctx.s.type] || "Core lesson"; return ""; }
 function resTag(ctx) { if (!ctx || !ctx.ls || !ctx.s || !["activity", "levels"].includes(ctx.s.type)) return ""; const ns = (ctx.ls.printables || []).map(p => RES[p.id]).filter(Boolean); return ns.length ? (ns.length === 1 ? `Resource ${ns[0]}` : `Resources ${ns.slice(0, -1).join(", ")} and ${ns[ns.length - 1]}`) : ""; }
 // level marker: 1 to 3 dots (or chillies), centred in a box of width w starting at x
@@ -219,6 +219,7 @@ R.wordwall = async (slide, it) => {
 
 R.lessonTitle = async (slide, it) => {
   const { ls } = it;
+  if (K.hasPhoto(ls.photo)) return lessonTitlePhoto(slide, it);
   const pics = (ls.pics || []).filter(K.hasImg).slice(0, 3);
   const ps = 1.4, pg = 0.35, tot = pics.length * ps + (pics.length - 1) * pg;
   pics.forEach((k, i) => slide.addImage({ path: K.img(k), x: W / 2 - tot / 2 + i * (ps + pg), y: 0.75, w: ps, h: ps }));
@@ -233,6 +234,53 @@ R.lessonTitle = async (slide, it) => {
   }
   footer(slide, it);
   slide.addNotes(`Lesson ${ls.n}: ${ls.title}.\n\n${ls.teacherNotes || ""}`);
+};
+
+async function lessonTitlePhoto(slide, it) {
+  const { ls } = it;
+  // left: lesson pill, title, you need. right: photo. Clear of the title-slide corner decoration (top corners).
+  const px = 6.75, pw = W - M - px, py = 1.9, ph = 4.75;
+  slide.addImage({ path: await K.photo(ls.photo, pw, ph, 0.28), x: px, y: py, w: pw, h: ph });
+  const lx = M + 0.25, lw = px - lx - 0.4;
+  box(slide, `Lesson ${ls.n}`, { x: lx, y: py, w: 1.8, h: 0.55, fontSize: 17, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center" });
+  let tpt = 40; while (tpt > 26 && K.linesFor(ls.title, lw, tpt, true, 0.5) > 2) tpt--;
+  const th = neededH(ls.title, lw, { fontSize: tpt, bold: true, margin: [8, 18, 8, 18] }) + 0.1;
+  box(slide, ls.title, { x: lx, y: py + 0.75, w: lw, h: th, fontSize: tpt, bold: true, sh: true, margin: [8, 18, 8, 18] });
+  let y = py + 0.75 + th + 0.3;
+  if (ls.materials && ls.materials.length) {
+    const t = "You need: " + ls.materials.join(", ");
+    const pt = fitPt([t], lw, py + ph - y, 19, 13, false, 0.3);
+    const h = Math.min(py + ph - y, K.hFor(t, lw, pt, false, 0.3));
+    box(slide, t, { x: lx, y, w: lw, h, fontSize: pt, fillColor: TINT.sky });
+  }
+  footer(slide, it);
+  slide.addNotes(`Lesson ${ls.n}: ${ls.title}.\n\n${ls.teacherNotes || ""}`);
+}
+
+R.reallife = async (slide, s, it) => {
+  await header(slide, s.title || "Fractions in real life", it, "We do");
+  const items = s.items.filter(x => K.hasPhoto(x.photo)).slice(0, 3), n = items.length, gap = 0.3;
+  const qh = 0.95, top = TOP + 0.05, bottom = BOTTOM - qh - 0.25;
+  const cw = n === 1 ? 6.4 : (RIGHT - M - gap * (n - 1)) / n;
+  const capPt = n === 3 ? 18 : 20;
+  const capH = Math.max(...items.map(x => neededH(x.caption, cw, { fontSize: capPt, margin: [6, 12, 6, 12] }))) + 0.05;
+  const phH = bottom - top - capH - 0.15;
+  if (n === 1) {
+    const x = M;
+    slide.addImage({ path: await K.photo(items[0].photo, cw, bottom - top, 0.22), x, y: top, w: cw, h: bottom - top });
+    const rx = M + cw + 0.35, rw = RIGHT - rx;
+    box(slide, items[0].caption, { x: rx, y: top, w: rw, h: Math.min(bottom - top, neededH(items[0].caption, rw, { fontSize: 22, margin: [10, 16, 10, 16] }) + 0.1), fontSize: 22, fillColor: TINT.sky, margin: [10, 16, 10, 16] });
+  } else {
+    for (let i = 0; i < n; i++) {
+      const x = M + i * (cw + gap);
+      slide.addImage({ path: await K.photo(items[i].photo, cw, phH, 0.2), x, y: top, w: cw, h: phH });
+      box(slide, items[i].caption, { x, y: top + phH + 0.15, w: cw, h: capH, fontSize: capPt, fillColor: TINT[["sky", "mint", "lav"][i]], margin: [6, 12, 6, 12] });
+    }
+  }
+  slide.addImage({ data: await K.icon("comments", COL.teal), x: M, y: BOTTOM - qh + (qh - 0.6) / 2, w: 0.6, h: 0.6 });
+  const qpt = fitPt([s.question], RIGHT - M - 0.8, qh, 24, 16, true);
+  box(slide, s.question, { x: M + 0.8, y: BOTTOM - qh, w: RIGHT - M - 0.8, h: qh, fontSize: qpt, bold: true, sh: true });
+  s._notes = s.notes || "Look at each photo together. Ask: are the parts equal? How do you know? Real objects are rarely perfect, so talk about why we use strips and number lines to show exactly equal parts.";
 };
 
 R.lisc = async (slide, it) => {
@@ -355,7 +403,7 @@ R.talk = async (slide, s, it) => {
   slide.addText([{ text: `${sec}`, options: { fontSize: Math.round(48 * ts / 2.4), bold: true, breakLine: true } }, { text: "seconds", options: { fontSize: Math.round(16 * Math.max(0.8, ts / 2.4)) } }],
     { shape: pres.shapes.OVAL, x: tx, y: ty, w: ts, h: ts, fill: { color: TINT.lav }, line: { color: COL.lav, width: 6 }, fontFace: K.FONT, color: COL.lav, align: "center", valign: "middle", margin: 0 });
   if (s.visual) await placeVisual(slide, s.visual, M + lw + 0.35, 1.6, RIGHT - M - lw - 0.35, BOTTOM - 1.6);
-  else box(slide, "Think on your own first. Then share with your partner. Be ready to share your partner's idea.", { x: M + 1.0, y: 1.6 + ph + 0.35, w: lw - 1.0, h: 1.1, fontSize: 20, fillColor: TINT.teal });
+  else { const tt = "Think on your own first. Then share with your partner. Be ready to share your partner's idea."; box(slide, tt, { x: M + 1.0, y: 1.6 + ph + 0.35, w: lw - 1.0, h: Math.max(1.1, neededH(tt, lw - 1.0, { fontSize: 20, margin: [6, 12, 6, 12] }) + 0.05), fontSize: 20, fillColor: TINT.teal }); }
 };
 
 async function hingeLayout(slide, s, it, reveal) {
@@ -578,10 +626,15 @@ R.tplTwo = async (slide) => {
 R.credits = async (slide) => {
   await header(slide, "Thank you");
   const t1 = "This resource is for use by one teacher in their own classroom. Please buy an additional licence for each extra teacher. You may not share, resell or upload this resource or any part of it.";
-  const t2 = "Pictures: Microsoft Fluent Emoji (MIT licence). Font: Nunito Sans (SIL Open Font License). Diagrams drawn for this resource.";
+  const cr = K.photoCredits(), used = Object.keys(UNIT.photos || {}).filter(k => cr[k]);
+  const names = [...new Set(used.map(k => cr[k].photographer.replace(/[^\p{Script=Latin}\s.'-]/gu, "").replace(/\s+/g, " ").trim()).filter(Boolean))];
+  const t2 = "Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Diagrams drawn for this resource." + (names.length ? ` Photos from Pexels (pexels.com, Pexels Licence) by ${names.join(", ")}.` : "");
   const t3 = `Syllabus outcomes and content: NSW Mathematics K-10 Syllabus © NSW Education Standards Authority (NESA). ${UNIT.fit ? UNIT.fit + "." : ""} Not endorsed by NESA or the NSW Department of Education.`;
   let y = TOP + 0.1;
-  for (const [t, c] of [[t1, "teal"], [t2, "sky"], [t3, "lav"]]) { const h = K.hFor(t, RIGHT - M, 20, false, 0.4); box(slide, t, { x: M, y, w: RIGHT - M, h, fontSize: 20, fillColor: TINT[c] }); y += h + 0.25; }
+  const ts = [[t1, "teal"], [t2, "sky"], [t3, "lav"]];
+  let cpt = 20; const hs = p => ts.map(([t]) => neededH(t, RIGHT - M, { fontSize: p, margin: [6, 12, 6, 12] }) + 0.06);
+  while (cpt > 11 && hs(cpt).reduce((a, b) => a + b, 0) + 0.5 > BOTTOM - y) cpt--;
+  hs(cpt).forEach((h, i) => { box(slide, ts[i][0], { x: M, y, w: RIGHT - M, h, fontSize: cpt, fillColor: TINT[ts[i][1]] }); y += h + 0.25; });
   footer(slide);
 };
 
@@ -607,6 +660,7 @@ for (let i = 0; i < Math.ceil(UNIT.vocab.length / WW_PER); i++) plan.push({ kind
 for (const ls of UNIT.lessons) {
   lessonStart[ls.id] = plan.length + 1;
   plan.push({ kind: "lessonTitle", ls }, { kind: "lisc", ls });
+  if (ls.reallife) plan.push({ kind: "content", ls, s: Object.assign({ type: "reallife" }, ls.reallife) });
   for (const s of ls.slides) {
     plan.push({ kind: "content", ls, s });
     if (s.type === "hinge") plan.push({ kind: "content", ls, s: Object.assign({}, s, { type: "hingeReveal" }) });
@@ -633,13 +687,27 @@ pres.subject = `${UNIT.stage} mathematics`;
   pres.defineSlideMaster({ title: "Cover", background: { path: await K.themeBackground(THEME_KEY, "cover") }, objects: [] });
   pres.defineSlideMaster({ title: "Title", background: { path: await K.themeBackground(THEME_KEY, "title") }, objects: [] });
   const SIMPLE = new Set(["rows", "talk", "discuss", "warmup"]);
+  // cut-out photos of students beside talk and discussion slides (unit.people, cut out by src/photos.js)
+  const PEOPLE_ON = new Set(["talk", "discuss"]);
+  const PDIR = path.join(K.ASSETS, "photos", "people");
+  const people = Object.keys(UNIT.people || {}).map(k => path.join(PDIR, k + ".png")).filter(f => fs.existsSync(f));
+  let pi = 0; const nextPerson = () => people.length ? people[pi++ % people.length] : null;
   for (const item of plan) {
     const slide = pres.addSlide({ masterName: item.kind === "cover" ? "Cover" : item.kind === "lessonTitle" ? "Title" : "Content" });
     if (item.kind === "content") {
       const s = item.s, fn = R[s.type];
       if (!fn) throw new Error("no renderer " + s.type);
       const pics = SIMPLE.has(s.type) && s.pics ? s.pics.filter(K.hasImg) : null;
-      if (pics && pics.length) {
+      const person = (!pics || !pics.length) && PEOPLE_ON.has(s.type) && !s.visual ? nextPerson() : null;
+      if (person) {
+        RIGHT = W - M - 2.45;
+        await fn(slide, s, item);
+        RIGHT = W - M;
+        const meta = await require("sharp")(person).metadata();
+        let ph = BOTTOM - TOP - 0.2, pw = ph * meta.width / meta.height;
+        if (pw > 2.25) { pw = 2.25; ph = pw * meta.height / meta.width; }
+        slide.addImage({ path: person, x: W - M - pw + (pw < 2.25 ? -(2.25 - pw) / 2 : 0), y: BOTTOM - ph, w: pw, h: ph });
+      } else if (pics && pics.length) {
         RIGHT = W - M - 2.45;
         await fn(slide, s, item);
         RIGHT = W - M;

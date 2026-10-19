@@ -908,7 +908,26 @@
           "answer": "No. The parts are not equal in length.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "l1_measure",
+      "reallife": {
+        "title": "Halves in real life",
+        "items": [
+          {
+            "photo": "orange_halves",
+            "caption": "An orange cut into 2 equal parts. Each part is one half."
+          },
+          {
+            "photo": "apple_halves",
+            "caption": "An apple cut into 2 equal parts: halves."
+          },
+          {
+            "photo": "bar_unequal",
+            "caption": "2 parts, but not the same size. These are not halves."
+          }
+        ],
+        "question": "Which pictures show halves? How can you tell?"
+      }
     },
     {
       "id": "l2",
@@ -1508,7 +1527,26 @@
           "answer": "4",
           "visual": null
         }
-      ]
+      ],
+      "photo": "track_lanes",
+      "reallife": {
+        "title": "Quarters and eighths in real life",
+        "items": [
+          {
+            "photo": "cake_quarters",
+            "caption": "A cake cut into 4 pieces. Equal pieces are quarters."
+          },
+          {
+            "photo": "cake_eighths",
+            "caption": "A cake cut into 8 equal slices: eighths."
+          },
+          {
+            "photo": "track_lanes",
+            "caption": "A running track with 8 lanes, all the same width."
+          }
+        ],
+        "question": "How could you halve the quarters to make eighths?"
+      }
     },
     {
       "id": "l3",
@@ -2033,7 +2071,18 @@
           "answer": "No. Halving makes 2, 4 or 8 parts, never 3.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "flag_thirds",
+      "reallife": {
+        "title": "Thirds in real life",
+        "items": [
+          {
+            "photo": "flag_thirds",
+            "caption": "This flag has 3 stripes, all the same width. Each stripe is one third of the flag."
+          }
+        ],
+        "question": "Find something in our classroom that is cut into 3 equal parts."
+      }
     },
     {
       "id": "l4",
@@ -2569,7 +2618,22 @@
           "answer": "1/4. The strip is cut into fewer parts, so each part is longer.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "starfruit",
+      "reallife": {
+        "title": "Fifths in real life",
+        "items": [
+          {
+            "photo": "starfruit",
+            "caption": "A star fruit slice has 5 points, all the same size."
+          },
+          {
+            "photo": "eggs_tenths",
+            "caption": "A carton of 10 eggs. Each egg is one tenth of the carton."
+          }
+        ],
+        "question": "How many eggs make one fifth of the carton? How do you know?"
+      }
     },
     {
       "id": "l5",
@@ -3250,7 +3314,22 @@
             ]
           }
         }
-      ]
+      ],
+      "photo": "tape",
+      "reallife": {
+        "title": "Counting along a length",
+        "items": [
+          {
+            "photo": "tape",
+            "caption": "A tape measure: the marks are all the same distance apart."
+          },
+          {
+            "photo": "ruler_book",
+            "caption": "We use a ruler to make equal jumps."
+          }
+        ],
+        "question": "Why do the marks on a tape measure need to be equal?"
+      }
     },
     {
       "id": "l6",
@@ -3853,7 +3932,22 @@
           "visual": null
         }
       ],
-      "poster": "We have 3/4. The missing part is 1/4. 3/4 + 1/4 = 1"
+      "poster": "We have 3/4. The missing part is 1/4. 3/4 + 1/4 = 1",
+      "photo": "cake_quarters",
+      "reallife": {
+        "title": "How much more?",
+        "items": [
+          {
+            "photo": "cake_quarters",
+            "caption": "One quarter of the cake is being taken. How much is left?"
+          },
+          {
+            "photo": "eggs_tenths",
+            "caption": "One egg is cracked. How many tenths are not cracked?"
+          }
+        ],
+        "question": "How much more would make one whole each time?"
+      }
     },
     {
       "id": "l7",
@@ -4403,7 +4497,22 @@
           "answer": "16 cm",
           "visual": null
         }
-      ]
+      ],
+      "photo": "cake_slice",
+      "reallife": {
+        "title": "Rebuild the whole",
+        "items": [
+          {
+            "photo": "cake_slice",
+            "caption": "This slice is one eighth of a cake."
+          },
+          {
+            "photo": "cake_eighths",
+            "caption": "8 slices like it make the whole cake."
+          }
+        ],
+        "question": "If a slice was one quarter of the cake, how many slices would make the whole?"
+      }
     },
     {
       "id": "l8",
@@ -5012,7 +5121,18 @@
           "answer": "2/3 and 1/3",
           "visual": null
         }
-      ]
+      ],
+      "photo": "brick_wall",
+      "reallife": {
+        "title": "Walls in real life",
+        "items": [
+          {
+            "photo": "brick_wall",
+            "caption": "Rows of bricks the same size, like a fraction wall."
+          }
+        ],
+        "question": "How is a brick wall like our fraction wall? How is it different?"
+      }
     },
     {
       "id": "l9",
@@ -5555,7 +5675,22 @@
           "visual": null
         }
       ],
-      "poster": "Same whole: fewer parts means longer parts. 1/3 is longer than 1/5."
+      "poster": "Same whole: fewer parts means longer parts. 1/3 is longer than 1/5.",
+      "photo": "cake_eighths",
+      "reallife": {
+        "title": "Which is bigger?",
+        "items": [
+          {
+            "photo": "cake_quarters",
+            "caption": "A cake cut into quarters."
+          },
+          {
+            "photo": "cake_eighths",
+            "caption": "A cake cut into eighths."
+          }
+        ],
+        "question": "If both cakes are the same size, would you rather have one quarter or one eighth? Why?"
+      }
     }
   ],
   "assessment": {
@@ -5881,5 +6016,84 @@
     "mini whiteboards",
     "dice and counters for the games",
     "printed card sets from the pack"
-  ]
+  ],
+  "photos": {
+    "l1_measure": {
+      "pexels": 7695262,
+      "note": "child measuring with a ruler"
+    },
+    "orange_halves": {
+      "pexels": 6517121,
+      "note": "orange cut into 2 halves"
+    },
+    "apple_halves": {
+      "pexels": 8249141,
+      "note": "apple cut into 2 halves"
+    },
+    "bar_unequal": {
+      "pexels": 13111782,
+      "note": "muesli bar snapped into 2 unequal pieces (non-example)"
+    },
+    "track_lanes": {
+      "pexels": 3905827,
+      "note": "running track, 8 equal lanes"
+    },
+    "pool_lanes": {
+      "pexels": 36018788,
+      "note": "pool from above, equal lanes"
+    },
+    "flag_thirds": {
+      "pexels": 17881598,
+      "note": "Italian flag, 3 equal stripes"
+    },
+    "starfruit": {
+      "pexels": 7236893,
+      "note": "star fruit slices, 5 equal points"
+    },
+    "tape": {
+      "pexels": 10895042,
+      "note": "tape measure on blue"
+    },
+    "ruler_book": {
+      "pexels": 3986613,
+      "note": "ruling a line in a maths book"
+    },
+    "eggs_tenths": {
+      "pexels": 4110224,
+      "note": "carton of 10 eggs, 1 cracked"
+    },
+    "cake_slice": {
+      "pexels": 24038977,
+      "note": "one slice of cake"
+    },
+    "brick_wall": {
+      "pexels": 7394220,
+      "note": "brick wall, rows of equal bricks"
+    },
+    "cake_eighths": {
+      "pexels": 16564859,
+      "note": "round cake cut into 8 equal slices"
+    },
+    "cake_quarters": {
+      "pexels": 28853982,
+      "note": "cake cut into 4 pieces, a hand taking one"
+    }
+  },
+  "people": {
+    "boy_think": {
+      "pexels": 6261880
+    },
+    "girl_point": {
+      "pexels": 4384676
+    },
+    "girl_hand": {
+      "pexels": 8421994
+    },
+    "boy_point": {
+      "pexels": 20759619
+    },
+    "boy_idea": {
+      "pexels": 7280264
+    }
+  }
 }

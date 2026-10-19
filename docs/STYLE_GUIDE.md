@@ -52,3 +52,9 @@ Plain teacher voice. No em dashes or heavy dashes. No hype words. Short sentence
 - Worked example steps are in the NSW school handwriting font (Edu NSW ACT Foundation, embedded, set 25% larger).
 - Show me slides carry a mini whiteboard icon. Templates include a grid paper working space.
 - Slide 2 is Unit at a glance; the cover links to At a glance, How it works, Word wall and Toolkit. Toolkit slides have pieces to drag in edit mode (`unit.toolkit`). Five blank templates sit before the credits.
+
+## 9. Photos (added 20 Oct 2026)
+- Source: Pexels (licence allows use inside sold templates). `node src/photos.js search "<query>"` makes a contact sheet; choose by id and record it in `unit.photos` with a note on what maths it shows. Every photo is checked by eye: parts called equal must look equal, and captions only claim what is visible.
+- Lesson title slides show `lesson.photo`. `lesson.reallife` adds a "... in real life" slide after the LI/SC slide (1 to 3 photos with captions and a talk question).
+- `unit.people` are cut out (rembg, local) and stand beside Turn and talk and Discuss and connect slides. No school logos or brand names on clothing.
+- Photographers are credited on the Thank you slide and in the guide. The API key lives in `.env` (git-ignored).

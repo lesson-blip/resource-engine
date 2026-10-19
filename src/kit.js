@@ -73,6 +73,21 @@ const LEVEL_STYLES = {
 };
 const TEACHER_LEVELS = ["Support", "Core", "Extension"];
 // Printables are numbered "Resource 1, 2, 3..." in lesson order; slides and printables show the same numbers.
+// Photo cropped to the box (cover) with rounded corners, cached. key -> assets/photos/<key>.jpg
+const PHOTOS = path.join(ASSETS, "photos");
+const hasPhoto = k => !!k && fs.existsSync(path.join(PHOTOS, k + ".jpg"));
+async function photo(key, w, h, r = 0.18, opt = {}) {
+  const src = path.join(PHOTOS, key + ".jpg");
+  const px = 150, W = Math.round(w * px), H = Math.round(h * px), R = Math.round(r * px);
+  const f = path.join(CACHE, `ph_${key}_${W}x${H}_${R}${opt.grey ? "_g" : ""}.png`);
+  if (fs.existsSync(f)) return f;
+  let im = sharp(src).resize(W, H, { fit: "cover", position: opt.position || "attention" });
+  if (opt.grey) im = im.grayscale().linear(1.08, -6);
+  const mask = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="${W}" height="${H}" rx="${R}" ry="${R}" fill="#fff"/></svg>`);
+  await sharp(await im.png().toBuffer()).composite([{ input: mask, blend: "dest-in" }]).png().toFile(f);
+  return f;
+}
+function photoCredits() { try { return JSON.parse(fs.readFileSync(path.join(PHOTOS, "credits.json"), "utf8")); } catch (e) { return {}; } }
 function resources(unit) { const m = {}; let n = 0; for (const l of unit.lessons || []) for (const p of l.printables || []) m[p.id] = ++n; return m; }
 const levels = unit => LEVEL_STYLES[(unit && unit.levelStyle) || "plain"] || LEVEL_STYLES.plain;
 const THEME_KEYS = ["ocean", "pastel", "gumleaf", "boho", "creamgold", "blushsage", "blushnavy"];
@@ -184,4 +199,4 @@ async function browser() {
   }
 }
 
-module.exports = { browser, ROOT, ASSETS, IMGDIR, CACHE, THEMES, THEME_KEYS, LEVEL_STYLES, TEACHER_LEVELS, levels, resources, HW: "Edu NSW ACT Foundation", contrast, themeBackground, FONT, LH, textW, linesFor, hFor, img, hasImg, icon, hash, clean };
+module.exports = { browser, ROOT, ASSETS, IMGDIR, CACHE, THEMES, THEME_KEYS, LEVEL_STYLES, TEACHER_LEVELS, levels, resources, photo, hasPhoto, photoCredits, HW: "Edu NSW ACT Foundation", contrast, themeBackground, FONT, LH, textW, linesFor, hFor, img, hasImg, icon, hash, clean };
