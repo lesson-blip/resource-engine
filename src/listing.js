@@ -12,7 +12,7 @@ const WORK = path.join(DIR, ".work");
 const OUT = path.join(DIR, "Listing");
 fs.mkdirSync(OUT, { recursive: true });
 fs.mkdirSync(WORK, { recursive: true });
-const T = K.THEMES.cool, UC = UNIT.colour || "teal";
+const T = K.THEMES[process.argv[4] || "ocean"], UC = UNIT.colour || "teal";
 const C = Object.fromEntries(Object.entries(T.roles).map(([k, v]) => [k, "#" + v]));
 const TI = Object.fromEntries(Object.entries(T.tints).map(([k, v]) => [k, "#" + v]));
 const FILE = f => "file://" + f;
@@ -55,7 +55,7 @@ const css = `
 @font-face { font-family: NS; src: url("${FILE(path.join(FONTS, "NunitoSans-Bold.ttf"))}"); font-weight: 800; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: NS, sans-serif; color: #${T.text}; }
-.tile { width: 1080px; height: 1080px; position: relative; overflow: hidden; background: radial-gradient(circle at 100% 0%, #CFEFF2 0, rgba(207,239,242,0) 55%), radial-gradient(circle at 0% 100%, #E4DCFA 0, rgba(228,220,250,0) 55%), #F4F7FB; border: 18px solid ${C[UC]}; }
+.tile { width: 1080px; height: 1080px; position: relative; overflow: hidden; background: radial-gradient(circle at 100% 0%, ${T.bg.a} 0, transparent 55%), radial-gradient(circle at 0% 100%, ${T.bg.b} 0, transparent 55%), ${T.bg.base}; border: 18px solid ${C[UC]}; }
 .banner { position: absolute; left: 0; right: 0; bottom: 0; height: 132px; background: ${C[UC]}; color: #fff; font-weight: 800; font-size: 50px; display: flex; align-items: center; justify-content: center; letter-spacing: 0.5px; }
 .big { position: absolute; left: 50px; top: 40px; font-weight: 800; line-height: 0.95; font-size: 112px; letter-spacing: -2px; }
 .big small { display: block; font-size: 38px; letter-spacing: 0; color: ${C[UC]}; margin-top: 14px; font-weight: 800; }
@@ -70,8 +70,11 @@ body { font-family: NS, sans-serif; color: #${T.text}; }
 .lv img.p { width: 34px; }
 `;
 const peps = n => `<img class="p" src="${FILE(K.img("hot_pepper"))}">`.repeat(n);
-const tileIncluded = [`${L.length} lessons on editable slides`, `${nWs} worksheets in 3 levels`, `Handwritten answer keys`, `Exit tickets and strips`, `Flip book, word wall, posters`, `Teacher guide and research`];
-const included = [`${L.length} lessons on editable slides`, `${nWs} worksheets in 3 levels`, `Answer keys in NSW handwriting font`, `Exit ticket slips, paper strips and squared strips`, `Flip book, word wall, posters`, `Teacher notes and research`];
+const THM = (() => { try { return JSON.parse(fs.readFileSync(path.join(WORK, "themes.json"), "utf8")); } catch (e) { return []; } })();
+const nThemes = THM.length;
+const slidesLine = nThemes > 1 ? `${L.length} lessons, slides in ${nThemes} themes` : `${L.length} lessons on editable slides`;
+const tileIncluded = [slidesLine, `${nWs} worksheets in 3 levels`, `Handwritten answer keys`, `Exit tickets and strips`, `Flip book, word wall, posters`, `Teacher guide and research`];
+const included = [nThemes > 1 ? `${L.length} lessons on editable slides in ${nThemes} colour themes: ${THM.map(k => K.THEMES[k].name).join(", ")}` : `${L.length} lessons on editable slides`, `${nWs} worksheets in 3 levels`, `Answer keys in NSW handwriting font`, `Exit ticket slips, paper strips and squared strips`, `Flip book, word wall, posters`, `Teacher notes and research`];
 
 const tiles = [
   `<div class="tile">
@@ -95,7 +98,7 @@ const tiles = [
   `<div class="tile">
     <div class="h2">Teaching slides</div>
     ${[1, 2, 3, 4, 5, 8].map((si, i) => `<div class="pg" style="width:470px; left:${45 + (i % 2) * 505}px; top:${175 + Math.floor(i / 2) * 285}px"><img src="${S[si]}"></div>`).join("")}
-    <div class="banner">PowerPoint · Google Slides · ${nSlides} slides</div></div>`,
+    <div class="banner">${nThemes > 1 ? `${nSlides} slides · ${nThemes} themes` : `PowerPoint · Google Slides · ${nSlides} slides`}</div></div>`,
   `<div class="tile">
     <div class="h2">Hands-on extras</div>
     <div class="pg" style="width:380px; left:50px; top:190px; transform:rotate(-3deg)"><img src="${FB[0]}"></div>
@@ -110,7 +113,7 @@ const tiles = [
 // ---------- preview PDF (a short sales deck, A4 portrait) ----------
 const pcss = css + `
 @page { size: A4; margin: 0; }
-.pp { width: 210mm; height: 297mm; padding: 14mm; page-break-after: always; position: relative; overflow: hidden; background: #F4F7FB; display: flex; flex-direction: column; gap: 6mm; }
+.pp { width: 210mm; height: 297mm; padding: 14mm; page-break-after: always; position: relative; overflow: hidden; background: ${T.bg.base}; display: flex; flex-direction: column; gap: 6mm; }
 .pp h2 { font-size: 26pt; font-weight: 800; letter-spacing: -0.5px; }
 .pp p, .pp li { font-size: 12.5pt; line-height: 1.5; }
 .box { background: #fff; border-radius: 5mm; padding: 5mm 6mm; box-shadow: 0 2mm 5mm rgba(60,90,130,0.1); }

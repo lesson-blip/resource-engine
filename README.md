@@ -5,7 +5,7 @@ Builds sale-ready teaching resource packs from one content file: editable slides
 ## Build a product
 ```bash
 npm install
-node build.js units/s2-fractions-a.json            # theme: --theme cool | calm | bright
+node build.js units/s2-fractions-a.json --theme ocean --slide-themes all   # main theme + slides in every theme
 ```
 Output goes to `dist/<unit id>/`. Listing files and the upload zip are in `dist/<unit id>/Listing/`.
 
@@ -21,7 +21,7 @@ Output goes to `dist/<unit id>/`. Listing files and the upload zip are in `dist/
 | `SCHEMA.md` | The content format for a unit |
 | `docs/STYLE_GUIDE.md` | The standard every product must meet |
 | `docs/research/` | Market sweep and maths evidence base |
-| `src/deck.js` | Slides (PowerPoint) |
+| `src/deck.js` | Slides (PowerPoint). Themes: ocean, pastel, gumleaf, boho, creamgold, blushsage, blushnavy |
 | `src/printables.js` | Worksheets, answer key, assessment, flip book, word wall, posters |
 | `src/guide.js` | Teacher guide (Word) |
 | `src/listing.js` | Cover tiles, preview PDF, listing text |

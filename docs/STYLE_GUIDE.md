@@ -20,7 +20,7 @@ Learning intention and success criteria → warm-up (retrieval of earlier conten
 - PowerPoint, 16:9, opens in Google Slides. Nunito Sans embedded. All text sits in rounded boxes sized to the text; boxes never overlap; nothing off-slide (`src/finalize.py` checks).
 - Header: Lesson pill, title, mode tag (I do sky, We do mint, You do lavender). Footer: unit and lesson label, Menu button.
 - Cover is a clickable lesson menu. Slide 2 explains the modes and levels. Slide 3 is the word wall.
-- Themes: `cool` (default), `calm`, `bright`. Cool colours, modern, never loud 90s colours.
+- Themes (see `docs/research/theme-notes.md`): Ocean (default), Soft Pastel, Gum Leaf, Boho Neutral, Cream and Gold, Blush and Sage, Blush and Navy. Decoration only in the top corners of lesson title slides; diagrams take the theme colours; white text on role colours meets WCAG large-text contrast. Never loud 90s colours.
 - Real images or Microsoft Fluent 3D emoji, never clip art or amateur drawings. Maths diagrams are drawn exactly by `src/visuals.js`.
 - Teacher notes and answers live in the slide notes.
 

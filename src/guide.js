@@ -8,7 +8,7 @@ const { Document, Packer, Paragraph, TextRun, HeadingLevel, Table, TableRow, Tab
 
 const UNIT = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
 const OUT = process.argv[3];
-const T = K.THEMES.cool, UC = T.roles[UNIT.colour || "teal"];
+const T = K.THEMES[process.argv[4] || "ocean"], UC = T.roles[UNIT.colour || "teal"];
 const NAVY = T.text, MINT = T.roles.mint, SKY = T.roles.sky;
 const W = 11906, MAR = 1134, CW = W - 2 * MAR;
 const c = s => K.clean(s);

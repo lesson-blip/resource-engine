@@ -18,6 +18,14 @@ const C = {
 const ROWCOLS = [C.teal, C.sky, C.mint, C.indigo, C.lav, C.teal, C.sky];
 const ROWTINTS = [C.tealL, C.skyL, C.mintL, C.indigoL, C.lavL, C.tealL, C.skyL];
 const F = `font-family="Nunito Sans, sans-serif"`;
+// Diagrams follow the product theme (roles and tints from kit.js). Money and MAB keep real-world colours.
+function setTheme(T) {
+  if (!T) return;
+  C.navy = "#" + T.text; C.grey = "#" + T.muted;
+  for (const k of ["teal", "mint", "sky", "indigo", "lav"]) { C[k] = "#" + T.roles[k]; C[k + "L"] = "#" + T.tints[k]; }
+  const cols = [C.teal, C.sky, C.mint, C.indigo, C.lav, C.teal, C.sky], tints = [C.tealL, C.skyL, C.mintL, C.indigoL, C.lavL, C.tealL, C.skyL];
+  cols.forEach((c, i) => { ROWCOLS[i] = c; ROWTINTS[i] = tints[i]; });
+}
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 function picData(key) {
@@ -360,4 +368,4 @@ async function render(v, opts = {}) {
   return { path: out, ar: r.w / r.h, svg };
 }
 
-module.exports = { render, K, picData };
+module.exports = { render, K, picData, setTheme };

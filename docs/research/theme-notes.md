@@ -17,3 +17,7 @@ Fisher, Godwin & Seltman (2014): heavily decorated rooms reduced attention and l
 Four themes, one engine: Ocean (default), Soft Pastel, Gum Leaf, Boho Neutral. Decoration sits only in clear corners and never overlaps content. Maths diagram colours stay high contrast in every theme.
 
 Sources: missjacobslittlelearners.com (2026 decor trends; top theme picks 2026), teachstarter.com/au (classroom theme ideas; AU theme packs), differentiationcorner.com (10 calming themes, 2026), aph.gov.au FlagPost Oct 2024, aitsl.edu.au ATWD profile, cmu.edu news May 2014.
+
+## Added 20 Oct 2026 at George's request
+- Cream and Gold: clean modern, cream base, gold hairline frame and corner arcs, charcoal text. Gold pills use the darkest gold that still carries white bold text (3.7:1, WCAG large text).
+- Blush and Sage, Blush and Navy: pink pairings. Twinkl sells a "Blush & Blues" theme, Teach Starter sells pink decor bundles.

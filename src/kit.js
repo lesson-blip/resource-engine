@@ -12,42 +12,98 @@ fs.mkdirSync(CACHE, { recursive: true });
 
 // ---------- themes ----------
 // Every theme maps the same five role colours, so content never names a hex value.
+// Each theme: role colours carry white bold text of 16 pt or more (WCAG large text, checked >= 3:1; most are >= 4.5:1), tints are box fills.
+// Roles: teal = unit colour, sky = I do, mint = We do, lav = You do, indigo = extra.
+// pattern: background texture on every slide. deco: corner decoration on lesson title slides only,
+// kept inside the top corners (x < 2.6 in or x > 10.7 in, y < 2 in), which those slides never use.
 const THEMES = {
-  cool: {
-    name: "Cool", text: "17324D", muted: "5B6B7F", card: "FFFFFF",
-    roles: { teal: "0F7C8C", mint: "178F76", sky: "2C74C9", indigo: "5052C9", lav: "7A5CC7" },
+  ocean: {
+    name: "Ocean", blurb: "Cool blues and teal", text: "17324D", muted: "5B6B7F", card: "FFFFFF",
+    roles: { teal: "0F7C8C", mint: "17806B", sky: "2C6FBF", indigo: "4F51C2", lav: "7457C0" },
     tints: { teal: "E0F2F4", mint: "DFF3EC", sky: "E3EEFA", indigo: "E8E8FA", lav: "EFE9FA" },
-    bg: { base: "#F4F7FB", a: "#CFEFF2", b: "#E4DCFA" },
+    bg: { base: "#F4F7FB", a: "#CFEFF2", b: "#E4DCFA" }, pattern: null, deco: { kind: "pics", pics: ["spiral_shell", "water_wave"] },
   },
-  calm: {
-    name: "Calm", text: "2E3440", muted: "6B6F76", card: "FFFFFF",
-    roles: { teal: "3E7F7A", mint: "5E8C6A", sky: "4F78A8", indigo: "6A5E9E", lav: "9A6B8F" },
-    tints: { teal: "E3EFEE", mint: "E7EFE8", sky: "E6EDF5", indigo: "ECEAF4", lav: "F3EAF1" },
-    bg: { base: "#F7F5F0", a: "#E6EFE6", b: "#EFE6DD" },
+  pastel: {
+    name: "Soft Pastel", blurb: "Lilac, blush, mint and butter", text: "433A58", muted: "6E6680", card: "FFFFFF",
+    roles: { teal: "7A63B8", mint: "3B7F62", sky: "4F76B0", indigo: "6A58A8", lav: "B4537A" },
+    tints: { teal: "EEE8F8", mint: "E2F3EA", sky: "E5EDF8", indigo: "F8F0D2", lav: "FBE6EE" },
+    bg: { base: "#FFF9F6", a: "#F3E3F6", b: "#FBE9D6" }, pattern: { kind: "dots", colour: "#F1D7E0" }, deco: { kind: "pics", pics: ["tulip", "blossom"] },
   },
-  bright: {
-    name: "Bright", text: "1F2A44", muted: "5D6680", card: "FFFFFF",
-    roles: { teal: "0E9AA7", mint: "16A34A", sky: "2563EB", indigo: "7C3AED", lav: "DB2777" },
-    tints: { teal: "DDF6F8", mint: "DCFCE7", sky: "DBEAFE", indigo: "EDE9FE", lav: "FCE7F3" },
-    bg: { base: "#FFFFFF", a: "#D7F3FF", b: "#FFF1C7" },
+  gumleaf: {
+    name: "Gum Leaf", blurb: "Eucalyptus, sage and wattle", text: "2E4640", muted: "5F6F69", card: "FFFFFF",
+    roles: { teal: "4A7A6B", mint: "5B7845", sky: "4A6F8C", indigo: "3F5E55", lav: "94604F" },
+    tints: { teal: "E4EEE8", mint: "ECF1E2", sky: "E4ECF1", indigo: "FAF0D2", lav: "F5E7E0" },
+    bg: { base: "#F7F5EF", a: "#DFEADF", b: "#F4EACF" }, pattern: null, deco: { kind: "pics", pics: ["koala", "herb"] },
+  },
+  boho: {
+    name: "Boho Neutral", blurb: "Terracotta, sage and oat", text: "4A3A2F", muted: "75665A", card: "FFFFFF",
+    roles: { teal: "A55F47", mint: "617A55", sky: "557482", indigo: "7E6148", lav: "9C5A62" },
+    tints: { teal: "F6E6DB", mint: "EAEFE3", sky: "E4ECEF", indigo: "F7EDD5", lav: "F5E4E4" },
+    bg: { base: "#FBF7F1", a: "#F2E2D3", b: "#E5EBDD" }, pattern: null, deco: { kind: "arcs", colours: ["#EBCF96", "#C9D3BA", "#E6BFA6"] },
+  },
+  creamgold: {
+    name: "Cream and Gold", blurb: "Clean cream with gold detail", text: "2C2A30", muted: "6A655C", card: "FFFFFF",
+    roles: { teal: "A57E2C", mint: "4F6E5A", sky: "45607E", indigo: "36394D", lav: "855E66" },
+    tints: { teal: "F4EBD6", mint: "E8EFE9", sky: "E7ECF2", indigo: "ECEBF0", lav: "F3E8EA" },
+    bg: { base: "#FBF8F1", a: "#F3E9D2", b: "#F6F1E6" }, pattern: { kind: "frame", colour: "#C9A75A" }, deco: { kind: "goldarc", colour: "#C9A75A" },
+  },
+  blushsage: {
+    name: "Blush and Sage", blurb: "Soft pink with sage green", text: "3E3438", muted: "6F6468", card: "FFFFFF",
+    roles: { teal: "B04F6E", mint: "557A5A", sky: "4F7192", indigo: "6E5A86", lav: "9A4F5E" },
+    tints: { teal: "FBE5EC", mint: "E5EFE4", sky: "E6EDF4", indigo: "EFE9F4", lav: "F8E1E5" },
+    bg: { base: "#FFF8F7", a: "#FADDE4", b: "#DDE9DA" }, pattern: null, deco: { kind: "pics", pics: ["blossom", "seedling"] },
+  },
+  blushnavy: {
+    name: "Blush and Navy", blurb: "Soft pink with deep navy", text: "1F2A44", muted: "5D6680", card: "FFFFFF",
+    roles: { teal: "2C3D63", mint: "3F766E", sky: "3A68A6", indigo: "4A3F7A", lav: "AE4D69" },
+    tints: { teal: "E7EBF4", mint: "E2EFEC", sky: "E4ECF7", indigo: "ECE9F5", lav: "FBE5EB" },
+    bg: { base: "#FFF9F8", a: "#F8DCE3", b: "#DCE3F1" }, pattern: null, deco: { kind: "arcs", colours: ["#F3C9D3", "#C8D3E8", "#F7E1E6"] },
   },
 };
+THEMES.cool = THEMES.ocean; // old name
+const THEME_KEYS = ["ocean", "pastel", "gumleaf", "boho", "creamgold", "blushsage", "blushnavy"];
+
+function lum(hex) { const c = hex.replace("#", "").match(/../g).map(h => parseInt(h, 16) / 255).map(v => v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; }
+function contrast(a, b) { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); }
 
 async function themeBackground(theme, kind = "content") {
   const t = THEMES[theme];
-  const f = path.join(CACHE, `bg_${theme}_${kind}.png`);
+  const f = path.join(CACHE, `bg2_${theme}_${kind}.png`);
   if (fs.existsSync(f)) return f;
-  const W = 1920, H = 1080;
-  const big = kind === "cover";
+  const W = 1920, H = 1080, PX = 144; // 144 px per inch
+  const big = kind !== "content";
+  let pat = "";
+  if (t.pattern && t.pattern.kind === "dots") pat = `<pattern id="d" width="36" height="36" patternUnits="userSpaceOnUse"><circle cx="18" cy="18" r="3.2" fill="${t.pattern.colour}"/></pattern><rect width="${W}" height="${H}" fill="url(#d)"/>`;
+  if (t.pattern && t.pattern.kind === "frame") pat = `<rect x="16" y="16" width="${W - 32}" height="${H - 32}" rx="22" fill="none" stroke="${t.pattern.colour}" stroke-width="3"/>`;
+  let deco = "";
+  const d = t.deco || {};
+  if (kind === "title" && d.kind === "arcs") {
+    const arc = (cx, cy, r0) => d.colours.map((c, i) => `<circle cx="${cx}" cy="${cy}" r="${r0 + i * 34}" fill="none" stroke="${c}" stroke-width="22"/>`).reverse().join("");
+    deco = arc(0, 0, 120) + arc(W, 0, 120);
+  }
+  if (kind === "title" && d.kind === "goldarc") deco = `<circle cx="0" cy="0" r="230" fill="none" stroke="${d.colour}" stroke-width="3"/><circle cx="0" cy="0" r="250" fill="none" stroke="${d.colour}" stroke-width="1.5"/><circle cx="${W}" cy="0" r="230" fill="none" stroke="${d.colour}" stroke-width="3"/><circle cx="${W}" cy="0" r="250" fill="none" stroke="${d.colour}" stroke-width="1.5"/>`;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
     <defs>
       <radialGradient id="a" cx="${big ? 0.92 : 1}" cy="0" r="${big ? 0.75 : 0.55}"><stop offset="0" stop-color="${t.bg.a}"/><stop offset="1" stop-color="${t.bg.a}" stop-opacity="0"/></radialGradient>
       <radialGradient id="b" cx="0" cy="1" r="${big ? 0.75 : 0.55}"><stop offset="0" stop-color="${t.bg.b}"/><stop offset="1" stop-color="${t.bg.b}" stop-opacity="0"/></radialGradient>
     </defs>
     <rect width="${W}" height="${H}" fill="${t.bg.base}"/>
-    <rect width="${W}" height="${H}" fill="url(#a)"/><rect width="${W}" height="${H}" fill="url(#b)"/>
+    <rect width="${W}" height="${H}" fill="url(#a)"/><rect width="${W}" height="${H}" fill="url(#b)"/>${pat}${deco}
   </svg>`;
-  await sharp(Buffer.from(svg)).png().toFile(f);
+  let im = sharp(Buffer.from(svg));
+  if (kind === "title" && d.kind === "pics") {
+    const comp = [];
+    const sz = Math.round(1.25 * PX);
+    for (const [i, k] of d.pics.entries()) {
+      const fp = path.join(IMGDIR, k + ".png");
+      if (!fs.existsSync(fp)) continue;
+      const buf = await sharp(fp).resize(sz, sz).rotate(i ? 14 : -14, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+      const m = await sharp(buf).metadata();
+      comp.push({ input: buf, left: i ? W - m.width - Math.round(0.3 * PX) : Math.round(0.3 * PX), top: Math.round(0.2 * PX) });
+    }
+    im = sharp(await im.png().toBuffer()).composite(comp);
+  }
+  await im.png().toFile(f);
   return f;
 }
 
@@ -114,4 +170,4 @@ async function browser() {
   }
 }
 
-module.exports = { browser, ROOT, ASSETS, IMGDIR, CACHE, THEMES, themeBackground, FONT, LH, textW, linesFor, hFor, img, hasImg, icon, hash, clean };
+module.exports = { browser, ROOT, ASSETS, IMGDIR, CACHE, THEMES, THEME_KEYS, contrast, themeBackground, FONT, LH, textW, linesFor, hFor, img, hasImg, icon, hash, clean };

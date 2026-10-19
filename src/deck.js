@@ -8,8 +8,11 @@ const V = require("./visuals.js");
 
 const UNIT = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
 const OUT = process.argv[3];
-const THEME_KEY = process.argv[4] || "cool";
+const THEME_KEY = process.argv[4] || "ocean";
+if (!K.THEMES[THEME_KEY]) { console.error("unknown theme " + THEME_KEY + ". Use one of: " + K.THEME_KEYS.join(", ")); process.exit(1); }
 const T = K.THEMES[THEME_KEY];
+V.setTheme(T);
+for (const [r, c] of Object.entries(T.roles)) if (K.contrast("#FFFFFF", "#" + c) < 3) console.warn(`CONTRAST theme ${THEME_KEY} role ${r} #${c} is too light for white text`);
 const COL = Object.assign({ navy: T.text, muted: T.muted, white: "FFFFFF" }, T.roles);
 const TINT = T.tints;
 const UC = UNIT.colour || "teal";
@@ -498,9 +501,10 @@ pres.subject = `${UNIT.stage} mathematics`;
 (async () => {
   pres.defineSlideMaster({ title: "Content", background: { path: await K.themeBackground(THEME_KEY, "content") }, objects: [] });
   pres.defineSlideMaster({ title: "Cover", background: { path: await K.themeBackground(THEME_KEY, "cover") }, objects: [] });
+  pres.defineSlideMaster({ title: "Title", background: { path: await K.themeBackground(THEME_KEY, "title") }, objects: [] });
   const SIMPLE = new Set(["rows", "talk", "discuss", "warmup"]);
   for (const item of plan) {
-    const slide = pres.addSlide({ masterName: item.kind === "cover" || item.kind === "lessonTitle" ? "Cover" : "Content" });
+    const slide = pres.addSlide({ masterName: item.kind === "cover" ? "Cover" : item.kind === "lessonTitle" ? "Title" : "Content" });
     if (item.kind === "content") {
       const s = item.s, fn = R[s.type];
       if (!fn) throw new Error("no renderer " + s.type);
