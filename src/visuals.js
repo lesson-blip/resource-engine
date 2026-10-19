@@ -354,6 +354,159 @@ K.figure = v => {
   return { file: f };
 };
 
+
+// ---------- lengths you can see: ribbon pieces, a strip on a ruler, stacked strips ----------
+K.ribbon = v => {
+  // pieces: lengths (numbers); drawn proportionally, each with notched ends and a label underneath
+  const ps = v.pieces || [5, 5], unit = v.unit || "cm", total = ps.reduce((a, b) => a + b, 0), W = 1100, gap = ps.length > 1 ? 34 : 0;
+  const avail = W - 40 - gap * (ps.length - 1), H = 250, y = 30, h = 110;
+  let s = "", x = 20;
+  ps.forEach((p, i) => {
+    const w = avail * p / total, c = [C.lav, C.sky, C.mint, C.teal][i % 4], n = 16;
+    s += `<path d="M${x},${y} L${x + w},${y} L${x + w - n},${y + h / 2} L${x + w},${y + h} L${x},${y + h} L${x + n},${y + h / 2} Z" fill="${c}" stroke="${C.navy}" stroke-width="3" stroke-linejoin="round"/>`;
+    s += `<line x1="${x + 10}" y1="${y + 14}" x2="${x + w - 10}" y2="${y + 14}" stroke="#fff" stroke-opacity="0.45" stroke-width="5"/>`;
+    if (v.labels !== false) s += txt(x + w / 2, y + h + 66, `${p} ${unit}`, 54, C.navy);
+    x += w + gap;
+  });
+  return { w: W, h: H, body: s };
+};
+
+K.ruler = v => {
+  // a paper strip lying on a ruler marked 0 to length
+  const L = v.length || 10, unit = v.unit || "cm", W = 1180, x0 = 50, x1 = W - 130, y = 30;
+  const every = v.labelEvery || (L <= 12 ? 1 : L <= 30 ? 5 : 10);
+  let s = `<rect x="${x0}" y="${y}" width="${x1 - x0}" height="80" rx="6" fill="${C.skyL}" stroke="${C.sky}" stroke-width="4"/>`;
+  s += `<rect x="${x0 - 30}" y="${y + 100}" width="${x1 - x0 + 60}" height="120" rx="12" fill="#F6E7B8" stroke="#B8862B" stroke-width="4"/>`;
+  for (let i = 0; i <= L; i++) {
+    const x = x0 + (x1 - x0) * i / L, major = i % every === 0;
+    s += `<line x1="${x}" y1="${y + 100}" x2="${x}" y2="${y + 100 + (major ? 46 : 28)}" stroke="#6B4A0E" stroke-width="${major ? 4 : 3}"/>`;
+    if (major) s += txt(x, y + 196, String(i), 40, "#6B4A0E");
+  }
+  s += txt(x1 + 42, y + 196, unit, 34, "#6B4A0E", 700, "start");
+  return { w: W, h: 260, body: s };
+};
+
+K.stripStack = v => {
+  // strips: [{parts, shaded, width (0..1 of full), label}] aligned left, with an optional label in front
+  const st = v.strips || [], W = 1100, rh = 92, gap = 22, lab = st.some(x => x.label) ? 150 : 0, x0 = 20 + lab, full = W - 30 - lab;
+  let s = "";
+  st.forEach((t, r) => {
+    const y = 20 + r * (rh + gap), w = full * (t.width || 1), n = t.parts || 1, c = ROWCOLS[r % 7];
+    if (t.label) s += num(20 + lab / 2 - 10, y + rh / 2, t.label, 40, C.navy);
+    for (let i = 0; i < n; i++) {
+      const x = x0 + (w / n) * i, on = i < (t.shaded || 0);
+      s += `<rect x="${x}" y="${y}" width="${w / n}" height="${rh}" fill="${on ? c : "#fff"}" stroke="${C.navy}" stroke-width="3"/>`;
+      if (t.partLabels !== false && w / n > 60) s += num(x + w / n / 2, y + rh / 2, n === 1 ? "1" : `1/${n}`, Math.min(44, w / n / 2.2), on ? "#fff" : C.navy);
+    }
+    s += `<rect x="${x0}" y="${y}" width="${w}" height="${rh}" fill="none" stroke="${C.navy}" stroke-width="5" rx="4"/>`;
+    if (t.note) s += txt(x0 + w + 16, y + rh / 2 + 12, t.note, 30, C.grey, 700, "start");
+  });
+  return { w: W, h: 40 + st.length * (rh + gap) - gap, body: s };
+};
+
+// ---------- area models: shapes cut into parts ----------
+function shapeSVG(it, cx, cy, R) {
+  const n = it.parts || 2, sh = it.shaded || 0, eq = it.equal !== false, fillOn = C.teal, line = C.navy;
+  const shade = i => i < sh ? fillOn : "#fff";
+  let s = "";
+  if (it.shape === "circle") {
+    if (n === 1) return `<circle cx="${cx}" cy="${cy}" r="${R}" fill="${shade(0)}" stroke="${line}" stroke-width="5"/>`;
+    // unequal: cut angles skewed
+    const ang = []; for (let i = 0; i <= n; i++) ang.push(-Math.PI / 2 + 2 * Math.PI * i / n + (eq || i === 0 || i === n ? 0 : 0.55 * Math.sin(i * 1.7)));
+    for (let i = 0; i < n; i++) {
+      const a = ang[i], b = ang[i + 1], large = b - a > Math.PI ? 1 : 0;
+      s += `<path d="M${cx},${cy} L${cx + R * Math.cos(a)},${cy + R * Math.sin(a)} A${R},${R} 0 ${large} 1 ${cx + R * Math.cos(b)},${cy + R * Math.sin(b)} Z" fill="${shade(i)}" stroke="${line}" stroke-width="4" stroke-linejoin="round"/>`;
+    }
+    return s + `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${line}" stroke-width="5"/>`;
+  }
+  if (it.shape === "square" || it.shape === "rect") {
+    const w = it.shape === "rect" ? R * 2.4 : R * 1.8, h = it.shape === "rect" ? R * 1.3 : R * 1.8, x = cx - w / 2, y = cy - h / 2;
+    if (it.cut === "diagonal" && n === 2) {
+      s += `<path d="M${x},${y} L${x + w},${y} L${x + w},${y + h} Z" fill="${shade(0)}" stroke="${line}" stroke-width="4"/><path d="M${x},${y} L${x},${y + h} L${x + w},${y + h} Z" fill="${shade(1)}" stroke="${line}" stroke-width="4"/>`;
+    } else if (it.cut === "cross" && n === 4) {
+      [[0, 0], [1, 0], [0, 1], [1, 1]].forEach(([a, b], i) => s += `<rect x="${x + a * w / 2}" y="${y + b * h / 2}" width="${w / 2}" height="${h / 2}" fill="${shade(i)}" stroke="${line}" stroke-width="4"/>`);
+    } else {
+      const cuts = []; for (let i = 0; i <= n; i++) cuts.push(i / n);
+      if (!eq) for (let i = 1; i < n; i++) cuts[i] = cuts[i] + (i % 2 ? 0.14 : -0.08);
+      for (let i = 0; i < n; i++) s += `<rect x="${x + w * cuts[i]}" y="${y}" width="${w * (cuts[i + 1] - cuts[i])}" height="${h}" fill="${shade(i)}" stroke="${line}" stroke-width="4"/>`;
+    }
+    return s + `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="${line}" stroke-width="5" rx="3"/>`;
+  }
+  if (it.shape === "triangle") {
+    const h = R * 1.75, w = R * 2.1, A = [cx, cy - h / 2], B = [cx - w / 2, cy + h / 2], Cc = [cx + w / 2, cy + h / 2];
+    const m = eq ? 0.5 : 0.28, M2 = [B[0] + (Cc[0] - B[0]) * m, B[1]];
+    s += `<path d="M${A} L${B} L${M2} Z" fill="${shade(0)}" stroke="${line}" stroke-width="4" stroke-linejoin="round"/><path d="M${A} L${M2} L${Cc} Z" fill="${shade(1)}" stroke="${line}" stroke-width="4" stroke-linejoin="round"/>`;
+    return s;
+  }
+  return s;
+}
+K.shapeSet = v => {
+  const its = v.items || [], cols = v.cols || (its.length === 4 ? 2 : its.length), rows = Math.ceil(its.length / cols), cw = 260, R = 92, rh = v.captions || v.marks ? 330 : 250, W = cols * cw + 20, H = rows * rh;
+  let s = "";
+  its.forEach((it, i0) => {
+    const i = i0 % cols, ro = Math.floor(i0 / cols), cx = 10 + cw * i + cw / 2, cy = 120 + ro * rh;
+    s += shapeSVG(it, cx, cy, R);
+    const oy = ro * rh;
+    if (it.caption) s += txt(cx, 270 + oy, it.caption, 30, C.navy);
+    if (v.marks) {
+      const ok = it.equal !== false, my = (it.caption ? 305 : 275) + oy;
+      s += `<circle cx="${cx}" cy="${my}" r="26" fill="${ok ? C.mint : C.lav}"/>` + txt(cx, my + 11, ok ? "✓" : "✗", 34, "#fff");
+    }
+  });
+  return { w: W, h: H, body: s };
+};
+
+// pattern blocks (classroom colours: yellow hexagon, red trapezium, blue rhombus, green triangle)
+const PB = { hexagon: "#F2C230", trapezium: "#E0573F", rhombus: "#3E6FD0", triangle: "#3FA34D" };
+function hexPieces(split, cx, cy, r) {
+  const P = k => [cx + r * Math.cos(Math.PI / 3 * k), cy + r * Math.sin(Math.PI / 3 * k)];
+  const O = [cx, cy];
+  if (split === "trapezium") return [[P(0), P(1), P(2), P(3)], [P(3), P(4), P(5), P(0)]];
+  if (split === "rhombus") return [[O, P(5), P(0), P(1)], [O, P(1), P(2), P(3)], [O, P(3), P(4), P(5)]];
+  if (split === "triangle") return [0, 1, 2, 3, 4, 5].map(k => [O, P(k), P(k + 1)]);
+  return [[0, 1, 2, 3, 4, 5].map(P)];
+}
+K.patternBlocks = v => {
+  const hx = v.hexes || [{ split: "rhombus", shaded: 1 }], cw = 330, W = hx.length * cw, r = 130, H = 420;
+  let s = "";
+  hx.forEach((h, i) => {
+    const cx = cw * i + cw / 2, cy = 165, pieces = hexPieces(h.split, cx, cy, r), col = PB[h.split] || PB.hexagon;
+    // the yellow hexagon (the whole) sits underneath; pieces placed on it are coloured, the rest show as outlines on yellow
+    s += `<polygon points="${hexPieces("hexagon", cx, cy, r)[0].map(p => p.join(",")).join(" ")}" fill="#FBE3A0"/>`;
+    pieces.forEach((pp, j) => { const on = j < (h.shaded == null ? pieces.length : h.shaded); s += `<polygon points="${pp.map(p => p.join(",")).join(" ")}" fill="${on ? col : "none"}" stroke="${C.navy}" stroke-width="${on ? 5 : 3}" stroke-dasharray="${on ? "" : "10 8"}" stroke-linejoin="round"/>`; });
+    s += `<polygon points="${hexPieces("hexagon", cx, cy, r)[0].map(p => p.join(",")).join(" ")}" fill="none" stroke="${C.navy}" stroke-width="5" stroke-linejoin="round"/>`;
+    if (h.label) s += num(cx, 360, h.label, 46, C.navy);
+  });
+  return { w: W, h: H, body: s };
+};
+
+// tangram: a square cut into 7 pieces. Large triangles are 1/4, medium triangle, square and parallelogram are 1/8, small triangles 1/16.
+K.tangram = v => {
+  const u = 110, x0 = 30, y0 = 30, P = (a, b) => [x0 + a * u, y0 + b * u].join(",");
+  const pcs = {
+    big1: [[0, 0], [4, 0], [2, 2]], big2: [[0, 0], [2, 2], [0, 4]], medium: [[4, 2], [4, 4], [2, 4]],
+    small1: [[4, 0], [4, 2], [3, 1]], square: [[2, 2], [3, 1], [4, 2], [3, 3]], small2: [[2, 2], [3, 3], [1, 3]], para: [[1, 3], [3, 3], [2, 4], [0, 4]],
+  };
+  const lab = { big1: [2, 0.75, "1/4"], big2: [0.75, 2, "1/4"], medium: [3.35, 3.35, "1/8"], square: [3, 2, "1/8"], para: [1.5, 3.5, "1/8"] };
+  const cols = { big1: C.teal, big2: C.sky, medium: C.mint, square: C.indigo, para: C.lav, small1: C.tealL, small2: C.skyL };
+  const hl = new Set(v.highlight || Object.keys(pcs));
+  let s = "";
+  for (const [k, pts] of Object.entries(pcs)) s += `<polygon points="${pts.map(p => P(...p)).join(" ")}" fill="${hl.has(k) ? cols[k] : "#fff"}" stroke="${C.navy}" stroke-width="5" stroke-linejoin="round"/>`;
+  if (v.labels !== false) for (const [k, [a, b, t]] of Object.entries(lab)) if (hl.has(k)) s += num(x0 + a * u, y0 + b * u, t, 40, "#fff");
+  return { w: 4 * u + 60, h: 4 * u + 60, body: s };
+};
+
+// a spiral notebook holding another visual (for share and discuss slides)
+K.notebook = v => {
+  const inner = K[v.inner.kind](v.inner), W = 900, pad = 50, top = 70, H = Math.max(380, Math.min(700, top + pad + 40 + (W - 2 * pad) * inner.h / inner.w));
+  const sc = Math.min((W - 2 * pad) / inner.w, (H - top - pad) / inner.h), iw = inner.w * sc, ih = inner.h * sc;
+  let s = `<rect x="14" y="24" width="${W - 28}" height="${H - 34}" rx="26" fill="#000" fill-opacity="0.08"/><rect x="8" y="14" width="${W - 28}" height="${H - 34}" rx="26" fill="#fff" stroke="${C.line}" stroke-width="4"/>`;
+  for (let y = top + 40; y < H - 40; y += 46) s += `<line x1="40" y1="${y}" x2="${W - 50}" y2="${y}" stroke="${C.skyL}" stroke-width="3"/>`;
+  for (let x = 70; x < W - 60; x += 56) s += `<rect x="${x}" y="0" width="16" height="52" rx="8" fill="#fff" stroke="${C.grey}" stroke-width="4"/>`;
+  s += `<svg x="${(W - iw) / 2}" y="${top + (H - top - 30 - ih) / 2}" width="${iw}" height="${ih}" viewBox="0 0 ${inner.w} ${inner.h}">${inner.body}</svg>`;
+  return { w: W, h: H, body: s };
+};
+
 async function render(v, opts = {}) {
   if (!v || !K[v.kind]) throw new Error("unknown visual " + (v && v.kind));
   const r = K[v.kind](v);

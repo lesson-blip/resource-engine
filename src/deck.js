@@ -73,6 +73,7 @@ function pill(slide, text, x, y, color, pt = 14, h = 0.44) {
 }
 
 // ---------- visuals ----------
+async function visAR(v) { return (await V.render(v)).ar; }
 async function placeVisual(slide, v, x, y, w, h, align = "center") {
   const r = await V.render(v);
   let iw = w, ih = w / r.ar;
@@ -307,8 +308,13 @@ R.warmup = async (slide, s, it) => {
   const ph = Math.max(0.85, K.hFor(s.prompt, pw, 23, true));
   box(slide, s.prompt, { x: M + 0.9, y: 1.55, w: pw, h: ph, fontSize: 23, bold: true, sh: true });
   box(slide, "5 minutes", { x: RIGHT - 1.6, y: 1.55, w: 1.6, h: 0.6, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL.lav, align: "center" });
-  const y0 = 1.55 + ph + 0.3, n = s.items.length, cols = n <= 2 ? 1 : 2;
-  const cw = cols === 1 ? RIGHT - M : (RIGHT - M - 0.3) / 2, rowsN = Math.ceil(n / cols);
+  let y0 = 1.55 + ph + 0.3; const n = s.items.length;
+  const wide = s.visual && (await visAR(s.visual)) > 2.6;
+  if (wide) { await placeVisual(slide, s.visual, M, y0 - 0.1, RIGHT - M, 1.2); y0 += 1.25; }
+  const side = s.visual && !wide, cols = side ? 1 : n <= 2 ? 1 : 2;
+  const vw = side ? (RIGHT - M) * 0.3 : 0;
+  if (side) await placeVisual(slide, s.visual, RIGHT - vw, y0, vw, BOTTOM - y0);
+  const cw = cols === 1 ? RIGHT - M - (vw ? vw + 0.35 : 0) : (RIGHT - M - 0.3) / 2, rowsN = Math.ceil(n / cols);
   const ih = (BOTTOM - y0 - 0.2 * (rowsN - 1)) / rowsN;
   const pt = fitPt(s.items, cw, Math.min(ih, 1.6), 26, 15);
   s.items.forEach((t, i) => { const c = i % cols, r = Math.floor(i / cols); box(slide, t, { x: M + c * (cw + 0.3), y: y0 + r * (Math.min(ih, 1.6) + 0.2), w: cw, h: Math.min(ih, 1.6), fontSize: pt, fillColor: TINT.lav }); });
@@ -329,6 +335,7 @@ R.definition = async (slide, s, it) => {
 };
 
 R.rows = async (slide, s, it) => {
+  if (s.visual) return R.visual(slide, s, it);
   await header(slide, s.title, it, s.mode);
   let y = TOP + 0.05;
   if (s.intro) y = await introBox(slide, s.intro, y);
@@ -389,8 +396,21 @@ R.examples = async (slide, s, it) => {
   }
 };
 
+async function talkWide(slide, s, it) {
+  const pw = RIGHT - M - 1.0 - 2.6;
+  let tpt = 30; while (tpt > 20 && neededH(s.prompt, pw, { margin: [10, 18, 10, 18], fontSize: tpt, bold: true }) > 2.2) tpt--;
+  const ph = Math.max(1.4, neededH(s.prompt, pw, { margin: [10, 18, 10, 18], fontSize: tpt, bold: true }) + 0.05);
+  slide.addImage({ data: await K.icon("comments", COL.teal), x: M, y: 1.65, w: 0.8, h: 0.8 });
+  box(slide, s.prompt, { x: M + 1.0, y: 1.6, w: pw, h: ph, fontSize: tpt, bold: true, sh: true, margin: [10, 18, 10, 18] });
+  const sec = s.seconds || 30, ts = Math.min(2.2, ph);
+  slide.addText([{ text: `${sec}`, options: { fontSize: Math.round(48 * ts / 2.4), bold: true, breakLine: true } }, { text: "seconds", options: { fontSize: Math.round(16 * Math.max(0.8, ts / 2.4)) } }],
+    { shape: pres.shapes.OVAL, x: RIGHT - ts - 0.2, y: 1.6, w: ts, h: ts, fill: { color: TINT.lav }, line: { color: COL.lav, width: 6 }, fontFace: K.FONT, color: COL.lav, align: "center", valign: "middle", margin: 0 });
+  const vy = 1.6 + Math.max(ph, ts) + 0.3;
+  await placeVisual(slide, s.visual, M, vy, RIGHT - M, BOTTOM - vy);
+}
 R.talk = async (slide, s, it) => {
   await header(slide, s.title || "Turn and talk", it, s.mode || "We do");
+  if (s.visual && (await visAR(s.visual)) > 2.6) return talkWide(slide, s, it);
   const lw = s.visual ? 6.6 : RIGHT - M - 3.2;
   const nh = p => neededH(s.prompt, lw - 1.0, { margin: [10, 18, 10, 18], fontSize: p, bold: true });
   let tpt = 30; while (tpt > 20 && nh(tpt) > 3.0) tpt--;
@@ -411,7 +431,8 @@ async function hingeLayout(slide, s, it, reveal) {
   const qh = Math.max(0.9, K.hFor(s.question, RIGHT - M, 24, true, 0.3));
   box(slide, s.question, { x: M, y: TOP + 0.05, w: RIGHT - M, h: qh, fontSize: 24, bold: true, sh: true });
   let y = TOP + 0.05 + qh + 0.25, x0 = M, aw = RIGHT - M;
-  if (s.visual) { const vw = (RIGHT - M) * 0.4; await placeVisual(slide, s.visual, M, y, vw, BOTTOM - y - (reveal ? 1.0 : 0)); x0 = M + vw + 0.35; aw = RIGHT - x0; }
+  if (s.visual && (await visAR(s.visual)) > 2.6) { const vh = 1.35; await placeVisual(slide, s.visual, M, y - 0.1, RIGHT - M, vh); y += vh + 0.1; }
+  else if (s.visual) { const vw = (RIGHT - M) * 0.4; await placeVisual(slide, s.visual, M, y, vw, BOTTOM - y - (reveal ? 1.0 : 0)); x0 = M + vw + 0.35; aw = RIGHT - x0; }
   const bottom = reveal ? BOTTOM - 1.1 : BOTTOM;
   const ow = (aw - 0.25) / 2, oh = Math.min(1.6, (bottom - y - 0.25) / 2);
   const pt = fitPt(s.options, ow - 0.9, oh, 24, 14);
@@ -448,6 +469,24 @@ async function cfuLayout(slide, s, it, reveal) {
 R.cfu = async (slide, s, it) => { await cfuLayout(slide, s, it, false); s._notes = "Answers: " + s.answers.map((a, i) => `${i + 1}) ${a}`).join("  "); };
 R.cfuReveal = async (slide, s, it) => { await cfuLayout(slide, s, it, true); };
 
+// picture of the first page of this lesson's printable (from the worksheets PDF built before the deck)
+const RES_PDF = (() => { for (const d of [path.dirname(OUT), path.dirname(path.dirname(OUT))]) { try { const f = fs.readdirSync(d).find(n => /_Worksheets_Colour\.pdf$/.test(n)); if (f) return path.join(d, f); } catch (e) {} } return null; })();
+let RES_PAGES = null;
+function resourceThumb(ls) {
+  if (!RES_PDF || !ls || !(ls.printables || []).length) return null;
+  const { execFileSync } = require("child_process");
+  if (!RES_PAGES) {
+    RES_PAGES = {};
+    const n = +(execFileSync("pdfinfo", [RES_PDF], { encoding: "utf8" }).match(/Pages:\s+(\d+)/) || [0, 0])[1];
+    for (let p = 1; p <= n; p++) { const t = execFileSync("pdftotext", ["-f", String(p), "-l", String(p), RES_PDF, "-"], { encoding: "utf8" }); const m = t.match(/Resource (\d+) ·/); if (m && !RES_PAGES[m[1]]) RES_PAGES[m[1]] = p; }
+  }
+  const rn = RES[ls.printables[0].id], pg = RES_PAGES[rn];
+  if (!pg) return null;
+  const wd = path.join(path.dirname(RES_PDF), ".work"); fs.mkdirSync(wd, { recursive: true });
+  const base = path.join(wd, `res_${rn}`), f = base + ".png";
+  if (!fs.existsSync(f) || fs.statSync(f).mtimeMs < fs.statSync(RES_PDF).mtimeMs) execFileSync("pdftoppm", ["-png", "-r", "110", "-f", String(pg), "-l", String(pg), "-singlefile", RES_PDF, base]);
+  return f;
+}
 R.activity = async (slide, s, it) => {
   await header(slide, s.title, it, s.mode || "You do");
   let lw = 8.2;
@@ -467,6 +506,14 @@ R.activity = async (slide, s, it) => {
     slide.addImage({ data: await K.icon("clock", COL.lav), x: rx, y, w: 0.55, h: 0.55 });
     box(slide, `Time: ${s.time}`, { x: rx + 0.68, y, w: rw - 0.68, h: 0.58, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL.lav });
     y += 0.78;
+  }
+  const thumb = resourceThumb(it.ls);
+  if (thumb && BOTTOM - y > 2.2) {
+    const meta = await require("sharp")(thumb).metadata(), th = BOTTOM - y, tw = Math.min(rw, th * meta.width / meta.height);
+    const th2 = tw * meta.height / meta.width, tx = rx + (rw - tw) / 2;
+    slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: tx - 0.06, y: y - 0.06, w: tw + 0.12, h: th2 + 0.12, fill: { color: "FFFFFF" }, line: { color: TINT.indigo, width: 1.5 }, rectRadius: 0.08, shadow: { type: "outer", color: "6F87A3", opacity: 0.2, blur: 8, offset: 2, angle: 90 } });
+    slide.addImage({ path: thumb, x: tx, y, w: tw, h: th2 });
+    y = BOTTOM;
   }
   const mats = (it.ls && it.ls.materials) || [];
   if (mats.length && y < BOTTOM - 1.2) {
@@ -492,9 +539,13 @@ R.levels = async (slide, s, it) => {
   s._notes = s.notes || `Everyone aims for the ${LVS.names[1]}. Students choose where to start. Offer ${LVS.names[0]} after a genuine try, not straight away. Students who finish move to ${LVS.names[2]}.`;
 };
 
+function keyVisual(ls) { const v = (ls.slides || []).find(x => x.type === "visual" && x.visual) || (ls.slides || []).find(x => x.visual); return v && v.visual; }
 R.discuss = async (slide, s, it) => {
   await header(slide, "Discuss and connect", it);
-  const qs = s.questions, aw = RIGHT - M - 1.0, gap = 0.2;
+  const kv = s.visual || (it && it.ls && keyVisual(it.ls));
+  let R0 = RIGHT;
+  if (kv) { const nw = 4.3; R0 = RIGHT - nw - 0.35; await placeVisual(slide, { kind: "notebook", inner: kv }, R0 + 0.35, TOP + 0.1, nw, BOTTOM - TOP - 0.1); }
+  const qs = s.questions, aw = R0 - M - 1.0, gap = 0.2;
   let pt = 28, rh, ch;
   while (true) {
     rh = qs.map(q => Math.max(pt < 20 ? 0.6 : 0.8, K.hFor(q, aw, pt, false)));
@@ -688,7 +739,7 @@ pres.subject = `${UNIT.stage} mathematics`;
   pres.defineSlideMaster({ title: "Title", background: { path: await K.themeBackground(THEME_KEY, "title") }, objects: [] });
   const SIMPLE = new Set(["rows", "talk", "discuss", "warmup"]);
   // cut-out photos of students beside talk and discussion slides (unit.people, cut out by src/photos.js)
-  const PEOPLE_ON = new Set(["talk", "discuss"]);
+  const PEOPLE_ON = new Set(["talk"]);
   const PDIR = path.join(K.ASSETS, "photos", "people");
   const people = Object.keys(UNIT.people || {}).map(k => path.join(PDIR, k + ".png")).filter(f => fs.existsSync(f));
   let pi = 0; const nextPerson = () => people.length ? people[pi++ % people.length] : null;
@@ -714,6 +765,7 @@ pres.subject = `${UNIT.stage} mathematics`;
         const ps = pics.length === 1 ? 2.0 : 1.7, tot = pics.length * ps + (pics.length - 1) * 0.35, top = TOP + (BOTTOM - TOP - tot) / 2;
         pics.forEach((k, i) => slide.addImage({ path: K.img(k), x: W - M - 2.2 + (2.2 - ps) / 2, y: top + i * (ps + 0.35), w: ps, h: ps }));
       } else await fn(slide, s, item);
+      if (s.type === "discuss" && !keyVisual(item.ls) && !s.visual) { const pf = nextPerson(); if (pf) { const meta = await require("sharp")(pf).metadata(); const ph = 3.4, pw = ph * meta.width / meta.height; slide.addImage({ path: pf, x: W - M - pw, y: BOTTOM - ph, w: pw, h: ph }); } }
       footer(slide, item);
       const notes = [s.notes || DEFAULT_NOTES[s.type], s._notes].filter(Boolean).join("\n\n");
       if (notes) slide.addNotes(K.clean(notes));

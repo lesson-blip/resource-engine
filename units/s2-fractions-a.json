@@ -411,7 +411,12 @@
             "0, 2, 4, 6, 8, 10"
           ],
           "mode": "You do",
-          "notes": "These revise sharing, halving and doubling from Stage 1. Ask one student to explain how they know the share is fair."
+          "notes": "These revise sharing, halving and doubling from Stage 1. Ask one student to explain how they know the share is fair.",
+          "visual": {
+            "kind": "collection",
+            "count": 10,
+            "groups": 1
+          }
         },
         {
           "type": "definition",
@@ -569,11 +574,62 @@
           "notes": "Students show thumbs up or down for each picture before you reveal. For the non-examples, ask what fraction it does show."
         },
         {
+          "type": "visual",
+          "title": "Halves in shapes",
+          "mode": "We do",
+          "visual": {
+            "kind": "shapeSet",
+            "marks": true,
+            "items": [
+              {
+                "shape": "circle",
+                "parts": 2,
+                "shaded": 1
+              },
+              {
+                "shape": "square",
+                "parts": 2,
+                "cut": "diagonal",
+                "shaded": 1
+              },
+              {
+                "shape": "rect",
+                "parts": 2,
+                "equal": false,
+                "shaded": 1
+              },
+              {
+                "shape": "triangle",
+                "parts": 2,
+                "equal": false,
+                "shaded": 1
+              }
+            ]
+          },
+          "rows": [
+            {
+              "label": "Yes",
+              "text": "The circle and the square are each cut into 2 equal parts: halves."
+            },
+            {
+              "label": "No",
+              "text": "The rectangle and the triangle have 2 parts, but they are not the same size."
+            }
+          ],
+          "notes": "Lengths are our main model, but halves work for shapes too. Ask: how could you check the parts are equal? (Fold, cut out and lay one on top of the other.)"
+        },
+        {
           "type": "talk",
           "title": "Turn and talk",
           "prompt": "Mia cut her ribbon into 2 pieces. She says she has halves. Is she always right? How could she check?",
           "seconds": 45,
-          "visual": null,
+          "visual": {
+            "kind": "ribbon",
+            "pieces": [
+              4,
+              6
+            ]
+          },
           "mode": "We do",
           "notes": "Listen for: only if the 2 pieces are the same length. She could lay one piece on top of the other or measure both."
         },
@@ -581,7 +637,10 @@
           "type": "hinge",
           "title": "Which one?",
           "question": "A 10 cm strip is cut into pieces. Which cut makes halves?",
-          "visual": null,
+          "visual": {
+            "kind": "ruler",
+            "length": 10
+          },
           "options": [
             "4 cm and 6 cm",
             "5 cm and 5 cm",
@@ -968,7 +1027,14 @@
             "20"
           ],
           "mode": "You do",
-          "notes": "Item 3 checks yesterday's big idea. If many say yes, refold a strip before moving on."
+          "notes": "Item 3 checks yesterday's big idea. If many say yes, refold a strip before moving on.",
+          "visual": {
+            "kind": "ribbon",
+            "pieces": [
+              3,
+              5
+            ]
+          }
         },
         {
           "type": "rows",
@@ -992,7 +1058,16 @@
             }
           ],
           "mode": "I do",
-          "notes": "Read fractions as words, not 'three over four'. The word tells the size of the part, so students hear what the fraction means."
+          "notes": "Read fractions as words, not 'three over four'. The word tells the size of the part, so students hear what the fraction means.",
+          "visual": {
+            "kind": "stripStack",
+            "strips": [
+              {
+                "parts": 8,
+                "shaded": 5
+              }
+            ]
+          }
         },
         {
           "type": "worked",
@@ -1152,6 +1227,29 @@
           "notes": "For the 6-part strip, students often see 'lots of parts' and say eighths. Have them count the parts aloud."
         },
         {
+          "type": "visual",
+          "title": "Quarters and eighths in a tangram",
+          "mode": "We do",
+          "visual": {
+            "kind": "tangram"
+          },
+          "rows": [
+            {
+              "label": "1/4",
+              "text": "Each big triangle is one quarter of the square. 4 of them would cover it."
+            },
+            {
+              "label": "1/8",
+              "text": "The square, the parallelogram and the middle triangle are each one eighth."
+            },
+            {
+              "label": "Think",
+              "text": "Equal parts can be different shapes, as long as they cover the same amount."
+            }
+          ],
+          "notes": "If you have tangram sets, let students check: two small triangles cover the square piece, and the middle triangle. The two small triangles are each one sixteenth; you do not need to name that unless a student asks."
+        },
+        {
           "type": "talk",
           "title": "Turn and talk",
           "prompt": "Which is longer: 1/4 or 1/8 of the same strip? Use your folded strips to prove it.",
@@ -1216,7 +1314,6 @@
             "3/8",
             "1/4"
           ],
-          "visual": null,
           "mode": "You do"
         },
         {
@@ -1612,7 +1709,15 @@
             }
           ],
           "mode": "I do",
-          "notes": "Let students try to fold thirds first for one minute. Most will find it hard. That struggle is the reason for today's method."
+          "notes": "Let students try to fold thirds first for one minute. Most will find it hard. That struggle is the reason for today's method.",
+          "visual": {
+            "kind": "fractionWall",
+            "rows": [
+              2,
+              4,
+              8
+            ]
+          }
         },
         {
           "type": "definition",
@@ -1705,11 +1810,58 @@
           "mode": "We do"
         },
         {
+          "type": "visual",
+          "title": "Thirds with pattern blocks",
+          "mode": "We do",
+          "visual": {
+            "kind": "patternBlocks",
+            "hexes": [
+              {
+                "split": "rhombus",
+                "shaded": 1,
+                "label": "1/3"
+              },
+              {
+                "split": "rhombus",
+                "shaded": 2,
+                "label": "2/3"
+              },
+              {
+                "split": "rhombus",
+                "shaded": 3,
+                "label": "3/3"
+              }
+            ]
+          },
+          "rows": [
+            {
+              "label": "Whole",
+              "text": "The yellow hexagon is one whole. The dashed lines show where more pieces would go."
+            },
+            {
+              "label": "1/3",
+              "text": "3 blue rhombuses cover the hexagon, so one rhombus is one third."
+            },
+            {
+              "label": "3/3",
+              "text": "Three thirds cover the whole hexagon: 3/3 = 1."
+            }
+          ],
+          "notes": "If you have pattern blocks, hand them out. Students cover a hexagon with blue rhombuses and count them."
+        },
+        {
           "type": "talk",
           "title": "Turn and talk",
           "prompt": "Lily cut a string into 3 parts: 9 cm, 10 cm and 11 cm. Are they thirds? What should she do?",
           "seconds": 45,
-          "visual": null,
+          "visual": {
+            "kind": "ribbon",
+            "pieces": [
+              9,
+              10,
+              11
+            ]
+          },
           "mode": "We do",
           "notes": "Not thirds, because they are not equal. The string is 30 cm, so each third should be 10 cm. She could adjust the cuts."
         },
@@ -2317,7 +2469,11 @@
             "4/5",
             "2"
           ],
-          "visual": null,
+          "visual": {
+            "kind": "ruler",
+            "length": 20,
+            "labelEvery": 5
+          },
           "mode": "You do"
         },
         {
@@ -2838,7 +2994,13 @@
           "title": "Turn and talk",
           "prompt": "Is 6/6 the same amount as 3/3? Use a number line to explain.",
           "seconds": 45,
-          "visual": null,
+          "visual": {
+            "kind": "fractionWall",
+            "rows": [
+              3,
+              6
+            ]
+          },
           "mode": "We do",
           "notes": "Both are one whole. 6 sixths and 3 thirds both land on 1."
         },
@@ -2878,7 +3040,20 @@
             "3",
             "4/4, which is 1 whole"
           ],
-          "visual": null,
+          "visual": {
+            "kind": "numberLine",
+            "from": 0,
+            "to": 1,
+            "ticks": 5,
+            "labels": [
+              "0",
+              "",
+              "",
+              "",
+              "",
+              "1"
+            ]
+          },
           "mode": "You do"
         },
         {
@@ -4005,7 +4180,16 @@
               "color": "indigo"
             }
           ],
-          "mode": "I do"
+          "mode": "I do",
+          "visual": {
+            "kind": "barModel",
+            "whole": "The whole",
+            "parts": [
+              "1/3",
+              "1/3",
+              "1/3"
+            ]
+          }
         },
         {
           "type": "worked",
@@ -4632,7 +4816,14 @@
           "type": "worked",
           "title": "I do: Sort into families",
           "problem": "Sort: 2/3, 1/4, 5/8, 3/4, 1/3, 7/8",
-          "visual": null,
+          "visual": {
+            "kind": "fractionWall",
+            "rows": [
+              3,
+              4,
+              8
+            ]
+          },
           "steps": [
             {
               "label": "Step 1",
@@ -4650,11 +4841,65 @@
           "mode": "I do"
         },
         {
+          "type": "visual",
+          "title": "Families with pattern blocks",
+          "mode": "We do",
+          "visual": {
+            "kind": "patternBlocks",
+            "hexes": [
+              {
+                "split": "trapezium",
+                "shaded": 1,
+                "label": "1/2"
+              },
+              {
+                "split": "rhombus",
+                "shaded": 1,
+                "label": "1/3"
+              },
+              {
+                "split": "triangle",
+                "shaded": 1,
+                "label": "1/6"
+              }
+            ]
+          },
+          "rows": [
+            {
+              "label": "Halves",
+              "text": "2 red trapeziums cover the hexagon."
+            },
+            {
+              "label": "Thirds",
+              "text": "3 blue rhombuses cover it."
+            },
+            {
+              "label": "Sixths",
+              "text": "6 green triangles cover it. 2 triangles cover one rhombus, so 2/6 = 1/3."
+            }
+          ],
+          "notes": "Each colour is a different fraction family of the same whole. Ask: how many green triangles cover a red trapezium? (3, so 3/6 = 1/2.)"
+        },
+        {
           "type": "talk",
           "title": "Turn and talk",
           "prompt": "Ruby says 3/4 and 3/8 are in the same family because they both have a 3. Do you agree? Explain.",
           "seconds": 45,
-          "visual": null,
+          "visual": {
+            "kind": "stripStack",
+            "strips": [
+              {
+                "parts": 4,
+                "shaded": 3,
+                "label": "3/4"
+              },
+              {
+                "parts": 8,
+                "shaded": 3,
+                "label": "3/8"
+              }
+            ]
+          },
           "mode": "We do",
           "notes": "Disagree. The family is named by the denominator. 3/4 is in the quarters family and 3/8 is in the eighths family."
         },
@@ -4694,7 +4939,6 @@
             "2/4",
             "2"
           ],
-          "visual": null,
           "mode": "You do"
         },
         {
@@ -5195,7 +5439,27 @@
             }
           ],
           "mode": "I do",
-          "notes": "Use three strips of the same length folded in lessons 1 and 2. Hold them side by side."
+          "notes": "Use three strips of the same length folded in lessons 1 and 2. Hold them side by side.",
+          "visual": {
+            "kind": "stripStack",
+            "strips": [
+              {
+                "parts": 2,
+                "shaded": 1,
+                "label": "1/2"
+              },
+              {
+                "parts": 4,
+                "shaded": 1,
+                "label": "1/4"
+              },
+              {
+                "parts": 8,
+                "shaded": 1,
+                "label": "1/8"
+              }
+            ]
+          }
         },
         {
           "type": "worked",
@@ -5295,7 +5559,24 @@
           "title": "Turn and talk",
           "prompt": "Does Ella's piece prove that 1/4 is bigger than 1/2? How could we make it a fair test?",
           "seconds": 45,
-          "visual": null,
+          "visual": {
+            "kind": "stripStack",
+            "strips": [
+              {
+                "parts": 4,
+                "shaded": 1,
+                "width": 1,
+                "label": "1/4",
+                "note": ""
+              },
+              {
+                "parts": 2,
+                "shaded": 1,
+                "width": 0.36,
+                "label": "1/2"
+              }
+            ]
+          },
           "mode": "We do",
           "notes": "No. A fair test uses the same whole: both fractions of one strip, or two strips the same length."
         },
@@ -5335,7 +5616,6 @@
             "<",
             "1/8, 1/4, 1/2"
           ],
-          "visual": null,
           "mode": "You do"
         },
         {

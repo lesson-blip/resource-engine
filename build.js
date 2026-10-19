@@ -27,6 +27,8 @@ run("node", [path.join(__dirname, "qa", "check.js"), unitFile, "--quiet"]);
 step("Images");
 run("python3", [path.join(__dirname, "src", "images.py"), unitFile]);
 if (UNIT.photos) { step("Photos"); run("node", [path.join(__dirname, "src", "photos.js"), "fetch", unitFile]); }
+step("Printables");
+run("node", [path.join(__dirname, "src", "printables.js"), unitFile, DIR, theme]);
 step("Slides");
 const deck = path.join(DIR, `${t}_Slides.pptx`);
 const out = run("node", [path.join(__dirname, "src", "deck.js"), unitFile, deck, theme]);
@@ -44,8 +46,7 @@ if (extraThemes.length) {
   }
 }
 fs.writeFileSync(path.join(WORK, "themes.json"), JSON.stringify([theme, ...extraThemes]));
-step("Printables");
-run("node", [path.join(__dirname, "src", "printables.js"), unitFile, DIR, theme]);
+
 step("Teacher guide");
 run("node", [path.join(__dirname, "src", "guide.js"), unitFile, path.join(DIR, `${t}_Teacher_Guide.docx`), theme]);
 if (!args.includes("--skip-listing")) {

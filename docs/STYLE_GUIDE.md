@@ -59,3 +59,10 @@ Plain teacher voice. No em dashes or heavy dashes. No hype words. Short sentence
 - Lesson title slides show `lesson.photo`. `lesson.reallife` adds a "... in real life" slide after the LI/SC slide (1 to 3 photos with captions and a talk question).
 - `unit.people` are cut out (rembg, local) and stand beside Turn and talk and Discuss and connect slides. No school logos or brand names on clothing.
 - Photographers are credited on the Thank you slide and in the guide. The API key lives in `.env` (git-ignored).
+
+## 10. Visual variety (added 20 Oct 2026, from The Busy Honey Bee Stage 3 fractions)
+- Aim for a picture on most slides, but only one that matches the words on that slide. A Show me check never shows a picture that gives the answers away.
+- Kinds available: strips, walls, number lines, bar models, stacked strips (`stripStack`), ribbons cut into pieces (`ribbon`), a strip on a ruler (`ruler`), shapes cut into equal and unequal parts (`shapeSet`), pattern blocks in classroom colours (`patternBlocks`), a tangram (`tangram`), counters (`collection`), real photos, cut-out students.
+- Wide pictures sit full width under the question; square ones sit beside it.
+- Discuss and connect shows the lesson's key picture in a notebook. Activity slides show a picture of the actual Resource page.
+- Area models (shapes, pattern blocks, tangrams) connect to the main model; in a lengths unit they never replace strips and number lines.
