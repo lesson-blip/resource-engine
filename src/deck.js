@@ -317,8 +317,9 @@ R.examples = async (slide, s, it) => {
 R.talk = async (slide, s, it) => {
   await header(slide, s.title || "Turn and talk", it, s.mode || "We do");
   const lw = s.visual ? 6.6 : RIGHT - M - 3.2;
-  const tpt = fitPt([s.prompt], lw - 1.0, 3.0, 30, 20, true, 0.62);
-  const ph = Math.max(1.6, K.hFor(s.prompt, lw - 1.0, tpt, true, 0.62));
+  const nh = p => neededH(s.prompt, lw - 1.0, { margin: [10, 18, 10, 18], fontSize: p, bold: true });
+  let tpt = 30; while (tpt > 20 && nh(tpt) > 3.0) tpt--;
+  const ph = Math.max(1.6, nh(tpt) + 0.05);
   slide.addImage({ data: await K.icon("comments", COL.teal), x: M, y: 1.65, w: 0.8, h: 0.8 });
   box(slide, s.prompt, { x: M + 1.0, y: 1.6, w: lw - 1.0, h: ph, fontSize: tpt, bold: true, sh: true, margin: [10, 18, 10, 18] });
   const sec = s.seconds || 30, tx = s.visual ? M + 0.2 : RIGHT - 2.7;

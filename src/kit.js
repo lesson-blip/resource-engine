@@ -104,4 +104,14 @@ async function icon(name, color, fg = "FFFFFF") {
 const hash = s => crypto.createHash("md5").update(s).digest("hex").slice(0, 12);
 const clean = s => String(s == null ? "" : s).replace(/—/g, ", ").replace(/–/g, " to ");
 
-module.exports = { ROOT, ASSETS, IMGDIR, CACHE, THEMES, themeBackground, FONT, LH, textW, linesFor, hFor, img, hasImg, icon, hash, clean };
+async function browser() {
+  const { chromium } = require("playwright");
+  try { return await chromium.launch(); }
+  catch (e) {
+    const alt = process.env.CHROMIUM_PATH || "/opt/pw-browsers/chromium";
+    if (fs.existsSync(alt)) return chromium.launch({ executablePath: alt });
+    throw e;
+  }
+}
+
+module.exports = { browser, ROOT, ASSETS, IMGDIR, CACHE, THEMES, themeBackground, FONT, LH, textW, linesFor, hFor, img, hasImg, icon, hash, clean };
