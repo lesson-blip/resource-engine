@@ -17,6 +17,10 @@ const COL = Object.assign({ navy: T.text, muted: T.muted, white: "FFFFFF" }, T.r
 const TINT = T.tints;
 const UC = UNIT.colour || "teal";
 const LVS = K.levels(UNIT);
+const RES = K.resources(UNIT);
+const PHASE = { lessonTitle: "Beginning the lesson", lisc: "Beginning the lesson", warmup: "Beginning the lesson", discuss: "Concluding the lesson", exit: "Concluding the lesson" };
+function phaseOf(ctx) { if (!ctx || !ctx.ls) return ""; if (PHASE[ctx.kind]) return PHASE[ctx.kind]; if (ctx.s) return PHASE[ctx.s.type] || "Core lesson"; return ""; }
+function resTag(ctx) { if (!ctx || !ctx.ls || !ctx.s || !["activity", "levels"].includes(ctx.s.type)) return ""; const ns = (ctx.ls.printables || []).map(p => RES[p.id]).filter(Boolean); return ns.length ? (ns.length === 1 ? `Resource ${ns[0]}` : `Resources ${ns.slice(0, -1).join(", ")} and ${ns[ns.length - 1]}`) : ""; }
 // level marker: 1 to 3 dots (or chillies), centred in a box of width w starting at x
 function marker(slide, n, c, x, y, w, size) {
   const g = size * 0.35, tot = n * size + (n - 1) * g, x0 = x + (w - tot) / 2;
@@ -50,7 +54,10 @@ function box(slide, text, o) {
   if (o.fillColor) { opts.fill = { color: o.fillColor }; delete opts.fillColor; }
   if (o.sh) { opts.shadow = { type: "outer", color: "6F87A3", opacity: 0.16, blur: 10, offset: 2, angle: 90 }; delete opts.sh; }
   if (o.line) { opts.line = o.line; }
-  const need = neededH(text, opts.w, opts);
+  // Edu NSW handwriting reads small: set it 25% larger; it measures about like Nunito at the original size
+  const measure = Object.assign({}, opts);
+  if (o.hw) { opts.fontFace = K.HW; opts.fontSize = Math.round(opts.fontSize * 1.25); delete opts.hw; delete measure.hw; }
+  const need = neededH(text, o.hw ? opts.w * 0.97 : opts.w, measure);
   if (need > opts.h + 0.005) warn(`${need.toFixed(2)}>${opts.h.toFixed(2)} :: ${(typeof text === "string" ? text : text.map(r => r.text).join("")).slice(0, 60)}`);
   slide.addText(text, opts);
 }
@@ -84,7 +91,9 @@ async function header(slide, title, ctx, mode) {
     x += 1.6;
   }
   const mw = mode ? 1.85 : 0;
-  const tw = W - M - x - (mode ? mw + 0.15 : 0);
+  const rt = resTag(ctx), rw = rt ? K.textW(rt, 14, true) + 0.45 : 0;
+  const tw = W - M - x - (mode ? mw + 0.15 : 0) - (rt ? rw + 0.15 : 0);
+  if (rt) box(slide, rt, { x: W - M - (mode ? mw + 0.15 : 0) - rw, y: 0.52, w: rw, h: 0.56, fontSize: 14, bold: true, color: "FFFFFF", fillColor: COL.indigo, align: "center", margin: 1 });
   let pt = 28; while (pt > 18 && K.linesFor(title, tw, pt, true, 0.5) > 1) pt--;
   box(slide, title, { x, y: 0.4, w: tw, h: 0.8, fontSize: pt, bold: true, sh: true, margin: [4, 16, 4, 16] });
   if (mode) {
@@ -95,7 +104,10 @@ async function header(slide, title, ctx, mode) {
 }
 function footer(slide, ctx) {
   const label = ctx && ctx.ls ? `${UNIT.title} · Lesson ${ctx.ls.n}` : UNIT.title;
-  box(slide, label, { x: M, y: 6.92, w: Math.min(6, K.textW(label, 11, false) + 0.45), h: 0.34, fontSize: 11, color: COL.muted, fillColor: "FFFFFF", align: "center", margin: 1 });
+  const lw = Math.min(6, K.textW(label, 11, false) + 0.45);
+  box(slide, label, { x: M, y: 6.92, w: lw, h: 0.34, fontSize: 11, color: COL.muted, fillColor: "FFFFFF", align: "center", margin: 1 });
+  const ph = phaseOf(ctx);
+  if (ph) box(slide, ph, { x: M + lw + 0.12, y: 6.92, w: K.textW(ph, 11, true) + 0.45, h: 0.34, fontSize: 11, bold: true, color: COL[UC], fillColor: TINT[UC], align: "center", margin: 1 });
   box(slide, [{ text: "Menu", options: { hyperlink: { slide: 1, tooltip: "Back to the lesson menu" }, color: COL.navy, bold: true } }],
     { x: W - M - 1.3, y: 6.88, w: 1.3, h: 0.4, fontSize: 13, align: "center", fillColor: TINT.sky, margin: 2 });
 }
@@ -107,10 +119,10 @@ function rowsFit(rows, y, w, labelW, bottom, minPt, basePt, gap = 0.16) {
   }
   return false;
 }
-function drawRows(slide, rows, { x = M, y, w = RIGHT - M, labelW = 2.0, bottom = BOTTOM, pt = 24, gap = 0.16, center = false, minPt = 15 }) {
+function drawRows(slide, rows, { x = M, y, w = RIGHT - M, labelW = 2.0, bottom = BOTTOM, pt = 24, gap = 0.16, center = false, minPt = 15, hw = false }) {
   let p = pt, hs;
   while (true) {
-    hs = rows.map(r => Math.max(p < 18 ? 0.5 : 0.62, K.hFor(r.text, w - labelW - 0.15, p, false)));
+    hs = rows.map(r => Math.max(p < 18 ? 0.5 : 0.62, K.hFor(r.text, (w - labelW - 0.15) * (hw ? 0.97 : 1), p, false)));
     if (y + hs.reduce((a, b) => a + b, 0) + gap * (rows.length - 1) <= bottom || p <= minPt) break;
     p--;
   }
@@ -122,7 +134,7 @@ function drawRows(slide, rows, { x = M, y, w = RIGHT - M, labelW = 2.0, bottom =
   rows.forEach((r, i) => {
     const c = r.color || ["teal", "sky", "indigo", "mint", "lav"][i % 5];
     if (labelW > 0) box(slide, r.label, { x, y: cy, w: labelW, h: hs[i], fontSize: Math.min(18, p), bold: true, color: "FFFFFF", fillColor: COL[c], align: "center" });
-    box(slide, r.text, { x: x + (labelW > 0 ? labelW + 0.15 : 0), y: cy, w: w - (labelW > 0 ? labelW + 0.15 : 0), h: hs[i], fontSize: p, fillColor: TINT[c] });
+    box(slide, r.text, { x: x + (labelW > 0 ? labelW + 0.15 : 0), y: cy, w: w - (labelW > 0 ? labelW + 0.15 : 0), h: hs[i], fontSize: p, fillColor: TINT[c], hw: hw && r.hw !== false });
     cy += hs[i] + 0.16;
   });
   return cy;
@@ -307,7 +319,7 @@ R.worked = async (slide, s, it) => {
     while (f > 0.26 && !rowsFit(rows, y, RIGHT - M - (RIGHT - M) * f - 0.35, 1.5, BOTTOM, 17, 22)) f -= 0.04;
     const vw = (RIGHT - M) * f; await placeVisual(slide, s.visual, M, y, vw, BOTTOM - y); sx = M + vw + 0.35;
   }
-  drawRows(slide, rows, { x: sx, y, w: RIGHT - sx, labelW: 1.5, pt: 22 });
+  drawRows(slide, rows, { x: sx, y, w: RIGHT - sx, labelW: 1.5, pt: 22, hw: true });
 };
 
 R.examples = async (slide, s, it) => {
@@ -379,7 +391,7 @@ R.hingeReveal = async (slide, s, it) => {
 async function cfuLayout(slide, s, it, reveal) {
   await header(slide, reveal ? "Check your answers" : s.title, it, "We do");
   let y = TOP + 0.05;
-  if (!reveal) { pill(slide, s.prompt || "Write on your mini whiteboard.", M, y, "lav", 15); y += 0.62; }
+  if (!reveal) { slide.addImage({ data: await K.icon("board", COL.lav), x: M, y: y - 0.04, w: 0.52, h: 0.52 }); pill(slide, s.prompt || "Write on your mini whiteboard.", M + 0.64, y, "lav", 15); y += 0.62; }
   let qw = RIGHT - M;
   if (s.visual) { const vw = (RIGHT - M) * 0.4; await placeVisual(slide, s.visual, RIGHT - vw, y, vw, BOTTOM - y); qw = RIGHT - M - vw - 0.35; }
   const rows = s.questions.map((q, i) => ({ label: String(i + 1), text: reveal ? `${q}  →  ${s.answers[i]}` : q, color: reveal ? "mint" : "sky" }));
@@ -543,6 +555,19 @@ R.tplText = async (slide) => {
 };
 R.tplTalk = async (slide) => { await R.talk(slide, { prompt: "Type your question here" }, null); footer(slide); slide.addNotes(TPL_NOTE); };
 R.tplLevels = async (slide) => { const s = { support: "Type the easier way in here.", core: "Type the main task here.", extend: "Type the go further task here." }; await R.levels(slide, s, null); footer(slide); slide.addNotes(TPL_NOTE + " " + s._notes); };
+R.tplGrid = async (slide) => {
+  await header(slide, "Type your title here", null, "You do");
+  box(slide, "Type the question here. Students show their working on the grid.", { x: M, y: TOP + 0.05, w: W - 2 * M, h: 0.8, fontSize: 22, fillColor: "FFFFFF", sh: true });
+  const gy = TOP + 1.05, gh = BOTTOM - gy, gw = W - 2 * M;
+  const f = path.join(K.CACHE, `grid_${THEME_KEY}.png`);
+  if (!fs.existsSync(f)) {
+    const px = 144, Wp = Math.round(gw * px), Hp = Math.round(gh * px), c = Math.round(0.3 * px);
+    let lines = ""; for (let x = 0; x <= Wp; x += c) lines += `<line x1="${x}" y1="0" x2="${x}" y2="${Hp}"/>`; for (let y = 0; y <= Hp; y += c) lines += `<line x1="0" y1="${y}" x2="${Wp}" y2="${y}"/>`;
+    await require("sharp")(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${Wp}" height="${Hp}"><rect width="100%" height="100%" rx="24" fill="#FFFFFF"/><g stroke="#${COL.sky}" stroke-opacity="0.22" stroke-width="3">${lines}</g><rect x="1.5" y="1.5" width="${Wp - 3}" height="${Hp - 3}" rx="24" fill="none" stroke="#${COL.sky}" stroke-width="3"/></svg>`)).png().toFile(f);
+  }
+  slide.addImage({ path: f, x: M, y: gy, w: gw, h: gh });
+  footer(slide); slide.addNotes(TPL_NOTE + " The grid is a picture, so students can write on it with the pen tool or you can draw on it in edit mode.");
+};
 R.tplTwo = async (slide) => {
   await header(slide, "Type your title here", null, "We do");
   const cw = (W - 2 * M - 0.3) / 2;
@@ -593,7 +618,7 @@ const TOOLS = { fractionStrips: "toolStrips", numberLine: "toolLine", counters: 
 const tools = (UNIT.toolkit || []).filter(t => TOOLS[t]);
 if (tools.length) { anchor.toolkit = plan.length + 1; tools.forEach(t => plan.push({ kind: TOOLS[t] })); }
 anchor.templates = plan.length + 1;
-plan.push({ kind: "tplText" }, { kind: "tplTwo" }, { kind: "tplTalk" }, { kind: "tplLevels" });
+plan.push({ kind: "tplText" }, { kind: "tplTwo" }, { kind: "tplGrid" }, { kind: "tplTalk" }, { kind: "tplLevels" });
 plan.push({ kind: "credits" });
 
 // ---------- build ----------

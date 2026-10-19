@@ -22,6 +22,7 @@ const FONTS = path.join(K.ASSETS, "fonts");
 const esc = s => K.clean(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const fr = s => esc(s).replace(/(^|[^\d/])(\d+)\/(\d+)(?![\d/])/g, '$1<span class="frac"><span>$2</span><span>$3</span></span>');
 const LVS = K.levels(UNIT);
+const RES = K.resources(UNIT);
 const LEVEL = { Support: [LVS.names[0], 1, "mint"], Core: [LVS.names[1], 2, "sky"], Extend: [LVS.names[2], 3, "indigo"] };
 const peppers = n => LVS.marker === "chillies" ? `<span class="pep">${`<img src="${IMG("hot_pepper")}">`.repeat(n)}</span>` : `<span class="pep dots">${"<i></i>".repeat(n)}</span>`;
 
@@ -74,7 +75,7 @@ async function worksheetPages(p, ls, key) {
     const tv = lv.teach && lv.teach.visual;
     const stack = tv && (tv.kind === "fractionWall" || (tv.kind === "numberLine" && tv.ticks > 6));
     const teach = lv.teach ? `<div class="teach ${stack ? "stack" : ""}"><div class="tt">${fr(lv.teach.text)}</div>${await vis(tv, 26, "", stack ? 130 : 70)}</div>` : "";
-    h += `<section class="page" data-foot="Lesson ${ls.n} · ${esc(p.title)}">${header({ title: p.title, sub: `Lesson ${ls.n} · ${UNIT.title}`, level: lv.level, pic: (ls.pics || [])[0] })}${teach}<div class="items">${items}</div>${selfCheck()}</section>`;
+    h += `<section class="page" data-foot="Lesson ${ls.n} · ${esc(p.title)}">${header({ title: p.title, sub: `Resource ${RES[p.id]} · Lesson ${ls.n} · ${UNIT.title}`, level: lv.level, pic: (ls.pics || [])[0] })}${teach}<div class="items">${items}</div>${selfCheck()}</section>`;
   }
   return h;
 }
@@ -82,7 +83,7 @@ async function worksheetPages(p, ls, key) {
 async function gamePage(p, ls, key) {
   let items = ""; let i = 1;
   for (const it of p.items || []) items += await item(it, i++, key);
-  return `<section class="page" data-foot="Lesson ${ls.n} · ${esc(p.title)}">${header({ title: p.title, sub: `Lesson ${ls.n} · Game · ${esc(p.players || "")}`, pic: "game_die" })}
+  return `<section class="page" data-foot="Lesson ${ls.n} · ${esc(p.title)}">${header({ title: p.title, sub: `Resource ${RES[p.id]} · Lesson ${ls.n} · Game · ${esc(p.players || "")}`, pic: "game_die" })}
     <div class="rules"><div class="need"><b>You need</b>${(p.need || []).map(n => `<span class="chip">${esc(n)}</span>`).join("")}</div>
     <ol>${(p.rules || []).map(r => `<li>${fr(r)}</li>`).join("")}</ol></div><div class="items">${items}</div></section>`;
 }
@@ -91,7 +92,7 @@ async function cardsPage(p, ls, key) {
   const hasVis = p.cards.some(c => c.visual);
   let cs = "";
   for (const c of p.cards) cs += `<div class="card ${hasVis ? "tall" : ""}">${c.visual ? await vis(c.visual, 28) : ""}<div class="ct">${fr(c.text || "")}</div></div>`;
-  return `<section class="page multi" data-foot="Lesson ${ls.n} · ${esc(p.title)}">${header({ title: p.title, sub: `Lesson ${ls.n} · Cut out the cards`, pic: "scissors", name: false })}
+  return `<section class="page multi" data-foot="Lesson ${ls.n} · ${esc(p.title)}">${header({ title: p.title, sub: `Resource ${RES[p.id]} · Lesson ${ls.n} · Cut out the cards`, pic: "scissors", name: false })}
     ${p.instructions ? `<p class="intro">${fr(p.instructions)}</p>` : ""}<div class="cards ${hasVis ? "c3" : "c4"}">${cs}</div></section>`;
 }
 

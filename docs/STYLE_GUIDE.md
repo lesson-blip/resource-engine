@@ -45,3 +45,10 @@ Plain teacher voice. No em dashes or heavy dashes. No hype words. Short sentence
 - Content is original. Never copy text from department sample units, Teach Starter, Twinkl, TpT products or textbooks. Use their structure and ideas only.
 - Fluent Emoji are MIT; fonts are SIL OFL; credit both. Syllabus outcome codes and short outcome text © NESA, credited, with "not endorsed by NESA or the NSW Department of Education".
 - Check with your employer before selling anything built from a school program.
+
+## 8. Slide furniture (added 20 Oct 2026, from The Busy Honey Bee Stage 3 fractions)
+- Footer shows the lesson stage: Beginning the lesson, Core lesson, Concluding the lesson (NSW sample unit structure).
+- Activity and levels slides carry a "Resource N" pill; printables are numbered the same way (`K.resources`).
+- Worked example steps are in the NSW school handwriting font (Edu NSW ACT Foundation, embedded, set 25% larger).
+- Show me slides carry a mini whiteboard icon. Templates include a grid paper working space.
+- Slide 2 is Unit at a glance; the cover links to At a glance, How it works, Word wall and Toolkit. Toolkit slides have pieces to drag in edit mode (`unit.toolkit`). Five blank templates sit before the credits.

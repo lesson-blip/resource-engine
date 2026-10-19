@@ -9,12 +9,13 @@ const JSZip = require("jszip");
   const ab = b => b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength);
   await e.addFontFromTTF("Nunito Sans", ab(fs.readFileSync(path.join(fdir, "NunitoSans-Regular.ttf"))));
   await e.addFontFromTTF("Nunito Sans", ab(fs.readFileSync(path.join(fdir, "NunitoSans-Bold.ttf"))));
+  await e.addFontFromTTF("Edu NSW ACT Foundation", ab(fs.readFileSync(path.join(fdir, "EduNSWACTFoundation.ttf"))));
   const out = await e.save();
   // merge the two embeddedFont entries into one (regular + bold) and give a sans-serif fallback hint
   const zip = await JSZip.loadAsync(out);
   let pres = await zip.file("ppt/presentation.xml").async("string");
   const re = /<p:embeddedFont>(?:(?!<\/p:embeddedFont>).)*<\/p:embeddedFont>/gs;
-  const ents = pres.match(re) || [];
+  const ents = (pres.match(re) || []).filter(e => /typeface="Nunito Sans"/.test(e));
   if (ents.length === 2) {
     const rid2 = ents[1].match(/<p:regular r:id="([^"]+)"/)[1];
     const merged = ents[0].replace("</p:embeddedFont>", `<p:bold r:id="${rid2}"/></p:embeddedFont>`)
@@ -24,7 +25,8 @@ const JSZip = require("jszip");
     const rels = await zip.file("ppt/_rels/presentation.xml.rels").async("string");
     const ids = [...rels.matchAll(/Id="([^"]+)" Target="fonts\/[^"]+\.fntdata"/g)].map(m => m[1]);
     const reg = ents[0].match(/<p:regular r:id="([^"]+)"/)[1];
-    const other = ids.find(i => i !== reg);
+    const taken = new Set([...pres.matchAll(/r:id="([^"]+)"/g)].map(m => m[1]));
+    const other = ids.find(i => i !== reg && !taken.has(i));
     const merged = ents[0].replace("</p:embeddedFont>", other ? `<p:bold r:id="${other}"/></p:embeddedFont>` : "</p:embeddedFont>")
       .replace(/<p:font typeface="Nunito Sans"[^>]*\/>/, '<p:font typeface="Nunito Sans" pitchFamily="34" charset="0"/>');
     pres = pres.replace(ents[0], merged);

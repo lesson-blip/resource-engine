@@ -72,6 +72,8 @@ const LEVEL_STYLES = {
     blurbs: ["Start here to build confidence. Use materials and pictures.", "The main task. Try it on your own first.", "Ready for more? Explain, prove or find all the answers."] },
 };
 const TEACHER_LEVELS = ["Support", "Core", "Extension"];
+// Printables are numbered "Resource 1, 2, 3..." in lesson order; slides and printables show the same numbers.
+function resources(unit) { const m = {}; let n = 0; for (const l of unit.lessons || []) for (const p of l.printables || []) m[p.id] = ++n; return m; }
 const levels = unit => LEVEL_STYLES[(unit && unit.levelStyle) || "plain"] || LEVEL_STYLES.plain;
 const THEME_KEYS = ["ocean", "pastel", "gumleaf", "boho", "creamgold", "blushsage", "blushnavy"];
 
@@ -155,7 +157,7 @@ const fa = require("react-icons/fa6");
 const ICONS = {
   ido: fa.FaPersonChalkboard, wedo: fa.FaPeopleGroup, youdo: fa.FaPencil, target: fa.FaBullseye, list: fa.FaListCheck,
   timer: fa.FaStopwatch, comments: fa.FaComments, link: fa.FaLink, box: fa.FaBoxOpen, clock: fa.FaClock, check: fa.FaCheck,
-  xmark: fa.FaXmark, question: fa.FaQuestion, bulb: fa.FaLightbulb, home: fa.FaHouse, star: fa.FaStar, eye: fa.FaEye,
+  xmark: fa.FaXmark, board: fa.FaChalkboard, question: fa.FaQuestion, bulb: fa.FaLightbulb, home: fa.FaHouse, star: fa.FaStar, eye: fa.FaEye,
 };
 const iconCache = {};
 async function icon(name, color, fg = "FFFFFF") {
@@ -182,4 +184,4 @@ async function browser() {
   }
 }
 
-module.exports = { browser, ROOT, ASSETS, IMGDIR, CACHE, THEMES, THEME_KEYS, LEVEL_STYLES, TEACHER_LEVELS, levels, contrast, themeBackground, FONT, LH, textW, linesFor, hFor, img, hasImg, icon, hash, clean };
+module.exports = { browser, ROOT, ASSETS, IMGDIR, CACHE, THEMES, THEME_KEYS, LEVEL_STYLES, TEACHER_LEVELS, levels, resources, HW: "Edu NSW ACT Foundation", contrast, themeBackground, FONT, LH, textW, linesFor, hFor, img, hasImg, icon, hash, clean };
