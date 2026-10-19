@@ -1,0 +1,540 @@
+{
+ "id": "l7",
+ "n": 7,
+ "title": "Rebuild the whole from a part",
+ "menu": "Rebuild the whole",
+ "pics": [
+  "magnifying_glass_tilted_left",
+  "straight_ruler"
+ ],
+ "li": "We are learning to use a fraction of a length to rebuild the whole length.",
+ "sc": [
+  "I can say how many parts of a given size make the whole",
+  "I can draw the whole when I know 1/2, 1/4, 1/3 or 1/8 of it",
+  "I can check my whole by counting the parts"
+ ],
+ "materials": [
+  "Mystery Whole cards",
+  "rulers",
+  "blank paper or grid paper",
+  "paper strips",
+  "mini whiteboards"
+ ],
+ "slides": [
+  {
+   "type": "warmup",
+   "title": "Warm-up: Missing parts",
+   "prompt": "Write on your whiteboard.",
+   "items": [
+    "3/4 + ___ = 1",
+    "2/3 + ___ = 1",
+    "How many eighths make one whole?",
+    "Half a ribbon is 6 cm. How long is the whole ribbon?"
+   ],
+   "answers": [
+    "1/4",
+    "1/3",
+    "8",
+    "12 cm"
+   ],
+   "mode": "You do"
+  },
+  {
+   "type": "rows",
+   "title": "Thinking backwards",
+   "intro": "Up to now we started with the whole. Today we start with a part.",
+   "rows": [
+    {
+     "label": "Key idea",
+     "text": "The denominator tells how many of the part make the whole.",
+     "color": "teal"
+    },
+    {
+     "label": "1/3",
+     "text": "Copy the part 3 times, end to end.",
+     "color": "sky"
+    },
+    {
+     "label": "1/8",
+     "text": "Copy the part 8 times, end to end.",
+     "color": "indigo"
+    }
+   ],
+   "mode": "I do"
+  },
+  {
+   "type": "worked",
+   "title": "I do: Rebuild from 1/3",
+   "problem": "This piece of paper is 1/3 of a strip. Make the whole strip.",
+   "visual": {
+    "kind": "barModel",
+    "whole": "?",
+    "parts": [
+     "1/3",
+     "1/3",
+     "1/3"
+    ]
+   },
+   "steps": [
+    {
+     "label": "Step 1",
+     "text": "1/3 means 3 equal parts make the whole."
+    },
+    {
+     "label": "Step 2",
+     "text": "Trace the piece 3 times, end to end, with no gaps or overlaps."
+    },
+    {
+     "label": "Step 3",
+     "text": "Count: 1/3, 2/3, 3/3. That is the whole strip."
+    }
+   ],
+   "mode": "I do",
+   "notes": "Use a real paper piece and trace it on the board. Say: I only have one third, so I need two more the same size."
+  },
+  {
+   "type": "worked",
+   "title": "We do: 1/4 of a ribbon is 5 cm",
+   "problem": "How long is the whole ribbon?",
+   "visual": {
+    "kind": "barModel",
+    "whole": "?",
+    "parts": [
+     "5 cm",
+     "5 cm",
+     "5 cm",
+     "5 cm"
+    ]
+   },
+   "steps": [
+    {
+     "label": "Step 1",
+     "text": "1/4 means how many parts make the whole? (4)"
+    },
+    {
+     "label": "Step 2",
+     "text": "4 lots of 5 cm: 5, 10, 15, 20."
+    },
+    {
+     "label": "Step 3",
+     "text": "The whole ribbon is 20 cm."
+    }
+   ],
+   "mode": "We do"
+  },
+  {
+   "type": "visual",
+   "title": "Where is 1?",
+   "intro": "Only 0 and 1/4 are labelled. Find 1.",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 4,
+    "labels": [
+     "0",
+     "1/4",
+     "",
+     "",
+     "?"
+    ],
+    "highlight": [
+     4
+    ],
+    "jumps": [
+     {
+      "from": 0,
+      "to": 1,
+      "label": "1/4"
+     }
+    ]
+   },
+   "rows": [
+    {
+     "label": "One jump",
+     "text": "0 to 1/4 is one jump of a quarter."
+    },
+    {
+     "label": "Rebuild",
+     "text": "Make 4 jumps of the same size. The 4th jump lands on 1."
+    }
+   ],
+   "mode": "We do",
+   "notes": "Draw this on the board with only 0 and 1/4 marked. Students use a strip of paper as the jump length to find 1."
+  },
+  {
+   "type": "talk",
+   "title": "Turn and talk",
+   "prompt": "Jas says: this piece is 1/2, so the whole must be half as long as the piece. Do you agree? What should Jas do?",
+   "seconds": 45,
+   "visual": {
+    "kind": "barModel",
+    "whole": "?",
+    "parts": [
+     "1/2",
+     "?"
+    ]
+   },
+   "mode": "We do",
+   "notes": "Jas has it backwards. The piece is half of the whole, so the whole is 2 pieces long, twice as long as the piece."
+  },
+  {
+   "type": "hinge",
+   "title": "Which one?",
+   "question": "This piece is 1/4 of a strip. How many pieces this size make the whole strip?",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 1,
+    "shaded": 1,
+    "labels": false
+   },
+   "options": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "answer": 3,
+   "why": [
+    "Wrong: this child thinks the piece they are given is the whole.",
+    "Wrong: this child thinks any part is a half.",
+    "Wrong: 3 more pieces are needed, but the piece we have counts too. 1 + 3 = 4.",
+    "Right: 1/4 means 4 equal pieces make the whole."
+   ],
+   "mode": "You do",
+   "notes": "Students who chose 3 have the right idea but answered a different question. Ask them to count all the pieces in the whole."
+  },
+  {
+   "type": "cfu",
+   "title": "Show me: find the whole",
+   "prompt": "Write the length of the whole on your mini whiteboard.",
+   "questions": [
+    "1/2 of a strip is 9 cm.",
+    "1/3 of a rope is 4 m.",
+    "1/8 of a path is 2 m.",
+    "1/4 of a ribbon is 10 cm."
+   ],
+   "answers": [
+    "18 cm",
+    "12 m",
+    "16 m",
+    "40 cm"
+   ],
+   "visual": null,
+   "mode": "You do"
+  },
+  {
+   "type": "activity",
+   "title": "Activity: Mystery wholes",
+   "steps": [
+    "Pick a Mystery Whole card.",
+    "Use your ruler to draw the piece.",
+    "Copy the piece end to end until you have the whole. Label each part.",
+    "Measure your whole and write its length on the back of the card.",
+    "Swap with another pair and check each other's wholes."
+   ],
+   "resource": "Mystery Whole cards",
+   "time": "20 min",
+   "mode": "You do"
+  },
+  {
+   "type": "levels",
+   "support": "Use paper copies of the piece. Lay them end to end and count until you have the whole.",
+   "core": "Rebuild wholes from 1/2, 1/4, 1/3 and 1/8 on number lines and in cm. Explain each one.",
+   "extend": "This piece is 2/3 of a strip. Draw the whole. Explain how you found 1/3 first.",
+   "mode": "You do"
+  },
+  {
+   "type": "discuss",
+   "questions": [
+    "How did the denominator help you rebuild the whole?",
+    "How can you check that your whole is right?"
+   ],
+   "connect": "We worked backwards from a part to rebuild the whole. Check the success criteria and add to your flip book.",
+   "notes": "Add the Rebuild the whole panel. Share one Spicy answer for 2/3 so everyone sees the strategy."
+  }
+ ],
+ "printables": [
+  {
+   "id": "l7-ws",
+   "kind": "worksheet",
+   "title": "Rebuild the whole",
+   "levels": [
+    {
+     "level": "Support",
+     "teach": {
+      "text": "The bottom number tells how many pieces make the whole. For 1/4, use 4 pieces.",
+      "visual": {
+       "kind": "barModel",
+       "whole": "whole",
+       "parts": [
+        "1/4",
+        "1/4",
+        "1/4",
+        "1/4"
+       ]
+      }
+     },
+     "items": [
+      {
+       "q": "This piece is 1/2 of a strip. How many pieces this size make the whole?",
+       "visual": null,
+       "lines": 1,
+       "answer": "2"
+      },
+      {
+       "q": "This piece is 1/3 of a strip. How many pieces this size make the whole?",
+       "visual": null,
+       "lines": 1,
+       "answer": "3"
+      },
+      {
+       "q": "1/2 of a strip is 4 cm. How long is the whole strip?",
+       "visual": {
+        "kind": "barModel",
+        "whole": "?",
+        "parts": [
+         "4 cm",
+         "4 cm"
+        ]
+       },
+       "lines": 1,
+       "answer": "8 cm"
+      },
+      {
+       "q": "1/4 of a ribbon is 2 cm. How long is the whole ribbon?",
+       "visual": null,
+       "lines": 1,
+       "answer": "8 cm"
+      },
+      {
+       "q": "Only 0 and 1/2 are labelled. Draw the jumps and label 1.",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 2,
+        "labels": [
+         "0",
+         "1/2",
+         ""
+        ],
+        "highlight": []
+       },
+       "lines": 0,
+       "answer": "2 jumps of 1/2 from 0; 1 is at the last mark"
+      }
+     ]
+    },
+    {
+     "level": "Core",
+     "teach": {
+      "text": "1/3 of a rope is 5 m. 3 lots of 5 m is 15 m, so the whole rope is 15 m.",
+      "visual": {
+       "kind": "barModel",
+       "whole": "15 m",
+       "parts": [
+        "5 m",
+        "5 m",
+        "5 m"
+       ]
+      }
+     },
+     "items": [
+      {
+       "q": "How long is the whole?",
+       "visual": null,
+       "parts": [
+        {
+         "q": "1/2 is 11 cm",
+         "answer": "22 cm"
+        },
+        {
+         "q": "1/3 is 6 cm",
+         "answer": "18 cm"
+        },
+        {
+         "q": "1/4 is 7 cm",
+         "answer": "28 cm"
+        },
+        {
+         "q": "1/8 is 3 cm",
+         "answer": "24 cm"
+        }
+       ]
+      },
+      {
+       "q": "Only 0 and 1/3 are labelled. Label 2/3 and 1.",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 3,
+        "labels": [
+         "0",
+         "1/3",
+         "",
+         ""
+        ],
+        "highlight": []
+       },
+       "lines": 0,
+       "answer": "2/3 at the next mark, 1 at the last mark"
+      },
+      {
+       "q": "Only 0 and 1/8 are labelled. How many more jumps of 1/8 to reach 1?",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 8,
+        "labels": [
+         "0",
+         "1/8",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "",
+         ""
+        ],
+        "highlight": []
+       },
+       "lines": 1,
+       "answer": "7"
+      },
+      {
+       "q": "Lucy says 1/4 of a strip is 6 cm, so the whole is 10 cm. What did she do wrong?",
+       "visual": null,
+       "lines": 2,
+       "answer": "She added 4 to 6. The whole is 4 lots of 6 cm, which is 24 cm."
+      },
+      {
+       "q": "A garden bed is cut into 8 equal parts. Each part is 2 m long. How long is the bed?",
+       "visual": null,
+       "lines": 1,
+       "answer": "16 m"
+      }
+     ]
+    },
+    {
+     "level": "Extend",
+     "teach": {
+      "text": "2/3 of a strip is 8 cm. Halve it to find 1/3: 4 cm. The whole is 3 lots of 4 cm: 12 cm.",
+      "visual": {
+       "kind": "barModel",
+       "whole": "12 cm",
+       "parts": [
+        "4 cm",
+        "4 cm",
+        "4 cm"
+       ]
+      }
+     },
+     "items": [
+      {
+       "q": "3/4 of a strip is 9 cm. How long is the whole strip?",
+       "visual": null,
+       "lines": 2,
+       "answer": "12 cm (1/4 is 3 cm)"
+      },
+      {
+       "q": "2/3 of a rope is 10 m. How long is the whole rope?",
+       "visual": null,
+       "lines": 2,
+       "answer": "15 m (1/3 is 5 m)"
+      },
+      {
+       "q": "2/8 of a path is 6 m. How long is the whole path?",
+       "visual": null,
+       "lines": 2,
+       "answer": "24 m (1/8 is 3 m)"
+      },
+      {
+       "q": "Strip A: 1/2 is 5 cm. Strip B: 1/4 is 3 cm. Which whole strip is longer, and by how much?",
+       "visual": null,
+       "lines": 2,
+       "answer": "Strip B. A is 10 cm and B is 12 cm, so B is 2 cm longer."
+      },
+      {
+       "q": "A number line shows only 0 and 2/5. Explain how to find 1.",
+       "visual": null,
+       "lines": 3,
+       "answer": "Halve the space from 0 to 2/5 to find 1/5. Then make 5 equal jumps of 1/5 from 0 to land on 1."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l7-cards",
+   "kind": "cards",
+   "title": "Mystery Whole cards",
+   "instructions": "Draw the piece with a ruler. Copy it end to end to build the whole. Measure the whole and write it on the back.",
+   "cards": [
+    {
+     "text": "1/2 of the whole is 6 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/2 of the whole is 8 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/2 of the whole is 7 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/4 of the whole is 3 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/4 of the whole is 4 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/4 of the whole is 2 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/3 of the whole is 5 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/3 of the whole is 4 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/3 of the whole is 6 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/8 of the whole is 2 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/8 of the whole is 1 cm.",
+     "visual": null
+    },
+    {
+     "text": "1/2 of the whole is 9 cm.",
+     "visual": null
+    }
+   ]
+  }
+ ],
+ "teacherNotes": "Rebuilding the whole is reversible thinking and is harder than it looks; many students will halve or add instead of repeating the part. Keep a paper piece in their hands so they can physically copy it. Mystery Whole card answers in order: 12, 16, 14, 12, 16, 8, 15, 12, 18, 16, 8 and 18 cm. Students who answer 3 on the hinge question are close; ask them to count every piece in the whole.",
+ "exitTicket": [
+  {
+   "q": "1/4 of a ribbon is 3 cm. How long is the whole ribbon?",
+   "answer": "12 cm",
+   "visual": null
+  },
+  {
+   "q": "1/8 of a strip is 2 cm. How long is the whole strip?",
+   "answer": "16 cm",
+   "visual": null
+  }
+ ]
+}

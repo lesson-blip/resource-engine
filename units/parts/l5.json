@@ -1,0 +1,680 @@
+{
+ "id": "l5",
+ "n": 5,
+ "title": "Counting unit fractions to one",
+ "menu": "Count to one whole",
+ "pics": [
+  "running_shoe",
+  "chequered_flag"
+ ],
+ "li": "We are learning to count unit fractions on a number line to make one whole.",
+ "sc": [
+  "I can explain what a unit fraction is",
+  "I can count in unit fractions from 0 to 1, like 1/5, 2/5, 3/5",
+  "I can write one whole as a fraction, like 3/3 or 8/8"
+ ],
+ "materials": [
+  "Race to One game boards",
+  "dice",
+  "counters",
+  "fraction strips from earlier lessons",
+  "mini whiteboards"
+ ],
+ "slides": [
+  {
+   "type": "warmup",
+   "title": "Warm-up: Parts of a whole",
+   "prompt": "Write on your whiteboard.",
+   "items": [
+    "How many fifths make one whole?",
+    "1/5 of 30 cm",
+    "How do we make thirds without folding?",
+    "Write three eighths as a fraction."
+   ],
+   "answers": [
+    "5",
+    "6 cm",
+    "Estimate, check and adjust",
+    "3/8"
+   ],
+   "mode": "You do"
+  },
+  {
+   "type": "definition",
+   "term": "unit fraction",
+   "means": "A fraction with 1 on top. It is one equal part of the whole.",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 4,
+    "labels": [
+     "0",
+     "1/4",
+     "",
+     "",
+     "1"
+    ],
+    "highlight": [
+     1
+    ]
+   },
+   "example": "1/2, 1/3, 1/4, 1/5 and 1/8 are unit fractions. 3/4 is not.",
+   "mode": "I do"
+  },
+  {
+   "type": "worked",
+   "title": "I do: Count quarters to one whole",
+   "problem": "Count by quarters from 0 to 1 on the number line.",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 4,
+    "labels": [
+     "0",
+     "1/4",
+     "2/4",
+     "3/4",
+     "4/4"
+    ],
+    "highlight": [
+     4
+    ],
+    "jumps": [
+     {
+      "from": 0,
+      "to": 1,
+      "label": "1/4"
+     },
+     {
+      "from": 1,
+      "to": 2,
+      "label": "1/4"
+     },
+     {
+      "from": 2,
+      "to": 3,
+      "label": "1/4"
+     },
+     {
+      "from": 3,
+      "to": 4,
+      "label": "1/4"
+     }
+    ]
+   },
+   "steps": [
+    {
+     "label": "Step 1",
+     "text": "Start at 0. Each jump is one space: 1/4."
+    },
+    {
+     "label": "Step 2",
+     "text": "Say each landing: one quarter, two quarters, three quarters, four quarters."
+    },
+    {
+     "label": "Step 3",
+     "text": "Four quarters land on 1. So 4/4 = 1 whole."
+    }
+   ],
+   "mode": "I do",
+   "notes": "Point out that the numerator goes up by 1 each jump while the denominator stays the same, because the size of each part does not change."
+  },
+  {
+   "type": "worked",
+   "title": "We do: Count fifths to one whole",
+   "problem": "Count by fifths from 0 to 1. Write each landing.",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 5,
+    "labels": [
+     "0",
+     "1/5",
+     "",
+     "",
+     "",
+     ""
+    ],
+    "highlight": [
+     5
+    ]
+   },
+   "steps": [
+    {
+     "label": "Step 1",
+     "text": "The first jump lands on 1/5. You say the next one."
+    },
+    {
+     "label": "Step 2",
+     "text": "2/5, 3/5, 4/5. Count the jumps: 4 so far."
+    },
+    {
+     "label": "Step 3",
+     "text": "One more jump lands on 1. 5/5 = 1 whole."
+    }
+   ],
+   "mode": "We do",
+   "notes": "Students write each label on their whiteboards before you reveal it. Repeat quickly with thirds and eighths if time allows."
+  },
+  {
+   "type": "visual",
+   "title": "Fractions keep going past 1",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 2,
+    "ticks": 8,
+    "labels": [
+     "0",
+     "1/4",
+     "2/4",
+     "3/4",
+     "1",
+     "5/4",
+     "6/4",
+     "7/4",
+     "2"
+    ],
+    "highlight": [
+     5
+    ]
+   },
+   "rows": [
+    {
+     "label": "Keep counting",
+     "text": "After 4/4 comes 5/4. That is one quarter more than 1."
+    },
+    {
+     "label": "Wholes",
+     "text": "4/4 = 1 and 8/4 = 2."
+    },
+    {
+     "label": "Big idea",
+     "text": "Fractions are numbers. They do not stop at 1."
+    }
+   ],
+   "mode": "I do",
+   "notes": "This is a short look ahead. Students do not need to master it today, but it stops the idea that fractions only live between 0 and 1."
+  },
+  {
+   "type": "talk",
+   "title": "Turn and talk",
+   "prompt": "Is 6/6 the same amount as 3/3? Use a number line to explain.",
+   "seconds": 45,
+   "visual": null,
+   "mode": "We do",
+   "notes": "Both are one whole. 6 sixths and 3 thirds both land on 1."
+  },
+  {
+   "type": "hinge",
+   "title": "Which one?",
+   "question": "Which fraction is equal to one whole?",
+   "visual": null,
+   "options": [
+    "1/4",
+    "4/4",
+    "3/4",
+    "5/4"
+   ],
+   "answer": 1,
+   "why": [
+    "Wrong: this child sees the 1 on top and thinks 'one whole'. 1/4 is one part of 4.",
+    "Right: 4 quarters land on 1, so 4/4 is one whole.",
+    "Wrong: this child counted the 3 marks between 0 and 1, not the 4 spaces.",
+    "Wrong: this child counted 0 as the first quarter, so went one jump too far."
+   ],
+   "mode": "You do"
+  },
+  {
+   "type": "cfu",
+   "title": "Show me: count to one",
+   "prompt": "Write on your mini whiteboard.",
+   "questions": [
+    "Count in fifths from 0 to 1. Write each fraction.",
+    "Write one whole in eighths.",
+    "How many jumps of 1/3 from 0 to 1?",
+    "Counting in quarters, what comes after 4/4?"
+   ],
+   "answers": [
+    "1/5, 2/5, 3/5, 4/5, 5/5",
+    "8/8",
+    "3",
+    "5/4"
+   ],
+   "visual": null,
+   "mode": "You do"
+  },
+  {
+   "type": "activity",
+   "title": "Activity: Race to One",
+   "steps": [
+    "Play Race to One with a partner.",
+    "Roll the die and move along your fraction track.",
+    "Say the fraction you land on, like 'three eighths'.",
+    "Land exactly on 1 and say the whole as a fraction to win.",
+    "Then do your level on the Counting to one whole sheet."
+   ],
+   "resource": "Race to One",
+   "time": "25 min",
+   "mode": "You do",
+   "notes": "Each pair needs one board, one die and 2 counters. Change tracks each round so students count in different unit fractions."
+  },
+  {
+   "type": "levels",
+   "support": "Count quarters and thirds on labelled lines. Write 4/4 = 1 and 3/3 = 1.",
+   "core": "Count in thirds, fifths and eighths. Fill in missing labels and write each whole as a fraction.",
+   "extend": "Keep counting past 1. Where do 4/3, 6/4 and 8/4 land? Explain with a number line.",
+   "mode": "You do"
+  },
+  {
+   "type": "discuss",
+   "questions": [
+    "Why is 5/5 the same as 1?",
+    "Can a fraction be more than 1? Show us on a number line."
+   ],
+   "connect": "We counted unit fractions from 0 to one whole. Check the success criteria and add to your flip book.",
+   "notes": "Add the Count to one whole panel. Ask students to write 1 whole three different ways."
+  }
+ ],
+ "printables": [
+  {
+   "id": "l5-ws",
+   "kind": "worksheet",
+   "title": "Counting to one whole",
+   "levels": [
+    {
+     "level": "Support",
+     "teach": {
+      "text": "Count the spaces from 0. Four quarters make one whole: 4/4 = 1.",
+      "visual": {
+       "kind": "numberLine",
+       "from": 0,
+       "to": 1,
+       "ticks": 4,
+       "labels": [
+        "0",
+        "1/4",
+        "2/4",
+        "3/4",
+        "4/4"
+       ],
+       "highlight": [
+        4
+       ]
+      }
+     },
+     "items": [
+      {
+       "q": "Write the missing label.",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 3,
+        "labels": [
+         "0",
+         "1/3",
+         "",
+         "3/3"
+        ],
+        "highlight": [
+         2
+        ]
+       },
+       "lines": 1,
+       "answer": "2/3"
+      },
+      {
+       "q": "Write one whole as quarters.",
+       "visual": null,
+       "lines": 1,
+       "answer": "4/4"
+      },
+      {
+       "q": "Keep counting: 1/5, 2/5, ___, ___, ___",
+       "visual": null,
+       "lines": 1,
+       "answer": "3/5, 4/5, 5/5"
+      },
+      {
+       "q": "Circle the unit fractions: 1/3, 2/5, 1/8, 3/4, 1/2",
+       "visual": null,
+       "lines": 1,
+       "answer": "1/3, 1/8, 1/2"
+      },
+      {
+       "q": "What fraction is marked with the dot?",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 4,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         ""
+        ],
+        "highlight": [
+         4
+        ]
+       },
+       "lines": 1,
+       "answer": "4/4, which is 1 whole"
+      }
+     ]
+    },
+    {
+     "level": "Core",
+     "teach": {
+      "text": "A unit fraction has 1 on top. Count unit fractions until you land on one whole.",
+      "visual": {
+       "kind": "numberLine",
+       "from": 0,
+       "to": 1,
+       "ticks": 5,
+       "labels": [
+        "0",
+        "1/5",
+        "2/5",
+        "3/5",
+        "4/5",
+        "5/5"
+       ],
+       "highlight": [
+        5
+       ]
+      }
+     },
+     "items": [
+      {
+       "q": "Write one whole as:",
+       "visual": null,
+       "parts": [
+        {
+         "q": "thirds",
+         "answer": "3/3"
+        },
+        {
+         "q": "fifths",
+         "answer": "5/5"
+        },
+        {
+         "q": "eighths",
+         "answer": "8/8"
+        },
+        {
+         "q": "halves",
+         "answer": "2/2"
+        }
+       ]
+      },
+      {
+       "q": "Write the missing labels.",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 8,
+        "labels": [
+         "0",
+         "1/8",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "7/8",
+         ""
+        ],
+        "highlight": []
+       },
+       "lines": 1,
+       "answer": "2/8, 3/8, 4/8, 5/8, 6/8, 8/8 (or 1)"
+      },
+      {
+       "q": "How many more jumps of 1/5 from 2/5 to reach 1?",
+       "visual": null,
+       "lines": 1,
+       "answer": "3"
+      },
+      {
+       "q": "Tom counted the marks and said this line shows fifths. Explain his mistake.",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 4,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": []
+       },
+       "lines": 2,
+       "answer": "There are 5 marks but only 4 spaces, so it shows quarters."
+      },
+      {
+       "q": "Is 6/6 the same as 1? Explain.",
+       "visual": null,
+       "lines": 2,
+       "answer": "Yes. 6 sixths make one whole, so 6/6 lands on 1."
+      }
+     ]
+    },
+    {
+     "level": "Extend",
+     "teach": {
+      "text": "Fractions keep going past 1. 4/4 = 1, so 5/4 is one quarter more than 1.",
+      "visual": {
+       "kind": "numberLine",
+       "from": 0,
+       "to": 2,
+       "ticks": 8,
+       "labels": [
+        "0",
+        "1/4",
+        "2/4",
+        "3/4",
+        "1",
+        "5/4",
+        "6/4",
+        "7/4",
+        "2"
+       ],
+       "highlight": [
+        4
+       ]
+      }
+     },
+     "items": [
+      {
+       "q": "Write the missing labels.",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 2,
+        "ticks": 6,
+        "labels": [
+         "0",
+         "1/3",
+         "2/3",
+         "",
+         "4/3",
+         "",
+         ""
+        ],
+        "highlight": []
+       },
+       "lines": 1,
+       "answer": "3/3 (or 1), 5/3, 6/3 (or 2)"
+      },
+      {
+       "q": "How many quarters make 2 wholes?",
+       "visual": null,
+       "lines": 1,
+       "answer": "8"
+      },
+      {
+       "q": "Count on in fifths from 3/5. Write the next 4 fractions.",
+       "visual": null,
+       "lines": 1,
+       "answer": "4/5, 5/5, 6/5, 7/5"
+      },
+      {
+       "q": "Which of these is more than 1: 7/8, 8/8, 9/8?",
+       "visual": null,
+       "lines": 1,
+       "answer": "9/8"
+      },
+      {
+       "q": "Where does 6/4 land? Explain.",
+       "visual": null,
+       "lines": 2,
+       "answer": "Halfway between 1 and 2. It is 1 whole and 2 quarters more."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l5-game",
+   "kind": "game",
+   "title": "Race to One",
+   "players": "2 players",
+   "need": [
+    "1 die",
+    "2 counters",
+    "pencil"
+   ],
+   "rules": [
+    "Each player chooses a track. Both players use the same track each round.",
+    "Roll the die. 1, 2 or 3: move 1 space. 4, 5 or 6: move 2 spaces.",
+    "Say the fraction you land on out loud. If you say it wrong, move back to where you were.",
+    "You must land exactly on 1. If your move is too big, miss that turn.",
+    "First to land on 1 says the whole as a fraction (like 5/5) and wins the round."
+   ],
+   "items": [
+    {
+     "q": "Thirds track",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 3,
+      "labels": [
+       "0",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": []
+     },
+     "lines": 0,
+     "answer": "1/3, 2/3, 3/3"
+    },
+    {
+     "q": "Quarters track",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 4,
+      "labels": [
+       "0",
+       "",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": []
+     },
+     "lines": 0,
+     "answer": "1/4, 2/4, 3/4, 4/4"
+    },
+    {
+     "q": "Fifths track",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 5,
+      "labels": [
+       "0",
+       "",
+       "",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": []
+     },
+     "lines": 0,
+     "answer": "1/5, 2/5, 3/5, 4/5, 5/5"
+    },
+    {
+     "q": "Eighths track",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 8,
+      "labels": [
+       "0",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": []
+     },
+     "lines": 0,
+     "answer": "1/8, 2/8, 3/8, 4/8, 5/8, 6/8, 7/8, 8/8"
+    }
+   ]
+  }
+ ],
+ "teacherNotes": "The key idea is that the denominator names the size of the part and the numerator counts how many parts, so counting 1/5, 2/5, 3/5 is just like counting objects. Students should say fractions as words while counting. The look past 1 is brief; return to it if students are curious. In Race to One, listen for students who say the mark number instead of the fraction, and check they start counting from 0.",
+ "exitTicket": [
+  {
+   "q": "Write one whole as fifths.",
+   "answer": "5/5",
+   "visual": null
+  },
+  {
+   "q": "What fraction is marked with the dot?",
+   "answer": "6/8",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 8,
+    "labels": [
+     "0",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "1"
+    ],
+    "highlight": [
+     6
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,525 @@
+{
+ "id": "l3",
+ "n": 3,
+ "title": "Thirds by estimate and adjust",
+ "menu": "Thirds",
+ "pics": [
+  "ribbon",
+  "thinking_face"
+ ],
+ "li": "We are learning to make thirds of a length by estimating, checking and adjusting.",
+ "sc": [
+  "I can explain why halving does not make thirds",
+  "I can make 3 equal parts of a length by estimating and adjusting",
+  "I can mark 1/3 and 2/3 on a number line"
+ ],
+ "materials": [
+  "paper strips",
+  "string or ribbon (about 30 cm each)",
+  "pencils",
+  "rulers",
+  "mini whiteboards"
+ ],
+ "slides": [
+  {
+   "type": "warmup",
+   "title": "Warm-up: Fold facts",
+   "prompt": "Write on your whiteboard.",
+   "items": [
+    "How many eighths make one whole?",
+    "Write three quarters as a fraction.",
+    "Half of 18 cm",
+    "Which is longer: 1/2 or 1/4 of the same strip?"
+   ],
+   "answers": [
+    "8",
+    "3/4",
+    "9 cm",
+    "1/2"
+   ],
+   "mode": "You do"
+  },
+  {
+   "type": "rows",
+   "title": "Can halving make thirds?",
+   "intro": "Fold a strip in half again and again. Count the parts each time.",
+   "rows": [
+    {
+     "label": "Halve once",
+     "text": "2 equal parts",
+     "color": "teal"
+    },
+    {
+     "label": "Halve twice",
+     "text": "4 equal parts",
+     "color": "sky"
+    },
+    {
+     "label": "Halve 3 times",
+     "text": "8 equal parts",
+     "color": "indigo"
+    },
+    {
+     "label": "So",
+     "text": "Halving makes 2, 4, 8, 16 parts. It never makes 3. Thirds need a new way.",
+     "color": "mint"
+    }
+   ],
+   "mode": "I do",
+   "notes": "Let students try to fold thirds first for one minute. Most will find it hard. That struggle is the reason for today's method."
+  },
+  {
+   "type": "definition",
+   "term": "one third",
+   "means": "One of 3 equal parts of a whole. 3 thirds make one whole.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 3,
+    "shaded": 1,
+    "labels": true
+   },
+   "example": "A 30 cm ribbon cut into thirds has 3 parts of 10 cm.",
+   "mode": "I do"
+  },
+  {
+   "type": "worked",
+   "title": "I do: Estimate and adjust",
+   "problem": "Make thirds of a strip of string without a ruler.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 3,
+    "shaded": 0,
+    "labels": true
+   },
+   "steps": [
+    {
+     "label": "Estimate",
+     "text": "Make a light mark where you think 1/3 is. It should be a bit less than half."
+    },
+    {
+     "label": "Check",
+     "text": "Use that length like a ruler. Step it along the string 3 times."
+    },
+    {
+     "label": "Adjust",
+     "text": "Bit left over? The part is too short, so move the mark right. Ran out? Move it left."
+    },
+    {
+     "label": "Done",
+     "text": "When 3 parts fit exactly, each part is 1/3 of the string."
+    }
+   ],
+   "mode": "I do",
+   "notes": "Make your first estimate deliberately too short so students see an adjustment. Think aloud: there is a gap at the end, so my part needs to be a little longer."
+  },
+  {
+   "type": "visual",
+   "title": "Thirds on a number line",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 3,
+    "labels": [
+     "0",
+     "1/3",
+     "2/3",
+     "1"
+    ],
+    "highlight": [
+     2
+    ],
+    "jumps": [
+     {
+      "from": 0,
+      "to": 1,
+      "label": "1/3"
+     },
+     {
+      "from": 1,
+      "to": 2,
+      "label": "1/3"
+     }
+    ]
+   },
+   "rows": [
+    {
+     "label": "Count spaces",
+     "text": "One third, two thirds, three thirds."
+    },
+    {
+     "label": "One whole",
+     "text": "3/3 lands on 1."
+    },
+    {
+     "label": "Compare",
+     "text": "1/3 is a little less than 1/2."
+    }
+   ],
+   "mode": "We do"
+  },
+  {
+   "type": "talk",
+   "title": "Turn and talk",
+   "prompt": "Lily cut a string into 3 parts: 9 cm, 10 cm and 11 cm. Are they thirds? What should she do?",
+   "seconds": 45,
+   "visual": null,
+   "mode": "We do",
+   "notes": "Not thirds, because they are not equal. The string is 30 cm, so each third should be 10 cm. She could adjust the cuts."
+  },
+  {
+   "type": "hinge",
+   "title": "Which one?",
+   "question": "This line has 2 marks between 0 and 1. What is each space worth?",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 3,
+    "labels": [
+     "0",
+     "",
+     "",
+     "1"
+    ],
+    "highlight": []
+   },
+   "options": [
+    "1/2",
+    "1/3",
+    "1/4",
+    "2/3"
+   ],
+   "answer": 1,
+   "why": [
+    "Wrong: this child counted the 2 marks in the middle instead of the spaces.",
+    "Right: there are 3 equal spaces from 0 to 1, so each is 1/3.",
+    "Wrong: this child counted all 4 marks, including 0 and 1. Count spaces, not marks.",
+    "Wrong: 2/3 names the second mark, a point. Each space is one third."
+   ],
+   "mode": "You do"
+  },
+  {
+   "type": "cfu",
+   "title": "Show me: thirds",
+   "prompt": "Write on your mini whiteboard.",
+   "questions": [
+    "How many thirds make one whole?",
+    "A 12 cm strip is cut into thirds. How long is each part?",
+    "Write the fraction for 2 of 3 equal parts.",
+    "Which is longer: 1/3 or 1/4 of the same strip?"
+   ],
+   "answers": [
+    "3",
+    "4 cm",
+    "2/3",
+    "1/3"
+   ],
+   "visual": null,
+   "mode": "You do"
+  },
+  {
+   "type": "activity",
+   "title": "Activity: Third time lucky",
+   "steps": [
+    "Take a piece of string. Estimate 1/3 and mark it lightly.",
+    "Check by stepping that length along 3 times.",
+    "Adjust until 3 equal parts fit with nothing left over.",
+    "Glue it above a number line. Label 0, 1/3, 2/3 and 1.",
+    "Do your level on the Thirds of a length sheet."
+   ],
+   "resource": "Thirds of a length",
+   "time": "20 min",
+   "mode": "You do",
+   "notes": "Paper clips or pegs make good movable marks on string."
+  },
+  {
+   "type": "levels",
+   "support": "Use a strip 15 squares long. Count and mark every 5 squares to make thirds.",
+   "core": "Make thirds of 3 different strips by estimate and adjust. Find 1/3 and 2/3 of lengths in cm.",
+   "extend": "Halve your thirds to make sixths. Where do 2/6 and 1/3 land? Solve the adjusting puzzles.",
+   "mode": "You do"
+  },
+  {
+   "type": "discuss",
+   "questions": [
+    "Why can't we fold in half to make thirds?",
+    "Was your first estimate too long or too short? How did you know?"
+   ],
+   "connect": "We made thirds by estimating, checking and adjusting, and marked them on a number line. Which success criteria can you show me?",
+   "notes": "Start the Thirds and fifths panel in the flip book. Students write one tip for making thirds."
+  }
+ ],
+ "printables": [
+  {
+   "id": "l3-ws",
+   "kind": "worksheet",
+   "title": "Thirds of a length",
+   "levels": [
+    {
+     "level": "Support",
+     "teach": {
+      "text": "Thirds are 3 equal parts. Each part is 1/3. Three thirds make one whole.",
+      "visual": {
+       "kind": "fractionStrip",
+       "parts": 3,
+       "shaded": 1,
+       "labels": true
+      }
+     },
+     "items": [
+      {
+       "q": "What fraction is shaded?",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 3,
+        "shaded": 2,
+        "labels": true
+       },
+       "lines": 1,
+       "answer": "2/3"
+      },
+      {
+       "q": "How many thirds make one whole?",
+       "visual": null,
+       "lines": 1,
+       "answer": "3"
+      },
+      {
+       "q": "Write the missing label.",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 3,
+        "labels": [
+         "0",
+         "1/3",
+         "",
+         "1"
+        ],
+        "highlight": [
+         2
+        ]
+       },
+       "lines": 1,
+       "answer": "2/3"
+      },
+      {
+       "q": "A 9 cm strip is cut into thirds. How long is each part?",
+       "visual": null,
+       "lines": 1,
+       "answer": "3 cm"
+      },
+      {
+       "q": "Thirds or not? Write yes or no.",
+       "visual": null,
+       "parts": [
+        {
+         "q": "3 parts: 5 cm, 5 cm, 5 cm",
+         "answer": "yes"
+        },
+        {
+         "q": "3 parts: 4 cm, 5 cm, 6 cm",
+         "answer": "no"
+        },
+        {
+         "q": "4 equal parts",
+         "answer": "no"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "level": "Core",
+     "teach": {
+      "text": "Estimate, check, adjust. A bit left over means your part is too short. Running out means it is too long.",
+      "visual": {
+       "kind": "numberLine",
+       "from": 0,
+       "to": 1,
+       "ticks": 3,
+       "labels": [
+        "0",
+        "1/3",
+        "2/3",
+        "1"
+       ],
+       "highlight": []
+      }
+     },
+     "items": [
+      {
+       "q": "How long is 1/3?",
+       "visual": null,
+       "parts": [
+        {
+         "q": "a 21 cm strip",
+         "answer": "7 cm"
+        },
+        {
+         "q": "a 30 cm strip",
+         "answer": "10 cm"
+        },
+        {
+         "q": "a 45 cm strip",
+         "answer": "15 cm"
+        },
+        {
+         "q": "a 60 cm strip",
+         "answer": "20 cm"
+        }
+       ]
+      },
+      {
+       "q": "Ella's first try at 1/3 of a strip was 8 cm. She stepped it out 3 times and 3 cm was left over. Should her part be longer or shorter? How long is the strip?",
+       "visual": null,
+       "lines": 2,
+       "answer": "Longer. The strip is 8 + 8 + 8 + 3 = 27 cm, so 1/3 should be 9 cm."
+      },
+      {
+       "q": "What fraction is marked with the dot?",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 3,
+        "labels": [
+         "0",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": [
+         2
+        ]
+       },
+       "lines": 1,
+       "answer": "2/3"
+      },
+      {
+       "q": "Max says this line shows thirds because it has 3 marks between 0 and 1. Is he right? Explain.",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 4,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": []
+       },
+       "lines": 2,
+       "answer": "No. There are 4 equal spaces, so they are quarters. Count spaces, not marks."
+      },
+      {
+       "q": "How long is 2/3 of a 30 cm strip?",
+       "visual": null,
+       "lines": 1,
+       "answer": "20 cm"
+      }
+     ]
+    },
+    {
+     "level": "Extend",
+     "teach": {
+      "text": "Halve each third to make sixths. 1/3 lines up with 2/6, and 2/3 lines up with 4/6.",
+      "visual": {
+       "kind": "fractionWall",
+       "rows": [
+        1,
+        3,
+        6
+       ]
+      }
+     },
+     "items": [
+      {
+       "q": "How many sixths make one whole?",
+       "visual": null,
+       "lines": 1,
+       "answer": "6"
+      },
+      {
+       "q": "How many sixths make 2/3?",
+       "visual": null,
+       "lines": 1,
+       "answer": "4"
+      },
+      {
+       "q": "A strip is 36 cm long.",
+       "visual": null,
+       "parts": [
+        {
+         "q": "How long is 2/3?",
+         "answer": "24 cm"
+        },
+        {
+         "q": "How long is 5/6?",
+         "answer": "30 cm"
+        }
+       ]
+      },
+      {
+       "q": "Write the missing labels.",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 6,
+        "labels": [
+         "0",
+         "1/6",
+         "",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": []
+       },
+       "lines": 1,
+       "answer": "2/6, 3/6, 4/6, 5/6"
+      },
+      {
+       "q": "Ella's first try at 1/3 was 12 cm. Stepped out 3 times, it went 3 cm past the end. How long is the strip? What should 1/3 be?",
+       "visual": null,
+       "lines": 2,
+       "answer": "The strip is 36 - 3 = 33 cm, so 1/3 is 11 cm."
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "teacherNotes": "This is the first lesson where folding in half does not work, so give students time to discover that before you teach estimate and adjust. String or ribbon is easier to adjust than paper. Use lengths that divide by 3 (15, 21, 30 cm) so measuring confirms the estimate. The hinge question shows who counts marks instead of spaces; that misconception will cause errors all unit, so fix it now.",
+ "exitTicket": [
+  {
+   "q": "Mark and label 2/3 on the number line.",
+   "answer": "The second mark after 0, labelled 2/3",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 3,
+    "labels": [
+     "0",
+     "",
+     "",
+     "1"
+    ],
+    "highlight": []
+   }
+  },
+  {
+   "q": "Can you make thirds by folding a strip in half? Why or why not?",
+   "answer": "No. Halving makes 2, 4 or 8 parts, never 3.",
+   "visual": null
+  }
+ ]
+}

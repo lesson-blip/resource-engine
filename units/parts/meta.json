@@ -1,0 +1,321 @@
+{
+ "id": "s2-fractions-a",
+ "title": "Fractions as Lengths",
+ "subtitle": "Partitioned Fractions A",
+ "stage": "Stage 2",
+ "years": "Years 3 and 4",
+ "fit": "Fits NSW Stage 2 Partitioned Fractions A (2 weeks)",
+ "colour": "teal",
+ "weeks": 2,
+ "outcomes": [
+  {
+   "code": "MA2-PF-01",
+   "text": "represents and compares halves, quarters, thirds and fifths as lengths on a number line and their related fractions formed by halving (eighths, sixths and tenths)"
+  },
+  {
+   "code": "MAO-WM-01",
+   "text": "develops understanding and fluency in mathematics through exploring and connecting mathematical concepts, choosing and applying mathematical techniques to solve problems, and communicating their thinking and reasoning coherently and clearly"
+  }
+ ],
+ "content": [
+  "Make fractional parts of a length without relying on repeated halving",
+  "Make thirds and fifths of a length by estimating, checking and adjusting",
+  "Show unit fractions and count them to one complete whole on a number line",
+  "Use fraction strips and diagrams to model halves, quarters, eighths and thirds",
+  "Explain that fractions made from the same number of equal parts belong to one family with the same denominator",
+  "Find the part needed to complete one whole for halves, quarters, eighths and thirds",
+  "Rebuild the whole from a part (1/2, 1/4, 1/3, 1/8)",
+  "Compare unit fractions of the same whole as lengths"
+ ],
+ "vocab": [
+  {
+   "word": "whole",
+   "means": "The full length we start with. A strip of 2 halves is still one whole, not 2 wholes.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 1,
+    "shaded": 1,
+    "labels": true
+   },
+   "pic": "chocolate_bar"
+  },
+  {
+   "word": "equal parts",
+   "means": "Parts that are exactly the same length. Two pieces of 4 cm and 6 cm are not equal parts.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 4,
+    "shaded": 0,
+    "labels": false
+   },
+   "pic": "scissors"
+  },
+  {
+   "word": "fraction",
+   "means": "A number that tells us about equal parts of a whole. 3/4 means 3 parts when the whole has 4 equal parts.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 4,
+    "shaded": 3,
+    "labels": true
+   },
+   "pic": null
+  },
+  {
+   "word": "numerator",
+   "means": "The top number. It counts how many equal parts we are talking about. In 3/4 it is 3.",
+   "visual": null,
+   "pic": null
+  },
+  {
+   "word": "denominator",
+   "means": "The bottom number. It tells how many equal parts make the whole. It is not how many parts are shaded.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 5,
+    "shaded": 2,
+    "labels": true
+   },
+   "pic": null
+  },
+  {
+   "word": "unit fraction",
+   "means": "A fraction with 1 on top, like 1/3 or 1/8. 2/3 is not a unit fraction.",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 3,
+    "labels": [
+     "0",
+     "1/3",
+     "",
+     "1"
+    ],
+    "highlight": [
+     1
+    ]
+   },
+   "pic": null
+  },
+  {
+   "word": "number line",
+   "means": "A line where every number has its own place. We count the spaces from 0, not the marks.",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 4,
+    "labels": [
+     "0",
+     "1/4",
+     "2/4",
+     "3/4",
+     "1"
+    ],
+    "highlight": []
+   },
+   "pic": "straight_ruler"
+  },
+  {
+   "word": "estimate and adjust",
+   "means": "Make a careful guess, check it, then move it a little until the parts are equal.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 3,
+    "shaded": 1,
+    "labels": true
+   },
+   "pic": "thinking_face"
+  },
+  {
+   "word": "fraction family",
+   "means": "Fractions with the same denominator, like 1/8, 3/8 and 8/8. 3/8 and 3/4 are not in the same family.",
+   "visual": {
+    "kind": "fractionWall",
+    "rows": [
+     1,
+     2,
+     4,
+     8
+    ]
+   },
+   "pic": "busts_in_silhouette"
+  },
+  {
+   "word": "missing part",
+   "means": "The part you add to make exactly one whole. For 3/4 the missing part is 1/4, not 1/3.",
+   "visual": {
+    "kind": "barModel",
+    "whole": "4/4 = 1",
+    "parts": [
+     "3/4",
+     "1/4"
+    ]
+   },
+   "pic": "puzzle_piece"
+  }
+ ],
+ "misconceptions": [
+  {
+   "think": "1/8 is bigger than 1/4 because 8 is bigger than 4.",
+   "fix": "Fold two strips of the same length into quarters and eighths. Lay them side by side. More parts means each part is shorter."
+  },
+  {
+   "think": "To find 3/4 on a number line, count 3 marks, and 0 counts as the first one.",
+   "fix": "Jump the spaces with a finger from 0. Say 'zero, one quarter, two quarters'. The number of spaces from 0 to 1 is the denominator."
+  },
+  {
+   "think": "Any 2 pieces are halves and any 3 pieces are thirds, even if they are different lengths.",
+   "fix": "Check by laying parts on top of each other or measuring. Show near misses (9 cm, 10 cm, 11 cm) and ask if they are thirds."
+  },
+  {
+   "think": "Fractions stop at 1. You cannot have 5 quarters.",
+   "fix": "Keep counting in quarters past 1 on a 0 to 2 number line. 4/4 lands on 1, so 5/4 is one quarter more."
+  },
+  {
+   "think": "1/4 of my strip is longer than 1/2 of yours, so 1/4 is bigger than 1/2.",
+   "fix": "Show that a fair comparison needs the same whole. Compare both fractions on one strip or two number lines of the same length."
+  }
+ ],
+ "signature": {
+  "name": "My Fraction Flip Book",
+  "what": "A strip-shaped flip book with one panel for each big idea; students add a strip, a number line and a sentence after each lesson.",
+  "panels": [
+   {
+    "title": "Halves",
+    "prompt": "Glue a folded strip. Mark 1/2 on a 0 to 1 number line. Finish: Halves are 2 ...",
+    "visual": {
+     "kind": "numberLine",
+     "from": 0,
+     "to": 1,
+     "ticks": 2,
+     "labels": [
+      "0",
+      "1/2",
+      "1"
+     ],
+     "highlight": [
+      1
+     ]
+    }
+   },
+   {
+    "title": "Quarters and eighths",
+    "prompt": "Halve, then halve again. Label quarters and eighths on one line. Which part is shorter?",
+    "visual": {
+     "kind": "fractionWall",
+     "rows": [
+      1,
+      2,
+      4,
+      8
+     ]
+    }
+   },
+   {
+    "title": "Thirds and fifths",
+    "prompt": "Show how you made thirds and fifths by estimate and adjust. Write one tip for a friend.",
+    "visual": {
+     "kind": "numberLine",
+     "from": 0,
+     "to": 1,
+     "ticks": 3,
+     "labels": [
+      "0",
+      "1/3",
+      "2/3",
+      "1"
+     ],
+     "highlight": []
+    }
+   },
+   {
+    "title": "Count to one whole",
+    "prompt": "Count unit fractions to 1 on a number line. Write 1 whole three ways, like 4/4.",
+    "visual": {
+     "kind": "numberLine",
+     "from": 0,
+     "to": 1,
+     "ticks": 5,
+     "labels": [
+      "0",
+      "1/5",
+      "2/5",
+      "3/5",
+      "4/5",
+      "1"
+     ],
+     "highlight": [
+      5
+     ]
+    }
+   },
+   {
+    "title": "Make one whole",
+    "prompt": "Draw a strip with a missing part. Write the number sentence, like 5/8 + 3/8 = 1.",
+    "visual": {
+     "kind": "barModel",
+     "whole": "8/8 = 1",
+     "parts": [
+      "5/8",
+      "3/8"
+     ]
+    }
+   },
+   {
+    "title": "Rebuild the whole",
+    "prompt": "Glue one piece. Write its fraction. Draw the whole it came from and explain how you knew.",
+    "visual": {
+     "kind": "barModel",
+     "whole": "?",
+     "parts": [
+      "1/3",
+      "1/3",
+      "1/3"
+     ]
+    }
+   },
+   {
+    "title": "Fraction families",
+    "prompt": "Pick a family. Write every member from the unit fraction to one whole.",
+    "visual": {
+     "kind": "numberLine",
+     "from": 0,
+     "to": 1,
+     "ticks": 8,
+     "labels": [
+      "0",
+      "1/8",
+      "2/8",
+      "3/8",
+      "4/8",
+      "5/8",
+      "6/8",
+      "7/8",
+      "1"
+     ],
+     "highlight": []
+    }
+   },
+   {
+    "title": "Compare unit fractions",
+    "prompt": "Order 1/2, 1/3, 1/4, 1/5 and 1/8. Finish: More parts means ...",
+    "visual": {
+     "kind": "fractionWall",
+     "rows": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8
+     ]
+    }
+   }
+  ]
+ },
+ "requestImages": [
+  "Ribbon"
+ ]
+}

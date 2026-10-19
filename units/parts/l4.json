@@ -1,0 +1,81 @@
+{
+  "id": "l4", "n": 4,
+  "title": "Fifths by estimate and adjust",
+  "menu": "Fifths",
+  "pics": ["triangular_ruler", "wood"],
+  "li": "We are learning to make fifths of a length and to show them on a number line.",
+  "sc": [
+    "I can make 5 equal parts of a length by estimating and adjusting",
+    "I can name and write fifths, like 2/5 and 4/5",
+    "I can mark fifths on a number line"
+  ],
+  "materials": ["paper strips", "string or ribbon", "paper clips or pegs", "rulers", "mini whiteboards"],
+  "slides": [
+    {"type": "warmup", "title": "Warm-up: Thirds and counting", "prompt": "Write on your whiteboard.", "items": ["How many thirds make one whole?", "1/3 of 15 cm", "Which is longer: 1/3 or 1/8 of the same strip?", "Count by 5s from 5 to 30"], "answers": ["3", "5 cm", "1/3", "5, 10, 15, 20, 25, 30"], "mode": "You do"},
+    {"type": "definition", "term": "one fifth", "means": "One of 5 equal parts of a whole. 5 fifths make one whole.", "visual": {"kind": "fractionStrip", "parts": 5, "shaded": 1, "labels": true}, "example": "A 50 cm stick cut into fifths has 5 parts of 10 cm.", "mode": "I do"},
+    {"type": "worked", "title": "I do: Make fifths", "problem": "Make fifths of a paper strip without a ruler.", "visual": {"kind": "fractionStrip", "parts": 5, "shaded": 0, "labels": true}, "steps": [
+      {"label": "Estimate", "text": "5 parts is more than 4, so 1/5 is a bit shorter than 1/4. Mark your guess lightly."},
+      {"label": "Check", "text": "Step that length along the strip 5 times."},
+      {"label": "Adjust", "text": "Bit left over? Make the part longer. Ran out? Make it shorter."},
+      {"label": "Done", "text": "When 5 parts fit exactly, label them 1/5, 2/5, 3/5, 4/5, 5/5."}
+    ], "mode": "I do", "notes": "Show the estimate going too long this time, so students see the other kind of adjustment. Link back to thirds: same method, different number of parts."},
+    {"type": "visual", "title": "Fifths on a number line", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 5, "labels": ["0", "1/5", "2/5", "3/5", "4/5", "1"], "highlight": [4]}, "rows": [
+      {"label": "Count spaces", "text": "5 equal spaces. Each space is 1/5."},
+      {"label": "One whole", "text": "5/5 lands on 1."},
+      {"label": "Tenths", "text": "Halve each fifth and you get 10 parts: tenths."}
+    ], "mode": "We do", "notes": "Ask: is there a mark for 1/2 on this line? Let students find that 1/2 sits between 2/5 and 3/5."},
+    {"type": "examples", "title": "Is it fifths?", "yes": [
+      {"visual": {"kind": "fractionStrip", "parts": 5, "shaded": 3, "labels": true}, "label": "5 equal parts, 3 shaded: 3/5"},
+      {"visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 5, "labels": ["0", "", "", "", "", "1"], "highlight": [2]}, "label": "2 of 5 equal spaces: 2/5"}
+    ], "no": [
+      {"visual": {"kind": "fractionStrip", "parts": 4, "shaded": 1, "labels": true}, "label": "4 equal parts: 1/4"},
+      {"visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 6, "labels": ["0", "", "", "", "", "", "1"], "highlight": []}, "label": "5 marks inside, but 6 spaces"}
+    ], "mode": "We do"},
+    {"type": "talk", "title": "Turn and talk", "prompt": "Why is it harder to make fifths than quarters? What helps you get a good first estimate?", "seconds": 45, "visual": null, "mode": "We do", "notes": "Quarters can be folded by halving. Fifths cannot. A good estimate: a bit shorter than a quarter, or about 2 fingers on a 15 cm strip."},
+    {"type": "hinge", "title": "Which one?", "question": "Which is longer: 1/5 or 1/3 of the same ribbon?", "visual": null, "options": ["1/5", "1/3", "They are the same", "Can't tell without a ruler"], "answer": 1, "why": [
+      "Wrong: this child thinks a bigger denominator means a bigger part. 5 parts means shorter parts.",
+      "Right: the ribbon is cut into fewer parts, so each third is longer than each fifth.",
+      "Wrong: both are 1 part, but the parts are different sizes.",
+      "Wrong: we can reason without measuring, because it is the same ribbon."
+    ], "mode": "You do"},
+    {"type": "cfu", "title": "Show me: fifths", "prompt": "Write on your mini whiteboard.", "questions": ["How many fifths make one whole?", "A 20 cm strip is cut into fifths. How long is each part?", "Write the fraction for 4 of 5 equal parts.", "How many tenths make 1/5?"], "answers": ["5", "4 cm", "4/5", "2"], "visual": null, "mode": "You do"},
+    {"type": "activity", "title": "Activity: Five of a kind", "steps": ["Estimate 1/5 of your strip and mark it lightly.", "Step it out 5 times and adjust until it fits.", "Label 1/5 to 5/5. Glue it above a number line.", "Do your level on the Fifths of a length sheet."], "resource": "Fifths of a length", "time": "20 min", "mode": "You do", "notes": "Strips of 20, 25 or 35 cm give whole centimetre fifths for checking."},
+    {"type": "levels", "support": "Use a strip 10 squares long. Mark every 2 squares to make fifths, then check by measuring.", "core": "Make fifths of 2 strips. Mark fifths on number lines and find fifths of lengths in cm.", "extend": "Halve fifths to make tenths. Which tenths land on a fifth? Where does 1/2 go on a fifths line?", "mode": "You do"},
+    {"type": "discuss", "questions": ["How is making fifths like making thirds?", "Where does 1/2 sit on a fifths number line? Is it on a mark?"], "connect": "We made fifths by estimating and adjusting and placed them on a number line. Show a partner which success criteria you met.", "notes": "Finish the Thirds and fifths panel of the flip book."}
+  ],
+  "printables": [
+    {"id": "l4-ws", "kind": "worksheet", "title": "Fifths of a length", "levels": [
+      {"level": "Support", "teach": {"text": "Fifths are 5 equal parts. Each part is 1/5. Five fifths make one whole.", "visual": {"kind": "fractionStrip", "parts": 5, "shaded": 1, "labels": true}}, "items": [
+        {"q": "What fraction is shaded?", "visual": {"kind": "fractionStrip", "parts": 5, "shaded": 2, "labels": true}, "lines": 1, "answer": "2/5"},
+        {"q": "How many fifths make one whole?", "visual": null, "lines": 1, "answer": "5"},
+        {"q": "Write the missing labels.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 5, "labels": ["0", "1/5", "", "3/5", "", "1"], "highlight": []}, "lines": 1, "answer": "2/5 and 4/5"},
+        {"q": "A 10 cm strip is cut into fifths. How long is each part?", "visual": null, "lines": 1, "answer": "2 cm"},
+        {"q": "Colour 4/5 of the strip.", "visual": {"kind": "fractionStrip", "parts": 5, "shaded": 0, "labels": true}, "lines": 0, "answer": "4 of the 5 parts coloured"}
+      ]},
+      {"level": "Core", "teach": {"text": "Count the spaces from 0. Each space is 1/5. 5/5 lands on 1.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 5, "labels": ["0", "1/5", "2/5", "3/5", "4/5", "1"], "highlight": []}}, "items": [
+        {"q": "How long is 1/5?", "visual": null, "parts": [
+          {"q": "a 25 cm strip", "answer": "5 cm"},
+          {"q": "a 40 cm strip", "answer": "8 cm"},
+          {"q": "a 35 cm strip", "answer": "7 cm"},
+          {"q": "a 1 m stick (100 cm)", "answer": "20 cm"}
+        ]},
+        {"q": "What fraction is marked with the dot?", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 5, "labels": ["0", "", "", "", "", "1"], "highlight": [3]}, "lines": 1, "answer": "3/5"},
+        {"q": "How long is 3/5 of a 50 cm strip?", "visual": null, "lines": 1, "answer": "30 cm"},
+        {"q": "Ana's first try at 1/5 was 6 cm. Stepped out 5 times, 5 cm was left over. Should her part be longer or shorter? How long is the strip?", "visual": null, "lines": 2, "answer": "Longer. The strip is 30 + 5 = 35 cm, so 1/5 should be 7 cm."},
+        {"q": "Order from shortest to longest (same strip): 1/3, 1/5, 1/2", "visual": null, "lines": 1, "answer": "1/5, 1/3, 1/2"}
+      ]},
+      {"level": "Extend", "teach": {"text": "Halve each fifth to make tenths. 1/5 lines up with 2/10.", "visual": {"kind": "fractionWall", "rows": [1, 5, 10]}}, "items": [
+        {"q": "How many tenths make 3/5?", "visual": null, "lines": 1, "answer": "6"},
+        {"q": "How long is 7/10 of a 50 cm strip?", "visual": null, "lines": 1, "answer": "35 cm"},
+        {"q": "Where does 1/2 go on this fifths line? Explain.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 5, "labels": ["0", "", "", "", "", "1"], "highlight": []}, "lines": 2, "answer": "Halfway between 2/5 and 3/5. It is not on a mark. It is the same as 5/10."},
+        {"q": "Write the missing labels.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 10, "labels": ["0", "", "2/10", "", "", "", "", "", "", "", "1"], "highlight": []}, "lines": 1, "answer": "1/10, 3/10, 4/10, 5/10, 6/10, 7/10, 8/10, 9/10"},
+        {"q": "Ana's first try at 1/5 was 9 cm. Stepped out 5 times, it went 5 cm past the end. How long is the strip? What should 1/5 be?", "visual": null, "lines": 2, "answer": "The strip is 45 - 5 = 40 cm, so 1/5 is 8 cm."}
+      ]}
+    ]}
+  ],
+  "teacherNotes": "Fifths are harder to estimate than thirds, so expect two or three adjustments. Encourage students to say whether each estimate was too long or too short before they move the mark. The hinge question tests the 'bigger denominator, bigger fraction' idea; answer it with two strips the same length. Tenths are only in the Spicy task; they are a related fraction formed by halving, named in the outcome.",
+  "exitTicket": [
+    {"q": "Mark and label 3/5 on the number line.", "answer": "The third mark after 0, labelled 3/5", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 5, "labels": ["0", "", "", "", "", "1"], "highlight": []}},
+    {"q": "Which is longer, 1/5 or 1/4 of the same strip? Why?", "answer": "1/4. The strip is cut into fewer parts, so each part is longer.", "visual": null}
+  ]
+}

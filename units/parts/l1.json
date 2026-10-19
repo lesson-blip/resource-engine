@@ -1,0 +1,85 @@
+{
+  "id": "l1", "n": 1,
+  "title": "Equal parts of a length",
+  "menu": "Halves",
+  "pics": ["scissors", "straight_ruler"],
+  "li": "We are learning to make equal parts of a length and to show one half on a number line.",
+  "sc": [
+    "I can fold a strip into 2 equal parts and name each part one half",
+    "I can tell if parts are equal or not equal",
+    "I can mark 1/2 halfway between 0 and 1 on a number line"
+  ],
+  "materials": ["paper strips of different lengths", "string or ribbon", "rulers", "mini whiteboards", "glue"],
+  "slides": [
+    {"type": "warmup", "title": "Warm-up: Share it fairly", "prompt": "Solve on your whiteboard. Show me when I say.", "items": ["Share 10 counters fairly between 2 people. How many each?", "Half of 8", "Double 6", "Count by 2s from 0 to 10"], "answers": ["5 each", "4", "12", "0, 2, 4, 6, 8, 10"], "mode": "You do", "notes": "These revise sharing, halving and doubling from Stage 1. Ask one student to explain how they know the share is fair."},
+    {"type": "definition", "term": "one half", "means": "One of 2 equal parts of a whole. Both parts must be exactly the same length.", "visual": {"kind": "fractionStrip", "parts": 2, "shaded": 1, "labels": true}, "example": "Ruby folded her ribbon so the ends met. Each part is one half.", "mode": "I do", "notes": "Stress the word equal. A strip cut into 2 pieces is not always cut into halves. We write one half as 1/2."},
+    {"type": "worked", "title": "I do: Fold a strip into halves", "problem": "Make halves of a paper strip without a ruler.", "visual": {"kind": "fractionStrip", "parts": 2, "shaded": 0, "labels": true}, "steps": [
+      {"label": "Step 1", "text": "Bring one end of the strip over to meet the other end."},
+      {"label": "Step 2", "text": "Line up the ends and edges, then press the fold flat."},
+      {"label": "Step 3", "text": "Open it. Check the 2 parts match by laying one on top of the other."},
+      {"label": "Step 4", "text": "There are 2 equal parts. Each part is one half, written 1/2."}
+    ], "mode": "I do", "notes": "Think aloud as you fold. Say: I am checking the ends meet exactly, because halves must be the same length. Then have every student fold their own strip with you."},
+    {"type": "visual", "title": "One half on a number line", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 2, "labels": ["0", "1/2", "1"], "highlight": [1], "jumps": [{"from": 0, "to": 1, "label": "1/2"}, {"from": 1, "to": 2, "label": "1/2"}]}, "rows": [
+      {"label": "The whole", "text": "The length from 0 to 1 is one whole."},
+      {"label": "Halfway", "text": "1/2 sits exactly halfway. The 2 spaces are the same length."},
+      {"label": "Count jumps", "text": "Count the jumps from 0: one half, two halves. Two halves make 1."}
+    ], "mode": "We do", "notes": "Lay a folded strip along a number line of the same length so the fold sits on the 1/2 mark. This links the strip to the line."},
+    {"type": "examples", "title": "Is it one half?", "yes": [
+      {"visual": {"kind": "fractionStrip", "parts": 2, "shaded": 1, "labels": true}, "label": "2 equal parts, 1 shaded"},
+      {"visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 2, "labels": ["0", "", "1"], "highlight": [1]}, "label": "Mark halfway from 0 to 1"}
+    ], "no": [
+      {"visual": {"kind": "fractionStrip", "parts": 3, "shaded": 1, "labels": true}, "label": "3 equal parts: this is a third"},
+      {"visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 4, "labels": ["0", "", "", "", "1"], "highlight": [1]}, "label": "1 space of 4: not halfway"}
+    ], "mode": "We do", "notes": "Students show thumbs up or down for each picture before you reveal. For the non-examples, ask what fraction it does show."},
+    {"type": "talk", "title": "Turn and talk", "prompt": "Mia cut her ribbon into 2 pieces. She says she has halves. Is she always right? How could she check?", "seconds": 45, "visual": null, "mode": "We do", "notes": "Listen for: only if the 2 pieces are the same length. She could lay one piece on top of the other or measure both."},
+    {"type": "hinge", "title": "Which one?", "question": "Which strip shows 1/2 shaded?", "visual": null, "options": ["2 parts: 1 long, 1 short", "2 equal parts, 1 shaded", "3 equal parts, 1 shaded", "2 equal parts, both shaded"], "answer": 1, "why": [
+      "Wrong: 2 parts are not halves unless they are equal. This child is counting pieces, not checking size.",
+      "Right: the whole has 2 equal parts and 1 of them is shaded.",
+      "Wrong: this child thinks one shaded part is always a half. Here 1 of 3 equal parts is 1/3.",
+      "Wrong: both halves shaded is 2/2, which is one whole."
+    ], "mode": "You do", "notes": "Students show 1, 2, 3 or 4 fingers on the count of three. Group anyone who chose A or C for a quick re-fold with you."},
+    {"type": "cfu", "title": "Show me: halves", "prompt": "Write on your mini whiteboard.", "questions": ["How many halves make one whole?", "Half of a 30 cm strip is ___ cm.", "A rope is 10 m long. How long is half?", "Draw a 0 to 1 line and mark 1/2."], "answers": ["2", "15 cm", "5 m", "A mark exactly halfway, labelled 1/2"], "visual": null, "mode": "You do", "notes": "Scan the boards. Release students who get all 4 to start the activity while you reteach the rest with a strip."},
+    {"type": "activity", "title": "Activity: Halfway hunters", "steps": ["Take 3 strips of different lengths.", "Fold each strip in half and label each part 1/2.", "Measure each half with a ruler. Are the 2 halves the same length?", "Do your level on the Halves of a length sheet."], "resource": "Halves of a length", "time": "20 min", "mode": "You do", "notes": "Strips of 12 cm, 20 cm and 30 cm work well because the halves are whole centimetres."},
+    {"type": "levels", "support": "Fold a strip and colour 1/2. Check by laying one half on top of the other.", "core": "Mark 1/2 on number lines and find half of lengths in cm. Explain how you know it is halfway.", "extend": "Half a ribbon is 7 cm. How long is the whole ribbon? Write a puzzle like this for a friend.", "mode": "You do"},
+    {"type": "discuss", "questions": ["How do you know two parts are halves?", "Why can half of one strip be longer than half of another strip?"], "connect": "We folded strips into 2 equal parts and marked 1/2 halfway on a number line. Which success criteria can you tick?", "notes": "Add the Halves panel to My Fraction Flip Book. Share one Spicy answer so everyone hears the idea of working back to the whole."}
+  ],
+  "printables": [
+    {"id": "l1-ws", "kind": "worksheet", "title": "Halves of a length", "levels": [
+      {"level": "Support", "teach": {"text": "Halves are 2 equal parts. Fold so the ends meet. Each part is 1/2.", "visual": {"kind": "fractionStrip", "parts": 2, "shaded": 1, "labels": true}}, "items": [
+        {"q": "Colour one half of the strip.", "visual": {"kind": "fractionStrip", "parts": 2, "shaded": 0, "labels": false}, "lines": 0, "answer": "One of the 2 parts coloured"},
+        {"q": "How many halves make one whole?", "visual": null, "lines": 1, "answer": "2"},
+        {"q": "Is each part one half? Write yes or no.", "visual": null, "parts": [
+          {"q": "2 parts: 6 cm and 6 cm", "answer": "yes"},
+          {"q": "2 parts: 4 cm and 8 cm", "answer": "no"},
+          {"q": "3 equal parts", "answer": "no"}
+        ]},
+        {"q": "Write the fraction at the halfway mark.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 2, "labels": ["0", "", "1"], "highlight": [1]}, "lines": 1, "answer": "1/2"},
+        {"q": "Half of 10 cm is ___ cm.", "visual": null, "lines": 1, "answer": "5"}
+      ]},
+      {"level": "Core", "teach": {"text": "1/2 sits halfway between 0 and 1. The 2 spaces must be the same length.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 2, "labels": ["0", "1/2", "1"], "highlight": [1]}}, "items": [
+        {"q": "Write the length of one half.", "visual": null, "parts": [
+          {"q": "a 12 cm strip", "answer": "6 cm"},
+          {"q": "a 20 cm ribbon", "answer": "10 cm"},
+          {"q": "a 50 cm rope", "answer": "25 cm"},
+          {"q": "a 1 m stick (100 cm)", "answer": "50 cm"}
+        ]},
+        {"q": "Write 0, 1/2 and 1 in the right places.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 2, "labels": ["", "", ""], "highlight": []}, "lines": 1, "answer": "0, 1/2, 1 from left to right"},
+        {"q": "Sam folded a strip into 2 parts. One part is 9 cm and the other is 11 cm. Are they halves? Explain.", "visual": null, "lines": 2, "answer": "No. The parts are not the same length."},
+        {"q": "Two 1/2 pieces are joined end to end. What do they make?", "visual": null, "lines": 1, "answer": "One whole (2/2)"},
+        {"q": "How many halves are in 3 wholes?", "visual": null, "lines": 1, "answer": "6"}
+      ]},
+      {"level": "Extend", "teach": {"text": "If you know one half, you can find the whole. Two halves make a whole, so double it.", "visual": {"kind": "barModel", "whole": "?", "parts": ["7 cm", "7 cm"]}}, "items": [
+        {"q": "Half of a ribbon is 8 cm. How long is the whole ribbon?", "visual": null, "lines": 1, "answer": "16 cm"},
+        {"q": "Half of a rope is 35 cm. How long is the whole rope?", "visual": null, "lines": 1, "answer": "70 cm"},
+        {"q": "Leo says the dot is at 1/2. Is he right? Explain.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 4, "labels": ["0", "", "", "", "1"], "highlight": [1]}, "lines": 2, "answer": "No. The dot is 1 space of 4, so it is 1/4. Halfway is 2 spaces of 4."},
+        {"q": "Strip A is 10 cm. Strip B is 16 cm. Whose half is longer, and by how much?", "visual": null, "lines": 2, "answer": "Strip B. Its half is 8 cm and A's half is 5 cm, so 3 cm longer."},
+        {"q": "Mark every half on this line from 0 to 2. How many halves are there from 0 to 2?", "visual": {"kind": "numberLine", "from": 0, "to": 2, "ticks": 4, "labels": ["0", "", "1", "", "2"], "highlight": []}, "lines": 1, "answer": "4 halves"}
+      ]}
+    ]}
+  ],
+  "teacherNotes": "Use strips that are the same length within each task, but different lengths across tasks, so students see that half of a longer strip is longer. Keep the talk on equal length, not just the number of pieces. Watch for students who fold carelessly and accept a gap; ask them to check by laying one half on the other. The exit ticket shows who still accepts unequal parts as halves; see them at the teacher table tomorrow.",
+  "exitTicket": [
+    {"q": "Write 1/2 in the right place on the number line.", "answer": "Labelled at the middle mark, halfway from 0 to 1", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 2, "labels": ["0", "", "1"], "highlight": []}},
+    {"q": "A strip is cut into parts of 5 cm and 7 cm. Is each part one half? Why?", "answer": "No. The parts are not equal in length.", "visual": null}
+  ]
+}

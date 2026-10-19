@@ -1,0 +1,85 @@
+{
+  "id": "l2", "n": 2,
+  "title": "Quarters and eighths by halving",
+  "menu": "Quarters and eighths",
+  "pics": ["chocolate_bar", "straight_ruler"],
+  "li": "We are learning to make quarters and eighths of a length by halving and to show them on a number line.",
+  "sc": [
+    "I can fold a strip into quarters and eighths",
+    "I can name and write fractions like 1/4, 3/4 and 5/8",
+    "I can count quarters and eighths on a number line from 0"
+  ],
+  "materials": ["paper strips all the same length", "mini whiteboards", "coloured pencils", "glue"],
+  "slides": [
+    {"type": "warmup", "title": "Warm-up: Halves check", "prompt": "Write on your whiteboard.", "items": ["How many halves make one whole?", "Half of 16 cm", "A strip is cut into 3 cm and 5 cm. Is it cut in half?", "Half of 40"], "answers": ["2", "8 cm", "No, the parts are not equal", "20"], "mode": "You do", "notes": "Item 3 checks yesterday's big idea. If many say yes, refold a strip before moving on."},
+    {"type": "rows", "title": "Reading a fraction", "intro": "Every fraction has 2 numbers with a line between them.", "rows": [
+      {"label": "Denominator", "text": "The bottom number. It tells how many equal parts make the whole.", "color": "teal"},
+      {"label": "Numerator", "text": "The top number. It counts how many of those parts we are talking about.", "color": "mint"},
+      {"label": "Say it", "text": "1/4 is one quarter. 3/4 is three quarters. 5/8 is five eighths.", "color": "sky"}
+    ], "mode": "I do", "notes": "Read fractions as words, not 'three over four'. The word tells the size of the part, so students hear what the fraction means."},
+    {"type": "worked", "title": "I do: Halve, halve, halve again", "problem": "Make quarters and eighths of a strip by folding.", "visual": {"kind": "fractionWall", "rows": [1, 2, 4, 8]}, "steps": [
+      {"label": "Step 1", "text": "Fold the strip in half. There are 2 equal parts."},
+      {"label": "Step 2", "text": "Fold it in half again. Open it: 4 equal parts. Each part is 1/4."},
+      {"label": "Step 3", "text": "Fold in half once more. Open it: 8 equal parts. Each part is 1/8."},
+      {"label": "Step 4", "text": "Each time we halve, there are twice as many parts and each part is shorter."}
+    ], "mode": "I do", "notes": "Model with a big strip on the board while students fold their own. Point to the wall: every row is the same whole, cut into more and more parts."},
+    {"type": "visual", "title": "Quarters on a number line", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 4, "labels": ["0", "1/4", "2/4", "3/4", "1"], "highlight": [3], "jumps": [{"from": 0, "to": 1, "label": "1/4"}, {"from": 1, "to": 2, "label": "1/4"}, {"from": 2, "to": 3, "label": "1/4"}]}, "rows": [
+      {"label": "Count spaces", "text": "Start at 0 and jump: one quarter, two quarters, three quarters."},
+      {"label": "One whole", "text": "Four quarters land on 1, so 4/4 is one whole."},
+      {"label": "Notice", "text": "2/4 lands on the same spot as 1/2."}
+    ], "mode": "We do", "notes": "Students trace the jumps with a finger in the air as the class counts aloud. Ask: where would 1/2 go? Why is it on the same spot as 2/4?"},
+    {"type": "examples", "title": "Is it eighths?", "yes": [
+      {"visual": {"kind": "fractionStrip", "parts": 8, "shaded": 1, "labels": true}, "label": "8 equal parts, 1 shaded: 1/8"},
+      {"visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 8, "labels": ["0", "", "", "", "", "", "", "", "1"], "highlight": [1]}, "label": "1 of 8 equal spaces"}
+    ], "no": [
+      {"visual": {"kind": "fractionStrip", "parts": 6, "shaded": 1, "labels": true}, "label": "6 equal parts: sixths"},
+      {"visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 4, "labels": ["0", "", "", "", "1"], "highlight": [1]}, "label": "Only 4 spaces: this is 1/4"}
+    ], "mode": "We do", "notes": "For the 6-part strip, students often see 'lots of parts' and say eighths. Have them count the parts aloud."},
+    {"type": "talk", "title": "Turn and talk", "prompt": "Which is longer: 1/4 or 1/8 of the same strip? Use your folded strips to prove it.", "seconds": 45, "visual": {"kind": "fractionWall", "rows": [4, 8]}, "mode": "We do", "notes": "Listen for: 1/4 is longer, because the same whole is cut into fewer parts. Two eighths fit inside one quarter."},
+    {"type": "hinge", "title": "Which one?", "question": "Kai wants to mark 3/4. Which point should he choose?", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 4, "labels": ["0", "A", "B", "C", "1"], "highlight": []}, "options": ["Point A", "Point B", "Point C", "Past the 1"], "answer": 2, "why": [
+      "Wrong: A is 1/4. This child counted 3 jumps back from 1 instead of counting on from 0.",
+      "Wrong: B is 2/4. This child counted marks and called 0 'one'. Count the spaces from 0.",
+      "Right: C is 3 equal spaces from 0, so it is 3/4.",
+      "Wrong: 3/4 is less than one whole. The 3 and the 4 are not big numbers here; 3 of 4 parts is less than 4/4."
+    ], "mode": "You do", "notes": "Fingers up for A, B, C or D. Students who chose B need the 'jump the spaces' routine at the teacher table."},
+    {"type": "cfu", "title": "Show me: quarters and eighths", "prompt": "Write on your mini whiteboard.", "questions": ["How many eighths make one whole?", "How many quarters make 1/2?", "Write the fraction: 3 of 8 equal parts", "Which is longer: 1/4 or 1/8 of the same strip?"], "answers": ["8", "2", "3/8", "1/4"], "visual": null, "mode": "You do"},
+    {"type": "activity", "title": "Activity: Fold, label, line up", "steps": ["Fold one strip into quarters and one into eighths.", "Label every part on both strips.", "Lay both strips above the 0 to 1 number line. Mark each quarter and eighth.", "Do your level on the Quarters and eighths sheet."], "resource": "Quarters and eighths", "time": "20 min", "mode": "You do", "notes": "Make sure strips match the length of the number line you draw, so the folds sit on the marks."},
+    {"type": "levels", "support": "Fold quarters. Colour and label 1/4, 2/4 and 3/4. Use the fraction wall to check.", "core": "Label quarters and eighths on number lines. Find the length of each part of a strip.", "extend": "Halve eighths again. How many sixteenths fit in 1/4? Find lengths like 5/8 of a 40 cm ribbon.", "mode": "You do"},
+    {"type": "discuss", "questions": ["Why do the parts get shorter when the denominator gets bigger?", "Where do 2/4 and 4/8 land on the number line? What do you notice?"], "connect": "We halved to make quarters and eighths and counted them on a number line. Check the success criteria with a partner.", "notes": "Add the Quarters and eighths panel to the flip book."}
+  ],
+  "printables": [
+    {"id": "l2-ws", "kind": "worksheet", "title": "Quarters and eighths", "levels": [
+      {"level": "Support", "teach": {"text": "Halve a half to get quarters: 4 equal parts. Each part is 1/4. Halve again for eighths.", "visual": {"kind": "fractionStrip", "parts": 4, "shaded": 1, "labels": true}}, "items": [
+        {"q": "What fraction is shaded?", "visual": {"kind": "fractionStrip", "parts": 4, "shaded": 3, "labels": true}, "lines": 1, "answer": "3/4"},
+        {"q": "What fraction is shaded?", "visual": {"kind": "fractionStrip", "parts": 8, "shaded": 1, "labels": true}, "lines": 1, "answer": "1/8"},
+        {"q": "How many quarters make one whole?", "visual": null, "lines": 1, "answer": "4"},
+        {"q": "Write the missing label.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 4, "labels": ["0", "1/4", "", "3/4", "1"], "highlight": [2]}, "lines": 1, "answer": "2/4"},
+        {"q": "Circle the longer part of the same strip: 1/4 or 1/8", "visual": null, "lines": 1, "answer": "1/4"}
+      ]},
+      {"level": "Core", "teach": {"text": "Count the spaces from 0. Each space on this line is 1/8. 8/8 is one whole.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 8, "labels": ["0", "1/8", "2/8", "3/8", "4/8", "5/8", "6/8", "7/8", "1"], "highlight": []}}, "items": [
+        {"q": "Write the missing labels.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 8, "labels": ["0", "", "2/8", "", "", "5/8", "", "", "1"], "highlight": []}, "lines": 1, "answer": "1/8, 3/8, 4/8, 6/8, 7/8"},
+        {"q": "What fraction is marked with the dot?", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 4, "labels": ["0", "", "", "", "1"], "highlight": [3]}, "lines": 1, "answer": "3/4"},
+        {"q": "How many?", "visual": null, "parts": [
+          {"q": "eighths in one whole", "answer": "8"},
+          {"q": "eighths in 1/2", "answer": "4"},
+          {"q": "eighths in 1/4", "answer": "2"},
+          {"q": "quarters in 1/2", "answer": "2"}
+        ]},
+        {"q": "Jai says 1/8 is bigger than 1/4 because 8 is bigger than 4. Is he right? Explain.", "visual": null, "lines": 2, "answer": "No. The same whole is cut into more parts, so each eighth is shorter. 1/4 is longer."},
+        {"q": "A 24 cm strip is folded into eighths. How long is each part?", "visual": null, "lines": 1, "answer": "3 cm"}
+      ]},
+      {"level": "Extend", "teach": {"text": "Use the length of one part. A 32 cm strip in quarters: 1/4 is 8 cm, so 3/4 is 24 cm.", "visual": {"kind": "fractionWall", "rows": [1, 2, 4, 8]}}, "items": [
+        {"q": "A 32 cm strip is cut into quarters. How long is 3/4 of the strip?", "visual": null, "lines": 1, "answer": "24 cm"},
+        {"q": "A 40 cm ribbon is cut into eighths. How long is 5/8 of the ribbon?", "visual": null, "lines": 1, "answer": "25 cm"},
+        {"q": "Name 2 fractions that land on the same point as 1/2.", "visual": null, "lines": 1, "answer": "2/4 and 4/8"},
+        {"q": "Halve eighths to make sixteenths. How many sixteenths make 1/4?", "visual": null, "lines": 1, "answer": "4"},
+        {"q": "Mark 3/8 and 3/4 on the line. Which is closer to 1?", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 8, "labels": ["0", "", "", "", "", "", "", "", "1"], "highlight": []}, "lines": 1, "answer": "3/8 at the 3rd mark, 3/4 at the 6th mark (6/8). 3/4 is closer to 1."}
+      ]}
+    ]}
+  ],
+  "teacherNotes": "Every strip in this lesson must be the same length, so students can see that more parts means shorter parts. Keep using the word 'spaces' when reading the number line. Expect some students to say 1/8 is bigger than 1/4; answer with the strips, not with a rule. Students who mislabel the eighths line on the exit ticket need the counting routine again tomorrow.",
+  "exitTicket": [
+    {"q": "What fraction is marked with the dot?", "answer": "5/8", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 8, "labels": ["0", "", "", "", "", "", "", "", "1"], "highlight": [5]}},
+    {"q": "How many quarters make one whole?", "answer": "4", "visual": null}
+  ]
+}

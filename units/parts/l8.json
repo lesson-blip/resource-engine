@@ -1,0 +1,609 @@
+{
+ "id": "l8",
+ "n": 8,
+ "title": "Fraction walls and families",
+ "menu": "Fraction families",
+ "pics": [
+  "busts_in_silhouette",
+  "puzzle_piece"
+ ],
+ "li": "We are learning to build a fraction wall and sort fractions into families.",
+ "sc": [
+  "I can build a fraction wall with halves, quarters, eighths and thirds",
+  "I can explain that a fraction family has the same denominator",
+  "I can use the wall to see which parts are longer or shorter"
+ ],
+ "materials": [
+  "paper strips all the same length",
+  "glue",
+  "coloured pencils",
+  "Fraction Match cards",
+  "scissors",
+  "mini whiteboards"
+ ],
+ "slides": [
+  {
+   "type": "warmup",
+   "title": "Warm-up: Mixed review",
+   "prompt": "Write on your whiteboard.",
+   "items": [
+    "1/3 of a rope is 4 m. How long is the whole rope?",
+    "5/8 + ___ = 1",
+    "Count in fifths from 0 to 1.",
+    "Which is longer: 1/2 or 1/8 of the same strip?"
+   ],
+   "answers": [
+    "12 m",
+    "3/8",
+    "1/5, 2/5, 3/5, 4/5, 5/5",
+    "1/2"
+   ],
+   "mode": "You do"
+  },
+  {
+   "type": "visual",
+   "title": "Building a fraction wall",
+   "visual": {
+    "kind": "fractionWall",
+    "rows": [
+     1,
+     2,
+     4,
+     8
+    ]
+   },
+   "rows": [
+    {
+     "label": "Same whole",
+     "text": "Every row is the same length. Each row is one whole."
+    },
+    {
+     "label": "Halving",
+     "text": "Halve each part to get the next row: 2, then 4, then 8 parts."
+    },
+    {
+     "label": "Line up",
+     "text": "Look down the wall. 1/2 lines up with 2/4 and 4/8."
+    }
+   ],
+   "mode": "I do",
+   "notes": "Build the wall in front of the class with strips you folded in earlier lessons. Ask students to predict where each fold will be before you open it."
+  },
+  {
+   "type": "visual",
+   "title": "Thirds and sixths",
+   "visual": {
+    "kind": "fractionWall",
+    "rows": [
+     1,
+     3,
+     6
+    ]
+   },
+   "rows": [
+    {
+     "label": "Thirds",
+     "text": "Made by estimate and adjust, not by halving."
+    },
+    {
+     "label": "Sixths",
+     "text": "Halve each third to make sixths. 1/3 lines up with 2/6."
+    }
+   ],
+   "mode": "We do",
+   "notes": "Ask: does 1/2 line up with anything on the thirds row? (No. It lines up with 3/6.)"
+  },
+  {
+   "type": "definition",
+   "term": "fraction family",
+   "means": "Fractions with the same denominator. The whole is cut into the same number of equal parts.",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 8,
+    "labels": [
+     "0",
+     "1/8",
+     "2/8",
+     "3/8",
+     "4/8",
+     "5/8",
+     "6/8",
+     "7/8",
+     "1"
+    ],
+    "highlight": []
+   },
+   "example": "1/8, 3/8, 5/8 and 8/8 all belong to the eighths family.",
+   "mode": "I do"
+  },
+  {
+   "type": "worked",
+   "title": "I do: Sort into families",
+   "problem": "Sort: 2/3, 1/4, 5/8, 3/4, 1/3, 7/8",
+   "visual": null,
+   "steps": [
+    {
+     "label": "Step 1",
+     "text": "Look only at the denominator. It names the family."
+    },
+    {
+     "label": "Step 2",
+     "text": "Thirds: 1/3, 2/3. Quarters: 1/4, 3/4. Eighths: 5/8, 7/8."
+    },
+    {
+     "label": "Step 3",
+     "text": "In one family the parts are the same size, so more parts is further along: 1/4 < 3/4."
+    }
+   ],
+   "mode": "I do"
+  },
+  {
+   "type": "talk",
+   "title": "Turn and talk",
+   "prompt": "Ruby says 3/4 and 3/8 are in the same family because they both have a 3. Do you agree? Explain.",
+   "seconds": 45,
+   "visual": null,
+   "mode": "We do",
+   "notes": "Disagree. The family is named by the denominator. 3/4 is in the quarters family and 3/8 is in the eighths family."
+  },
+  {
+   "type": "hinge",
+   "title": "Which one?",
+   "question": "Which set is one fraction family?",
+   "visual": null,
+   "options": [
+    "1/3, 1/4, 1/8",
+    "2/5, 3/5, 5/5",
+    "1/2, 2/4, 4/8",
+    "3/4, 4/5, 5/6"
+   ],
+   "answer": 1,
+   "why": [
+    "Wrong: this child grouped by the top number. The denominators are all different.",
+    "Right: all have denominator 5, so they belong to the fifths family.",
+    "Wrong: these land on the same point, but they are in different families.",
+    "Wrong: these follow a counting pattern, but every denominator is different."
+   ],
+   "mode": "You do"
+  },
+  {
+   "type": "cfu",
+   "title": "Show me: families",
+   "prompt": "Write on your mini whiteboard.",
+   "questions": [
+    "Name the family: 5/8",
+    "Write the thirds family from 1/3 to one whole.",
+    "Which quarters fraction lines up with 1/2?",
+    "How many sixths line up with 1/3?"
+   ],
+   "answers": [
+    "Eighths",
+    "1/3, 2/3, 3/3",
+    "2/4",
+    "2"
+   ],
+   "visual": null,
+   "mode": "You do"
+  },
+  {
+   "type": "activity",
+   "title": "Activity: Wall and match",
+   "steps": [
+    "Fold and cut strips to build your own wall: whole, halves, quarters, eighths and thirds.",
+    "Glue the rows. Label every part and colour each family.",
+    "Play Fraction Match with a partner.",
+    "Then do your level on the Fraction families sheet."
+   ],
+   "resource": "Fraction Match cards",
+   "time": "25 min",
+   "mode": "You do",
+   "notes": "All strips must be the same length or the wall will not line up. Pre-cut strips save time."
+  },
+  {
+   "type": "levels",
+   "support": "Use the fraction wall to colour each family and label the parts. Name the family of each fraction.",
+   "core": "Sort fractions into families, order one family, and use the wall to find parts that line up.",
+   "extend": "Find fractions on the wall that line up with 2/3 and 3/4. Why does 1/2 have no match in thirds?",
+   "mode": "You do"
+  },
+  {
+   "type": "discuss",
+   "questions": [
+    "What does every fraction in one family share?",
+    "What did the wall show you about the size of the parts?"
+   ],
+   "connect": "We built a fraction wall and sorted fractions into families. Which success criteria can you tick?",
+   "notes": "Add the Fraction families panel to the flip book."
+  }
+ ],
+ "printables": [
+  {
+   "id": "l8-ws",
+   "kind": "worksheet",
+   "title": "Fraction families",
+   "levels": [
+    {
+     "level": "Support",
+     "teach": {
+      "text": "A family has the same denominator. 1/4, 2/4, 3/4 and 4/4 are the quarters family.",
+      "visual": {
+       "kind": "fractionWall",
+       "rows": [
+        1,
+        2,
+        4,
+        8
+       ]
+      }
+     },
+     "items": [
+      {
+       "q": "Name the family.",
+       "visual": null,
+       "parts": [
+        {
+         "q": "3/8",
+         "answer": "eighths"
+        },
+        {
+         "q": "2/3",
+         "answer": "thirds"
+        },
+        {
+         "q": "1/4",
+         "answer": "quarters"
+        },
+        {
+         "q": "1/2",
+         "answer": "halves"
+        }
+       ]
+      },
+      {
+       "q": "What fraction is shaded?",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 8,
+        "shaded": 5,
+        "labels": true
+       },
+       "lines": 1,
+       "answer": "5/8"
+      },
+      {
+       "q": "Finish the quarters family: 1/4, ___, 3/4, ___",
+       "visual": null,
+       "lines": 1,
+       "answer": "2/4, 4/4"
+      },
+      {
+       "q": "Circle the fractions in the thirds family: 1/3, 3/4, 2/3, 3/8",
+       "visual": null,
+       "lines": 1,
+       "answer": "1/3 and 2/3"
+      },
+      {
+       "q": "Use the wall. Which is longer: 1/4 or 1/8?",
+       "visual": null,
+       "lines": 1,
+       "answer": "1/4"
+      }
+     ]
+    },
+    {
+     "level": "Core",
+     "teach": {
+      "text": "In one family the parts are the same size, so compare the numerators: 2/8 is less than 5/8.",
+      "visual": {
+       "kind": "numberLine",
+       "from": 0,
+       "to": 1,
+       "ticks": 8,
+       "labels": [
+        "0",
+        "1/8",
+        "2/8",
+        "3/8",
+        "4/8",
+        "5/8",
+        "6/8",
+        "7/8",
+        "1"
+       ],
+       "highlight": [
+        2,
+        5
+       ]
+      }
+     },
+     "items": [
+      {
+       "q": "Sort into families: 3/4, 1/2, 5/8, 2/3, 1/8, 2/4, 3/3, 7/8",
+       "table": {
+        "headers": [
+         "Halves",
+         "Quarters",
+         "Eighths",
+         "Thirds"
+        ],
+        "rows": [
+         [
+          "",
+          "",
+          "",
+          ""
+         ],
+         [
+          "",
+          "",
+          "",
+          ""
+         ],
+         [
+          "",
+          "",
+          "",
+          ""
+         ]
+        ]
+       },
+       "answer": "Halves: 1/2. Quarters: 3/4, 2/4. Eighths: 5/8, 1/8, 7/8. Thirds: 2/3, 3/3."
+      },
+      {
+       "q": "Order the eighths from smallest to largest: 5/8, 1/8, 8/8, 3/8",
+       "visual": null,
+       "lines": 1,
+       "answer": "1/8, 3/8, 5/8, 8/8"
+      },
+      {
+       "q": "Use the wall. Which fractions line up with 1/2?",
+       "visual": {
+        "kind": "fractionWall",
+        "rows": [
+         1,
+         2,
+         4,
+         8
+        ]
+       },
+       "lines": 1,
+       "answer": "2/4 and 4/8"
+      },
+      {
+       "q": "Ruby says 3/4 and 3/8 are in the same family. Is she right? Explain.",
+       "visual": null,
+       "lines": 2,
+       "answer": "No. They have different denominators, so they are in different families (quarters and eighths)."
+      },
+      {
+       "q": "What fraction is marked? Name its family.",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 3,
+        "labels": [
+         "0",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": [
+         1
+        ]
+       },
+       "lines": 1,
+       "answer": "1/3, thirds family"
+      }
+     ]
+    },
+    {
+     "level": "Extend",
+     "teach": {
+      "text": "Halving makes new families: halves to quarters to eighths, and thirds to sixths.",
+      "visual": {
+       "kind": "fractionWall",
+       "rows": [
+        1,
+        3,
+        6
+       ]
+      }
+     },
+     "items": [
+      {
+       "q": "Which sixths fraction lines up with 2/3?",
+       "visual": null,
+       "lines": 1,
+       "answer": "4/6"
+      },
+      {
+       "q": "Which eighths fraction lines up with 3/4?",
+       "visual": null,
+       "lines": 1,
+       "answer": "6/8"
+      },
+      {
+       "q": "1/2 has no exact match in the thirds family. Explain why.",
+       "visual": null,
+       "lines": 2,
+       "answer": "Halfway falls in the middle of the second third, so it is not on a thirds mark. 3 thirds cannot be shared into 2 equal groups of whole thirds."
+      },
+      {
+       "q": "Order these unit fractions from smallest to largest: 1/3, 1/8, 1/2, 1/4",
+       "visual": null,
+       "lines": 1,
+       "answer": "1/8, 1/4, 1/3, 1/2"
+      },
+      {
+       "q": "Write 2 fractions from different families that both land on 1.",
+       "visual": null,
+       "lines": 1,
+       "answer": "Any two such as 3/3 and 8/8"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l8-cards",
+   "kind": "cards",
+   "title": "Fraction Match cards",
+   "instructions": "Cut out and shuffle. Lay face down. Flip 2 cards. Keep them if the fraction matches the picture. Bonus point: name the family.",
+   "cards": [
+    {
+     "text": "1/2",
+     "visual": null
+    },
+    {
+     "text": "",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 2,
+      "shaded": 1,
+      "labels": false
+     }
+    },
+    {
+     "text": "3/4",
+     "visual": null
+    },
+    {
+     "text": "",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 4,
+      "shaded": 3,
+      "labels": false
+     }
+    },
+    {
+     "text": "1/3",
+     "visual": null
+    },
+    {
+     "text": "",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 3,
+      "labels": [
+       "0",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": [
+       1
+      ]
+     }
+    },
+    {
+     "text": "2/3",
+     "visual": null
+    },
+    {
+     "text": "",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 3,
+      "shaded": 2,
+      "labels": false
+     }
+    },
+    {
+     "text": "5/8",
+     "visual": null
+    },
+    {
+     "text": "",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 8,
+      "labels": [
+       "0",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": [
+       5
+      ]
+     }
+    },
+    {
+     "text": "1/8",
+     "visual": null
+    },
+    {
+     "text": "",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 8,
+      "shaded": 1,
+      "labels": false
+     }
+    },
+    {
+     "text": "3/5",
+     "visual": null
+    },
+    {
+     "text": "",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 5,
+      "shaded": 3,
+      "labels": false
+     }
+    },
+    {
+     "text": "4/4",
+     "visual": null
+    },
+    {
+     "text": "",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 4,
+      "labels": [
+       "0",
+       "",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": [
+       4
+      ]
+     }
+    }
+   ]
+  }
+ ],
+ "teacherNotes": "The syllabus asks students to see that fractions made from the same number of equal parts form a family with the same denominator. The wall is the main model today, so make sure every row starts and ends at the same place. Some students will group by numerator; the hinge question finds them quickly. Lining up fractions such as 1/2 and 2/4 is a preview of equivalence, so treat it as noticing rather than a skill to master.",
+ "exitTicket": [
+  {
+   "q": "Name the family of 5/8.",
+   "answer": "Eighths",
+   "visual": null
+  },
+  {
+   "q": "Which two are in the same family: 2/3, 2/5, 1/3?",
+   "answer": "2/3 and 1/3",
+   "visual": null
+  }
+ ]
+}

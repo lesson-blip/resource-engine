@@ -1,0 +1,5800 @@
+{
+ "id": "s2-fractions-a",
+ "title": "Fractions as Lengths",
+ "subtitle": "Partitioned Fractions A",
+ "stage": "Stage 2",
+ "years": "Years 3 and 4",
+ "fit": "Fits NSW Stage 2 Partitioned Fractions A (2 weeks)",
+ "colour": "teal",
+ "weeks": 2,
+ "outcomes": [
+  {
+   "code": "MA2-PF-01",
+   "text": "represents and compares halves, quarters, thirds and fifths as lengths on a number line and their related fractions formed by halving (eighths, sixths and tenths)"
+  },
+  {
+   "code": "MAO-WM-01",
+   "text": "develops understanding and fluency in mathematics through exploring and connecting mathematical concepts, choosing and applying mathematical techniques to solve problems, and communicating their thinking and reasoning coherently and clearly"
+  }
+ ],
+ "content": [
+  "Make fractional parts of a length without relying on repeated halving",
+  "Make thirds and fifths of a length by estimating, checking and adjusting",
+  "Show unit fractions and count them to one complete whole on a number line",
+  "Use fraction strips and diagrams to model halves, quarters, eighths and thirds",
+  "Explain that fractions made from the same number of equal parts belong to one family with the same denominator",
+  "Find the part needed to complete one whole for halves, quarters, eighths and thirds",
+  "Rebuild the whole from a part (1/2, 1/4, 1/3, 1/8)",
+  "Compare unit fractions of the same whole as lengths"
+ ],
+ "vocab": [
+  {
+   "word": "whole",
+   "means": "The full length we start with. A strip of 2 halves is still one whole, not 2 wholes.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 1,
+    "shaded": 1,
+    "labels": true
+   },
+   "pic": "chocolate_bar"
+  },
+  {
+   "word": "equal parts",
+   "means": "Parts that are exactly the same length. Two pieces of 4 cm and 6 cm are not equal parts.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 4,
+    "shaded": 0,
+    "labels": false
+   },
+   "pic": "scissors"
+  },
+  {
+   "word": "fraction",
+   "means": "A number that tells us about equal parts of a whole. 3/4 means 3 parts when the whole has 4 equal parts.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 4,
+    "shaded": 3,
+    "labels": true
+   },
+   "pic": null
+  },
+  {
+   "word": "numerator",
+   "means": "The top number. It counts how many equal parts we are talking about. In 3/4 it is 3.",
+   "visual": null,
+   "pic": null
+  },
+  {
+   "word": "denominator",
+   "means": "The bottom number. It tells how many equal parts make the whole. It is not how many parts are shaded.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 5,
+    "shaded": 2,
+    "labels": true
+   },
+   "pic": null
+  },
+  {
+   "word": "unit fraction",
+   "means": "A fraction with 1 on top, like 1/3 or 1/8. 2/3 is not a unit fraction.",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 3,
+    "labels": [
+     "0",
+     "1/3",
+     "",
+     "1"
+    ],
+    "highlight": [
+     1
+    ]
+   },
+   "pic": null
+  },
+  {
+   "word": "number line",
+   "means": "A line where every number has its own place. We count the spaces from 0, not the marks.",
+   "visual": {
+    "kind": "numberLine",
+    "from": 0,
+    "to": 1,
+    "ticks": 4,
+    "labels": [
+     "0",
+     "1/4",
+     "2/4",
+     "3/4",
+     "1"
+    ],
+    "highlight": []
+   },
+   "pic": "straight_ruler"
+  },
+  {
+   "word": "estimate and adjust",
+   "means": "Make a careful guess, check it, then move it a little until the parts are equal.",
+   "visual": {
+    "kind": "fractionStrip",
+    "parts": 3,
+    "shaded": 1,
+    "labels": true
+   },
+   "pic": "thinking_face"
+  },
+  {
+   "word": "fraction family",
+   "means": "Fractions with the same denominator, like 1/8, 3/8 and 8/8. 3/8 and 3/4 are not in the same family.",
+   "visual": {
+    "kind": "fractionWall",
+    "rows": [
+     1,
+     2,
+     4,
+     8
+    ]
+   },
+   "pic": "busts_in_silhouette"
+  },
+  {
+   "word": "missing part",
+   "means": "The part you add to make exactly one whole. For 3/4 the missing part is 1/4, not 1/3.",
+   "visual": {
+    "kind": "barModel",
+    "whole": "4/4 = 1",
+    "parts": [
+     "3/4",
+     "1/4"
+    ]
+   },
+   "pic": "puzzle_piece"
+  }
+ ],
+ "misconceptions": [
+  {
+   "think": "1/8 is bigger than 1/4 because 8 is bigger than 4.",
+   "fix": "Fold two strips of the same length into quarters and eighths. Lay them side by side. More parts means each part is shorter."
+  },
+  {
+   "think": "To find 3/4 on a number line, count 3 marks, and 0 counts as the first one.",
+   "fix": "Jump the spaces with a finger from 0. Say 'zero, one quarter, two quarters'. The number of spaces from 0 to 1 is the denominator."
+  },
+  {
+   "think": "Any 2 pieces are halves and any 3 pieces are thirds, even if they are different lengths.",
+   "fix": "Check by laying parts on top of each other or measuring. Show near misses (9 cm, 10 cm, 11 cm) and ask if they are thirds."
+  },
+  {
+   "think": "Fractions stop at 1. You cannot have 5 quarters.",
+   "fix": "Keep counting in quarters past 1 on a 0 to 2 number line. 4/4 lands on 1, so 5/4 is one quarter more."
+  },
+  {
+   "think": "1/4 of my strip is longer than 1/2 of yours, so 1/4 is bigger than 1/2.",
+   "fix": "Show that a fair comparison needs the same whole. Compare both fractions on one strip or two number lines of the same length."
+  }
+ ],
+ "signature": {
+  "name": "My Fraction Flip Book",
+  "what": "A strip-shaped flip book with one panel for each big idea; students add a strip, a number line and a sentence after each lesson.",
+  "panels": [
+   {
+    "title": "Halves",
+    "prompt": "Glue a folded strip. Mark 1/2 on a 0 to 1 number line. Finish: Halves are 2 ...",
+    "visual": {
+     "kind": "numberLine",
+     "from": 0,
+     "to": 1,
+     "ticks": 2,
+     "labels": [
+      "0",
+      "1/2",
+      "1"
+     ],
+     "highlight": [
+      1
+     ]
+    }
+   },
+   {
+    "title": "Quarters and eighths",
+    "prompt": "Halve, then halve again. Label quarters and eighths on one line. Which part is shorter?",
+    "visual": {
+     "kind": "fractionWall",
+     "rows": [
+      1,
+      2,
+      4,
+      8
+     ]
+    }
+   },
+   {
+    "title": "Thirds and fifths",
+    "prompt": "Show how you made thirds and fifths by estimate and adjust. Write one tip for a friend.",
+    "visual": {
+     "kind": "numberLine",
+     "from": 0,
+     "to": 1,
+     "ticks": 3,
+     "labels": [
+      "0",
+      "1/3",
+      "2/3",
+      "1"
+     ],
+     "highlight": []
+    }
+   },
+   {
+    "title": "Count to one whole",
+    "prompt": "Count unit fractions to 1 on a number line. Write 1 whole three ways, like 4/4.",
+    "visual": {
+     "kind": "numberLine",
+     "from": 0,
+     "to": 1,
+     "ticks": 5,
+     "labels": [
+      "0",
+      "1/5",
+      "2/5",
+      "3/5",
+      "4/5",
+      "1"
+     ],
+     "highlight": [
+      5
+     ]
+    }
+   },
+   {
+    "title": "Make one whole",
+    "prompt": "Draw a strip with a missing part. Write the number sentence, like 5/8 + 3/8 = 1.",
+    "visual": {
+     "kind": "barModel",
+     "whole": "8/8 = 1",
+     "parts": [
+      "5/8",
+      "3/8"
+     ]
+    }
+   },
+   {
+    "title": "Rebuild the whole",
+    "prompt": "Glue one piece. Write its fraction. Draw the whole it came from and explain how you knew.",
+    "visual": {
+     "kind": "barModel",
+     "whole": "?",
+     "parts": [
+      "1/3",
+      "1/3",
+      "1/3"
+     ]
+    }
+   },
+   {
+    "title": "Fraction families",
+    "prompt": "Pick a family. Write every member from the unit fraction to one whole.",
+    "visual": {
+     "kind": "numberLine",
+     "from": 0,
+     "to": 1,
+     "ticks": 8,
+     "labels": [
+      "0",
+      "1/8",
+      "2/8",
+      "3/8",
+      "4/8",
+      "5/8",
+      "6/8",
+      "7/8",
+      "1"
+     ],
+     "highlight": []
+    }
+   },
+   {
+    "title": "Compare unit fractions",
+    "prompt": "Order 1/2, 1/3, 1/4, 1/5 and 1/8. Finish: More parts means ...",
+    "visual": {
+     "kind": "fractionWall",
+     "rows": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8
+     ]
+    }
+   }
+  ]
+ },
+ "lessons": [
+  {
+   "id": "l1",
+   "n": 1,
+   "title": "Equal parts of a length",
+   "menu": "Halves",
+   "pics": [
+    "scissors",
+    "straight_ruler"
+   ],
+   "li": "We are learning to make equal parts of a length and to show one half on a number line.",
+   "sc": [
+    "I can fold a strip into 2 equal parts and name each part one half",
+    "I can tell if parts are equal or not equal",
+    "I can mark 1/2 halfway between 0 and 1 on a number line"
+   ],
+   "materials": [
+    "paper strips of different lengths",
+    "string or ribbon",
+    "rulers",
+    "mini whiteboards",
+    "glue"
+   ],
+   "slides": [
+    {
+     "type": "warmup",
+     "title": "Warm-up: Share it fairly",
+     "prompt": "Solve on your whiteboard. Show me when I say.",
+     "items": [
+      "Share 10 counters fairly between 2 people. How many each?",
+      "Half of 8",
+      "Double 6",
+      "Count by 2s from 0 to 10"
+     ],
+     "answers": [
+      "5 each",
+      "4",
+      "12",
+      "0, 2, 4, 6, 8, 10"
+     ],
+     "mode": "You do",
+     "notes": "These revise sharing, halving and doubling from Stage 1. Ask one student to explain how they know the share is fair."
+    },
+    {
+     "type": "definition",
+     "term": "one half",
+     "means": "One of 2 equal parts of a whole. Both parts must be exactly the same length.",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 2,
+      "shaded": 1,
+      "labels": true
+     },
+     "example": "Ruby folded her ribbon so the ends met. Each part is one half.",
+     "mode": "I do",
+     "notes": "Stress the word equal. A strip cut into 2 pieces is not always cut into halves. We write one half as 1/2."
+    },
+    {
+     "type": "worked",
+     "title": "I do: Fold a strip into halves",
+     "problem": "Make halves of a paper strip without a ruler.",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 2,
+      "shaded": 0,
+      "labels": true
+     },
+     "steps": [
+      {
+       "label": "Step 1",
+       "text": "Bring one end of the strip over to meet the other end."
+      },
+      {
+       "label": "Step 2",
+       "text": "Line up the ends and edges, then press the fold flat."
+      },
+      {
+       "label": "Step 3",
+       "text": "Open it. Check the 2 parts match by laying one on top of the other."
+      },
+      {
+       "label": "Step 4",
+       "text": "There are 2 equal parts. Each part is one half, written 1/2."
+      }
+     ],
+     "mode": "I do",
+     "notes": "Think aloud as you fold. Say: I am checking the ends meet exactly, because halves must be the same length. Then have every student fold their own strip with you."
+    },
+    {
+     "type": "visual",
+     "title": "One half on a number line",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 2,
+      "labels": [
+       "0",
+       "1/2",
+       "1"
+      ],
+      "highlight": [
+       1
+      ],
+      "jumps": [
+       {
+        "from": 0,
+        "to": 1,
+        "label": "1/2"
+       },
+       {
+        "from": 1,
+        "to": 2,
+        "label": "1/2"
+       }
+      ]
+     },
+     "rows": [
+      {
+       "label": "The whole",
+       "text": "The length from 0 to 1 is one whole."
+      },
+      {
+       "label": "Halfway",
+       "text": "1/2 sits exactly halfway. The 2 spaces are the same length."
+      },
+      {
+       "label": "Count jumps",
+       "text": "Count the jumps from 0: one half, two halves. Two halves make 1."
+      }
+     ],
+     "mode": "We do",
+     "notes": "Lay a folded strip along a number line of the same length so the fold sits on the 1/2 mark. This links the strip to the line."
+    },
+    {
+     "type": "examples",
+     "title": "Is it one half?",
+     "yes": [
+      {
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 2,
+        "shaded": 1,
+        "labels": true
+       },
+       "label": "2 equal parts, 1 shaded"
+      },
+      {
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 2,
+        "labels": [
+         "0",
+         "",
+         "1"
+        ],
+        "highlight": [
+         1
+        ]
+       },
+       "label": "Mark halfway from 0 to 1"
+      }
+     ],
+     "no": [
+      {
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 3,
+        "shaded": 1,
+        "labels": true
+       },
+       "label": "3 equal parts: this is a third"
+      },
+      {
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 4,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": [
+         1
+        ]
+       },
+       "label": "1 space of 4: not halfway"
+      }
+     ],
+     "mode": "We do",
+     "notes": "Students show thumbs up or down for each picture before you reveal. For the non-examples, ask what fraction it does show."
+    },
+    {
+     "type": "talk",
+     "title": "Turn and talk",
+     "prompt": "Mia cut her ribbon into 2 pieces. She says she has halves. Is she always right? How could she check?",
+     "seconds": 45,
+     "visual": null,
+     "mode": "We do",
+     "notes": "Listen for: only if the 2 pieces are the same length. She could lay one piece on top of the other or measure both."
+    },
+    {
+     "type": "hinge",
+     "title": "Which one?",
+     "question": "Which strip shows 1/2 shaded?",
+     "visual": null,
+     "options": [
+      "2 parts: 1 long, 1 short",
+      "2 equal parts, 1 shaded",
+      "3 equal parts, 1 shaded",
+      "2 equal parts, both shaded"
+     ],
+     "answer": 1,
+     "why": [
+      "Wrong: 2 parts are not halves unless they are equal. This child is counting pieces, not checking size.",
+      "Right: the whole has 2 equal parts and 1 of them is shaded.",
+      "Wrong: this child thinks one shaded part is always a half. Here 1 of 3 equal parts is 1/3.",
+      "Wrong: both halves shaded is 2/2, which is one whole."
+     ],
+     "mode": "You do",
+     "notes": "Students show 1, 2, 3 or 4 fingers on the count of three. Group anyone who chose A or C for a quick re-fold with you."
+    },
+    {
+     "type": "cfu",
+     "title": "Show me: halves",
+     "prompt": "Write on your mini whiteboard.",
+     "questions": [
+      "How many halves make one whole?",
+      "Half of a 30 cm strip is ___ cm.",
+      "A rope is 10 m long. How long is half?",
+      "Draw a 0 to 1 line and mark 1/2."
+     ],
+     "answers": [
+      "2",
+      "15 cm",
+      "5 m",
+      "A mark exactly halfway, labelled 1/2"
+     ],
+     "visual": null,
+     "mode": "You do",
+     "notes": "Scan the boards. Release students who get all 4 to start the activity while you reteach the rest with a strip."
+    },
+    {
+     "type": "activity",
+     "title": "Activity: Halfway hunters",
+     "steps": [
+      "Take 3 strips of different lengths.",
+      "Fold each strip in half and label each part 1/2.",
+      "Measure each half with a ruler. Are the 2 halves the same length?",
+      "Do your level on the Halves of a length sheet."
+     ],
+     "resource": "Halves of a length",
+     "time": "20 min",
+     "mode": "You do",
+     "notes": "Strips of 12 cm, 20 cm and 30 cm work well because the halves are whole centimetres."
+    },
+    {
+     "type": "levels",
+     "support": "Fold a strip and colour 1/2. Check by laying one half on top of the other.",
+     "core": "Mark 1/2 on number lines and find half of lengths in cm. Explain how you know it is halfway.",
+     "extend": "Half a ribbon is 7 cm. How long is the whole ribbon? Write a puzzle like this for a friend.",
+     "mode": "You do"
+    },
+    {
+     "type": "discuss",
+     "questions": [
+      "How do you know two parts are halves?",
+      "Why can half of one strip be longer than half of another strip?"
+     ],
+     "connect": "We folded strips into 2 equal parts and marked 1/2 halfway on a number line. Which success criteria can you tick?",
+     "notes": "Add the Halves panel to My Fraction Flip Book. Share one Spicy answer so everyone hears the idea of working back to the whole."
+    }
+   ],
+   "printables": [
+    {
+     "id": "l1-ws",
+     "kind": "worksheet",
+     "title": "Halves of a length",
+     "levels": [
+      {
+       "level": "Support",
+       "teach": {
+        "text": "Halves are 2 equal parts. Fold so the ends meet. Each part is 1/2.",
+        "visual": {
+         "kind": "fractionStrip",
+         "parts": 2,
+         "shaded": 1,
+         "labels": true
+        }
+       },
+       "items": [
+        {
+         "q": "Colour one half of the strip.",
+         "visual": {
+          "kind": "fractionStrip",
+          "parts": 2,
+          "shaded": 0,
+          "labels": false
+         },
+         "lines": 0,
+         "answer": "One of the 2 parts coloured"
+        },
+        {
+         "q": "How many halves make one whole?",
+         "visual": null,
+         "lines": 1,
+         "answer": "2"
+        },
+        {
+         "q": "Is each part one half? Write yes or no.",
+         "visual": null,
+         "parts": [
+          {
+           "q": "2 parts: 6 cm and 6 cm",
+           "answer": "yes"
+          },
+          {
+           "q": "2 parts: 4 cm and 8 cm",
+           "answer": "no"
+          },
+          {
+           "q": "3 equal parts",
+           "answer": "no"
+          }
+         ]
+        },
+        {
+         "q": "Write the fraction at the halfway mark.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 2,
+          "labels": [
+           "0",
+           "",
+           "1"
+          ],
+          "highlight": [
+           1
+          ]
+         },
+         "lines": 1,
+         "answer": "1/2"
+        },
+        {
+         "q": "Half of 10 cm is ___ cm.",
+         "visual": null,
+         "lines": 1,
+         "answer": "5"
+        }
+       ]
+      },
+      {
+       "level": "Core",
+       "teach": {
+        "text": "1/2 sits halfway between 0 and 1. The 2 spaces must be the same length.",
+        "visual": {
+         "kind": "numberLine",
+         "from": 0,
+         "to": 1,
+         "ticks": 2,
+         "labels": [
+          "0",
+          "1/2",
+          "1"
+         ],
+         "highlight": [
+          1
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Write the length of one half.",
+         "visual": null,
+         "parts": [
+          {
+           "q": "a 12 cm strip",
+           "answer": "6 cm"
+          },
+          {
+           "q": "a 20 cm ribbon",
+           "answer": "10 cm"
+          },
+          {
+           "q": "a 50 cm rope",
+           "answer": "25 cm"
+          },
+          {
+           "q": "a 1 m stick (100 cm)",
+           "answer": "50 cm"
+          }
+         ]
+        },
+        {
+         "q": "Write 0, 1/2 and 1 in the right places.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 2,
+          "labels": [
+           "",
+           "",
+           ""
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "0, 1/2, 1 from left to right"
+        },
+        {
+         "q": "Sam folded a strip into 2 parts. One part is 9 cm and the other is 11 cm. Are they halves? Explain.",
+         "visual": null,
+         "lines": 2,
+         "answer": "No. The parts are not the same length."
+        },
+        {
+         "q": "Two 1/2 pieces are joined end to end. What do they make?",
+         "visual": null,
+         "lines": 1,
+         "answer": "One whole (2/2)"
+        },
+        {
+         "q": "How many halves are in 3 wholes?",
+         "visual": null,
+         "lines": 1,
+         "answer": "6"
+        }
+       ]
+      },
+      {
+       "level": "Extend",
+       "teach": {
+        "text": "If you know one half, you can find the whole. Two halves make a whole, so double it.",
+        "visual": {
+         "kind": "barModel",
+         "whole": "?",
+         "parts": [
+          "7 cm",
+          "7 cm"
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Half of a ribbon is 8 cm. How long is the whole ribbon?",
+         "visual": null,
+         "lines": 1,
+         "answer": "16 cm"
+        },
+        {
+         "q": "Half of a rope is 35 cm. How long is the whole rope?",
+         "visual": null,
+         "lines": 1,
+         "answer": "70 cm"
+        },
+        {
+         "q": "Leo says the dot is at 1/2. Is he right? Explain.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 4,
+          "labels": [
+           "0",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": [
+           1
+          ]
+         },
+         "lines": 2,
+         "answer": "No. The dot is 1 space of 4, so it is 1/4. Halfway is 2 spaces of 4."
+        },
+        {
+         "q": "Strip A is 10 cm. Strip B is 16 cm. Whose half is longer, and by how much?",
+         "visual": null,
+         "lines": 2,
+         "answer": "Strip B. Its half is 8 cm and A's half is 5 cm, so 3 cm longer."
+        },
+        {
+         "q": "Mark every half on this line from 0 to 2. How many halves are there from 0 to 2?",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 2,
+          "ticks": 4,
+          "labels": [
+           "0",
+           "",
+           "1",
+           "",
+           "2"
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "4 halves"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "teacherNotes": "Use strips that are the same length within each task, but different lengths across tasks, so students see that half of a longer strip is longer. Keep the talk on equal length, not just the number of pieces. Watch for students who fold carelessly and accept a gap; ask them to check by laying one half on the other. The exit ticket shows who still accepts unequal parts as halves; see them at the teacher table tomorrow.",
+   "exitTicket": [
+    {
+     "q": "Write 1/2 in the right place on the number line.",
+     "answer": "Labelled at the middle mark, halfway from 0 to 1",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 2,
+      "labels": [
+       "0",
+       "",
+       "1"
+      ],
+      "highlight": []
+     }
+    },
+    {
+     "q": "A strip is cut into parts of 5 cm and 7 cm. Is each part one half? Why?",
+     "answer": "No. The parts are not equal in length.",
+     "visual": null
+    }
+   ]
+  },
+  {
+   "id": "l2",
+   "n": 2,
+   "title": "Quarters and eighths by halving",
+   "menu": "Quarters and eighths",
+   "pics": [
+    "chocolate_bar",
+    "straight_ruler"
+   ],
+   "li": "We are learning to make quarters and eighths of a length by halving and to show them on a number line.",
+   "sc": [
+    "I can fold a strip into quarters and eighths",
+    "I can name and write fractions like 1/4, 3/4 and 5/8",
+    "I can count quarters and eighths on a number line from 0"
+   ],
+   "materials": [
+    "paper strips all the same length",
+    "mini whiteboards",
+    "coloured pencils",
+    "glue"
+   ],
+   "slides": [
+    {
+     "type": "warmup",
+     "title": "Warm-up: Halves check",
+     "prompt": "Write on your whiteboard.",
+     "items": [
+      "How many halves make one whole?",
+      "Half of 16 cm",
+      "A strip is cut into 3 cm and 5 cm. Is it cut in half?",
+      "Half of 40"
+     ],
+     "answers": [
+      "2",
+      "8 cm",
+      "No, the parts are not equal",
+      "20"
+     ],
+     "mode": "You do",
+     "notes": "Item 3 checks yesterday's big idea. If many say yes, refold a strip before moving on."
+    },
+    {
+     "type": "rows",
+     "title": "Reading a fraction",
+     "intro": "Every fraction has 2 numbers with a line between them.",
+     "rows": [
+      {
+       "label": "Denominator",
+       "text": "The bottom number. It tells how many equal parts make the whole.",
+       "color": "teal"
+      },
+      {
+       "label": "Numerator",
+       "text": "The top number. It counts how many of those parts we are talking about.",
+       "color": "mint"
+      },
+      {
+       "label": "Say it",
+       "text": "1/4 is one quarter. 3/4 is three quarters. 5/8 is five eighths.",
+       "color": "sky"
+      }
+     ],
+     "mode": "I do",
+     "notes": "Read fractions as words, not 'three over four'. The word tells the size of the part, so students hear what the fraction means."
+    },
+    {
+     "type": "worked",
+     "title": "I do: Halve, halve, halve again",
+     "problem": "Make quarters and eighths of a strip by folding.",
+     "visual": {
+      "kind": "fractionWall",
+      "rows": [
+       1,
+       2,
+       4,
+       8
+      ]
+     },
+     "steps": [
+      {
+       "label": "Step 1",
+       "text": "Fold the strip in half. There are 2 equal parts."
+      },
+      {
+       "label": "Step 2",
+       "text": "Fold it in half again. Open it: 4 equal parts. Each part is 1/4."
+      },
+      {
+       "label": "Step 3",
+       "text": "Fold in half once more. Open it: 8 equal parts. Each part is 1/8."
+      },
+      {
+       "label": "Step 4",
+       "text": "Each time we halve, there are twice as many parts and each part is shorter."
+      }
+     ],
+     "mode": "I do",
+     "notes": "Model with a big strip on the board while students fold their own. Point to the wall: every row is the same whole, cut into more and more parts."
+    },
+    {
+     "type": "visual",
+     "title": "Quarters on a number line",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 4,
+      "labels": [
+       "0",
+       "1/4",
+       "2/4",
+       "3/4",
+       "1"
+      ],
+      "highlight": [
+       3
+      ],
+      "jumps": [
+       {
+        "from": 0,
+        "to": 1,
+        "label": "1/4"
+       },
+       {
+        "from": 1,
+        "to": 2,
+        "label": "1/4"
+       },
+       {
+        "from": 2,
+        "to": 3,
+        "label": "1/4"
+       }
+      ]
+     },
+     "rows": [
+      {
+       "label": "Count spaces",
+       "text": "Start at 0 and jump: one quarter, two quarters, three quarters."
+      },
+      {
+       "label": "One whole",
+       "text": "Four quarters land on 1, so 4/4 is one whole."
+      },
+      {
+       "label": "Notice",
+       "text": "2/4 lands on the same spot as 1/2."
+      }
+     ],
+     "mode": "We do",
+     "notes": "Students trace the jumps with a finger in the air as the class counts aloud. Ask: where would 1/2 go? Why is it on the same spot as 2/4?"
+    },
+    {
+     "type": "examples",
+     "title": "Is it eighths?",
+     "yes": [
+      {
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 8,
+        "shaded": 1,
+        "labels": true
+       },
+       "label": "8 equal parts, 1 shaded: 1/8"
+      },
+      {
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 8,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": [
+         1
+        ]
+       },
+       "label": "1 of 8 equal spaces"
+      }
+     ],
+     "no": [
+      {
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 6,
+        "shaded": 1,
+        "labels": true
+       },
+       "label": "6 equal parts: sixths"
+      },
+      {
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 4,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": [
+         1
+        ]
+       },
+       "label": "Only 4 spaces: this is 1/4"
+      }
+     ],
+     "mode": "We do",
+     "notes": "For the 6-part strip, students often see 'lots of parts' and say eighths. Have them count the parts aloud."
+    },
+    {
+     "type": "talk",
+     "title": "Turn and talk",
+     "prompt": "Which is longer: 1/4 or 1/8 of the same strip? Use your folded strips to prove it.",
+     "seconds": 45,
+     "visual": {
+      "kind": "fractionWall",
+      "rows": [
+       4,
+       8
+      ]
+     },
+     "mode": "We do",
+     "notes": "Listen for: 1/4 is longer, because the same whole is cut into fewer parts. Two eighths fit inside one quarter."
+    },
+    {
+     "type": "hinge",
+     "title": "Which one?",
+     "question": "Kai wants to mark 3/4. Which point should he choose?",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 4,
+      "labels": [
+       "0",
+       "A",
+       "B",
+       "C",
+       "1"
+      ],
+      "highlight": []
+     },
+     "options": [
+      "Point A",
+      "Point B",
+      "Point C",
+      "Past the 1"
+     ],
+     "answer": 2,
+     "why": [
+      "Wrong: A is 1/4. This child counted 3 jumps back from 1 instead of counting on from 0.",
+      "Wrong: B is 2/4. This child counted marks and called 0 'one'. Count the spaces from 0.",
+      "Right: C is 3 equal spaces from 0, so it is 3/4.",
+      "Wrong: 3/4 is less than one whole. The 3 and the 4 are not big numbers here; 3 of 4 parts is less than 4/4."
+     ],
+     "mode": "You do",
+     "notes": "Fingers up for A, B, C or D. Students who chose B need the 'jump the spaces' routine at the teacher table."
+    },
+    {
+     "type": "cfu",
+     "title": "Show me: quarters and eighths",
+     "prompt": "Write on your mini whiteboard.",
+     "questions": [
+      "How many eighths make one whole?",
+      "How many quarters make 1/2?",
+      "Write the fraction: 3 of 8 equal parts",
+      "Which is longer: 1/4 or 1/8 of the same strip?"
+     ],
+     "answers": [
+      "8",
+      "2",
+      "3/8",
+      "1/4"
+     ],
+     "visual": null,
+     "mode": "You do"
+    },
+    {
+     "type": "activity",
+     "title": "Activity: Fold, label, line up",
+     "steps": [
+      "Fold one strip into quarters and one into eighths.",
+      "Label every part on both strips.",
+      "Lay both strips above the 0 to 1 number line. Mark each quarter and eighth.",
+      "Do your level on the Quarters and eighths sheet."
+     ],
+     "resource": "Quarters and eighths",
+     "time": "20 min",
+     "mode": "You do",
+     "notes": "Make sure strips match the length of the number line you draw, so the folds sit on the marks."
+    },
+    {
+     "type": "levels",
+     "support": "Fold quarters. Colour and label 1/4, 2/4 and 3/4. Use the fraction wall to check.",
+     "core": "Label quarters and eighths on number lines. Find the length of each part of a strip.",
+     "extend": "Halve eighths again. How many sixteenths fit in 1/4? Find lengths like 5/8 of a 40 cm ribbon.",
+     "mode": "You do"
+    },
+    {
+     "type": "discuss",
+     "questions": [
+      "Why do the parts get shorter when the denominator gets bigger?",
+      "Where do 2/4 and 4/8 land on the number line? What do you notice?"
+     ],
+     "connect": "We halved to make quarters and eighths and counted them on a number line. Check the success criteria with a partner.",
+     "notes": "Add the Quarters and eighths panel to the flip book."
+    }
+   ],
+   "printables": [
+    {
+     "id": "l2-ws",
+     "kind": "worksheet",
+     "title": "Quarters and eighths",
+     "levels": [
+      {
+       "level": "Support",
+       "teach": {
+        "text": "Halve a half to get quarters: 4 equal parts. Each part is 1/4. Halve again for eighths.",
+        "visual": {
+         "kind": "fractionStrip",
+         "parts": 4,
+         "shaded": 1,
+         "labels": true
+        }
+       },
+       "items": [
+        {
+         "q": "What fraction is shaded?",
+         "visual": {
+          "kind": "fractionStrip",
+          "parts": 4,
+          "shaded": 3,
+          "labels": true
+         },
+         "lines": 1,
+         "answer": "3/4"
+        },
+        {
+         "q": "What fraction is shaded?",
+         "visual": {
+          "kind": "fractionStrip",
+          "parts": 8,
+          "shaded": 1,
+          "labels": true
+         },
+         "lines": 1,
+         "answer": "1/8"
+        },
+        {
+         "q": "How many quarters make one whole?",
+         "visual": null,
+         "lines": 1,
+         "answer": "4"
+        },
+        {
+         "q": "Write the missing label.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 4,
+          "labels": [
+           "0",
+           "1/4",
+           "",
+           "3/4",
+           "1"
+          ],
+          "highlight": [
+           2
+          ]
+         },
+         "lines": 1,
+         "answer": "2/4"
+        },
+        {
+         "q": "Circle the longer part of the same strip: 1/4 or 1/8",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/4"
+        }
+       ]
+      },
+      {
+       "level": "Core",
+       "teach": {
+        "text": "Count the spaces from 0. Each space on this line is 1/8. 8/8 is one whole.",
+        "visual": {
+         "kind": "numberLine",
+         "from": 0,
+         "to": 1,
+         "ticks": 8,
+         "labels": [
+          "0",
+          "1/8",
+          "2/8",
+          "3/8",
+          "4/8",
+          "5/8",
+          "6/8",
+          "7/8",
+          "1"
+         ],
+         "highlight": []
+        }
+       },
+       "items": [
+        {
+         "q": "Write the missing labels.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 8,
+          "labels": [
+           "0",
+           "",
+           "2/8",
+           "",
+           "",
+           "5/8",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "1/8, 3/8, 4/8, 6/8, 7/8"
+        },
+        {
+         "q": "What fraction is marked with the dot?",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 4,
+          "labels": [
+           "0",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": [
+           3
+          ]
+         },
+         "lines": 1,
+         "answer": "3/4"
+        },
+        {
+         "q": "How many?",
+         "visual": null,
+         "parts": [
+          {
+           "q": "eighths in one whole",
+           "answer": "8"
+          },
+          {
+           "q": "eighths in 1/2",
+           "answer": "4"
+          },
+          {
+           "q": "eighths in 1/4",
+           "answer": "2"
+          },
+          {
+           "q": "quarters in 1/2",
+           "answer": "2"
+          }
+         ]
+        },
+        {
+         "q": "Jai says 1/8 is bigger than 1/4 because 8 is bigger than 4. Is he right? Explain.",
+         "visual": null,
+         "lines": 2,
+         "answer": "No. The same whole is cut into more parts, so each eighth is shorter. 1/4 is longer."
+        },
+        {
+         "q": "A 24 cm strip is folded into eighths. How long is each part?",
+         "visual": null,
+         "lines": 1,
+         "answer": "3 cm"
+        }
+       ]
+      },
+      {
+       "level": "Extend",
+       "teach": {
+        "text": "Use the length of one part. A 32 cm strip in quarters: 1/4 is 8 cm, so 3/4 is 24 cm.",
+        "visual": {
+         "kind": "fractionWall",
+         "rows": [
+          1,
+          2,
+          4,
+          8
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "A 32 cm strip is cut into quarters. How long is 3/4 of the strip?",
+         "visual": null,
+         "lines": 1,
+         "answer": "24 cm"
+        },
+        {
+         "q": "A 40 cm ribbon is cut into eighths. How long is 5/8 of the ribbon?",
+         "visual": null,
+         "lines": 1,
+         "answer": "25 cm"
+        },
+        {
+         "q": "Name 2 fractions that land on the same point as 1/2.",
+         "visual": null,
+         "lines": 1,
+         "answer": "2/4 and 4/8"
+        },
+        {
+         "q": "Halve eighths to make sixteenths. How many sixteenths make 1/4?",
+         "visual": null,
+         "lines": 1,
+         "answer": "4"
+        },
+        {
+         "q": "Mark 3/8 and 3/4 on the line. Which is closer to 1?",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 8,
+          "labels": [
+           "0",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "3/8 at the 3rd mark, 3/4 at the 6th mark (6/8). 3/4 is closer to 1."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "teacherNotes": "Every strip in this lesson must be the same length, so students can see that more parts means shorter parts. Keep using the word 'spaces' when reading the number line. Expect some students to say 1/8 is bigger than 1/4; answer with the strips, not with a rule. Students who mislabel the eighths line on the exit ticket need the counting routine again tomorrow.",
+   "exitTicket": [
+    {
+     "q": "What fraction is marked with the dot?",
+     "answer": "5/8",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 8,
+      "labels": [
+       "0",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": [
+       5
+      ]
+     }
+    },
+    {
+     "q": "How many quarters make one whole?",
+     "answer": "4",
+     "visual": null
+    }
+   ]
+  },
+  {
+   "id": "l3",
+   "n": 3,
+   "title": "Thirds by estimate and adjust",
+   "menu": "Thirds",
+   "pics": [
+    "ribbon",
+    "thinking_face"
+   ],
+   "li": "We are learning to make thirds of a length by estimating, checking and adjusting.",
+   "sc": [
+    "I can explain why halving does not make thirds",
+    "I can make 3 equal parts of a length by estimating and adjusting",
+    "I can mark 1/3 and 2/3 on a number line"
+   ],
+   "materials": [
+    "paper strips",
+    "string or ribbon (about 30 cm each)",
+    "pencils",
+    "rulers",
+    "mini whiteboards"
+   ],
+   "slides": [
+    {
+     "type": "warmup",
+     "title": "Warm-up: Fold facts",
+     "prompt": "Write on your whiteboard.",
+     "items": [
+      "How many eighths make one whole?",
+      "Write three quarters as a fraction.",
+      "Half of 18 cm",
+      "Which is longer: 1/2 or 1/4 of the same strip?"
+     ],
+     "answers": [
+      "8",
+      "3/4",
+      "9 cm",
+      "1/2"
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "rows",
+     "title": "Can halving make thirds?",
+     "intro": "Fold a strip in half again and again. Count the parts each time.",
+     "rows": [
+      {
+       "label": "Halve once",
+       "text": "2 equal parts",
+       "color": "teal"
+      },
+      {
+       "label": "Halve twice",
+       "text": "4 equal parts",
+       "color": "sky"
+      },
+      {
+       "label": "Halve 3 times",
+       "text": "8 equal parts",
+       "color": "indigo"
+      },
+      {
+       "label": "So",
+       "text": "Halving makes 2, 4, 8, 16 parts. It never makes 3. Thirds need a new way.",
+       "color": "mint"
+      }
+     ],
+     "mode": "I do",
+     "notes": "Let students try to fold thirds first for one minute. Most will find it hard. That struggle is the reason for today's method."
+    },
+    {
+     "type": "definition",
+     "term": "one third",
+     "means": "One of 3 equal parts of a whole. 3 thirds make one whole.",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 3,
+      "shaded": 1,
+      "labels": true
+     },
+     "example": "A 30 cm ribbon cut into thirds has 3 parts of 10 cm.",
+     "mode": "I do"
+    },
+    {
+     "type": "worked",
+     "title": "I do: Estimate and adjust",
+     "problem": "Make thirds of a strip of string without a ruler.",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 3,
+      "shaded": 0,
+      "labels": true
+     },
+     "steps": [
+      {
+       "label": "Estimate",
+       "text": "Make a light mark where you think 1/3 is. It should be a bit less than half."
+      },
+      {
+       "label": "Check",
+       "text": "Use that length like a ruler. Step it along the string 3 times."
+      },
+      {
+       "label": "Adjust",
+       "text": "Bit left over? The part is too short, so move the mark right. Ran out? Move it left."
+      },
+      {
+       "label": "Done",
+       "text": "When 3 parts fit exactly, each part is 1/3 of the string."
+      }
+     ],
+     "mode": "I do",
+     "notes": "Make your first estimate deliberately too short so students see an adjustment. Think aloud: there is a gap at the end, so my part needs to be a little longer."
+    },
+    {
+     "type": "visual",
+     "title": "Thirds on a number line",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 3,
+      "labels": [
+       "0",
+       "1/3",
+       "2/3",
+       "1"
+      ],
+      "highlight": [
+       2
+      ],
+      "jumps": [
+       {
+        "from": 0,
+        "to": 1,
+        "label": "1/3"
+       },
+       {
+        "from": 1,
+        "to": 2,
+        "label": "1/3"
+       }
+      ]
+     },
+     "rows": [
+      {
+       "label": "Count spaces",
+       "text": "One third, two thirds, three thirds."
+      },
+      {
+       "label": "One whole",
+       "text": "3/3 lands on 1."
+      },
+      {
+       "label": "Compare",
+       "text": "1/3 is a little less than 1/2."
+      }
+     ],
+     "mode": "We do"
+    },
+    {
+     "type": "talk",
+     "title": "Turn and talk",
+     "prompt": "Lily cut a string into 3 parts: 9 cm, 10 cm and 11 cm. Are they thirds? What should she do?",
+     "seconds": 45,
+     "visual": null,
+     "mode": "We do",
+     "notes": "Not thirds, because they are not equal. The string is 30 cm, so each third should be 10 cm. She could adjust the cuts."
+    },
+    {
+     "type": "hinge",
+     "title": "Which one?",
+     "question": "This line has 2 marks between 0 and 1. What is each space worth?",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 3,
+      "labels": [
+       "0",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": []
+     },
+     "options": [
+      "1/2",
+      "1/3",
+      "1/4",
+      "2/3"
+     ],
+     "answer": 1,
+     "why": [
+      "Wrong: this child counted the 2 marks in the middle instead of the spaces.",
+      "Right: there are 3 equal spaces from 0 to 1, so each is 1/3.",
+      "Wrong: this child counted all 4 marks, including 0 and 1. Count spaces, not marks.",
+      "Wrong: 2/3 names the second mark, a point. Each space is one third."
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "cfu",
+     "title": "Show me: thirds",
+     "prompt": "Write on your mini whiteboard.",
+     "questions": [
+      "How many thirds make one whole?",
+      "A 12 cm strip is cut into thirds. How long is each part?",
+      "Write the fraction for 2 of 3 equal parts.",
+      "Which is longer: 1/3 or 1/4 of the same strip?"
+     ],
+     "answers": [
+      "3",
+      "4 cm",
+      "2/3",
+      "1/3"
+     ],
+     "visual": null,
+     "mode": "You do"
+    },
+    {
+     "type": "activity",
+     "title": "Activity: Third time lucky",
+     "steps": [
+      "Take a piece of string. Estimate 1/3 and mark it lightly.",
+      "Check by stepping that length along 3 times.",
+      "Adjust until 3 equal parts fit with nothing left over.",
+      "Glue it above a number line. Label 0, 1/3, 2/3 and 1.",
+      "Do your level on the Thirds of a length sheet."
+     ],
+     "resource": "Thirds of a length",
+     "time": "20 min",
+     "mode": "You do",
+     "notes": "Paper clips or pegs make good movable marks on string."
+    },
+    {
+     "type": "levels",
+     "support": "Use a strip 15 squares long. Count and mark every 5 squares to make thirds.",
+     "core": "Make thirds of 3 different strips by estimate and adjust. Find 1/3 and 2/3 of lengths in cm.",
+     "extend": "Halve your thirds to make sixths. Where do 2/6 and 1/3 land? Solve the adjusting puzzles.",
+     "mode": "You do"
+    },
+    {
+     "type": "discuss",
+     "questions": [
+      "Why can't we fold in half to make thirds?",
+      "Was your first estimate too long or too short? How did you know?"
+     ],
+     "connect": "We made thirds by estimating, checking and adjusting, and marked them on a number line. Which success criteria can you show me?",
+     "notes": "Start the Thirds and fifths panel in the flip book. Students write one tip for making thirds."
+    }
+   ],
+   "printables": [
+    {
+     "id": "l3-ws",
+     "kind": "worksheet",
+     "title": "Thirds of a length",
+     "levels": [
+      {
+       "level": "Support",
+       "teach": {
+        "text": "Thirds are 3 equal parts. Each part is 1/3. Three thirds make one whole.",
+        "visual": {
+         "kind": "fractionStrip",
+         "parts": 3,
+         "shaded": 1,
+         "labels": true
+        }
+       },
+       "items": [
+        {
+         "q": "What fraction is shaded?",
+         "visual": {
+          "kind": "fractionStrip",
+          "parts": 3,
+          "shaded": 2,
+          "labels": true
+         },
+         "lines": 1,
+         "answer": "2/3"
+        },
+        {
+         "q": "How many thirds make one whole?",
+         "visual": null,
+         "lines": 1,
+         "answer": "3"
+        },
+        {
+         "q": "Write the missing label.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 3,
+          "labels": [
+           "0",
+           "1/3",
+           "",
+           "1"
+          ],
+          "highlight": [
+           2
+          ]
+         },
+         "lines": 1,
+         "answer": "2/3"
+        },
+        {
+         "q": "A 9 cm strip is cut into thirds. How long is each part?",
+         "visual": null,
+         "lines": 1,
+         "answer": "3 cm"
+        },
+        {
+         "q": "Thirds or not? Write yes or no.",
+         "visual": null,
+         "parts": [
+          {
+           "q": "3 parts: 5 cm, 5 cm, 5 cm",
+           "answer": "yes"
+          },
+          {
+           "q": "3 parts: 4 cm, 5 cm, 6 cm",
+           "answer": "no"
+          },
+          {
+           "q": "4 equal parts",
+           "answer": "no"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "level": "Core",
+       "teach": {
+        "text": "Estimate, check, adjust. A bit left over means your part is too short. Running out means it is too long.",
+        "visual": {
+         "kind": "numberLine",
+         "from": 0,
+         "to": 1,
+         "ticks": 3,
+         "labels": [
+          "0",
+          "1/3",
+          "2/3",
+          "1"
+         ],
+         "highlight": []
+        }
+       },
+       "items": [
+        {
+         "q": "How long is 1/3?",
+         "visual": null,
+         "parts": [
+          {
+           "q": "a 21 cm strip",
+           "answer": "7 cm"
+          },
+          {
+           "q": "a 30 cm strip",
+           "answer": "10 cm"
+          },
+          {
+           "q": "a 45 cm strip",
+           "answer": "15 cm"
+          },
+          {
+           "q": "a 60 cm strip",
+           "answer": "20 cm"
+          }
+         ]
+        },
+        {
+         "q": "Ella's first try at 1/3 of a strip was 8 cm. She stepped it out 3 times and 3 cm was left over. Should her part be longer or shorter? How long is the strip?",
+         "visual": null,
+         "lines": 2,
+         "answer": "Longer. The strip is 8 + 8 + 8 + 3 = 27 cm, so 1/3 should be 9 cm."
+        },
+        {
+         "q": "What fraction is marked with the dot?",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 3,
+          "labels": [
+           "0",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": [
+           2
+          ]
+         },
+         "lines": 1,
+         "answer": "2/3"
+        },
+        {
+         "q": "Max says this line shows thirds because it has 3 marks between 0 and 1. Is he right? Explain.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 4,
+          "labels": [
+           "0",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": []
+         },
+         "lines": 2,
+         "answer": "No. There are 4 equal spaces, so they are quarters. Count spaces, not marks."
+        },
+        {
+         "q": "How long is 2/3 of a 30 cm strip?",
+         "visual": null,
+         "lines": 1,
+         "answer": "20 cm"
+        }
+       ]
+      },
+      {
+       "level": "Extend",
+       "teach": {
+        "text": "Halve each third to make sixths. 1/3 lines up with 2/6, and 2/3 lines up with 4/6.",
+        "visual": {
+         "kind": "fractionWall",
+         "rows": [
+          1,
+          3,
+          6
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "How many sixths make one whole?",
+         "visual": null,
+         "lines": 1,
+         "answer": "6"
+        },
+        {
+         "q": "How many sixths make 2/3?",
+         "visual": null,
+         "lines": 1,
+         "answer": "4"
+        },
+        {
+         "q": "A strip is 36 cm long.",
+         "visual": null,
+         "parts": [
+          {
+           "q": "How long is 2/3?",
+           "answer": "24 cm"
+          },
+          {
+           "q": "How long is 5/6?",
+           "answer": "30 cm"
+          }
+         ]
+        },
+        {
+         "q": "Write the missing labels.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 6,
+          "labels": [
+           "0",
+           "1/6",
+           "",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "2/6, 3/6, 4/6, 5/6"
+        },
+        {
+         "q": "Ella's first try at 1/3 was 12 cm. Stepped out 3 times, it went 3 cm past the end. How long is the strip? What should 1/3 be?",
+         "visual": null,
+         "lines": 2,
+         "answer": "The strip is 36 - 3 = 33 cm, so 1/3 is 11 cm."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "teacherNotes": "This is the first lesson where folding in half does not work, so give students time to discover that before you teach estimate and adjust. String or ribbon is easier to adjust than paper. Use lengths that divide by 3 (15, 21, 30 cm) so measuring confirms the estimate. The hinge question shows who counts marks instead of spaces; that misconception will cause errors all unit, so fix it now.",
+   "exitTicket": [
+    {
+     "q": "Mark and label 2/3 on the number line.",
+     "answer": "The second mark after 0, labelled 2/3",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 3,
+      "labels": [
+       "0",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": []
+     }
+    },
+    {
+     "q": "Can you make thirds by folding a strip in half? Why or why not?",
+     "answer": "No. Halving makes 2, 4 or 8 parts, never 3.",
+     "visual": null
+    }
+   ]
+  },
+  {
+   "id": "l4",
+   "n": 4,
+   "title": "Fifths by estimate and adjust",
+   "menu": "Fifths",
+   "pics": [
+    "triangular_ruler",
+    "wood"
+   ],
+   "li": "We are learning to make fifths of a length and to show them on a number line.",
+   "sc": [
+    "I can make 5 equal parts of a length by estimating and adjusting",
+    "I can name and write fifths, like 2/5 and 4/5",
+    "I can mark fifths on a number line"
+   ],
+   "materials": [
+    "paper strips",
+    "string or ribbon",
+    "paper clips or pegs",
+    "rulers",
+    "mini whiteboards"
+   ],
+   "slides": [
+    {
+     "type": "warmup",
+     "title": "Warm-up: Thirds and counting",
+     "prompt": "Write on your whiteboard.",
+     "items": [
+      "How many thirds make one whole?",
+      "1/3 of 15 cm",
+      "Which is longer: 1/3 or 1/8 of the same strip?",
+      "Count by 5s from 5 to 30"
+     ],
+     "answers": [
+      "3",
+      "5 cm",
+      "1/3",
+      "5, 10, 15, 20, 25, 30"
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "definition",
+     "term": "one fifth",
+     "means": "One of 5 equal parts of a whole. 5 fifths make one whole.",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 5,
+      "shaded": 1,
+      "labels": true
+     },
+     "example": "A 50 cm stick cut into fifths has 5 parts of 10 cm.",
+     "mode": "I do"
+    },
+    {
+     "type": "worked",
+     "title": "I do: Make fifths",
+     "problem": "Make fifths of a paper strip without a ruler.",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 5,
+      "shaded": 0,
+      "labels": true
+     },
+     "steps": [
+      {
+       "label": "Estimate",
+       "text": "5 parts is more than 4, so 1/5 is a bit shorter than 1/4. Mark your guess lightly."
+      },
+      {
+       "label": "Check",
+       "text": "Step that length along the strip 5 times."
+      },
+      {
+       "label": "Adjust",
+       "text": "Bit left over? Make the part longer. Ran out? Make it shorter."
+      },
+      {
+       "label": "Done",
+       "text": "When 5 parts fit exactly, label them 1/5, 2/5, 3/5, 4/5, 5/5."
+      }
+     ],
+     "mode": "I do",
+     "notes": "Show the estimate going too long this time, so students see the other kind of adjustment. Link back to thirds: same method, different number of parts."
+    },
+    {
+     "type": "visual",
+     "title": "Fifths on a number line",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 5,
+      "labels": [
+       "0",
+       "1/5",
+       "2/5",
+       "3/5",
+       "4/5",
+       "1"
+      ],
+      "highlight": [
+       4
+      ]
+     },
+     "rows": [
+      {
+       "label": "Count spaces",
+       "text": "5 equal spaces. Each space is 1/5."
+      },
+      {
+       "label": "One whole",
+       "text": "5/5 lands on 1."
+      },
+      {
+       "label": "Tenths",
+       "text": "Halve each fifth and you get 10 parts: tenths."
+      }
+     ],
+     "mode": "We do",
+     "notes": "Ask: is there a mark for 1/2 on this line? Let students find that 1/2 sits between 2/5 and 3/5."
+    },
+    {
+     "type": "examples",
+     "title": "Is it fifths?",
+     "yes": [
+      {
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 5,
+        "shaded": 3,
+        "labels": true
+       },
+       "label": "5 equal parts, 3 shaded: 3/5"
+      },
+      {
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 5,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": [
+         2
+        ]
+       },
+       "label": "2 of 5 equal spaces: 2/5"
+      }
+     ],
+     "no": [
+      {
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 4,
+        "shaded": 1,
+        "labels": true
+       },
+       "label": "4 equal parts: 1/4"
+      },
+      {
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 6,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": []
+       },
+       "label": "5 marks inside, but 6 spaces"
+      }
+     ],
+     "mode": "We do"
+    },
+    {
+     "type": "talk",
+     "title": "Turn and talk",
+     "prompt": "Why is it harder to make fifths than quarters? What helps you get a good first estimate?",
+     "seconds": 45,
+     "visual": null,
+     "mode": "We do",
+     "notes": "Quarters can be folded by halving. Fifths cannot. A good estimate: a bit shorter than a quarter, or about 2 fingers on a 15 cm strip."
+    },
+    {
+     "type": "hinge",
+     "title": "Which one?",
+     "question": "Which is longer: 1/5 or 1/3 of the same ribbon?",
+     "visual": null,
+     "options": [
+      "1/5",
+      "1/3",
+      "They are the same",
+      "Can't tell without a ruler"
+     ],
+     "answer": 1,
+     "why": [
+      "Wrong: this child thinks a bigger denominator means a bigger part. 5 parts means shorter parts.",
+      "Right: the ribbon is cut into fewer parts, so each third is longer than each fifth.",
+      "Wrong: both are 1 part, but the parts are different sizes.",
+      "Wrong: we can reason without measuring, because it is the same ribbon."
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "cfu",
+     "title": "Show me: fifths",
+     "prompt": "Write on your mini whiteboard.",
+     "questions": [
+      "How many fifths make one whole?",
+      "A 20 cm strip is cut into fifths. How long is each part?",
+      "Write the fraction for 4 of 5 equal parts.",
+      "How many tenths make 1/5?"
+     ],
+     "answers": [
+      "5",
+      "4 cm",
+      "4/5",
+      "2"
+     ],
+     "visual": null,
+     "mode": "You do"
+    },
+    {
+     "type": "activity",
+     "title": "Activity: Five of a kind",
+     "steps": [
+      "Estimate 1/5 of your strip and mark it lightly.",
+      "Step it out 5 times and adjust until it fits.",
+      "Label 1/5 to 5/5. Glue it above a number line.",
+      "Do your level on the Fifths of a length sheet."
+     ],
+     "resource": "Fifths of a length",
+     "time": "20 min",
+     "mode": "You do",
+     "notes": "Strips of 20, 25 or 35 cm give whole centimetre fifths for checking."
+    },
+    {
+     "type": "levels",
+     "support": "Use a strip 10 squares long. Mark every 2 squares to make fifths, then check by measuring.",
+     "core": "Make fifths of 2 strips. Mark fifths on number lines and find fifths of lengths in cm.",
+     "extend": "Halve fifths to make tenths. Which tenths land on a fifth? Where does 1/2 go on a fifths line?",
+     "mode": "You do"
+    },
+    {
+     "type": "discuss",
+     "questions": [
+      "How is making fifths like making thirds?",
+      "Where does 1/2 sit on a fifths number line? Is it on a mark?"
+     ],
+     "connect": "We made fifths by estimating and adjusting and placed them on a number line. Show a partner which success criteria you met.",
+     "notes": "Finish the Thirds and fifths panel of the flip book."
+    }
+   ],
+   "printables": [
+    {
+     "id": "l4-ws",
+     "kind": "worksheet",
+     "title": "Fifths of a length",
+     "levels": [
+      {
+       "level": "Support",
+       "teach": {
+        "text": "Fifths are 5 equal parts. Each part is 1/5. Five fifths make one whole.",
+        "visual": {
+         "kind": "fractionStrip",
+         "parts": 5,
+         "shaded": 1,
+         "labels": true
+        }
+       },
+       "items": [
+        {
+         "q": "What fraction is shaded?",
+         "visual": {
+          "kind": "fractionStrip",
+          "parts": 5,
+          "shaded": 2,
+          "labels": true
+         },
+         "lines": 1,
+         "answer": "2/5"
+        },
+        {
+         "q": "How many fifths make one whole?",
+         "visual": null,
+         "lines": 1,
+         "answer": "5"
+        },
+        {
+         "q": "Write the missing labels.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 5,
+          "labels": [
+           "0",
+           "1/5",
+           "",
+           "3/5",
+           "",
+           "1"
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "2/5 and 4/5"
+        },
+        {
+         "q": "A 10 cm strip is cut into fifths. How long is each part?",
+         "visual": null,
+         "lines": 1,
+         "answer": "2 cm"
+        },
+        {
+         "q": "Colour 4/5 of the strip.",
+         "visual": {
+          "kind": "fractionStrip",
+          "parts": 5,
+          "shaded": 0,
+          "labels": true
+         },
+         "lines": 0,
+         "answer": "4 of the 5 parts coloured"
+        }
+       ]
+      },
+      {
+       "level": "Core",
+       "teach": {
+        "text": "Count the spaces from 0. Each space is 1/5. 5/5 lands on 1.",
+        "visual": {
+         "kind": "numberLine",
+         "from": 0,
+         "to": 1,
+         "ticks": 5,
+         "labels": [
+          "0",
+          "1/5",
+          "2/5",
+          "3/5",
+          "4/5",
+          "1"
+         ],
+         "highlight": []
+        }
+       },
+       "items": [
+        {
+         "q": "How long is 1/5?",
+         "visual": null,
+         "parts": [
+          {
+           "q": "a 25 cm strip",
+           "answer": "5 cm"
+          },
+          {
+           "q": "a 40 cm strip",
+           "answer": "8 cm"
+          },
+          {
+           "q": "a 35 cm strip",
+           "answer": "7 cm"
+          },
+          {
+           "q": "a 1 m stick (100 cm)",
+           "answer": "20 cm"
+          }
+         ]
+        },
+        {
+         "q": "What fraction is marked with the dot?",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 5,
+          "labels": [
+           "0",
+           "",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": [
+           3
+          ]
+         },
+         "lines": 1,
+         "answer": "3/5"
+        },
+        {
+         "q": "How long is 3/5 of a 50 cm strip?",
+         "visual": null,
+         "lines": 1,
+         "answer": "30 cm"
+        },
+        {
+         "q": "Ana's first try at 1/5 was 6 cm. Stepped out 5 times, 5 cm was left over. Should her part be longer or shorter? How long is the strip?",
+         "visual": null,
+         "lines": 2,
+         "answer": "Longer. The strip is 30 + 5 = 35 cm, so 1/5 should be 7 cm."
+        },
+        {
+         "q": "Order from shortest to longest (same strip): 1/3, 1/5, 1/2",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/5, 1/3, 1/2"
+        }
+       ]
+      },
+      {
+       "level": "Extend",
+       "teach": {
+        "text": "Halve each fifth to make tenths. 1/5 lines up with 2/10.",
+        "visual": {
+         "kind": "fractionWall",
+         "rows": [
+          1,
+          5,
+          10
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "How many tenths make 3/5?",
+         "visual": null,
+         "lines": 1,
+         "answer": "6"
+        },
+        {
+         "q": "How long is 7/10 of a 50 cm strip?",
+         "visual": null,
+         "lines": 1,
+         "answer": "35 cm"
+        },
+        {
+         "q": "Where does 1/2 go on this fifths line? Explain.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 5,
+          "labels": [
+           "0",
+           "",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": []
+         },
+         "lines": 2,
+         "answer": "Halfway between 2/5 and 3/5. It is not on a mark. It is the same as 5/10."
+        },
+        {
+         "q": "Write the missing labels.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 10,
+          "labels": [
+           "0",
+           "",
+           "2/10",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "1/10, 3/10, 4/10, 5/10, 6/10, 7/10, 8/10, 9/10"
+        },
+        {
+         "q": "Ana's first try at 1/5 was 9 cm. Stepped out 5 times, it went 5 cm past the end. How long is the strip? What should 1/5 be?",
+         "visual": null,
+         "lines": 2,
+         "answer": "The strip is 45 - 5 = 40 cm, so 1/5 is 8 cm."
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "teacherNotes": "Fifths are harder to estimate than thirds, so expect two or three adjustments. Encourage students to say whether each estimate was too long or too short before they move the mark. The hinge question tests the 'bigger denominator, bigger fraction' idea; answer it with two strips the same length. Tenths are only in the Spicy task; they are a related fraction formed by halving, named in the outcome.",
+   "exitTicket": [
+    {
+     "q": "Mark and label 3/5 on the number line.",
+     "answer": "The third mark after 0, labelled 3/5",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 5,
+      "labels": [
+       "0",
+       "",
+       "",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": []
+     }
+    },
+    {
+     "q": "Which is longer, 1/5 or 1/4 of the same strip? Why?",
+     "answer": "1/4. The strip is cut into fewer parts, so each part is longer.",
+     "visual": null
+    }
+   ]
+  },
+  {
+   "id": "l5",
+   "n": 5,
+   "title": "Counting unit fractions to one",
+   "menu": "Count to one whole",
+   "pics": [
+    "running_shoe",
+    "chequered_flag"
+   ],
+   "li": "We are learning to count unit fractions on a number line to make one whole.",
+   "sc": [
+    "I can explain what a unit fraction is",
+    "I can count in unit fractions from 0 to 1, like 1/5, 2/5, 3/5",
+    "I can write one whole as a fraction, like 3/3 or 8/8"
+   ],
+   "materials": [
+    "Race to One game boards",
+    "dice",
+    "counters",
+    "fraction strips from earlier lessons",
+    "mini whiteboards"
+   ],
+   "slides": [
+    {
+     "type": "warmup",
+     "title": "Warm-up: Parts of a whole",
+     "prompt": "Write on your whiteboard.",
+     "items": [
+      "How many fifths make one whole?",
+      "1/5 of 30 cm",
+      "How do we make thirds without folding?",
+      "Write three eighths as a fraction."
+     ],
+     "answers": [
+      "5",
+      "6 cm",
+      "Estimate, check and adjust",
+      "3/8"
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "definition",
+     "term": "unit fraction",
+     "means": "A fraction with 1 on top. It is one equal part of the whole.",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 4,
+      "labels": [
+       "0",
+       "1/4",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": [
+       1
+      ]
+     },
+     "example": "1/2, 1/3, 1/4, 1/5 and 1/8 are unit fractions. 3/4 is not.",
+     "mode": "I do"
+    },
+    {
+     "type": "worked",
+     "title": "I do: Count quarters to one whole",
+     "problem": "Count by quarters from 0 to 1 on the number line.",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 4,
+      "labels": [
+       "0",
+       "1/4",
+       "2/4",
+       "3/4",
+       "4/4"
+      ],
+      "highlight": [
+       4
+      ],
+      "jumps": [
+       {
+        "from": 0,
+        "to": 1,
+        "label": "1/4"
+       },
+       {
+        "from": 1,
+        "to": 2,
+        "label": "1/4"
+       },
+       {
+        "from": 2,
+        "to": 3,
+        "label": "1/4"
+       },
+       {
+        "from": 3,
+        "to": 4,
+        "label": "1/4"
+       }
+      ]
+     },
+     "steps": [
+      {
+       "label": "Step 1",
+       "text": "Start at 0. Each jump is one space: 1/4."
+      },
+      {
+       "label": "Step 2",
+       "text": "Say each landing: one quarter, two quarters, three quarters, four quarters."
+      },
+      {
+       "label": "Step 3",
+       "text": "Four quarters land on 1. So 4/4 = 1 whole."
+      }
+     ],
+     "mode": "I do",
+     "notes": "Point out that the numerator goes up by 1 each jump while the denominator stays the same, because the size of each part does not change."
+    },
+    {
+     "type": "worked",
+     "title": "We do: Count fifths to one whole",
+     "problem": "Count by fifths from 0 to 1. Write each landing.",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 5,
+      "labels": [
+       "0",
+       "1/5",
+       "",
+       "",
+       "",
+       ""
+      ],
+      "highlight": [
+       5
+      ]
+     },
+     "steps": [
+      {
+       "label": "Step 1",
+       "text": "The first jump lands on 1/5. You say the next one."
+      },
+      {
+       "label": "Step 2",
+       "text": "2/5, 3/5, 4/5. Count the jumps: 4 so far."
+      },
+      {
+       "label": "Step 3",
+       "text": "One more jump lands on 1. 5/5 = 1 whole."
+      }
+     ],
+     "mode": "We do",
+     "notes": "Students write each label on their whiteboards before you reveal it. Repeat quickly with thirds and eighths if time allows."
+    },
+    {
+     "type": "visual",
+     "title": "Fractions keep going past 1",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 2,
+      "ticks": 8,
+      "labels": [
+       "0",
+       "1/4",
+       "2/4",
+       "3/4",
+       "1",
+       "5/4",
+       "6/4",
+       "7/4",
+       "2"
+      ],
+      "highlight": [
+       5
+      ]
+     },
+     "rows": [
+      {
+       "label": "Keep counting",
+       "text": "After 4/4 comes 5/4. That is one quarter more than 1."
+      },
+      {
+       "label": "Wholes",
+       "text": "4/4 = 1 and 8/4 = 2."
+      },
+      {
+       "label": "Big idea",
+       "text": "Fractions are numbers. They do not stop at 1."
+      }
+     ],
+     "mode": "I do",
+     "notes": "This is a short look ahead. Students do not need to master it today, but it stops the idea that fractions only live between 0 and 1."
+    },
+    {
+     "type": "talk",
+     "title": "Turn and talk",
+     "prompt": "Is 6/6 the same amount as 3/3? Use a number line to explain.",
+     "seconds": 45,
+     "visual": null,
+     "mode": "We do",
+     "notes": "Both are one whole. 6 sixths and 3 thirds both land on 1."
+    },
+    {
+     "type": "hinge",
+     "title": "Which one?",
+     "question": "Which fraction is equal to one whole?",
+     "visual": null,
+     "options": [
+      "1/4",
+      "4/4",
+      "3/4",
+      "5/4"
+     ],
+     "answer": 1,
+     "why": [
+      "Wrong: this child sees the 1 on top and thinks 'one whole'. 1/4 is one part of 4.",
+      "Right: 4 quarters land on 1, so 4/4 is one whole.",
+      "Wrong: this child counted the 3 marks between 0 and 1, not the 4 spaces.",
+      "Wrong: this child counted 0 as the first quarter, so went one jump too far."
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "cfu",
+     "title": "Show me: count to one",
+     "prompt": "Write on your mini whiteboard.",
+     "questions": [
+      "Count in fifths from 0 to 1. Write each fraction.",
+      "Write one whole in eighths.",
+      "How many jumps of 1/3 from 0 to 1?",
+      "Counting in quarters, what comes after 4/4?"
+     ],
+     "answers": [
+      "1/5, 2/5, 3/5, 4/5, 5/5",
+      "8/8",
+      "3",
+      "5/4"
+     ],
+     "visual": null,
+     "mode": "You do"
+    },
+    {
+     "type": "activity",
+     "title": "Activity: Race to One",
+     "steps": [
+      "Play Race to One with a partner.",
+      "Roll the die and move along your fraction track.",
+      "Say the fraction you land on, like 'three eighths'.",
+      "Land exactly on 1 and say the whole as a fraction to win.",
+      "Then do your level on the Counting to one whole sheet."
+     ],
+     "resource": "Race to One",
+     "time": "25 min",
+     "mode": "You do",
+     "notes": "Each pair needs one board, one die and 2 counters. Change tracks each round so students count in different unit fractions."
+    },
+    {
+     "type": "levels",
+     "support": "Count quarters and thirds on labelled lines. Write 4/4 = 1 and 3/3 = 1.",
+     "core": "Count in thirds, fifths and eighths. Fill in missing labels and write each whole as a fraction.",
+     "extend": "Keep counting past 1. Where do 4/3, 6/4 and 8/4 land? Explain with a number line.",
+     "mode": "You do"
+    },
+    {
+     "type": "discuss",
+     "questions": [
+      "Why is 5/5 the same as 1?",
+      "Can a fraction be more than 1? Show us on a number line."
+     ],
+     "connect": "We counted unit fractions from 0 to one whole. Check the success criteria and add to your flip book.",
+     "notes": "Add the Count to one whole panel. Ask students to write 1 whole three different ways."
+    }
+   ],
+   "printables": [
+    {
+     "id": "l5-ws",
+     "kind": "worksheet",
+     "title": "Counting to one whole",
+     "levels": [
+      {
+       "level": "Support",
+       "teach": {
+        "text": "Count the spaces from 0. Four quarters make one whole: 4/4 = 1.",
+        "visual": {
+         "kind": "numberLine",
+         "from": 0,
+         "to": 1,
+         "ticks": 4,
+         "labels": [
+          "0",
+          "1/4",
+          "2/4",
+          "3/4",
+          "4/4"
+         ],
+         "highlight": [
+          4
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Write the missing label.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 3,
+          "labels": [
+           "0",
+           "1/3",
+           "",
+           "3/3"
+          ],
+          "highlight": [
+           2
+          ]
+         },
+         "lines": 1,
+         "answer": "2/3"
+        },
+        {
+         "q": "Write one whole as quarters.",
+         "visual": null,
+         "lines": 1,
+         "answer": "4/4"
+        },
+        {
+         "q": "Keep counting: 1/5, 2/5, ___, ___, ___",
+         "visual": null,
+         "lines": 1,
+         "answer": "3/5, 4/5, 5/5"
+        },
+        {
+         "q": "Circle the unit fractions: 1/3, 2/5, 1/8, 3/4, 1/2",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/3, 1/8, 1/2"
+        },
+        {
+         "q": "What fraction is marked with the dot?",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 4,
+          "labels": [
+           "0",
+           "",
+           "",
+           "",
+           ""
+          ],
+          "highlight": [
+           4
+          ]
+         },
+         "lines": 1,
+         "answer": "4/4, which is 1 whole"
+        }
+       ]
+      },
+      {
+       "level": "Core",
+       "teach": {
+        "text": "A unit fraction has 1 on top. Count unit fractions until you land on one whole.",
+        "visual": {
+         "kind": "numberLine",
+         "from": 0,
+         "to": 1,
+         "ticks": 5,
+         "labels": [
+          "0",
+          "1/5",
+          "2/5",
+          "3/5",
+          "4/5",
+          "5/5"
+         ],
+         "highlight": [
+          5
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Write one whole as:",
+         "visual": null,
+         "parts": [
+          {
+           "q": "thirds",
+           "answer": "3/3"
+          },
+          {
+           "q": "fifths",
+           "answer": "5/5"
+          },
+          {
+           "q": "eighths",
+           "answer": "8/8"
+          },
+          {
+           "q": "halves",
+           "answer": "2/2"
+          }
+         ]
+        },
+        {
+         "q": "Write the missing labels.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 8,
+          "labels": [
+           "0",
+           "1/8",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "7/8",
+           ""
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "2/8, 3/8, 4/8, 5/8, 6/8, 8/8 (or 1)"
+        },
+        {
+         "q": "How many more jumps of 1/5 from 2/5 to reach 1?",
+         "visual": null,
+         "lines": 1,
+         "answer": "3"
+        },
+        {
+         "q": "Tom counted the marks and said this line shows fifths. Explain his mistake.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 4,
+          "labels": [
+           "0",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": []
+         },
+         "lines": 2,
+         "answer": "There are 5 marks but only 4 spaces, so it shows quarters."
+        },
+        {
+         "q": "Is 6/6 the same as 1? Explain.",
+         "visual": null,
+         "lines": 2,
+         "answer": "Yes. 6 sixths make one whole, so 6/6 lands on 1."
+        }
+       ]
+      },
+      {
+       "level": "Extend",
+       "teach": {
+        "text": "Fractions keep going past 1. 4/4 = 1, so 5/4 is one quarter more than 1.",
+        "visual": {
+         "kind": "numberLine",
+         "from": 0,
+         "to": 2,
+         "ticks": 8,
+         "labels": [
+          "0",
+          "1/4",
+          "2/4",
+          "3/4",
+          "1",
+          "5/4",
+          "6/4",
+          "7/4",
+          "2"
+         ],
+         "highlight": [
+          4
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Write the missing labels.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 2,
+          "ticks": 6,
+          "labels": [
+           "0",
+           "1/3",
+           "2/3",
+           "",
+           "4/3",
+           "",
+           ""
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "3/3 (or 1), 5/3, 6/3 (or 2)"
+        },
+        {
+         "q": "How many quarters make 2 wholes?",
+         "visual": null,
+         "lines": 1,
+         "answer": "8"
+        },
+        {
+         "q": "Count on in fifths from 3/5. Write the next 4 fractions.",
+         "visual": null,
+         "lines": 1,
+         "answer": "4/5, 5/5, 6/5, 7/5"
+        },
+        {
+         "q": "Which of these is more than 1: 7/8, 8/8, 9/8?",
+         "visual": null,
+         "lines": 1,
+         "answer": "9/8"
+        },
+        {
+         "q": "Where does 6/4 land? Explain.",
+         "visual": null,
+         "lines": 2,
+         "answer": "Halfway between 1 and 2. It is 1 whole and 2 quarters more."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "l5-game",
+     "kind": "game",
+     "title": "Race to One",
+     "players": "2 players",
+     "need": [
+      "1 die",
+      "2 counters",
+      "pencil"
+     ],
+     "rules": [
+      "Each player chooses a track. Both players use the same track each round.",
+      "Roll the die. 1, 2 or 3: move 1 space. 4, 5 or 6: move 2 spaces.",
+      "Say the fraction you land on out loud. If you say it wrong, move back to where you were.",
+      "You must land exactly on 1. If your move is too big, miss that turn.",
+      "First to land on 1 says the whole as a fraction (like 5/5) and wins the round."
+     ],
+     "items": [
+      {
+       "q": "Thirds track",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 3,
+        "labels": [
+         "0",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": []
+       },
+       "lines": 0,
+       "answer": "1/3, 2/3, 3/3"
+      },
+      {
+       "q": "Quarters track",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 4,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": []
+       },
+       "lines": 0,
+       "answer": "1/4, 2/4, 3/4, 4/4"
+      },
+      {
+       "q": "Fifths track",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 5,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": []
+       },
+       "lines": 0,
+       "answer": "1/5, 2/5, 3/5, 4/5, 5/5"
+      },
+      {
+       "q": "Eighths track",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 8,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": []
+       },
+       "lines": 0,
+       "answer": "1/8, 2/8, 3/8, 4/8, 5/8, 6/8, 7/8, 8/8"
+      }
+     ]
+    }
+   ],
+   "teacherNotes": "The key idea is that the denominator names the size of the part and the numerator counts how many parts, so counting 1/5, 2/5, 3/5 is just like counting objects. Students should say fractions as words while counting. The look past 1 is brief; return to it if students are curious. In Race to One, listen for students who say the mark number instead of the fraction, and check they start counting from 0.",
+   "exitTicket": [
+    {
+     "q": "Write one whole as fifths.",
+     "answer": "5/5",
+     "visual": null
+    },
+    {
+     "q": "What fraction is marked with the dot?",
+     "answer": "6/8",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 8,
+      "labels": [
+       "0",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": [
+       6
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "l6",
+   "n": 6,
+   "title": "How much more to make one whole?",
+   "menu": "Make one whole",
+   "pics": [
+    "puzzle_piece",
+    "sandwich"
+   ],
+   "li": "We are learning to find the missing part that makes one whole.",
+   "sc": [
+    "I can find how much more is needed to make one whole",
+    "I can use a number line or strip to show my thinking",
+    "I can write a number sentence like 3/4 + 1/4 = 1"
+   ],
+   "materials": [
+    "Make One Whole cards (one set per pair)",
+    "scissors",
+    "fraction strips",
+    "mini whiteboards"
+   ],
+   "slides": [
+    {
+     "type": "warmup",
+     "title": "Warm-up: Wholes and bonds",
+     "prompt": "Write on your whiteboard.",
+     "items": [
+      "Count in thirds from 0 to 1.",
+      "Write one whole in eighths.",
+      "3 + ___ = 8",
+      "How many quarters in 1 whole and 1 quarter?"
+     ],
+     "answers": [
+      "1/3, 2/3, 3/3",
+      "8/8",
+      "5",
+      "5 quarters (5/4)"
+     ],
+     "mode": "You do",
+     "notes": "Item 3 is a whole number bond on purpose. Today we use the same thinking with eighths."
+    },
+    {
+     "type": "visual",
+     "title": "Part, part, whole",
+     "intro": "A whole can be split into the part we have and the missing part.",
+     "visual": {
+      "kind": "barModel",
+      "whole": "4/4 = 1",
+      "parts": [
+       "3/4",
+       "1/4"
+      ]
+     },
+     "rows": [
+      {
+       "label": "We have",
+       "text": "3/4 of the strip."
+      },
+      {
+       "label": "Missing",
+       "text": "1/4. The parts are still quarters."
+      },
+      {
+       "label": "Sentence",
+       "text": "3/4 + 1/4 = 4/4 = 1"
+      }
+     ],
+     "mode": "I do",
+     "notes": "Hold up a strip folded into quarters with 3 parts coloured. Ask what is needed to finish the whole before showing the bar."
+    },
+    {
+     "type": "worked",
+     "title": "I do: Find the missing part",
+     "problem": "Ben has 5/8 of a ribbon. How much more to make a whole ribbon?",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 8,
+      "labels": [
+       "0",
+       "",
+       "",
+       "",
+       "",
+       "5/8",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": [
+       5
+      ],
+      "jumps": [
+       {
+        "from": 5,
+        "to": 6,
+        "label": "1/8"
+       },
+       {
+        "from": 6,
+        "to": 7,
+        "label": "1/8"
+       },
+       {
+        "from": 7,
+        "to": 8,
+        "label": "1/8"
+       }
+      ]
+     },
+     "steps": [
+      {
+       "label": "Step 1",
+       "text": "Find 5/8 on the line: 5 spaces from 0."
+      },
+      {
+       "label": "Step 2",
+       "text": "Count the spaces on to 1: 6/8, 7/8, 8/8. That is 3 jumps."
+      },
+      {
+       "label": "Step 3",
+       "text": "3 jumps of 1/8 is 3/8. So 5/8 + 3/8 = 8/8 = 1."
+      }
+     ],
+     "mode": "I do",
+     "notes": "Say: I count on from 5/8, the way I count on from 5 to 8. The part size stays eighths the whole time."
+    },
+    {
+     "type": "worked",
+     "title": "We do: Missing thirds",
+     "problem": "2/3 + ? = 1",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 3,
+      "shaded": 2,
+      "labels": true
+     },
+     "steps": [
+      {
+       "label": "Step 1",
+       "text": "How many thirds make one whole? (3)"
+      },
+      {
+       "label": "Step 2",
+       "text": "We have 2 thirds. How many more thirds? (1)"
+      },
+      {
+       "label": "Step 3",
+       "text": "2/3 + 1/3 = 3/3 = 1"
+      }
+     ],
+     "mode": "We do",
+     "notes": "Students answer each bracketed question on whiteboards before you reveal."
+    },
+    {
+     "type": "talk",
+     "title": "Turn and talk",
+     "prompt": "Zoe says 3/8 needs 5/8 more to make 1. Ali says it needs 3/5 more. Who is right? Prove it on a number line.",
+     "seconds": 60,
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 8,
+      "labels": [
+       "0",
+       "",
+       "",
+       "3/8",
+       "",
+       "",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": [
+       3
+      ]
+     },
+     "mode": "We do",
+     "notes": "Zoe is right: 5 jumps of 1/8 from 3/8 reach 1. Ali used the 5 jumps but changed the part size, which does not make sense."
+    },
+    {
+     "type": "hinge",
+     "title": "Which one?",
+     "question": "What makes one whole with 3/5?",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 5,
+      "shaded": 3,
+      "labels": true
+     },
+     "options": [
+      "1/5",
+      "2/5",
+      "2/3",
+      "3/5"
+     ],
+     "answer": 1,
+     "why": [
+      "Wrong: this child counted the 1 mark between 3/5 and 1 instead of the 2 spaces.",
+      "Right: 2 more fifths reach 5/5. 3/5 + 2/5 = 1.",
+      "Wrong: this child found 2 but changed the bottom number. The parts are still fifths.",
+      "Wrong: this child added the same again. 3/5 + 3/5 is 6/5, more than 1."
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "cfu",
+     "title": "Show me: missing parts",
+     "prompt": "Write the missing part on your mini whiteboard.",
+     "questions": [
+      "1/4 + ___ = 1",
+      "5/8 + ___ = 1",
+      "1/3 + ___ = 1",
+      "1/2 + ___ = 1"
+     ],
+     "answers": [
+      "3/4",
+      "3/8",
+      "2/3",
+      "1/2"
+     ],
+     "visual": null,
+     "mode": "You do"
+    },
+    {
+     "type": "activity",
+     "title": "Activity: Make One Whole",
+     "steps": [
+      "Cut out the Make One Whole cards. Lay them face down.",
+      "Take turns to flip 2 cards.",
+      "If they make exactly one whole, say the number sentence and keep them.",
+      "If not, flip them back. Most pairs wins.",
+      "Then do your level on the Make one whole sheet."
+     ],
+     "resource": "Make One Whole cards",
+     "time": "25 min",
+     "mode": "You do",
+     "notes": "Students may use strips to check a pair. Two pairs (1/2 with 2/4, 1/2 with 4/8) also make one whole; accept them if the student can prove it."
+    },
+    {
+     "type": "levels",
+     "support": "Lay your part on a strip. Find the pieces that fill the gap to 1, then write the fraction.",
+     "core": "Find the missing part for quarters, eighths and thirds. Write the number sentence.",
+     "extend": "Make 1 with 3 parts of eighths, like 1/8 + 3/8 + 4/8. How many ways can you find?",
+     "mode": "You do"
+    },
+    {
+     "type": "discuss",
+     "questions": [
+      "How did the number line help you find the missing part?",
+      "Why does the denominator stay the same in 5/8 + 3/8 = 8/8?"
+     ],
+     "connect": "We found the missing part to make one whole and wrote number sentences. Which success criteria did you meet?",
+     "notes": "Add the Make one whole panel to the flip book."
+    }
+   ],
+   "printables": [
+    {
+     "id": "l6-ws",
+     "kind": "worksheet",
+     "title": "Make one whole",
+     "levels": [
+      {
+       "level": "Support",
+       "teach": {
+        "text": "Count the spaces from your fraction to 1. 3/4 + 1/4 = 1.",
+        "visual": {
+         "kind": "numberLine",
+         "from": 0,
+         "to": 1,
+         "ticks": 4,
+         "labels": [
+          "0",
+          "1/4",
+          "2/4",
+          "3/4",
+          "1"
+         ],
+         "highlight": [
+          3
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "How much more to make one whole?",
+         "visual": {
+          "kind": "fractionStrip",
+          "parts": 4,
+          "shaded": 3,
+          "labels": true
+         },
+         "lines": 1,
+         "answer": "1/4"
+        },
+        {
+         "q": "How much more to make one whole?",
+         "visual": {
+          "kind": "fractionStrip",
+          "parts": 3,
+          "shaded": 1,
+          "labels": true
+         },
+         "lines": 1,
+         "answer": "2/3"
+        },
+        {
+         "q": "How much more to make one whole?",
+         "visual": {
+          "kind": "fractionStrip",
+          "parts": 8,
+          "shaded": 6,
+          "labels": true
+         },
+         "lines": 1,
+         "answer": "2/8"
+        },
+        {
+         "q": "1/2 + ___ = 1",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/2"
+        },
+        {
+         "q": "3/8 + ___ = 1",
+         "visual": null,
+         "lines": 1,
+         "answer": "5/8"
+        }
+       ]
+      },
+      {
+       "level": "Core",
+       "teach": {
+        "text": "The denominator stays the same. Count on to the whole: 5/8 + 3/8 = 8/8 = 1.",
+        "visual": {
+         "kind": "barModel",
+         "whole": "8/8 = 1",
+         "parts": [
+          "5/8",
+          "3/8"
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Fill in the missing part.",
+         "visual": null,
+         "parts": [
+          {
+           "q": "1/4 + ___ = 1",
+           "answer": "3/4"
+          },
+          {
+           "q": "2/3 + ___ = 1",
+           "answer": "1/3"
+          },
+          {
+           "q": "7/8 + ___ = 1",
+           "answer": "1/8"
+          },
+          {
+           "q": "2/4 + ___ = 1",
+           "answer": "2/4"
+          }
+         ]
+        },
+        {
+         "q": "Mark 3/8 on the line. How many eighths from 3/8 to 1?",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 8,
+          "labels": [
+           "0",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "5 eighths (5/8)"
+        },
+        {
+         "q": "Mia has run 2/3 of a lap. What fraction of the lap is left?",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/3"
+        },
+        {
+         "q": "Ali says 3/8 needs 3/5 more to make 1. Explain his mistake.",
+         "visual": null,
+         "lines": 2,
+         "answer": "The parts are eighths, so the missing part is 5/8. 3/8 + 5/8 = 8/8 = 1."
+        },
+        {
+         "q": "A 24 cm ribbon has 3/4 used. What fraction is left? How many cm is that?",
+         "visual": null,
+         "lines": 2,
+         "answer": "1/4 is left, which is 6 cm."
+        }
+       ]
+      },
+      {
+       "level": "Extend",
+       "teach": {
+        "text": "More than 2 parts can make 1. 1/8 + 2/8 + 5/8 = 8/8 = 1.",
+        "visual": {
+         "kind": "barModel",
+         "whole": "8/8 = 1",
+         "parts": [
+          "1/8",
+          "2/8",
+          "5/8"
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "1/8 + 4/8 + ___ = 1",
+         "visual": null,
+         "lines": 1,
+         "answer": "3/8"
+        },
+        {
+         "q": "1/4 + 1/4 + ___ = 1",
+         "visual": null,
+         "lines": 1,
+         "answer": "2/4 (or 1/2)"
+        },
+        {
+         "q": "Find all the pairs of eighths that make one whole. Start with 1/8 + 7/8.",
+         "visual": null,
+         "lines": 3,
+         "answer": "1/8 + 7/8, 2/8 + 6/8, 3/8 + 5/8, 4/8 + 4/8 (and the turnarounds)"
+        },
+        {
+         "q": "A path is 30 m long. Sam has painted 2/3 of it. How many metres are left to paint?",
+         "visual": null,
+         "lines": 2,
+         "answer": "10 m (1/3 of 30 m)"
+        },
+        {
+         "q": "Is 1/2 + 3/8 one whole? Explain using eighths.",
+         "visual": null,
+         "lines": 2,
+         "answer": "No. 1/2 is 4/8, and 4/8 + 3/8 = 7/8. It needs 1/8 more."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "l6-cards",
+     "kind": "cards",
+     "title": "Make One Whole cards",
+     "instructions": "Cut out and shuffle. Lay face down. Flip 2 cards. Keep them if they make exactly one whole and you can say the number sentence.",
+     "cards": [
+      {
+       "text": "1/2",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 2,
+        "shaded": 1,
+        "labels": true
+       }
+      },
+      {
+       "text": "1/2",
+       "visual": null
+      },
+      {
+       "text": "1/4",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 4,
+        "shaded": 1,
+        "labels": true
+       }
+      },
+      {
+       "text": "3/4",
+       "visual": null
+      },
+      {
+       "text": "2/4",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 4,
+        "shaded": 2,
+        "labels": true
+       }
+      },
+      {
+       "text": "2/4",
+       "visual": null
+      },
+      {
+       "text": "1/8",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 8,
+        "shaded": 1,
+        "labels": true
+       }
+      },
+      {
+       "text": "7/8",
+       "visual": null
+      },
+      {
+       "text": "3/8",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 8,
+        "shaded": 3,
+        "labels": true
+       }
+      },
+      {
+       "text": "5/8",
+       "visual": null
+      },
+      {
+       "text": "2/8",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 8,
+        "shaded": 2,
+        "labels": true
+       }
+      },
+      {
+       "text": "6/8",
+       "visual": null
+      },
+      {
+       "text": "4/8",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 8,
+        "shaded": 4,
+        "labels": true
+       }
+      },
+      {
+       "text": "4/8",
+       "visual": null
+      },
+      {
+       "text": "1/3",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 3,
+        "shaded": 1,
+        "labels": true
+       }
+      },
+      {
+       "text": "2/3",
+       "visual": null
+      },
+      {
+       "text": "1/3",
+       "visual": null
+      },
+      {
+       "text": "2/3",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 3,
+        "shaded": 2,
+        "labels": true
+       }
+      }
+     ]
+    }
+   ],
+   "teacherNotes": "This lesson builds part-whole thinking with fractions, the same idea as number bonds to 10. Keep the language 'how many more eighths' so students hold the part size steady. The most common error is changing the denominator (3/8 needs 3/5). The card game has 9 matching pairs; some cards also pair across families (1/2 with 2/4 or 4/8), which is a good talking point for stronger students.",
+   "exitTicket": [
+    {
+     "q": "5/8 + ___ = 1",
+     "answer": "3/8",
+     "visual": null
+    },
+    {
+     "q": "1/3 + ___ = 1",
+     "answer": "2/3",
+     "visual": null
+    }
+   ]
+  },
+  {
+   "id": "l7",
+   "n": 7,
+   "title": "Rebuild the whole from a part",
+   "menu": "Rebuild the whole",
+   "pics": [
+    "magnifying_glass_tilted_left",
+    "straight_ruler"
+   ],
+   "li": "We are learning to use a fraction of a length to rebuild the whole length.",
+   "sc": [
+    "I can say how many parts of a given size make the whole",
+    "I can draw the whole when I know 1/2, 1/4, 1/3 or 1/8 of it",
+    "I can check my whole by counting the parts"
+   ],
+   "materials": [
+    "Mystery Whole cards",
+    "rulers",
+    "blank paper or grid paper",
+    "paper strips",
+    "mini whiteboards"
+   ],
+   "slides": [
+    {
+     "type": "warmup",
+     "title": "Warm-up: Missing parts",
+     "prompt": "Write on your whiteboard.",
+     "items": [
+      "3/4 + ___ = 1",
+      "2/3 + ___ = 1",
+      "How many eighths make one whole?",
+      "Half a ribbon is 6 cm. How long is the whole ribbon?"
+     ],
+     "answers": [
+      "1/4",
+      "1/3",
+      "8",
+      "12 cm"
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "rows",
+     "title": "Thinking backwards",
+     "intro": "Up to now we started with the whole. Today we start with a part.",
+     "rows": [
+      {
+       "label": "Key idea",
+       "text": "The denominator tells how many of the part make the whole.",
+       "color": "teal"
+      },
+      {
+       "label": "1/3",
+       "text": "Copy the part 3 times, end to end.",
+       "color": "sky"
+      },
+      {
+       "label": "1/8",
+       "text": "Copy the part 8 times, end to end.",
+       "color": "indigo"
+      }
+     ],
+     "mode": "I do"
+    },
+    {
+     "type": "worked",
+     "title": "I do: Rebuild from 1/3",
+     "problem": "This piece of paper is 1/3 of a strip. Make the whole strip.",
+     "visual": {
+      "kind": "barModel",
+      "whole": "?",
+      "parts": [
+       "1/3",
+       "1/3",
+       "1/3"
+      ]
+     },
+     "steps": [
+      {
+       "label": "Step 1",
+       "text": "1/3 means 3 equal parts make the whole."
+      },
+      {
+       "label": "Step 2",
+       "text": "Trace the piece 3 times, end to end, with no gaps or overlaps."
+      },
+      {
+       "label": "Step 3",
+       "text": "Count: 1/3, 2/3, 3/3. That is the whole strip."
+      }
+     ],
+     "mode": "I do",
+     "notes": "Use a real paper piece and trace it on the board. Say: I only have one third, so I need two more the same size."
+    },
+    {
+     "type": "worked",
+     "title": "We do: 1/4 of a ribbon is 5 cm",
+     "problem": "How long is the whole ribbon?",
+     "visual": {
+      "kind": "barModel",
+      "whole": "?",
+      "parts": [
+       "5 cm",
+       "5 cm",
+       "5 cm",
+       "5 cm"
+      ]
+     },
+     "steps": [
+      {
+       "label": "Step 1",
+       "text": "1/4 means how many parts make the whole? (4)"
+      },
+      {
+       "label": "Step 2",
+       "text": "4 lots of 5 cm: 5, 10, 15, 20."
+      },
+      {
+       "label": "Step 3",
+       "text": "The whole ribbon is 20 cm."
+      }
+     ],
+     "mode": "We do"
+    },
+    {
+     "type": "visual",
+     "title": "Where is 1?",
+     "intro": "Only 0 and 1/4 are labelled. Find 1.",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 4,
+      "labels": [
+       "0",
+       "1/4",
+       "",
+       "",
+       "?"
+      ],
+      "highlight": [
+       4
+      ],
+      "jumps": [
+       {
+        "from": 0,
+        "to": 1,
+        "label": "1/4"
+       }
+      ]
+     },
+     "rows": [
+      {
+       "label": "One jump",
+       "text": "0 to 1/4 is one jump of a quarter."
+      },
+      {
+       "label": "Rebuild",
+       "text": "Make 4 jumps of the same size. The 4th jump lands on 1."
+      }
+     ],
+     "mode": "We do",
+     "notes": "Draw this on the board with only 0 and 1/4 marked. Students use a strip of paper as the jump length to find 1."
+    },
+    {
+     "type": "talk",
+     "title": "Turn and talk",
+     "prompt": "Jas says: this piece is 1/2, so the whole must be half as long as the piece. Do you agree? What should Jas do?",
+     "seconds": 45,
+     "visual": {
+      "kind": "barModel",
+      "whole": "?",
+      "parts": [
+       "1/2",
+       "?"
+      ]
+     },
+     "mode": "We do",
+     "notes": "Jas has it backwards. The piece is half of the whole, so the whole is 2 pieces long, twice as long as the piece."
+    },
+    {
+     "type": "hinge",
+     "title": "Which one?",
+     "question": "This piece is 1/4 of a strip. How many pieces this size make the whole strip?",
+     "visual": {
+      "kind": "fractionStrip",
+      "parts": 1,
+      "shaded": 1,
+      "labels": false
+     },
+     "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+     ],
+     "answer": 3,
+     "why": [
+      "Wrong: this child thinks the piece they are given is the whole.",
+      "Wrong: this child thinks any part is a half.",
+      "Wrong: 3 more pieces are needed, but the piece we have counts too. 1 + 3 = 4.",
+      "Right: 1/4 means 4 equal pieces make the whole."
+     ],
+     "mode": "You do",
+     "notes": "Students who chose 3 have the right idea but answered a different question. Ask them to count all the pieces in the whole."
+    },
+    {
+     "type": "cfu",
+     "title": "Show me: find the whole",
+     "prompt": "Write the length of the whole on your mini whiteboard.",
+     "questions": [
+      "1/2 of a strip is 9 cm.",
+      "1/3 of a rope is 4 m.",
+      "1/8 of a path is 2 m.",
+      "1/4 of a ribbon is 10 cm."
+     ],
+     "answers": [
+      "18 cm",
+      "12 m",
+      "16 m",
+      "40 cm"
+     ],
+     "visual": null,
+     "mode": "You do"
+    },
+    {
+     "type": "activity",
+     "title": "Activity: Mystery wholes",
+     "steps": [
+      "Pick a Mystery Whole card.",
+      "Use your ruler to draw the piece.",
+      "Copy the piece end to end until you have the whole. Label each part.",
+      "Measure your whole and write its length on the back of the card.",
+      "Swap with another pair and check each other's wholes."
+     ],
+     "resource": "Mystery Whole cards",
+     "time": "20 min",
+     "mode": "You do"
+    },
+    {
+     "type": "levels",
+     "support": "Use paper copies of the piece. Lay them end to end and count until you have the whole.",
+     "core": "Rebuild wholes from 1/2, 1/4, 1/3 and 1/8 on number lines and in cm. Explain each one.",
+     "extend": "This piece is 2/3 of a strip. Draw the whole. Explain how you found 1/3 first.",
+     "mode": "You do"
+    },
+    {
+     "type": "discuss",
+     "questions": [
+      "How did the denominator help you rebuild the whole?",
+      "How can you check that your whole is right?"
+     ],
+     "connect": "We worked backwards from a part to rebuild the whole. Check the success criteria and add to your flip book.",
+     "notes": "Add the Rebuild the whole panel. Share one Spicy answer for 2/3 so everyone sees the strategy."
+    }
+   ],
+   "printables": [
+    {
+     "id": "l7-ws",
+     "kind": "worksheet",
+     "title": "Rebuild the whole",
+     "levels": [
+      {
+       "level": "Support",
+       "teach": {
+        "text": "The bottom number tells how many pieces make the whole. For 1/4, use 4 pieces.",
+        "visual": {
+         "kind": "barModel",
+         "whole": "whole",
+         "parts": [
+          "1/4",
+          "1/4",
+          "1/4",
+          "1/4"
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "This piece is 1/2 of a strip. How many pieces this size make the whole?",
+         "visual": null,
+         "lines": 1,
+         "answer": "2"
+        },
+        {
+         "q": "This piece is 1/3 of a strip. How many pieces this size make the whole?",
+         "visual": null,
+         "lines": 1,
+         "answer": "3"
+        },
+        {
+         "q": "1/2 of a strip is 4 cm. How long is the whole strip?",
+         "visual": {
+          "kind": "barModel",
+          "whole": "?",
+          "parts": [
+           "4 cm",
+           "4 cm"
+          ]
+         },
+         "lines": 1,
+         "answer": "8 cm"
+        },
+        {
+         "q": "1/4 of a ribbon is 2 cm. How long is the whole ribbon?",
+         "visual": null,
+         "lines": 1,
+         "answer": "8 cm"
+        },
+        {
+         "q": "Only 0 and 1/2 are labelled. Draw the jumps and label 1.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 2,
+          "labels": [
+           "0",
+           "1/2",
+           ""
+          ],
+          "highlight": []
+         },
+         "lines": 0,
+         "answer": "2 jumps of 1/2 from 0; 1 is at the last mark"
+        }
+       ]
+      },
+      {
+       "level": "Core",
+       "teach": {
+        "text": "1/3 of a rope is 5 m. 3 lots of 5 m is 15 m, so the whole rope is 15 m.",
+        "visual": {
+         "kind": "barModel",
+         "whole": "15 m",
+         "parts": [
+          "5 m",
+          "5 m",
+          "5 m"
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "How long is the whole?",
+         "visual": null,
+         "parts": [
+          {
+           "q": "1/2 is 11 cm",
+           "answer": "22 cm"
+          },
+          {
+           "q": "1/3 is 6 cm",
+           "answer": "18 cm"
+          },
+          {
+           "q": "1/4 is 7 cm",
+           "answer": "28 cm"
+          },
+          {
+           "q": "1/8 is 3 cm",
+           "answer": "24 cm"
+          }
+         ]
+        },
+        {
+         "q": "Only 0 and 1/3 are labelled. Label 2/3 and 1.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 3,
+          "labels": [
+           "0",
+           "1/3",
+           "",
+           ""
+          ],
+          "highlight": []
+         },
+         "lines": 0,
+         "answer": "2/3 at the next mark, 1 at the last mark"
+        },
+        {
+         "q": "Only 0 and 1/8 are labelled. How many more jumps of 1/8 to reach 1?",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 8,
+          "labels": [
+           "0",
+           "1/8",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "",
+           ""
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "7"
+        },
+        {
+         "q": "Lucy says 1/4 of a strip is 6 cm, so the whole is 10 cm. What did she do wrong?",
+         "visual": null,
+         "lines": 2,
+         "answer": "She added 4 to 6. The whole is 4 lots of 6 cm, which is 24 cm."
+        },
+        {
+         "q": "A garden bed is cut into 8 equal parts. Each part is 2 m long. How long is the bed?",
+         "visual": null,
+         "lines": 1,
+         "answer": "16 m"
+        }
+       ]
+      },
+      {
+       "level": "Extend",
+       "teach": {
+        "text": "2/3 of a strip is 8 cm. Halve it to find 1/3: 4 cm. The whole is 3 lots of 4 cm: 12 cm.",
+        "visual": {
+         "kind": "barModel",
+         "whole": "12 cm",
+         "parts": [
+          "4 cm",
+          "4 cm",
+          "4 cm"
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "3/4 of a strip is 9 cm. How long is the whole strip?",
+         "visual": null,
+         "lines": 2,
+         "answer": "12 cm (1/4 is 3 cm)"
+        },
+        {
+         "q": "2/3 of a rope is 10 m. How long is the whole rope?",
+         "visual": null,
+         "lines": 2,
+         "answer": "15 m (1/3 is 5 m)"
+        },
+        {
+         "q": "2/8 of a path is 6 m. How long is the whole path?",
+         "visual": null,
+         "lines": 2,
+         "answer": "24 m (1/8 is 3 m)"
+        },
+        {
+         "q": "Strip A: 1/2 is 5 cm. Strip B: 1/4 is 3 cm. Which whole strip is longer, and by how much?",
+         "visual": null,
+         "lines": 2,
+         "answer": "Strip B. A is 10 cm and B is 12 cm, so B is 2 cm longer."
+        },
+        {
+         "q": "A number line shows only 0 and 2/5. Explain how to find 1.",
+         "visual": null,
+         "lines": 3,
+         "answer": "Halve the space from 0 to 2/5 to find 1/5. Then make 5 equal jumps of 1/5 from 0 to land on 1."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "l7-cards",
+     "kind": "cards",
+     "title": "Mystery Whole cards",
+     "instructions": "Draw the piece with a ruler. Copy it end to end to build the whole. Measure the whole and write it on the back.",
+     "cards": [
+      {
+       "text": "1/2 of the whole is 6 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/2 of the whole is 8 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/2 of the whole is 7 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/4 of the whole is 3 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/4 of the whole is 4 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/4 of the whole is 2 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/3 of the whole is 5 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/3 of the whole is 4 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/3 of the whole is 6 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/8 of the whole is 2 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/8 of the whole is 1 cm.",
+       "visual": null
+      },
+      {
+       "text": "1/2 of the whole is 9 cm.",
+       "visual": null
+      }
+     ]
+    }
+   ],
+   "teacherNotes": "Rebuilding the whole is reversible thinking and is harder than it looks; many students will halve or add instead of repeating the part. Keep a paper piece in their hands so they can physically copy it. Mystery Whole card answers in order: 12, 16, 14, 12, 16, 8, 15, 12, 18, 16, 8 and 18 cm. Students who answer 3 on the hinge question are close; ask them to count every piece in the whole.",
+   "exitTicket": [
+    {
+     "q": "1/4 of a ribbon is 3 cm. How long is the whole ribbon?",
+     "answer": "12 cm",
+     "visual": null
+    },
+    {
+     "q": "1/8 of a strip is 2 cm. How long is the whole strip?",
+     "answer": "16 cm",
+     "visual": null
+    }
+   ]
+  },
+  {
+   "id": "l8",
+   "n": 8,
+   "title": "Fraction walls and families",
+   "menu": "Fraction families",
+   "pics": [
+    "busts_in_silhouette",
+    "puzzle_piece"
+   ],
+   "li": "We are learning to build a fraction wall and sort fractions into families.",
+   "sc": [
+    "I can build a fraction wall with halves, quarters, eighths and thirds",
+    "I can explain that a fraction family has the same denominator",
+    "I can use the wall to see which parts are longer or shorter"
+   ],
+   "materials": [
+    "paper strips all the same length",
+    "glue",
+    "coloured pencils",
+    "Fraction Match cards",
+    "scissors",
+    "mini whiteboards"
+   ],
+   "slides": [
+    {
+     "type": "warmup",
+     "title": "Warm-up: Mixed review",
+     "prompt": "Write on your whiteboard.",
+     "items": [
+      "1/3 of a rope is 4 m. How long is the whole rope?",
+      "5/8 + ___ = 1",
+      "Count in fifths from 0 to 1.",
+      "Which is longer: 1/2 or 1/8 of the same strip?"
+     ],
+     "answers": [
+      "12 m",
+      "3/8",
+      "1/5, 2/5, 3/5, 4/5, 5/5",
+      "1/2"
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "visual",
+     "title": "Building a fraction wall",
+     "visual": {
+      "kind": "fractionWall",
+      "rows": [
+       1,
+       2,
+       4,
+       8
+      ]
+     },
+     "rows": [
+      {
+       "label": "Same whole",
+       "text": "Every row is the same length. Each row is one whole."
+      },
+      {
+       "label": "Halving",
+       "text": "Halve each part to get the next row: 2, then 4, then 8 parts."
+      },
+      {
+       "label": "Line up",
+       "text": "Look down the wall. 1/2 lines up with 2/4 and 4/8."
+      }
+     ],
+     "mode": "I do",
+     "notes": "Build the wall in front of the class with strips you folded in earlier lessons. Ask students to predict where each fold will be before you open it."
+    },
+    {
+     "type": "visual",
+     "title": "Thirds and sixths",
+     "visual": {
+      "kind": "fractionWall",
+      "rows": [
+       1,
+       3,
+       6
+      ]
+     },
+     "rows": [
+      {
+       "label": "Thirds",
+       "text": "Made by estimate and adjust, not by halving."
+      },
+      {
+       "label": "Sixths",
+       "text": "Halve each third to make sixths. 1/3 lines up with 2/6."
+      }
+     ],
+     "mode": "We do",
+     "notes": "Ask: does 1/2 line up with anything on the thirds row? (No. It lines up with 3/6.)"
+    },
+    {
+     "type": "definition",
+     "term": "fraction family",
+     "means": "Fractions with the same denominator. The whole is cut into the same number of equal parts.",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 8,
+      "labels": [
+       "0",
+       "1/8",
+       "2/8",
+       "3/8",
+       "4/8",
+       "5/8",
+       "6/8",
+       "7/8",
+       "1"
+      ],
+      "highlight": []
+     },
+     "example": "1/8, 3/8, 5/8 and 8/8 all belong to the eighths family.",
+     "mode": "I do"
+    },
+    {
+     "type": "worked",
+     "title": "I do: Sort into families",
+     "problem": "Sort: 2/3, 1/4, 5/8, 3/4, 1/3, 7/8",
+     "visual": null,
+     "steps": [
+      {
+       "label": "Step 1",
+       "text": "Look only at the denominator. It names the family."
+      },
+      {
+       "label": "Step 2",
+       "text": "Thirds: 1/3, 2/3. Quarters: 1/4, 3/4. Eighths: 5/8, 7/8."
+      },
+      {
+       "label": "Step 3",
+       "text": "In one family the parts are the same size, so more parts is further along: 1/4 < 3/4."
+      }
+     ],
+     "mode": "I do"
+    },
+    {
+     "type": "talk",
+     "title": "Turn and talk",
+     "prompt": "Ruby says 3/4 and 3/8 are in the same family because they both have a 3. Do you agree? Explain.",
+     "seconds": 45,
+     "visual": null,
+     "mode": "We do",
+     "notes": "Disagree. The family is named by the denominator. 3/4 is in the quarters family and 3/8 is in the eighths family."
+    },
+    {
+     "type": "hinge",
+     "title": "Which one?",
+     "question": "Which set is one fraction family?",
+     "visual": null,
+     "options": [
+      "1/3, 1/4, 1/8",
+      "2/5, 3/5, 5/5",
+      "1/2, 2/4, 4/8",
+      "3/4, 4/5, 5/6"
+     ],
+     "answer": 1,
+     "why": [
+      "Wrong: this child grouped by the top number. The denominators are all different.",
+      "Right: all have denominator 5, so they belong to the fifths family.",
+      "Wrong: these land on the same point, but they are in different families.",
+      "Wrong: these follow a counting pattern, but every denominator is different."
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "cfu",
+     "title": "Show me: families",
+     "prompt": "Write on your mini whiteboard.",
+     "questions": [
+      "Name the family: 5/8",
+      "Write the thirds family from 1/3 to one whole.",
+      "Which quarters fraction lines up with 1/2?",
+      "How many sixths line up with 1/3?"
+     ],
+     "answers": [
+      "Eighths",
+      "1/3, 2/3, 3/3",
+      "2/4",
+      "2"
+     ],
+     "visual": null,
+     "mode": "You do"
+    },
+    {
+     "type": "activity",
+     "title": "Activity: Wall and match",
+     "steps": [
+      "Fold and cut strips to build your own wall: whole, halves, quarters, eighths and thirds.",
+      "Glue the rows. Label every part and colour each family.",
+      "Play Fraction Match with a partner.",
+      "Then do your level on the Fraction families sheet."
+     ],
+     "resource": "Fraction Match cards",
+     "time": "25 min",
+     "mode": "You do",
+     "notes": "All strips must be the same length or the wall will not line up. Pre-cut strips save time."
+    },
+    {
+     "type": "levels",
+     "support": "Use the fraction wall to colour each family and label the parts. Name the family of each fraction.",
+     "core": "Sort fractions into families, order one family, and use the wall to find parts that line up.",
+     "extend": "Find fractions on the wall that line up with 2/3 and 3/4. Why does 1/2 have no match in thirds?",
+     "mode": "You do"
+    },
+    {
+     "type": "discuss",
+     "questions": [
+      "What does every fraction in one family share?",
+      "What did the wall show you about the size of the parts?"
+     ],
+     "connect": "We built a fraction wall and sorted fractions into families. Which success criteria can you tick?",
+     "notes": "Add the Fraction families panel to the flip book."
+    }
+   ],
+   "printables": [
+    {
+     "id": "l8-ws",
+     "kind": "worksheet",
+     "title": "Fraction families",
+     "levels": [
+      {
+       "level": "Support",
+       "teach": {
+        "text": "A family has the same denominator. 1/4, 2/4, 3/4 and 4/4 are the quarters family.",
+        "visual": {
+         "kind": "fractionWall",
+         "rows": [
+          1,
+          2,
+          4,
+          8
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Name the family.",
+         "visual": null,
+         "parts": [
+          {
+           "q": "3/8",
+           "answer": "eighths"
+          },
+          {
+           "q": "2/3",
+           "answer": "thirds"
+          },
+          {
+           "q": "1/4",
+           "answer": "quarters"
+          },
+          {
+           "q": "1/2",
+           "answer": "halves"
+          }
+         ]
+        },
+        {
+         "q": "What fraction is shaded?",
+         "visual": {
+          "kind": "fractionStrip",
+          "parts": 8,
+          "shaded": 5,
+          "labels": true
+         },
+         "lines": 1,
+         "answer": "5/8"
+        },
+        {
+         "q": "Finish the quarters family: 1/4, ___, 3/4, ___",
+         "visual": null,
+         "lines": 1,
+         "answer": "2/4, 4/4"
+        },
+        {
+         "q": "Circle the fractions in the thirds family: 1/3, 3/4, 2/3, 3/8",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/3 and 2/3"
+        },
+        {
+         "q": "Use the wall. Which is longer: 1/4 or 1/8?",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/4"
+        }
+       ]
+      },
+      {
+       "level": "Core",
+       "teach": {
+        "text": "In one family the parts are the same size, so compare the numerators: 2/8 is less than 5/8.",
+        "visual": {
+         "kind": "numberLine",
+         "from": 0,
+         "to": 1,
+         "ticks": 8,
+         "labels": [
+          "0",
+          "1/8",
+          "2/8",
+          "3/8",
+          "4/8",
+          "5/8",
+          "6/8",
+          "7/8",
+          "1"
+         ],
+         "highlight": [
+          2,
+          5
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Sort into families: 3/4, 1/2, 5/8, 2/3, 1/8, 2/4, 3/3, 7/8",
+         "table": {
+          "headers": [
+           "Halves",
+           "Quarters",
+           "Eighths",
+           "Thirds"
+          ],
+          "rows": [
+           [
+            "",
+            "",
+            "",
+            ""
+           ],
+           [
+            "",
+            "",
+            "",
+            ""
+           ],
+           [
+            "",
+            "",
+            "",
+            ""
+           ]
+          ]
+         },
+         "answer": "Halves: 1/2. Quarters: 3/4, 2/4. Eighths: 5/8, 1/8, 7/8. Thirds: 2/3, 3/3."
+        },
+        {
+         "q": "Order the eighths from smallest to largest: 5/8, 1/8, 8/8, 3/8",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/8, 3/8, 5/8, 8/8"
+        },
+        {
+         "q": "Use the wall. Which fractions line up with 1/2?",
+         "visual": {
+          "kind": "fractionWall",
+          "rows": [
+           1,
+           2,
+           4,
+           8
+          ]
+         },
+         "lines": 1,
+         "answer": "2/4 and 4/8"
+        },
+        {
+         "q": "Ruby says 3/4 and 3/8 are in the same family. Is she right? Explain.",
+         "visual": null,
+         "lines": 2,
+         "answer": "No. They have different denominators, so they are in different families (quarters and eighths)."
+        },
+        {
+         "q": "What fraction is marked? Name its family.",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 3,
+          "labels": [
+           "0",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": [
+           1
+          ]
+         },
+         "lines": 1,
+         "answer": "1/3, thirds family"
+        }
+       ]
+      },
+      {
+       "level": "Extend",
+       "teach": {
+        "text": "Halving makes new families: halves to quarters to eighths, and thirds to sixths.",
+        "visual": {
+         "kind": "fractionWall",
+         "rows": [
+          1,
+          3,
+          6
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Which sixths fraction lines up with 2/3?",
+         "visual": null,
+         "lines": 1,
+         "answer": "4/6"
+        },
+        {
+         "q": "Which eighths fraction lines up with 3/4?",
+         "visual": null,
+         "lines": 1,
+         "answer": "6/8"
+        },
+        {
+         "q": "1/2 has no exact match in the thirds family. Explain why.",
+         "visual": null,
+         "lines": 2,
+         "answer": "Halfway falls in the middle of the second third, so it is not on a thirds mark. 3 thirds cannot be shared into 2 equal groups of whole thirds."
+        },
+        {
+         "q": "Order these unit fractions from smallest to largest: 1/3, 1/8, 1/2, 1/4",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/8, 1/4, 1/3, 1/2"
+        },
+        {
+         "q": "Write 2 fractions from different families that both land on 1.",
+         "visual": null,
+         "lines": 1,
+         "answer": "Any two such as 3/3 and 8/8"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "l8-cards",
+     "kind": "cards",
+     "title": "Fraction Match cards",
+     "instructions": "Cut out and shuffle. Lay face down. Flip 2 cards. Keep them if the fraction matches the picture. Bonus point: name the family.",
+     "cards": [
+      {
+       "text": "1/2",
+       "visual": null
+      },
+      {
+       "text": "",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 2,
+        "shaded": 1,
+        "labels": false
+       }
+      },
+      {
+       "text": "3/4",
+       "visual": null
+      },
+      {
+       "text": "",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 4,
+        "shaded": 3,
+        "labels": false
+       }
+      },
+      {
+       "text": "1/3",
+       "visual": null
+      },
+      {
+       "text": "",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 3,
+        "labels": [
+         "0",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": [
+         1
+        ]
+       }
+      },
+      {
+       "text": "2/3",
+       "visual": null
+      },
+      {
+       "text": "",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 3,
+        "shaded": 2,
+        "labels": false
+       }
+      },
+      {
+       "text": "5/8",
+       "visual": null
+      },
+      {
+       "text": "",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 8,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": [
+         5
+        ]
+       }
+      },
+      {
+       "text": "1/8",
+       "visual": null
+      },
+      {
+       "text": "",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 8,
+        "shaded": 1,
+        "labels": false
+       }
+      },
+      {
+       "text": "3/5",
+       "visual": null
+      },
+      {
+       "text": "",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 5,
+        "shaded": 3,
+        "labels": false
+       }
+      },
+      {
+       "text": "4/4",
+       "visual": null
+      },
+      {
+       "text": "",
+       "visual": {
+        "kind": "numberLine",
+        "from": 0,
+        "to": 1,
+        "ticks": 4,
+        "labels": [
+         "0",
+         "",
+         "",
+         "",
+         "1"
+        ],
+        "highlight": [
+         4
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "teacherNotes": "The syllabus asks students to see that fractions made from the same number of equal parts form a family with the same denominator. The wall is the main model today, so make sure every row starts and ends at the same place. Some students will group by numerator; the hinge question finds them quickly. Lining up fractions such as 1/2 and 2/4 is a preview of equivalence, so treat it as noticing rather than a skill to master.",
+   "exitTicket": [
+    {
+     "q": "Name the family of 5/8.",
+     "answer": "Eighths",
+     "visual": null
+    },
+    {
+     "q": "Which two are in the same family: 2/3, 2/5, 1/3?",
+     "answer": "2/3 and 1/3",
+     "visual": null
+    }
+   ]
+  },
+  {
+   "id": "l9",
+   "n": 9,
+   "title": "Compare unit fractions",
+   "menu": "Compare and review",
+   "pics": [
+    "balance_scale",
+    "pizza"
+   ],
+   "li": "We are learning to compare unit fractions of the same whole and explain our thinking.",
+   "sc": [
+    "I can explain why more parts means smaller parts",
+    "I can compare and order unit fractions using a strip or number line",
+    "I can explain why the wholes must be the same to compare"
+   ],
+   "materials": [
+    "Face-off cards",
+    "fraction walls from lesson 8",
+    "paper strips",
+    "mini whiteboards"
+   ],
+   "slides": [
+    {
+     "type": "warmup",
+     "title": "Warm-up: Unit review",
+     "prompt": "Write on your whiteboard.",
+     "items": [
+      "Name the family of 3/8.",
+      "1/4 of a ribbon is 5 cm. How long is the whole?",
+      "2/3 + ___ = 1",
+      "Count in quarters from 0 to 1."
+     ],
+     "answers": [
+      "Eighths",
+      "20 cm",
+      "1/3",
+      "1/4, 2/4, 3/4, 4/4"
+     ],
+     "mode": "You do",
+     "notes": "This warm-up revisits four big ideas from the unit. Note who struggles with each one before the check-in."
+    },
+    {
+     "type": "rows",
+     "title": "More parts, smaller parts",
+     "intro": "The same whole, cut into more and more equal parts.",
+     "rows": [
+      {
+       "label": "1/2",
+       "text": "2 parts: each part is long.",
+       "color": "teal"
+      },
+      {
+       "label": "1/4",
+       "text": "4 parts: each part is shorter.",
+       "color": "sky"
+      },
+      {
+       "label": "1/8",
+       "text": "8 parts: each part is shorter again.",
+       "color": "indigo"
+      }
+     ],
+     "mode": "I do",
+     "notes": "Use three strips of the same length folded in lessons 1 and 2. Hold them side by side."
+    },
+    {
+     "type": "worked",
+     "title": "I do: Compare 1/3 and 1/5",
+     "problem": "Which is longer: 1/3 or 1/5 of the same strip?",
+     "visual": {
+      "kind": "fractionWall",
+      "rows": [
+       1,
+       3,
+       5
+      ]
+     },
+     "steps": [
+      {
+       "label": "Step 1",
+       "text": "Check the wholes. Both are parts of the same strip, so we can compare."
+      },
+      {
+       "label": "Step 2",
+       "text": "Thirds cut the strip into 3 parts. Fifths cut it into 5 parts."
+      },
+      {
+       "label": "Step 3",
+       "text": "Fewer parts means each part is longer. 1/3 is longer, so 1/3 > 1/5."
+      }
+     ],
+     "mode": "I do"
+    },
+    {
+     "type": "visual",
+     "title": "Order on a number line",
+     "visual": {
+      "kind": "numberLine",
+      "from": 0,
+      "to": 1,
+      "ticks": 8,
+      "labels": [
+       "0",
+       "1/8",
+       "1/4",
+       "",
+       "1/2",
+       "",
+       "",
+       "",
+       "1"
+      ],
+      "highlight": [
+       1,
+       2,
+       4
+      ]
+     },
+     "rows": [
+      {
+       "label": "Closer to 0",
+       "text": "1/8 is the smallest, so it is closest to 0."
+      },
+      {
+       "label": "Order",
+       "text": "1/8 < 1/4 < 1/2"
+      }
+     ],
+     "mode": "We do",
+     "notes": "Students say where 1/3 would go before you tell them: between 1/4 and 1/2."
+    },
+    {
+     "type": "rows",
+     "title": "Same whole, fair compare",
+     "intro": "Noah's strip is 10 cm. Ella's strip is 40 cm.",
+     "rows": [
+      {
+       "label": "Noah",
+       "text": "1/2 of his 10 cm strip is 5 cm.",
+       "color": "teal"
+      },
+      {
+       "label": "Ella",
+       "text": "1/4 of her 40 cm strip is 10 cm.",
+       "color": "sky"
+      },
+      {
+       "label": "So?",
+       "text": "Ella's piece is longer, but the wholes are different. To compare fractions, use the same whole.",
+       "color": "mint"
+      }
+     ],
+     "mode": "I do",
+     "pics": [
+      "straight_ruler"
+     ],
+     "notes": "Pizza example: half of a small pizza can be less than a quarter of a giant one. That does not make 1/4 bigger than 1/2."
+    },
+    {
+     "type": "talk",
+     "title": "Turn and talk",
+     "prompt": "Does Ella's piece prove that 1/4 is bigger than 1/2? How could we make it a fair test?",
+     "seconds": 45,
+     "visual": null,
+     "mode": "We do",
+     "notes": "No. A fair test uses the same whole: both fractions of one strip, or two strips the same length."
+    },
+    {
+     "type": "hinge",
+     "title": "Which one?",
+     "question": "Which is the largest part of the same strip?",
+     "visual": null,
+     "options": [
+      "1/8",
+      "1/3",
+      "All the same: 1 part each",
+      "1/5"
+     ],
+     "answer": 1,
+     "why": [
+      "Wrong: this child thinks a bigger denominator means a bigger fraction.",
+      "Right: thirds cut the strip into the fewest parts, so each part is the longest.",
+      "Wrong: each is 1 part, but the parts are different sizes.",
+      "Wrong: 1/5 is in the middle of the list but not the largest. 5 parts are shorter than 3 parts."
+     ],
+     "mode": "You do"
+    },
+    {
+     "type": "cfu",
+     "title": "Show me: compare",
+     "prompt": "Write < or > on your mini whiteboard.",
+     "questions": [
+      "1/4 ___ 1/8",
+      "1/3 ___ 1/2",
+      "1/5 ___ 1/3",
+      "Order from smallest: 1/2, 1/8, 1/4"
+     ],
+     "answers": [
+      ">",
+      "<",
+      "<",
+      "1/8, 1/4, 1/2"
+     ],
+     "visual": null,
+     "mode": "You do"
+    },
+    {
+     "type": "activity",
+     "title": "Activity: Fraction Face-off",
+     "steps": [
+      "Shuffle the Face-off cards and deal them face down.",
+      "Both players flip a card at the same time.",
+      "The longer part of the same whole wins both cards. Say why.",
+      "If the fractions are equal, flip again.",
+      "Then do your level on the Compare unit fractions sheet."
+     ],
+     "resource": "Face-off cards",
+     "time": "20 min",
+     "mode": "You do",
+     "notes": "Students must give a reason each time, such as 'one third is longer because the whole has fewer parts'."
+    },
+    {
+     "type": "levels",
+     "support": "Use the fraction wall to compare pairs of unit fractions. Colour the longer part.",
+     "core": "Compare and order unit fractions. Explain with 'more parts, smaller parts'.",
+     "extend": "Is 2/3 or 3/4 more? Is 4/5 or 7/8 more? Use the missing part to decide.",
+     "mode": "You do"
+    },
+    {
+     "type": "discuss",
+     "questions": [
+      "Why must the wholes be the same size when we compare fractions?",
+      "What was the most important idea in this unit for you?"
+     ],
+     "connect": "We compared unit fractions of the same whole. Finish your flip book and tick the success criteria.",
+     "notes": "Add the Compare unit fractions panel. The flip book is now complete and can be used to revise before the check-in."
+    }
+   ],
+   "printables": [
+    {
+     "id": "l9-ws",
+     "kind": "worksheet",
+     "title": "Compare unit fractions",
+     "levels": [
+      {
+       "level": "Support",
+       "teach": {
+        "text": "Same whole: more parts means smaller parts. 1/2 is longer than 1/4.",
+        "visual": {
+         "kind": "fractionWall",
+         "rows": [
+          1,
+          2,
+          4,
+          8
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Circle the longer part of the same strip.",
+         "visual": null,
+         "parts": [
+          {
+           "q": "1/2 or 1/4",
+           "answer": "1/2"
+          },
+          {
+           "q": "1/8 or 1/4",
+           "answer": "1/4"
+          },
+          {
+           "q": "1/3 or 1/2",
+           "answer": "1/2"
+          }
+         ]
+        },
+        {
+         "q": "Write < or >: 1/8 ___ 1/2",
+         "visual": null,
+         "lines": 1,
+         "answer": "<"
+        },
+        {
+         "q": "Which is shorter: 1/3 or 1/5 of the same ribbon?",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/5"
+        },
+        {
+         "q": "How many parts make the whole for 1/5?",
+         "visual": null,
+         "lines": 1,
+         "answer": "5"
+        },
+        {
+         "q": "Order from shortest to longest: 1/4, 1/2, 1/8",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/8, 1/4, 1/2"
+        }
+       ]
+      },
+      {
+       "level": "Core",
+       "teach": {
+        "text": "Check the wholes are the same. Then compare: fewer parts means a longer part.",
+        "visual": {
+         "kind": "fractionWall",
+         "rows": [
+          1,
+          3,
+          5
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Write < or >.",
+         "visual": null,
+         "parts": [
+          {
+           "q": "1/3 ___ 1/4",
+           "answer": ">"
+          },
+          {
+           "q": "1/5 ___ 1/2",
+           "answer": "<"
+          },
+          {
+           "q": "1/8 ___ 1/3",
+           "answer": "<"
+          },
+          {
+           "q": "1/10 ___ 1/5",
+           "answer": "<"
+          }
+         ]
+        },
+        {
+         "q": "Order from largest to smallest: 1/5, 1/2, 1/10, 1/3",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/2, 1/3, 1/5, 1/10"
+        },
+        {
+         "q": "Leo says 1/8 > 1/4 because 8 > 4. Explain why he is wrong.",
+         "visual": null,
+         "lines": 2,
+         "answer": "Eighths cut the whole into more parts, so each eighth is shorter. 1/8 < 1/4."
+        },
+        {
+         "q": "Mia: 1/2 of a 10 cm strip is 5 cm. Jake: 1/4 of a 40 cm strip is 10 cm. Does this show 1/4 > 1/2? Explain.",
+         "visual": null,
+         "lines": 2,
+         "answer": "No. The wholes are different. On the same whole, 1/2 is bigger than 1/4."
+        },
+        {
+         "q": "Mark 1/3 and 1/2 on this line. Which is closer to 0?",
+         "visual": {
+          "kind": "numberLine",
+          "from": 0,
+          "to": 1,
+          "ticks": 6,
+          "labels": [
+           "0",
+           "",
+           "",
+           "",
+           "",
+           "",
+           "1"
+          ],
+          "highlight": []
+         },
+         "lines": 1,
+         "answer": "1/3 at the 2nd mark, 1/2 at the 3rd mark. 1/3 is closer to 0."
+        }
+       ]
+      },
+      {
+       "level": "Extend",
+       "teach": {
+        "text": "Look at the missing part. 3/4 is 1/4 from 1. 2/3 is 1/3 from 1. 1/4 is the smaller gap, so 3/4 is bigger.",
+        "visual": {
+         "kind": "barModel",
+         "whole": "4/4 = 1",
+         "parts": [
+          "3/4",
+          "1/4"
+         ]
+        }
+       },
+       "items": [
+        {
+         "q": "Which is bigger: 2/3 or 3/4? Explain.",
+         "visual": null,
+         "lines": 2,
+         "answer": "3/4. It is 1/4 short of 1, and 2/3 is 1/3 short. 1/4 is the smaller gap."
+        },
+        {
+         "q": "Which is bigger: 4/5 or 7/8? Explain.",
+         "visual": null,
+         "lines": 2,
+         "answer": "7/8. It is only 1/8 short of 1, and 4/5 is 1/5 short."
+        },
+        {
+         "q": "Order from smallest to largest: 3/4, 1/2, 7/8, 1/4",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/4, 1/2, 3/4, 7/8"
+        },
+        {
+         "q": "Name a unit fraction between 1/4 and 1/2.",
+         "visual": null,
+         "lines": 1,
+         "answer": "1/3"
+        },
+        {
+         "q": "Ella ate 1/2 of a small pizza. Tom ate 1/3 of a large pizza. Can you tell who ate more? Explain.",
+         "visual": null,
+         "lines": 2,
+         "answer": "Not from the fractions alone. The pizzas are different sizes, so the wholes are not the same."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "l9-cards",
+     "kind": "cards",
+     "title": "Face-off cards",
+     "instructions": "Cut out and shuffle. Each player flips a card. The longer part of the same whole wins. Say why.",
+     "cards": [
+      {
+       "text": "1/2",
+       "visual": null
+      },
+      {
+       "text": "1/2",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 2,
+        "shaded": 1,
+        "labels": true
+       }
+      },
+      {
+       "text": "1/3",
+       "visual": null
+      },
+      {
+       "text": "1/3",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 3,
+        "shaded": 1,
+        "labels": true
+       }
+      },
+      {
+       "text": "1/4",
+       "visual": null
+      },
+      {
+       "text": "1/4",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 4,
+        "shaded": 1,
+        "labels": true
+       }
+      },
+      {
+       "text": "1/5",
+       "visual": null
+      },
+      {
+       "text": "1/5",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 5,
+        "shaded": 1,
+        "labels": true
+       }
+      },
+      {
+       "text": "1/6",
+       "visual": null
+      },
+      {
+       "text": "1/6",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 6,
+        "shaded": 1,
+        "labels": true
+       }
+      },
+      {
+       "text": "1/8",
+       "visual": null
+      },
+      {
+       "text": "1/8",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 8,
+        "shaded": 1,
+        "labels": true
+       }
+      },
+      {
+       "text": "1/10",
+       "visual": null
+      },
+      {
+       "text": "1/10",
+       "visual": {
+        "kind": "fractionStrip",
+        "parts": 10,
+        "shaded": 1,
+        "labels": true
+       }
+      }
+     ]
+    }
+   ],
+   "teacherNotes": "Comparing is named in the outcome, and the idea that the wholes must be the same size is what makes the comparison fair. Use real strips before rules; a rule like 'bigger bottom, smaller fraction' is easy to misapply later. The Spicy task uses residual thinking (the gap to 1) and is a stretch for most Year 3 students. Use today's exit ticket with the pre-test to plan revision before the check-in.",
+   "exitTicket": [
+    {
+     "q": "Write < or >: 1/5 ___ 1/3",
+     "answer": "<",
+     "visual": null
+    },
+    {
+     "q": "Why must the wholes be the same size when we compare fractions?",
+     "answer": "A part of a bigger whole can be longer even if the fraction is smaller, so it is not a fair compare.",
+     "visual": null
+    }
+   ]
+  }
+ ],
+ "assessment": {
+  "title": "Fractions as lengths check-in",
+  "pretest": [
+   {
+    "q": "What fraction is shaded?",
+    "visual": {
+     "kind": "fractionStrip",
+     "parts": 4,
+     "shaded": 1,
+     "labels": false
+    },
+    "lines": 1,
+    "answer": "1/4"
+   },
+   {
+    "q": "A strip is cut into 2 parts: 3 cm and 7 cm. Is it cut into halves? Why?",
+    "visual": null,
+    "lines": 2,
+    "answer": "No. The parts are not equal."
+   },
+   {
+    "q": "Write 1/2 in the right place on the number line.",
+    "visual": {
+     "kind": "numberLine",
+     "from": 0,
+     "to": 1,
+     "ticks": 2,
+     "labels": [
+      "0",
+      "",
+      "1"
+     ],
+     "highlight": []
+    },
+    "lines": 0,
+    "answer": "At the middle mark"
+   },
+   {
+    "q": "How many thirds make one whole?",
+    "visual": null,
+    "lines": 1,
+    "answer": "3"
+   },
+   {
+    "q": "Which is longer: 1/2 or 1/4 of the same strip?",
+    "visual": null,
+    "lines": 1,
+    "answer": "1/2"
+   }
+  ],
+  "sections": [
+   {
+    "heading": "Making equal parts",
+    "items": [
+     {
+      "q": "Is each part 1/3 of the strip? Write yes or no.",
+      "visual": null,
+      "parts": [
+       {
+        "q": "3 parts: 4 cm, 4 cm, 4 cm",
+        "answer": "yes"
+       },
+       {
+        "q": "3 parts: 2 cm, 4 cm, 6 cm",
+        "answer": "no"
+       }
+      ]
+     },
+     {
+      "q": "What fraction is shaded?",
+      "visual": {
+       "kind": "fractionStrip",
+       "parts": 8,
+       "shaded": 3,
+       "labels": true
+      },
+      "lines": 1,
+      "answer": "3/8"
+     },
+     {
+      "q": "Can you make thirds by folding a strip in half, then in half again? Explain.",
+      "visual": null,
+      "lines": 2,
+      "answer": "No. That makes 4 equal parts (quarters), not 3."
+     },
+     {
+      "q": "Max's first try at 1/5 of a strip was 4 cm. He stepped it out 5 times and 5 cm was left over. How long is the strip? How long should 1/5 be?",
+      "visual": null,
+      "lines": 2,
+      "answer": "The strip is 20 + 5 = 25 cm, so 1/5 is 5 cm."
+     }
+    ]
+   },
+   {
+    "heading": "Fractions on a number line",
+    "items": [
+     {
+      "q": "Write the missing labels.",
+      "visual": {
+       "kind": "numberLine",
+       "from": 0,
+       "to": 1,
+       "ticks": 4,
+       "labels": [
+        "0",
+        "",
+        "2/4",
+        "",
+        ""
+       ],
+       "highlight": []
+      },
+      "lines": 1,
+      "answer": "1/4, 3/4, 4/4 (or 1)"
+     },
+     {
+      "q": "What fraction is marked with the dot?",
+      "visual": {
+       "kind": "numberLine",
+       "from": 0,
+       "to": 1,
+       "ticks": 5,
+       "labels": [
+        "0",
+        "",
+        "",
+        "",
+        "",
+        "1"
+       ],
+       "highlight": [
+        3
+       ]
+      },
+      "lines": 1,
+      "answer": "3/5"
+     },
+     {
+      "q": "What fraction is marked with the dot?",
+      "visual": {
+       "kind": "numberLine",
+       "from": 0,
+       "to": 1,
+       "ticks": 8,
+       "labels": [
+        "0",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1"
+       ],
+       "highlight": [
+        7
+       ]
+      },
+      "lines": 1,
+      "answer": "7/8"
+     },
+     {
+      "q": "Write one whole as eighths.",
+      "visual": null,
+      "lines": 1,
+      "answer": "8/8"
+     },
+     {
+      "q": "Keep counting: 1/5, 2/5, ___, ___, ___",
+      "visual": null,
+      "lines": 1,
+      "answer": "3/5, 4/5, 5/5"
+     }
+    ]
+   },
+   {
+    "heading": "Make and rebuild the whole",
+    "items": [
+     {
+      "q": "Fill in the missing part.",
+      "visual": null,
+      "parts": [
+       {
+        "q": "3/4 + ___ = 1",
+        "answer": "1/4"
+       },
+       {
+        "q": "5/8 + ___ = 1",
+        "answer": "3/8"
+       },
+       {
+        "q": "1/3 + ___ = 1",
+        "answer": "2/3"
+       }
+      ]
+     },
+     {
+      "q": "Ana has walked 2/8 of the track. What fraction of the track is left?",
+      "visual": null,
+      "lines": 1,
+      "answer": "6/8"
+     },
+     {
+      "q": "1/4 of a ribbon is 6 cm. How long is the whole ribbon?",
+      "visual": null,
+      "lines": 1,
+      "answer": "24 cm"
+     },
+     {
+      "q": "Only 0 and 1/3 are labelled. Label where 1 goes.",
+      "visual": {
+       "kind": "numberLine",
+       "from": 0,
+       "to": 1,
+       "ticks": 3,
+       "labels": [
+        "0",
+        "1/3",
+        "",
+        ""
+       ],
+       "highlight": []
+      },
+      "lines": 0,
+      "answer": "At the last mark, 3 jumps of 1/3 from 0"
+     }
+    ]
+   },
+   {
+    "heading": "Families and comparing",
+    "items": [
+     {
+      "q": "Circle the fractions in the eighths family: 3/8, 3/4, 1/8, 8/8, 1/3",
+      "visual": null,
+      "lines": 1,
+      "answer": "3/8, 1/8, 8/8"
+     },
+     {
+      "q": "Write < or >.",
+      "visual": null,
+      "parts": [
+       {
+        "q": "1/3 ___ 1/5",
+        "answer": ">"
+       },
+       {
+        "q": "1/8 ___ 1/4",
+        "answer": "<"
+       }
+      ]
+     },
+     {
+      "q": "Sam says 1/6 is bigger than 1/3 because 6 is bigger than 3. Is he right? Explain.",
+      "visual": null,
+      "lines": 2,
+      "answer": "No. Sixths cut the same whole into more parts, so each sixth is shorter. 1/6 < 1/3."
+     }
+    ]
+   }
+  ],
+  "selfCheck": [
+   "I can make halves, quarters and eighths by halving",
+   "I can make thirds and fifths by estimating and adjusting",
+   "I can count unit fractions to one whole on a number line",
+   "I can find the missing part to make one whole",
+   "I can rebuild the whole from a part",
+   "I can sort fractions into families and compare unit fractions"
+  ],
+  "rubric": [
+   {
+    "criteria": "Making equal parts of a length",
+    "A": "Makes thirds and fifths accurately and explains how to adjust any estimate",
+    "B": "Makes thirds and fifths by estimate and adjust with few errors",
+    "C": "Makes halves, quarters and eighths; thirds and fifths with some help",
+    "D": "Makes halves and quarters by folding; parts not always equal",
+    "E": "Does not yet make equal parts"
+   },
+   {
+    "criteria": "Fractions on a number line",
+    "A": "Places and names fractions on any line, including past 1, and explains spaces vs marks",
+    "B": "Places and names fractions on 0 to 1 lines and writes the whole as a fraction",
+    "C": "Places and names halves, quarters and thirds on labelled lines",
+    "D": "Places 1/2 on a line; often counts marks not spaces",
+    "E": "Does not yet place fractions on a line"
+   },
+   {
+    "criteria": "Make and rebuild the whole",
+    "A": "Finds missing parts and rebuilds wholes from non-unit fractions (2/3, 3/4)",
+    "B": "Finds missing parts and rebuilds wholes from 1/2, 1/4, 1/3 and 1/8",
+    "C": "Finds missing parts with strips; rebuilds from 1/2 and 1/4",
+    "D": "Finds the missing part for halves only, with help",
+    "E": "Does not yet find the missing part"
+   },
+   {
+    "criteria": "Families, comparing and reasoning",
+    "A": "Compares non-unit fractions and explains why equal wholes are needed",
+    "B": "Orders unit fractions and explains 'more parts, smaller parts'",
+    "C": "Sorts fractions into families and compares 2 unit fractions",
+    "D": "Compares unit fractions using a wall, with help",
+    "E": "Still thinks a bigger denominator means a bigger fraction"
+   }
+  ]
+ },
+ "requestImages": [
+  "Ribbon"
+ ]
+}

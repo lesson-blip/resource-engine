@@ -1,0 +1,60 @@
+{
+  "title": "Fractions as lengths check-in",
+  "pretest": [
+    {"q": "What fraction is shaded?", "visual": {"kind": "fractionStrip", "parts": 4, "shaded": 1, "labels": false}, "lines": 1, "answer": "1/4"},
+    {"q": "A strip is cut into 2 parts: 3 cm and 7 cm. Is it cut into halves? Why?", "visual": null, "lines": 2, "answer": "No. The parts are not equal."},
+    {"q": "Write 1/2 in the right place on the number line.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 2, "labels": ["0", "", "1"], "highlight": []}, "lines": 0, "answer": "At the middle mark"},
+    {"q": "How many thirds make one whole?", "visual": null, "lines": 1, "answer": "3"},
+    {"q": "Which is longer: 1/2 or 1/4 of the same strip?", "visual": null, "lines": 1, "answer": "1/2"}
+  ],
+  "sections": [
+    {"heading": "Making equal parts", "items": [
+      {"q": "Is each part 1/3 of the strip? Write yes or no.", "visual": null, "parts": [
+        {"q": "3 parts: 4 cm, 4 cm, 4 cm", "answer": "yes"},
+        {"q": "3 parts: 2 cm, 4 cm, 6 cm", "answer": "no"}
+      ]},
+      {"q": "What fraction is shaded?", "visual": {"kind": "fractionStrip", "parts": 8, "shaded": 3, "labels": true}, "lines": 1, "answer": "3/8"},
+      {"q": "Can you make thirds by folding a strip in half, then in half again? Explain.", "visual": null, "lines": 2, "answer": "No. That makes 4 equal parts (quarters), not 3."},
+      {"q": "Max's first try at 1/5 of a strip was 4 cm. He stepped it out 5 times and 5 cm was left over. How long is the strip? How long should 1/5 be?", "visual": null, "lines": 2, "answer": "The strip is 20 + 5 = 25 cm, so 1/5 is 5 cm."}
+    ]},
+    {"heading": "Fractions on a number line", "items": [
+      {"q": "Write the missing labels.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 4, "labels": ["0", "", "2/4", "", ""], "highlight": []}, "lines": 1, "answer": "1/4, 3/4, 4/4 (or 1)"},
+      {"q": "What fraction is marked with the dot?", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 5, "labels": ["0", "", "", "", "", "1"], "highlight": [3]}, "lines": 1, "answer": "3/5"},
+      {"q": "What fraction is marked with the dot?", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 8, "labels": ["0", "", "", "", "", "", "", "", "1"], "highlight": [7]}, "lines": 1, "answer": "7/8"},
+      {"q": "Write one whole as eighths.", "visual": null, "lines": 1, "answer": "8/8"},
+      {"q": "Keep counting: 1/5, 2/5, ___, ___, ___", "visual": null, "lines": 1, "answer": "3/5, 4/5, 5/5"}
+    ]},
+    {"heading": "Make and rebuild the whole", "items": [
+      {"q": "Fill in the missing part.", "visual": null, "parts": [
+        {"q": "3/4 + ___ = 1", "answer": "1/4"},
+        {"q": "5/8 + ___ = 1", "answer": "3/8"},
+        {"q": "1/3 + ___ = 1", "answer": "2/3"}
+      ]},
+      {"q": "Ana has walked 2/8 of the track. What fraction of the track is left?", "visual": null, "lines": 1, "answer": "6/8"},
+      {"q": "1/4 of a ribbon is 6 cm. How long is the whole ribbon?", "visual": null, "lines": 1, "answer": "24 cm"},
+      {"q": "Only 0 and 1/3 are labelled. Label where 1 goes.", "visual": {"kind": "numberLine", "from": 0, "to": 1, "ticks": 3, "labels": ["0", "1/3", "", ""], "highlight": []}, "lines": 0, "answer": "At the last mark, 3 jumps of 1/3 from 0"}
+    ]},
+    {"heading": "Families and comparing", "items": [
+      {"q": "Circle the fractions in the eighths family: 3/8, 3/4, 1/8, 8/8, 1/3", "visual": null, "lines": 1, "answer": "3/8, 1/8, 8/8"},
+      {"q": "Write < or >.", "visual": null, "parts": [
+        {"q": "1/3 ___ 1/5", "answer": ">"},
+        {"q": "1/8 ___ 1/4", "answer": "<"}
+      ]},
+      {"q": "Sam says 1/6 is bigger than 1/3 because 6 is bigger than 3. Is he right? Explain.", "visual": null, "lines": 2, "answer": "No. Sixths cut the same whole into more parts, so each sixth is shorter. 1/6 < 1/3."}
+    ]}
+  ],
+  "selfCheck": [
+    "I can make halves, quarters and eighths by halving",
+    "I can make thirds and fifths by estimating and adjusting",
+    "I can count unit fractions to one whole on a number line",
+    "I can find the missing part to make one whole",
+    "I can rebuild the whole from a part",
+    "I can sort fractions into families and compare unit fractions"
+  ],
+  "rubric": [
+    {"criteria": "Making equal parts of a length", "A": "Makes thirds and fifths accurately and explains how to adjust any estimate", "B": "Makes thirds and fifths by estimate and adjust with few errors", "C": "Makes halves, quarters and eighths; thirds and fifths with some help", "D": "Makes halves and quarters by folding; parts not always equal", "E": "Does not yet make equal parts"},
+    {"criteria": "Fractions on a number line", "A": "Places and names fractions on any line, including past 1, and explains spaces vs marks", "B": "Places and names fractions on 0 to 1 lines and writes the whole as a fraction", "C": "Places and names halves, quarters and thirds on labelled lines", "D": "Places 1/2 on a line; often counts marks not spaces", "E": "Does not yet place fractions on a line"},
+    {"criteria": "Make and rebuild the whole", "A": "Finds missing parts and rebuilds wholes from non-unit fractions (2/3, 3/4)", "B": "Finds missing parts and rebuilds wholes from 1/2, 1/4, 1/3 and 1/8", "C": "Finds missing parts with strips; rebuilds from 1/2 and 1/4", "D": "Finds the missing part for halves only, with help", "E": "Does not yet find the missing part"},
+    {"criteria": "Families, comparing and reasoning", "A": "Compares non-unit fractions and explains why equal wholes are needed", "B": "Orders unit fractions and explains 'more parts, smaller parts'", "C": "Sorts fractions into families and compares 2 unit fractions", "D": "Compares unit fractions using a wall, with help", "E": "Still thinks a bigger denominator means a bigger fraction"}
+  ]
+}
