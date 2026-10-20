@@ -1,7 +1,7 @@
 {
   "id": "s2-en-a-u1",
   "title": "Narrative and Character",
-  "subtitle": "Stage 2 Year A Unit 1 companion",
+  "subtitle": "Fantastic Mr Fox · Year A Unit 1 companion",
   "stage": "Stage 2",
   "years": "Years 3 and 4",
   "fit": "Accompanies the NSW Department of Education Stage 2 Year A English Unit 1",
@@ -295,6 +295,98 @@
     "reading": {
       "pexels": 8364020,
       "note": "two students reading a book together"
+    },
+    "ducks": {
+      "pexels": 28505047,
+      "note": "white farm ducks, close"
+    },
+    "geese_yard": {
+      "pexels": 32980686,
+      "note": "geese walking in a farmyard"
+    },
+    "orchard": {
+      "pexels": 28387801,
+      "note": "apple orchard path with fruit"
+    },
+    "shovel": {
+      "pexels": 8993781,
+      "note": "boot pushing a spade into soil"
+    },
+    "excavator": {
+      "pexels": 36102634,
+      "note": "yellow excavator digging a field"
+    },
+    "hay_shed": {
+      "pexels": 31912802,
+      "note": "wooden shed full of hay"
+    },
+    "open_book": {
+      "pexels": 34042183,
+      "note": "open book on a table"
+    },
+    "pencils": {
+      "pexels": 37121878,
+      "note": "pencils and lined notebook"
+    },
+    "notepad": {
+      "pexels": 6991795,
+      "note": "spiral notepad and pencils, pastel"
+    },
+    "child_writing": {
+      "pexels": 5905476,
+      "note": "child writing in an exercise book"
+    },
+    "writing_hands": {
+      "pexels": 207756,
+      "note": "hands writing on a page"
+    },
+    "kid_writing": {
+      "pexels": 33168451,
+      "note": "boy writing at a desk"
+    },
+    "kid_thinking": {
+      "pexels": 6157274,
+      "note": "boy thinking with a pencil"
+    },
+    "reading_pair": {
+      "pexels": 18650478,
+      "note": "two children reading together"
+    },
+    "notebook_pen": {
+      "pexels": 4709832,
+      "note": "writing in a small notebook"
+    },
+    "book_pages": {
+      "pexels": 39921634,
+      "note": "open book pages"
+    },
+    "girl_notebook": {
+      "pexels": 13779221,
+      "note": "child writing in notebook with pencil"
+    },
+    "kids_bench": {
+      "pexels": 8466783,
+      "note": "four children reading on a bench"
+    },
+    "reading_group": {
+      "pexels": 10643465,
+      "note": "children reading a book together on the floor"
+    },
+    "pencil_pot": {
+      "pexels": 5748810,
+      "note": "pencil pot, apple and notebook"
+    },
+    "colour_pencils": {
+      "pexels": 6193660,
+      "note": "coloured pencils and grid notebook"
+    },
+    "teacher_reading": {
+      "pexels": 8342271,
+      "note": "adult reading with children at a library table"
+    },
+    "boy_writing2": {
+      "pexels": 9872283,
+      "note": "child writing on paper"
     }
   },
   "requestImages": [
@@ -1079,7 +1171,8 @@
           "answer": "Answers will vary: look for a feeling such as angry or frustrated and a reason from his words or actions.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "kid_thinking"
     },
     {
       "id": "l3",
@@ -1702,7 +1795,8 @@
           "answer": "Answers will vary: look for a complete statement that starts with a capital letter and ends with a full stop.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "orchard"
     },
     {
       "id": "l4",
@@ -3688,7 +3782,8 @@
           "answer": "To slow the action down so the reader feels the tension.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "shovel"
     },
     {
       "id": "l8",
@@ -4019,7 +4114,8 @@
           "answer": "Answers will vary: small steps, short sentences with full stops, slow verbs like crept or inched.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "excavator"
     },
     {
       "id": "l9",
@@ -5630,7 +5726,8 @@
           "answer": "Answers will vary: look for a sentence ending in an exclamation mark, e.g. What a feast!",
           "visual": null
         }
-      ]
+      ],
+      "photo": "hay_shed"
     },
     {
       "id": "l13",
@@ -6560,7 +6657,8 @@
           "answer": "Answers will vary: small steps, strong verbs, sounds, a character coming closer, worried dialogue.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "geese_yard"
     },
     {
       "id": "l15",
@@ -6931,7 +7029,8 @@
           "answer": "Answers will vary: e.g. happy, because the animals have food forever; or funny, because the farmers are still waiting.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "open_book"
     },
     {
       "id": "l16",
@@ -7235,7 +7334,8 @@
           "answer": "Answers will vary: look for a named type (happy, surprise, funny, lesson, cliffhanger, circular).",
           "visual": null
         }
-      ]
+      ],
+      "photo": "pencils"
     },
     {
       "id": "l17",
@@ -7896,7 +7996,8 @@
           "answer": "Answers will vary: look for the most tense moment just before the problem is solved.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "child_writing"
     },
     {
       "id": "l19",
@@ -8209,7 +8310,8 @@
           "answer": "Answers will vary: look for a sentence that wraps up the problem.",
           "visual": null
         }
-      ]
+      ],
+      "photo": "kid_writing"
     },
     {
       "id": "l20",
@@ -8514,7 +8616,7 @@
           "visual": null
         }
       ],
-      "photo": "reading"
+      "photo": "girl_notebook"
     }
   ],
   "skills": [
@@ -8800,7 +8902,9 @@
           ]
         }
       ],
-      "teacherNotes": "Suggested words from Chapters 1 and 2 include valley, geese, Bean, lean, mean, turkey, tree, creep, each, beast and three. ee, ea and ey are vowel digraphs, e_e is a split digraph, and e and y are single letter graphemes. Keep the sort cards for Week 5 review."
+      "teacherNotes": "Suggested words from Chapters 1 and 2 include valley, geese, Bean, lean, mean, turkey, tree, creep, each, beast and three. ee, ea and ey are vowel digraphs, e_e is a split digraph, and e and y are single letter graphemes. Keep the sort cards for Week 5 review.",
+      "photo": "notepad",
+      "menu": "Spelling /ee/"
     },
     {
       "id": "a2",
@@ -9043,7 +9147,9 @@
           ]
         }
       ],
-      "teacherNotes": "An inflected suffix is a bound morpheme added to the end of a base word, for example to show more than one. The y rule depends on the letter before the y. Sample words: baby, babies; lolly, lollies; cherry, cherries; berry, berries; inquiry, inquiries; jockey, jockeys; monkey, monkeys."
+      "teacherNotes": "An inflected suffix is a bound morpheme added to the end of a base word, for example to show more than one. The y rule depends on the letter before the y. Sample words: baby, babies; lolly, lollies; cherry, cherries; berry, berries; inquiry, inquiries; jockey, jockeys; monkey, monkeys.",
+      "photo": "book_pages",
+      "menu": "Plurals: s or ies"
     },
     {
       "id": "a3",
@@ -9310,7 +9416,9 @@
           }
         }
       ],
-      "teacherNotes": "This uses the Chapter 1 fluency passage (pp 1 to 5). The vocabulary table answer key shows base words and suffixes. Note that beastly means nasty or unpleasant, not strong. -y can join nouns and verbs to make adjectives; -est usually joins one syllable adjectives to mean the most. Cleverest is an exception: clever has two syllables but still takes -est."
+      "teacherNotes": "This uses the Chapter 1 fluency passage (pp 1 to 5). The vocabulary table answer key shows base words and suffixes. Note that beastly means nasty or unpleasant, not strong. -y can join nouns and verbs to make adjectives; -est usually joins one syllable adjectives to mean the most. Cleverest is an exception: clever has two syllables but still takes -est.",
+      "photo": "open_book",
+      "menu": "Meaning suffixes"
     },
     {
       "id": "a4",
@@ -9505,7 +9613,9 @@
           }
         }
       ],
-      "teacherNotes": "A simple sentence has a subject and a predicate. The predicate starts with a finite verb, which is a verb that has a subject. Character names are proper nouns and need capitals. Use the and test for commas between adjectives: if and fits between them, use a comma."
+      "teacherNotes": "A simple sentence has a subject and a predicate. The predicate starts with a finite verb, which is a verb that has a subject. Character names are proper nouns and need capitals. Use the and test for commas between adjectives: if and fits between them, use a comma.",
+      "photo": "writing_hands",
+      "menu": "Statements"
     },
     {
       "id": "a5",
@@ -9790,7 +9900,9 @@
           ]
         }
       ],
-      "teacherNotes": "Suggested words from Chapters 3 to 8 include tree, leaves, sleep, peace, Bean, speed, evening, teeth, creep and sweetheart. Sample words for inquiry: athlete, stream, eagle, street, alley, chimney. Revise that /ee/ is a long vowel phoneme."
+      "teacherNotes": "Suggested words from Chapters 3 to 8 include tree, leaves, sleep, peace, Bean, speed, evening, teeth, creep and sweetheart. Sample words for inquiry: athlete, stream, eagle, street, alley, chimney. Revise that /ee/ is a long vowel phoneme.",
+      "photo": "pencils",
+      "menu": "/ee/ in long words"
     },
     {
       "id": "a6",
@@ -10198,7 +10310,9 @@
           ]
         }
       ],
-      "teacherNotes": "Review the y rule from Week 1 before adding the -es rule. Sample words: beach, peach, leash, seamstress, recess, speech, screech. Students should be able to hear the extra syllable in most -es plurals."
+      "teacherNotes": "Review the y rule from Week 1 before adding the -es rule. Sample words: beach, peach, leash, seamstress, recess, speech, screech. Students should be able to hear the extra syllable in most -es plurals.",
+      "photo": "colour_pencils",
+      "menu": "Plurals with -es"
     },
     {
       "id": "a7",
@@ -10458,7 +10572,9 @@
           }
         }
       ],
-      "teacherNotes": "This uses the Chapter 3 fluency passage (pp 10 to 13). Verbs ending in -ing do not show time on their own; they need a verb like was or is. Students will use these action verbs in Lessons 6 to 8."
+      "teacherNotes": "This uses the Chapter 3 fluency passage (pp 10 to 13). Verbs ending in -ing do not show time on their own; they need a verb like was or is. Students will use these action verbs in Lessons 6 to 8.",
+      "photo": "kid_thinking",
+      "menu": "Action verbs"
     },
     {
       "id": "a8",
@@ -10660,7 +10776,9 @@
           }
         }
       ],
-      "teacherNotes": "Each clause in a compound sentence is equally important and could stand alone. The conjunction tells the reader how the ideas link: and adds, but contrasts and so shows a result. Students used these in Lesson 6 and will use them in their tension writing."
+      "teacherNotes": "Each clause in a compound sentence is equally important and could stand alone. The conjunction tells the reader how the ideas link: and adds, but contrasts and so shows a result. Students used these in Lesson 6 and will use them in their tension writing.",
+      "photo": "kid_writing",
+      "menu": "And, but, so"
     },
     {
       "id": "a9",
@@ -10945,7 +11063,9 @@
           ]
         }
       ],
-      "teacherNotes": "Suggested words from Chapters 9 to 15 include crazy, fail, mistaken, wait, hooray, place, straight and tail. ai, ay and ey are vowel digraphs; a_e is a split digraph; eigh and aigh are less common. Contrast /ay/ (a diphthong) with /ee/ (a long vowel)."
+      "teacherNotes": "Suggested words from Chapters 9 to 15 include crazy, fail, mistaken, wait, hooray, place, straight and tail. ai, ay and ey are vowel digraphs; a_e is a split digraph; eigh and aigh are less common. Contrast /ay/ (a diphthong) with /ee/ (a long vowel).",
+      "photo": "pencil_pot",
+      "menu": "Spelling /ay/"
     },
     {
       "id": "a10",
@@ -11366,7 +11486,9 @@
           ]
         }
       ],
-      "teacherNotes": "Suggested word families: pace, paces, paced, pacing; gape, gapes, gaping, gaped; proclaim, proclaims, proclaiming, proclaimed; display, displays, displaying, displayed. Compare the verb y rule with the plural y rule from Weeks 1 and 2."
+      "teacherNotes": "Suggested word families: pace, paces, paced, pacing; gape, gapes, gaping, gaped; proclaim, proclaims, proclaiming, proclaimed; display, displays, displaying, displayed. Compare the verb y rule with the plural y rule from Weeks 1 and 2.",
+      "photo": "boy_writing2",
+      "menu": "-s, -ing, -ed"
     },
     {
       "id": "a11",
@@ -11613,7 +11735,9 @@
           }
         }
       ],
-      "teacherNotes": "This week's fluency passages are the three storehouse passages in Chapters 10, 13 and 15. Making inferences from key words can be where meaning breaks down, so stop and ask what each passage suggests. Students use these words in Lessons 10 and 12."
+      "teacherNotes": "This week's fluency passages are the three storehouse passages in Chapters 10, 13 and 15. Making inferences from key words can be where meaning breaks down, so stop and ask what each passage suggests. Students use these words in Lessons 10 and 12.",
+      "photo": "reading_pair",
+      "menu": "Expression"
     },
     {
       "id": "a12",
@@ -11842,7 +11966,9 @@
           }
         }
       ],
-      "teacherNotes": "Exclamatory sentences emphasise a point or express strong emotion such as surprise, excitement or fear. A compound sentence can also be exclamatory. Adverbial phrases often contain a prepositional phrase, such as with joy or through the gap. A compound sentence can also be declarative or exclamatory; in this sort we are looking for the joining word."
+      "teacherNotes": "Exclamatory sentences emphasise a point or express strong emotion such as surprise, excitement or fear. A compound sentence can also be exclamatory. Adverbial phrases often contain a prepositional phrase, such as with joy or through the gap. A compound sentence can also be declarative or exclamatory; in this sort we are looking for the joining word.",
+      "photo": "child_writing",
+      "menu": "Exclamations"
     },
     {
       "id": "a13",
@@ -12084,7 +12210,9 @@
           ]
         }
       ],
-      "teacherNotes": "Suggested words from Chapters 16 to 18: they, straight, today, way, tail, place, yesterday, Mabel, away, amazing, game, taste, table. The schwa is the most common vowel sound in English and is a frequent cause of spelling errors."
+      "teacherNotes": "Suggested words from Chapters 16 to 18: they, straight, today, way, tail, place, yesterday, Mabel, away, amazing, game, taste, table. The schwa is the most common vowel sound in English and is a frequent cause of spelling errors.",
+      "photo": "notebook_pen",
+      "menu": "/ay/ and schwa"
     },
     {
       "id": "a14",
@@ -12366,7 +12494,9 @@
           ]
         }
       ],
-      "teacherNotes": "Sample word families: skate, skates, skating, skated; taste, tastes, tasting, tasted; escape, escapes, escaping, escaped; bake, bakes, baking, baked. Crouched and paused are one syllable; carried is two."
+      "teacherNotes": "Sample word families: skate, skates, skating, skated; taste, tastes, tasting, tasted; escape, escapes, escaping, escaped; bake, bakes, baking, baked. Crouched and paused are one syllable; carried is two.",
+      "photo": "book_pages",
+      "menu": "Sounds of -ed"
     },
     {
       "id": "a15",
@@ -12598,7 +12728,9 @@
           }
         }
       ],
-      "teacherNotes": "Fluency passages this week: Chapter 16 from 'Quick' (p 67) and Chapter 17 from 'But now, my friends' (p 78). Intonation can show a question, highlight important information, signal intention and show attitude or emotion."
+      "teacherNotes": "Fluency passages this week: Chapter 16 from 'Quick' (p 67) and Chapter 17 from 'But now, my friends' (p 78). Intonation can show a question, highlight important information, signal intention and show attitude or emotion.",
+      "photo": "kids_bench",
+      "menu": "Intonation"
     },
     {
       "id": "a16",
@@ -12805,7 +12937,9 @@
           }
         }
       ],
-      "teacherNotes": "Australian publishers usually use single speech marks, as shown here. Review all four kinds of adverbial phrase, as students will use them in the sequel. Students fluent in Foundation Style can practise precursive letters."
+      "teacherNotes": "Australian publishers usually use single speech marks, as shown here. Review all four kinds of adverbial phrase, as students will use them in the sequel. Students fluent in Foundation Style can practise precursive letters.",
+      "photo": "girl_notebook",
+      "menu": "Speech marks"
     },
     {
       "id": "a17",
@@ -13047,7 +13181,9 @@
           ]
         }
       ],
-      "teacherNotes": "This week consolidates the /ee/ and /ay/ graphemes from Weeks 1 to 4. Use the sort to find which spellings students still confuse, especially ey, which can spell either sound."
+      "teacherNotes": "This week consolidates the /ee/ and /ay/ graphemes from Weeks 1 to 4. Use the sort to find which spellings students still confuse, especially ey, which can spell either sound.",
+      "photo": "notepad",
+      "menu": "/ee/ /ay/ review"
     },
     {
       "id": "a18",
@@ -13308,7 +13444,9 @@
           ]
         }
       ],
-      "teacherNotes": "This review covers plurals (-s, -es) and tense (-s, -ing, -ed). Ask students to explain which rule they used, not just to write the word."
+      "teacherNotes": "This review covers plurals (-s, -es) and tense (-s, -ing, -ed). Ask students to explain which rule they used, not just to write the word.",
+      "photo": "open_book",
+      "menu": "Suffix review"
     },
     {
       "id": "a19",
@@ -13494,7 +13632,9 @@
           ]
         }
       ],
-      "teacherNotes": "Use the Chapter 18 passage for timed repeated readings with a partner. Students can also read a paragraph of their own sequel aloud using all four tools, which helps them hear mistakes before Lesson 20."
+      "teacherNotes": "Use the Chapter 18 passage for timed repeated readings with a partner. Students can also read a paragraph of their own sequel aloud using all four tools, which helps them hear mistakes before Lesson 20.",
+      "photo": "reading_group",
+      "menu": "Prosody"
     },
     {
       "id": "a20",
@@ -13737,7 +13877,9 @@
           }
         }
       ],
-      "teacherNotes": "This skill links directly to Lesson 20 (revising and editing). Students bring their sequel drafts and use the toolkit to check for a variety of sentences. A compound sentence can also be a statement or an exclamation; in the sort we are looking for the joining word."
+      "teacherNotes": "This skill links directly to Lesson 20 (revising and editing). Students bring their sequel drafts and use the toolkit to check for a variety of sentences. A compound sentence can also be a statement or an exclamation; in the sort we are looking for the joining word.",
+      "photo": "teacher_reading",
+      "menu": "Sentence toolkit"
     }
   ],
   "assessment": {
@@ -14237,5 +14379,11 @@
         "https://www.edresearch.edu.au/guides-resources"
       ]
     ]
-  }
+  },
+  "coverPhoto": "fox",
+  "titlePhotos": [
+    "farm_valley",
+    "wood_hill",
+    "orchard"
+  ]
 }

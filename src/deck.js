@@ -185,13 +185,18 @@ const lessonStart = {};
 const anchor = {};
 
 R.cover = async (slide) => {
-  const pics = UNIT.coverPics || (LESSONS[0].pics || []).slice(0, 2);
-  let tpt = 40; while (tpt > 26 && K.linesFor(UNIT.title, 7.6, tpt, true, 0.6) > 1) tpt--;
+  // Opening slide: a real photo (UNIT.coverPhoto) beside the title, never floating emoji.
+  const bxL = W - M - 2 * 1.36 - 0.1 - 0.25;
+  const cp = UNIT.coverPhoto && K.hasPhoto(UNIT.coverPhoto) ? UNIT.coverPhoto : null;
+  const pw = cp ? 2.45 : 0, tx = M + (cp ? pw + 0.2 : 0), tw = bxL - tx;
+  if (cp) slide.addImage({ path: await K.photo(cp, pw, 1.35, 0.2), x: M, y: 0.4, w: pw, h: 1.35 });
+  let tpt = 40; while (tpt > 24 && K.linesFor(UNIT.title, tw - 0.5, tpt, true, 0.6) > 1) tpt--;
+  const sub = `${UNIT.subtitle} · ${UNIT.stage} · ${UNIT.years}`;
+  let spt = 16; while (spt > 11 && K.linesFor(sub, tw - 0.5, spt, false, 0.3) > 1) spt--;
   box(slide, [
     { text: UNIT.title, options: { fontSize: tpt, bold: true, breakLine: true } },
-    { text: `${UNIT.subtitle} · ${UNIT.stage} · ${UNIT.years}`, options: { fontSize: 16, color: COL.muted } },
-  ], { x: M, y: 0.4, w: 8.2, h: 1.35, sh: true, margin: [6, 20, 6, 20] });
-  pics.filter(K.hasImg).slice(0, 1).forEach(k => slide.addImage({ path: K.img(k), x: 8.9, y: 0.5, w: 1.05, h: 1.05 }));
+    { text: sub, options: { fontSize: spt, color: COL.muted } },
+  ], { x: tx, y: 0.4, w: tw, h: 1.35, sh: true, margin: [6, 20, 6, 20] });
   const btns = [["At a glance", "glance", "teal"], ["How it works", "howto", "sky"], ["Word wall", "wordwall", "mint"], ["Toolkit", "toolkit", "lav"]].filter(b => anchor[b[1]]);
   const bw = 1.36, bx0 = W - M - 2 * bw - 0.1;
   btns.forEach(([t, k, c], i) => box(slide, [{ text: t, options: { hyperlink: { slide: anchor[k], tooltip: t }, color: COL.navy, bold: true } }],
@@ -203,11 +208,9 @@ R.cover = async (slide) => {
     const c = i < half ? 0 : 1, r = i % half;
     const x = M + c * (colW + 0.3), y = 2.05 + r * (rowH + 0.14);
     box(slide, `${l.n}`, { x, y, w: 0.75, h: rowH, fontSize: 20, bold: true, color: "FFFFFF", fillColor: COL[["teal", "sky", "mint", "indigo", "lav"][i % 5]], align: "center", margin: 1 });
-    const pk = (l.pics || []).filter(K.hasImg)[0];
-    const tw = colW - 0.9 - (pk ? 0.75 : 0);
+    const tw = colW - 0.9;
     let pt = 19; while (pt > 14 && K.linesFor(l.title, tw, pt, true, 0.3) > 1) pt--;
     box(slide, [{ text: l.title, options: { hyperlink: { slide: lessonStart[l.id], tooltip: l.title }, color: COL.navy, bold: true } }], { x: x + 0.9, y, w: tw, h: rowH, fontSize: pt, fillColor: "FFFFFF", sh: true, margin: [2, 12, 2, 12] });
-    if (pk) slide.addImage({ path: K.img(pk), x: x + colW - 0.66, y: y + rowH / 2 - 0.3, w: 0.6, h: 0.6 });
   });
   slide.addNotes(`Lesson menu. Click a lesson to jump to it. Every slide has a Menu button in the bottom right to come back here.\n\n${UNIT.fit || ""}`);
 };
@@ -218,13 +221,19 @@ async function coverWeeks(slide) {
   const per = Math.max(...weeks.map(w => LESSONS.filter(l => l.week === w).length));
   const rh = Math.min(0.95, (6.75 - y0 - 0.55 - 0.1 * (per - 1)) / per);
   const cols = ["teal", "sky", "mint", "indigo", "lav"];
+  // One size for every cell. Hyperlinked text wraps by character in LibreOffice and Google previews, so aim for one line.
+  const ptFor = t => {
+    const longest = t.split(/\s+/).reduce((a, b) => K.textW(b, 14, true) > K.textW(a, 14, true) ? b : a, "");
+    let pt = 15; while (pt > 11 && K.linesFor(t, cw - 0.3, pt, true, 0.2) > 1) pt--;
+    while (pt > 9 && (K.linesFor(t, cw - 0.45, pt, true, 0.3) > 2 || K.textW(longest, pt, true) * 1.12 > cw - 0.5)) pt--;
+    return pt;
+  };
+  const menuPt = Math.min(...LESSONS.map(l => ptFor(`${l.n}. ${l.menu || l.title}`)));
   weeks.forEach((w, i) => {
     const x = M + i * (cw + gap), c = cols[i % 5];
     box(slide, `Week ${w}`, { x, y: y0, w: cw, h: 0.45, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center", margin: 1 });
     LESSONS.filter(l => l.week === w).forEach((l, j) => {
-      const t = `${l.n}. ${l.menu || l.title}`;
-      const longest = t.split(/\s+/).reduce((a, b) => K.textW(b, 14, true) > K.textW(a, 14, true) ? b : a, "");
-      let pt = 14; while (pt > 9 && (K.linesFor(t, cw, pt, true, 0.3) > 2 || K.textW(longest, pt, true) > cw - 0.35)) pt--;
+      const t = `${l.n}. ${l.menu || l.title}`, pt = menuPt;
       box(slide, [{ text: t, options: { hyperlink: { slide: lessonStart[l.id], tooltip: l.title }, color: COL.navy, bold: true } }], { x, y: y0 + 0.55 + j * (rh + 0.1), w: cw, h: rh, fontSize: pt, fillColor: "FFFFFF", sh: true, margin: [2, 8, 2, 8] });
     });
   });
@@ -270,30 +279,36 @@ R.wordwall = async (slide, it) => {
   slide.addNotes("Use this as a word wall during the unit. The same words are on the printable word wall cards.");
 };
 
+function titlePhotoFor(ls) {
+  if (K.hasPhoto(ls.photo)) return ls.photo;
+  const pool = (UNIT.titlePhotos || []).filter(K.hasPhoto);
+  return pool.length ? pool[(ls.n - 1) % pool.length] : null;
+}
 R.lessonTitle = async (slide, it) => {
   const { ls } = it;
-  if (K.hasPhoto(ls.photo)) return lessonTitlePhoto(slide, it);
-  const pics = (ls.pics || []).filter(K.hasImg).slice(0, 3);
-  const ps = 1.4, pg = 0.35, tot = pics.length * ps + (pics.length - 1) * pg;
-  pics.forEach((k, i) => slide.addImage({ path: K.img(k), x: W / 2 - tot / 2 + i * (ps + pg), y: 0.75, w: ps, h: ps }));
+  const ph = titlePhotoFor(ls);
+  if (ph) return lessonTitlePhoto(slide, it, ph);
+  // No photo: clean typographic title (no emoji row).
   const tag = lessonName(ls);
-  box(slide, tag, { x: W / 2 - 0.9, y: 2.35, w: 1.8, h: 0.5, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center" });
-  let tpt = 40; while (tpt > 26 && K.linesFor(ls.title, W - 2.8, tpt, true) > 1) tpt--;
-  box(slide, ls.title, { x: 1.4, y: 3.05, w: W - 2.8, h: 1.2, fontSize: tpt, bold: true, align: "center", sh: true });
-  if (ls.materials && ls.materials.length) {
+  let tpt = 44; while (tpt > 26 && K.linesFor(ls.title, W - 2.8, tpt, true) > 1) tpt--;
+  const hasMat = ls.materials && ls.materials.length;
+  const y0 = hasMat ? 2.0 : 2.4;
+  box(slide, tag, { x: W / 2 - 0.9, y: y0, w: 1.8, h: 0.5, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center" });
+  box(slide, ls.title, { x: 1.4, y: y0 + 0.7, w: W - 2.8, h: 1.3, fontSize: tpt, bold: true, align: "center", sh: true });
+  if (hasMat) {
     const t = "You need: " + ls.materials.join(", ");
     const h = K.hFor(t, W - 4.4, 19, false, 0.3);
-    box(slide, t, { x: 2.2, y: 4.5, w: W - 4.4, h, fontSize: 19, align: "center", fillColor: TINT.sky });
+    box(slide, t, { x: 2.2, y: y0 + 2.25, w: W - 4.4, h, fontSize: 19, align: "center", fillColor: TINT.sky });
   }
   footer(slide, it);
   slide.addNotes(`${lessonName(ls)}: ${ls.title}.\n\n${ls.teacherNotes || ""}`);
 };
 
-async function lessonTitlePhoto(slide, it) {
+async function lessonTitlePhoto(slide, it, photoKey) {
   const { ls } = it;
   // left: lesson pill, title, you need. right: photo. Clear of the title-slide corner decoration (top corners).
   const px = 6.75, pw = W - M - px, py = 1.9, ph = 4.75;
-  slide.addImage({ path: await K.photo(ls.photo, pw, ph, 0.28), x: px, y: py, w: pw, h: ph });
+  slide.addImage({ path: await K.photo(photoKey || ls.photo, pw, ph, 0.28), x: px, y: py, w: pw, h: ph });
   const lx = M + 0.25, lw = px - lx - 0.4;
   box(slide, lessonName(ls), { x: lx, y: py, w: 1.8, h: 0.55, fontSize: 17, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center" });
   let tpt = 40; while (tpt > 26 && K.linesFor(ls.title, lw, tpt, true, 0.5) > 2) tpt--;
@@ -1060,7 +1075,7 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
       } else await fn(slide, s, item);
       if (s.type === "discuss" && !keyVisual(item.ls) && !s.visual) { const pf = nextPerson(); if (pf) { const meta = await require("sharp")(pf).metadata(); let ph = 3.4, pw = ph * meta.width / meta.height; if (pw > 2.4) { pw = 2.4; ph = pw * meta.height / meta.width; } slide.addImage({ path: pf, x: W - M - pw, y: BOTTOM - ph, w: pw, h: ph }); } }
       footer(slide, item);
-      const notes = [s.notes || DEFAULT_NOTES[s.type], s._notes].filter(Boolean).join("\n\n");
+      const notes = [...new Set([s.notes || DEFAULT_NOTES[s.type], s._notes].filter(Boolean).join("\n\n").split(/\n\s*\n/).map(n => n.trim()).filter(Boolean))].join("\n\n");
       if (notes) slide.addNotes(K.clean(notes));
     } else if (item.kind === "exit") {
       await R.exit(slide, item); footer(slide, item); slide.addNotes(item._notes);
