@@ -17,6 +17,18 @@ fs.mkdirSync(CACHE, { recursive: true });
 // pattern: background texture on every slide. deco: corner decoration on lesson title slides only,
 // kept inside the top corners (x < 2.6 in or x > 10.7 in, y < 2 in), which those slides never use.
 const THEMES = {
+  sunshine: {
+    name: "Sunshine", blurb: "Warm coral, sunny yellow, mint and sky", text: "2E2B3F", muted: "6B6878", card: "FFFFFF",
+    roles: { teal: "E0604F", mint: "2E9467", sky: "2F80C8", indigo: "8257C9", lav: "D2507F" },
+    tints: { teal: "FDE6E0", mint: "DFF4E9", sky: "E1EFFB", indigo: "FFF3C4", lav: "FCE4EE" },
+    bg: { base: "#FFFBF1", a: "#FFE7A8", b: "#CDEBFF" }, pattern: { kind: "dots", colour: "#F3DFB5" }, deco: { kind: "pics", pics: ["sun", "rainbow"] },
+  },
+  rainbow: {
+    name: "Rainbow Pastel", blurb: "Soft rainbow: pink, peach, mint, sky and lilac", text: "37334F", muted: "6E6A82", card: "FFFFFF",
+    roles: { teal: "2F9488", mint: "4E8D3A", sky: "3A7FC2", indigo: "C2651E", lav: "B0529F" },
+    tints: { teal: "DDF3F0", mint: "E6F4DD", sky: "E0EEFA", indigo: "FFEBD9", lav: "F9E3F3" },
+    bg: { base: "#FFF9FB", a: "#FFDDE8", b: "#D9F0FF" }, pattern: { kind: "dots", colour: "#F5D9E4" }, deco: { kind: "pics", pics: ["rainbow", "star"] },
+  },
   ocean: {
     name: "Ocean", blurb: "Cool blues and teal", text: "17324D", muted: "5B6B7F", card: "FFFFFF",
     roles: { teal: "0F7C8C", mint: "17806B", sky: "2C6FBF", indigo: "4F51C2", lav: "7457C0" },
