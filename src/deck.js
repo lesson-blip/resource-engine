@@ -224,7 +224,7 @@ async function coverWeeks(slide) {
   // One size for every cell. Hyperlinked text wraps by character in LibreOffice and Google previews, so aim for one line.
   const ptFor = t => {
     const longest = t.split(/\s+/).reduce((a, b) => K.textW(b, 14, true) > K.textW(a, 14, true) ? b : a, "");
-    let pt = 15; while (pt > 11 && K.linesFor(t, cw - 0.3, pt, true, 0.2) > 1) pt--;
+    let pt = 15; while (pt > 11 && K.textW(t, pt, true) * 0.95 > cw - 0.3) pt--;
     while (pt > 9 && (K.linesFor(t, cw - 0.45, pt, true, 0.3) > 2 || K.textW(longest, pt, true) * 1.12 > cw - 0.5)) pt--;
     return pt;
   };
