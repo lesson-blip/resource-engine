@@ -127,6 +127,14 @@ function organiserPage(p, ls, key) {
     const poster = !!d.poster;
     const parts = poster ? (d.stages || ["Orientation", "Rising action", "Climax", "Falling action", "Resolution"]).map(n => [n, (d.meanings || {})[n] || ({ "Orientation": "Who, where, when, and a hint of trouble.", "Rising action": "Tries to fix the problem. Tension builds.", "Climax": "The most exciting or scary moment.", "Falling action": "Things start to settle.", "Resolution": "How it ends. The problem is solved (or not)." })[n] || ""])
       : [["Orientation", ""], ["Problem", ""], ["Try 1 (it fails)", ""], ["Try 2 (it fails)", ""], ["Climax", ""], ["Resolution", ""]];
+    if (!poster) {
+      // planner: a small labelled arc on top, then six roomy boxes in story order
+      const xs = [20, 49, 78, 107, 136, 166], ys = [44, 32, 22, 12, 6, 40];
+      const arcSvg = `<svg viewBox="0 0 186 52" style="width:186mm;height:52mm"><polyline points="${xs.map((x, i) => `${x},${ys[i]}`).join(" ")}" fill="none" stroke="#9FB1C5" stroke-width="1" stroke-dasharray="2.5 1.8"/>${xs.map((x, i) => `<circle cx="${x}" cy="${ys[i]}" r="3.2" fill="${C[OCOL[i % 5]]}"/><text x="${x}" y="${ys[i] + (i === 4 ? 9 : -5)}" font-size="4" text-anchor="middle" font-family="NS" font-weight="700" fill="#333">${i + 1}. ${esc(parts[i][0])}</text>`).join("")}</svg>`;
+      const grid = `<div class="og2">${parts.map(([h], i) => `<div class="obox b-${OCOL[i % 5]}-l"><b>${i + 1}. ${esc(h)}</b>${lines(4)}</div>`).join("")}</div>`;
+      const types = `<div class="obox b-lav-l"><b>My resolution type:</b> ${["Happy", "Funny", "Surprise", "Lesson", "Cliffhanger", "Circular"].map(t => `<span class="chk"><i class="cb"></i> ${t}</span>`).join(" &nbsp; ")}</div>`;
+      return page(header({ title: p.title, sub, pic: "snow_capped_mountain", name: true }) + arcSvg + grid + types);
+    }
     const n = parts.length, W = 186, H = 228, bw = poster ? 52 : 56, bh = poster ? 46 : 58;
     const peak = poster ? 2 : 4;
     const pos = parts.map((p, i) => { const x = 4 + i * (W - bw - 8) / (n - 1); const t = i <= peak ? i / peak : 1 - (i - peak) / (n - 1 - peak) * 0.75; return [x, (H - bh - 6) * (1 - t) + 2]; });

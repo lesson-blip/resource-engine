@@ -911,8 +911,10 @@
               "I added 4 labels from the text",
               "I added 2 describing words of my own"
             ],
-            "lines": 6,
-            "plan": true
+            "lines": 4,
+            "plan": true,
+            "draw": true,
+            "drawPrompt": "Draw your farmer here. Add 4 labels with key words from the text and 2 describing words of your own."
           }
         }
       ],
