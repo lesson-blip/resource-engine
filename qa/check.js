@@ -69,7 +69,7 @@ for (const k of ["id", "title", "subtitle", "stage", "lessons", "assessment", "v
     if (s.type === "anchor" && !(s.points || []).length) E(sw, "anchor needs points");
     if (s.type === "criteria" && !(s.points || []).length) E(sw, "criteria needs points");
     // no quoting the mentor book: quoted runs longer than 4 words are flagged
-    if (U.subject === "english") JSON.stringify(s).replace(/['‘’"]([^'‘’"]{3,200})['‘’"]/g, (m, q) => { if (q.trim().split(/\s+/).length > 4 && /locator|Chapter|p \d/.test(JSON.stringify(s))) Wn(sw, `long quote? "${q.slice(0, 60)}"`); return m; });
+    if (U.subject === "english") { const vals = []; (function walk(o) { if (typeof o === "string") vals.push(o); else if (o && typeof o === "object") Object.values(o).forEach(walk); })(s); vals.forEach(v => v.replace(/[‘'"“]([^‘'"“”’]{3,200})[’'"”]/g, (m, q) => { if (q.trim().split(/\s+/).length > 4 && /\b(Ch(apter)? ?\d+|p ?\d+)/.test(v)) Wn(sw, `long quote near a locator: "${q.slice(0, 60)}"`); return m; })); }
   });
   (l.printables || []).forEach(p => {
     const pw = `${w} ${p.id}`;

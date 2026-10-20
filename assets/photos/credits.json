@@ -254,5 +254,77 @@
   "url": "https://www.pexels.com/photo/female-hands-preparing-tray-for-cooking-7966013/",
   "alt": "Female preparing cupcake tray with baking ingredients like eggs and lemons on kitchen counter.",
   "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "tunnel": {
+  "id": 10424494,
+  "photographer": "Daniel Simon",
+  "photographer_url": "https://www.pexels.com/@daniel-simon-145489057",
+  "url": "https://www.pexels.com/photo/a-hole-on-the-base-of-a-mossy-tree-10424494/",
+  "alt": "Close-up of a mossy tree trunk with fallen leaves in Useldange, Luxembourg.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "farm_valley": {
+  "id": 12691631,
+  "photographer": "Thiago Oliveira",
+  "photographer_url": "https://www.pexels.com/@oliveiratp",
+  "url": "https://www.pexels.com/photo/houses-on-the-hill-12691631/",
+  "alt": "Pastoral scene of lush green hills, trees, and rural homes beneath a vast sky.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "cellar_jars": {
+  "id": 28896291,
+  "photographer": "dumitru bumbu",
+  "photographer_url": "https://www.pexels.com/@dumitru-bumbu-742240889",
+  "url": "https://www.pexels.com/photo/rustic-cellar-with-preserved-jars-of-food-28896291/",
+  "alt": "A cozy stone cellar filled with neatly arranged jars of preserves.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "wood_hill": {
+  "id": 27362186,
+  "photographer": "Q. Hưng Phạm",
+  "photographer_url": "https://www.pexels.com/@qhung999",
+  "url": "https://www.pexels.com/photo/a-green-forest-covered-with-fog-and-clouds-27362186/",
+  "alt": "Lush green hills shrouded in mist in Hà Giang, Vietnam's tropical jungle.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "fox": {
+  "id": 17093663,
+  "photographer": "Abdullah Dawud",
+  "photographer_url": "https://www.pexels.com/@abdullah-dawud-589034626",
+  "url": "https://www.pexels.com/photo/wild-fox-sitting-on-green-grass-17093663/",
+  "alt": "A serene image of a red fox resting on grass in a natural setting.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "fox_den": {
+  "id": 34269058,
+  "photographer": "Martin  Animals",
+  "photographer_url": "https://www.pexels.com/@martin-animals-2156025595",
+  "url": "https://www.pexels.com/photo/red-fox-emerging-from-wooden-den-34269058/",
+  "alt": "A red fox peeks out from a wooden structure, showcasing its vivid fur in natural light.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "chicken_shed": {
+  "id": 7790127,
+  "photographer": "Ivan Babydov",
+  "photographer_url": "https://www.pexels.com/@babydov",
+  "url": "https://www.pexels.com/photo/chickens-on-brown-hay-7790127/",
+  "alt": "A variety of chickens peck at hay in a rustic wooden chicken coop.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "barn_store": {
+  "id": 26523911,
+  "photographer": "Vinícius Vieira ft",
+  "photographer_url": "https://www.pexels.com/@viniciusvieirafotografia",
+  "url": "https://www.pexels.com/photo/wooden-trailer-and-hay-bales-in-barn-26523911/",
+  "alt": "Vintage wooden cart surrounded by hay inside a rustic farm barn, highlighting rural charm.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "reading": {
+  "id": 8364020,
+  "photographer": "RDNE Stock project",
+  "photographer_url": "https://www.pexels.com/@rdne",
+  "url": "https://www.pexels.com/photo/girl-in-red-shirt-sitting-beside-a-girl-in-blue-button-up-shirt-8364020/",
+  "alt": "Two young children in a classroom interact while reading a book together.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
  }
 }

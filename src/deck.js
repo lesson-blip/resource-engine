@@ -165,7 +165,8 @@ function drawRows(slide, rows, { x = M, y, w = RIGHT - M, labelW = 2.0, bottom =
   let cy = center ? y + Math.max(0, (bottom - y - total) / 2) : y;
   rows.forEach((r, i) => {
     const c = r.color || ["teal", "sky", "indigo", "mint", "lav"][i % 5];
-    if (labelW > 0) box(slide, r.label, { x, y: cy, w: labelW, h: hs[i], fontSize: Math.min(18, p), bold: true, color: "FFFFFF", fillColor: COL[c], align: "center" });
+    let lp = Math.min(18, p); while (lp > 10 && neededH(String(r.label), labelW, { fontSize: lp, bold: true, margin: [6, 12, 6, 12] }) > hs[i]) lp--;
+    if (labelW > 0) box(slide, r.label, { x, y: cy, w: labelW, h: hs[i], fontSize: lp, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center" });
     box(slide, r.text, { x: x + (labelW > 0 ? labelW + 0.15 : 0), y: cy, w: w - (labelW > 0 ? labelW + 0.15 : 0), h: hs[i], fontSize: p, fillColor: TINT[c], hw: hw && r.hw !== false });
     cy += hs[i] + 0.16;
   });
@@ -379,7 +380,7 @@ R.definition = async (slide, s, it) => {
   const mh = Math.max(1.3, K.hFor(s.means, lw, 26, false, 0.4));
   box(slide, s.means, { x: M, y: 2.85, w: lw, h: mh, fontSize: 26, sh: true, margin: [10, 18, 10, 18] });
   if (s.example) {
-    const eh = Math.max(0.9, K.hFor("Example: " + s.example, lw, 21, false, 0.3));
+    const eh = Math.max(0.9, neededH([{ text: "Example: ", options: { bold: true } }, { text: s.example }], lw, { fontSize: 21, margin: [6, 12, 6, 12] }) + 0.04);
     box(slide, [{ text: "Example: ", options: { bold: true, color: COL.mint } }, { text: s.example }], { x: M, y: 2.85 + mh + 0.25, w: lw, h: eh, fontSize: 21, fillColor: TINT.mint });
   }
   if (s.visual) await placeVisual(slide, s.visual, M + lw + 0.35, 1.6, RIGHT - M - lw - 0.35, BOTTOM - 1.6);
@@ -439,6 +440,7 @@ R.examples = async (slide, s, it) => {
     const n = items.length, ih = (BOTTOM - 2.35 - 0.2 * (n - 1)) / n;
     for (let i = 0; i < n; i++) {
       const y = 2.35 + i * (ih + 0.2);
+      if (!items[i].visual) { const pt = fitPt(items.map(t => t.label), cw - 0.3, Math.min(ih, 1.2), 22, 14); box(slide, items[i].label, { x, y, w: cw, h: ih, fontSize: pt, fillColor: TINT[col], align: "center" }); continue; }
       box(slide, "", { x, y, w: cw, h: ih, fillColor: TINT[col] });
       const lh = Math.min(0.75, K.hFor(items[i].label, cw - 0.3, 17, false, 0.2));
       if (items[i].visual) await placeVisual(slide, items[i].visual, x + 0.2, y + 0.12, cw - 0.4, ih - lh - 0.25);
@@ -775,7 +777,7 @@ R.mentor = async (slide, s, it) => {
   const lw = 6.1, rx = M + lw + 0.35, rw = RIGHT - rx;
   const qs = s.questions || [];
   if (s.example) {
-    const eh = Math.min(1.8, Math.max(0.9, K.hFor(s.example.replace(/\[\w+:|\]|\*\*/g, ""), lw, 20, false, 0.4)));
+    const eh = Math.min(2.0, Math.max(0.9, neededH([{ text: "Our example: ", options: { bold: true } }, ...rich(s.example)], lw, { fontSize: 20, margin: [6, 14, 6, 14] }) + 0.08));
     pasteFrame(slide, M, y, lw, BOTTOM - y - eh - 0.2, s.locator, `Paste or type the passage from ${BOOK()} here.`);
     box(slide, [{ text: "Our example: ", options: { bold: true, color: COL.muted } }, ...rich(s.example)], { x: M, y: BOTTOM - eh, w: lw, h: eh, fontSize: 20, fillColor: "FFFFFF", sh: true, margin: [6, 14, 6, 14] });
   } else pasteFrame(slide, M, y, lw, BOTTOM - y, s.locator, `Paste or type the passage from ${BOOK()} here.`);
@@ -794,6 +796,10 @@ R.model = async (slide, s, it) => {
   await header(slide, s.title, it, s.mode || "I do");
   let y = TOP + 0.05;
   if (s.intro) { const h = Math.max(0.6, K.hFor(s.intro, RIGHT - M, 18, false, 0.25)); box(slide, s.intro, { x: M, y, w: RIGHT - M, h, fontSize: 18, fillColor: TINT.lav }); y += h + 0.2; }
+  if (s.parts && !rowsFit(s.parts.map(p => ({ text: p.text.replace(/\[\w+:|\]|\*\*/g, "") })), y, (RIGHT - M) * 0.97, Math.max(1.4, Math.min(2.8, Math.max(...s.parts.map(r => K.textW(r.label, 16, true))) + 0.5)), BOTTOM, 14, 22)) {
+    s._labels = s.parts.map(p => p.label); s.text = s.parts.map(p => p.text).join(" "); s.parts = null;
+    if (!s.notes) s.notes = "The parts of this model are: " + s._labels.join(", ") + ". Point to each part as you read it aloud.";
+  }
   if (s.parts) {
     const lw = Math.max(1.4, Math.min(2.8, Math.max(...s.parts.map(r => K.textW(r.label, 16, true))) + 0.5));
     drawRows(slide, s.parts.map((p, i) => ({ label: p.label, text: p.text, color: ["teal", "sky", "mint", "indigo", "lav"][i % 5] })), { y, labelW: lw, pt: 22, minPt: 13, hw: true });
@@ -906,7 +912,7 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
   const people = Object.keys(UNIT.people || {}).map(k => path.join(PDIR, k + ".png")).filter(f => fs.existsSync(f));
   let pi = 0; const nextPerson = () => people.length ? people[pi++ % people.length] : null;
   for (const item of plan) {
-    const slide = pres.addSlide({ masterName: item.kind === "cover" ? "Cover" : item.kind === "lessonTitle" ? "Title" : "Content" });
+    const slide = pres.addSlide({ masterName: item.kind === "cover" ? "Cover" : item.kind === "lessonTitle" ? (ENGLISH ? "Cover" : "Title") : "Content" });
     if (item.kind === "content") {
       const s = item.s, fn = R[s.type];
       if (!fn) throw new Error("no renderer " + s.type);

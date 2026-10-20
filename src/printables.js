@@ -107,7 +107,8 @@ function organiserPage(p, ls, key) {
   const T = p.template;
   if (key && T !== "vocabTable") return "";
   if (T === "orientation") {
-    const bx = [["Characters", "Who is in the story? What are they like?"], ["Setting", "Where does it happen?"], ["Time", "When does it happen?"], ["A hint of the problem", "What might go wrong?"], ["Engaging details", "Which words will hook the reader?"]];
+    const pq = d.prompts || {};
+    const bx = [["Characters", pq.characters || "Who is in the story? What are they like?"], ["Setting", pq.setting || "Where does it happen?"], ["Time", pq.time || "When does it happen?"], ["A hint of the problem", pq.problem || "What might go wrong?"], ["Engaging details", pq.details || "Which words will hook the reader?"]];
     return page(head("memo") + `<div class="og2">${bx.map(([h, q], i) => `<div class="obox b-${OCOL[i]}-l ${i === 4 ? "wide" : ""}"><b>${h}</b><p class="oq">${q}</p>${lines(i === 4 ? 3 : 4)}</div>`).join("")}</div>`);
   }
   if (T === "swbst") {
@@ -117,10 +118,12 @@ function organiserPage(p, ls, key) {
     return page(head("thinking_face") + `<table class="otbl">${rows.map(([h, q], i) => `<tr><th class="b-${OCOL[i % 5]}">${h}</th><td><span class="oq">${q}</span>${lines(1)}</td></tr>`).join("")}</table>`);
   }
   if (T === "storyMap") {
-    return page(head("national_park") + `<div class="smap"><div class="smdraw"><span class="oq">Draw the places in the story. Label them with words from the book.</span></div><div class="smev">${[1, 2, 3, 4, 5, 6].map(i => `<div class="obox b-${OCOL[(i - 1) % 5]}-l"><b>${i}</b>${lines(2)}</div>`).join("")}</div></div>`);
+    return page(head("national_park") + `<div class="smap"><div class="smdraw"><span class="oq">Draw the places in the story. Label them with words from the book.${d.key ? ` Include: ${d.key.map(esc).join(", ")}.` : ""}</span></div><div class="smev">${[1, 2, 3, 4, 5, 6].map(i => `<div class="obox b-${OCOL[(i - 1) % 5]}-l"><b>${i}</b>${lines(2)}</div>`).join("")}</div></div>`);
   }
   if (T === "arc") {
-    const st = [["Orientation", 8, 82], ["Complication", 22, 62], ["Rising events", 40, 40], ["Climax", 60, 14], ["Falling events", 76, 44], ["Resolution", 88, 76]];
+    const pos = [[8, 82], [22, 62], [40, 40], [60, 14], [76, 44], [88, 76]], names = d.stages || ["Orientation", "Complication", "Rising events", "Climax", "Falling events", "Resolution"];
+    const pick = names.length === 5 ? [0, 2, 3, 4, 5] : [0, 1, 2, 3, 4, 5];
+    const st = names.map((n, i) => [n, ...pos[pick[i]]]);
     return page(head("snow_capped_mountain") + `<div class="arc"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="2,96 30,70 62,18 80,52 98,96" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 1.5"/></svg>${st.map(([h, x, y], i) => `<div class="abox b-${OCOL[i % 5]}-l" style="left:${x - 8}%;top:${y - 6}%"><b>${h}</b>${lines(3)}</div>`).join("")}</div>`);
   }
   if (T === "adjectiveSort") {
@@ -129,19 +132,23 @@ function organiserPage(p, ls, key) {
     return page(head("magnifying_glass_tilted_left") + `<table class="otbl cols"><tr>${cols.map(([h, q], i) => `<th class="b-${OCOL[i + 1]}">${h}<br><span class="oq w">${q}</span></th>`).join("")}</tr><tr>${ex.map(e => `<td class="ex">${esc(e)}</td>`).join("")}</tr>${'<tr><td></td><td></td><td></td></tr>'.repeat(9)}</table>`);
   }
   if (T === "traitBank") {
-    const tr = d.traits || [];
-    return page(head("thinking_face", false) + `<div class="traits">${tr.map((t, i) => `<div class="trait b-${OCOL[i % 5]}-l"><b>${esc(t.word || t)}</b>${t.means ? `<span>${esc(t.means)}</span>` : ""}</div>`).join("")}</div>`);
+    const tr = d.traits || [], groups = [...new Set(tr.map(t => t.group || ""))];
+    return page(head("thinking_face", false) + groups.map((g, gi) => `${g ? `<h3 class="tg">${esc(g)}</h3>` : ""}<div class="traits">${tr.filter(t => (t.group || "") === g).map(t => `<div class="trait b-${OCOL[gi % 5]}-l"><b>${esc(t.word || t)}</b>${t.means ? `<span>${esc(t.means)}</span>` : ""}</div>`).join("")}</div>`).join(""));
   }
   if (T === "vocabTable") {
     const ws = d.words || [];
     return page(head("books") + `<table class="otbl vocab"><tr><th class="b-sky">Word</th><th class="b-mint">Where</th><th class="b-indigo">Base word + suffix</th><th class="b-lav">What it means (my words)</th></tr>${ws.map(w => `<tr><td><b>${esc(w.word)}</b></td><td class="small">${esc(w.locator || "")}</td><td>${key ? `<span class="ans2">${esc(w.base || "")} + ${esc(w.suffix || "")}</span>` : ""}</td><td>${key && w.means ? `<span class="ans2">${esc(w.means)}</span>` : ""}</td></tr>`).join("")}</table>`);
+  }
+  if (T === "passage" && d.prompts && !Array.isArray(d.prompts)) {
+    const names = { synopsis: "Synopsis", structure: "Structure", language: "Language features", words: "Words to teach", fluency: "Fluency focus" };
+    return page(head("open_book", false) + `<div class="obox b-sky-l"><b>Passage</b><p>${fr(d.locator || "")}</p><p class="oq">Teacher notes for close reading. Read the passage in your copy alongside these notes.</p></div>${Object.entries(d.prompts).map(([k, v], i) => `<div class="obox b-${OCOL[(i + 1) % 5]}-l"><b>${names[k] || esc(k)}</b>${(Array.isArray(v) ? v : [v]).map(x => `<p class="pn">${fr(x)}</p>`).join("")}</div>`).join("")}<div class="obox b-lav-l"><b>My notes</b>${lines(2)}</div>`);
   }
   if (T === "passage") {
     const pr = d.prompts || ["Synopsis: what happens in this passage?", "Structure: how is it organised?", "Language features: which words and sentences stand out?", "Words to teach", "Fluency focus"];
     return page(head("open_book", false) + `<div class="obox b-sky-l"><b>Passage</b><p>${fr(d.locator || "")}</p><p class="oq">Teacher planning page. Read the passage in your copy and make notes here.</p></div>${pr.map((t, i) => `<div class="obox b-${OCOL[(i + 1) % 5]}-l"><b>${fr(t)}</b>${lines(3)}</div>`).join("")}`);
   }
   if (T === "protocols") {
-    const g = [["Partner", "busts_in_silhouette", d.partner], ["Small group", "people_hugging", d.group], ["Whole class", "school", d.whole]];
+    const g = [["Partner", "busts_in_silhouette", d.partner], ["Small group", "people_hugging", d.group], ["Whole class", "school", d.whole || d.class]];
     return page(head("speech_balloon", false) + g.map(([h, pic, l], i) => `<div class="pfact b-${OCOL[i + 1]}-l"><div class="pfh">${K.hasImg(pic) ? `<img src="${IMG(pic)}" style="width:10mm">` : ""}<b>${h}</b></div>${(l || []).map(x => `<p>• ${fr(x)}</p>`).join("")}<p class="oq">• Our class adds: ____________________________</p></div>`).join(""), "poster");
   }
   if (T === "tag") {
@@ -154,6 +161,7 @@ function organiserPage(p, ls, key) {
   }
   if (T === "writing") {
     const cr = d.criteria || ls.sc || [];
+    if (d.model) return page(head("fountain_pen") + d.model.map(m => `<div class="hwrow"><div class="hwm">${esc(m)}</div><div class="hwl"></div><div class="hwl"></div></div>`).join("") + `<div class="obox b-mint-l"><b>Check my handwriting</b>${cr.map(c => `<p class="chk"><i class="cb"></i> ${fr(c)}</p>`).join("")}</div>`);
     return page(head("memo") + `${d.plan ? `<div class="obox b-lav-l"><b>My plan</b>${lines(3)}</div>` : ""}<div class="wlines">${lines(d.lines || 14)}</div><div class="obox b-mint-l"><b>Check my writing</b>${cr.map(c => `<p class="chk"><i class="cb"></i> ${fr(c)}</p>`).join("")}</div>`);
   }
   return "";
@@ -360,7 +368,8 @@ h2 { font-size: 13pt; color: ${C[UC]}; margin-top: 2mm; }
 .arc { position: relative; height: 215mm; color: #9FB1C5; } .arc svg { position: absolute; inset: 0; width: 100%; height: 100%; } .abox { position: absolute; width: 44mm; background: #fff; border-left: 2.5mm solid; border-radius: 3mm; padding: 2mm 3mm; color: #222; box-shadow: 0 1px 4px #0002; } .abox b { font-size: 11pt; } .abox .ln { height: 8mm; }
 .traits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5mm; } .trait { border-left: 2mm solid; border-radius: 2.5mm; padding: 1.8mm 3mm; } .trait b { display: block; font-size: 12pt; } .trait span { font-size: 9.5pt; color: #444; }
 .tagg { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; } .tagc { border: 1.6px dashed #9FB1C5; border-radius: 4mm; padding: 3mm; display: flex; flex-direction: column; gap: 2mm; height: 118mm; justify-content: space-around; } .tagc div { color: #fff; border-radius: 3mm; padding: 3mm; font-size: 12.5pt; } .tagc i { display: block; opacity: .9; }
-.wlines .ln { height: 11mm; } .chk { font-size: 11.5pt; margin: 1mm 0; }
+.wlines .ln { height: 11mm; } .tg { font-size: 12pt; margin: 2mm 0 1mm; color: #${T.text}; } .pn { font-size: 10.5pt; margin: 0.8mm 0; }
+.hwrow { margin-bottom: 3mm; } .hwm { font-family: HW, NS; font-size: 20pt; color: #3A6EA5; border-bottom: 1.2px solid #C9D4E0; padding-bottom: 1mm; } .hwl { height: 13mm; border-bottom: 1.3px solid #9FB1C5; background: linear-gradient(transparent 49%, #E3EAF2 49%, #E3EAF2 51%, transparent 51%); } .chk { font-size: 11.5pt; margin: 1mm 0; }
 .teach.stack { flex-direction: column; align-items: stretch; } .teach.stack .vis { max-width: none; justify-content: center; }
 .slips { gap: 0; padding-top: 8mm; }
 .slip { border: 1.6px dashed #9FB1C5; height: 86mm; overflow: hidden; padding: 3mm 5mm; display: flex; flex-direction: column; gap: 1.5mm; break-inside: avoid; }

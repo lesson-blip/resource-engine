@@ -77,6 +77,27 @@ const nThemes = THM.length;
 const slidesLine = nThemes > 1 ? `${L.length} lessons, slides in ${nThemes} themes` : `${L.length} lessons on editable slides`;
 const tileIncluded = (UNIT.copy && UNIT.copy.tileIncluded && UNIT.copy.tileIncluded.map(t => t.replace(/\{(\w+)\}/g, (m, k) => ({ lessons: L.length, skills: (UNIT.skills || []).length, themes: nThemes, worksheets: nWs })[k] ?? m))) || [slidesLine, `${nWs} worksheets in 3 levels`, `Handwritten answer keys`, `Exit tickets and strips`, `Flip book, word wall, posters`, `Teacher guide and research`];
 const included = (UNIT.copy && UNIT.copy.included && UNIT.copy.included.map(t => t.replace(/\{(\w+)\}/g, (m, k) => ({ lessons: L.length, skills: (UNIT.skills || []).length, themes: nThemes, worksheets: nWs })[k] ?? m))) || [nThemes > 1 ? `${L.length} lessons on editable slides in ${nThemes} colour themes: ${THM.map(k => K.THEMES[k].name).join(", ")}` : `${L.length} lessons on editable slides`, `${nWs} worksheets in 3 levels`, `Answer keys in NSW handwriting font`, `Exit ticket slips, paper strips and squared strips`, `Flip book, word wall, posters`, `Teacher notes and research`];
+// Product copy: maths defaults below; a unit can override any field with "copy": {...}
+const DEF = {
+  hook: ["teach fractions as lengths and number lines, the way the NSW syllabus asks?", "have a ready lesson for every day, with slides, worksheets and a test that all match?", "challenge your strugglers and your high flyers in the same lesson?", "mark in minutes with answer keys already written in?"],
+  tileClaim: "Same maths, every student challenged",
+  insideLesson: "Learning intention and success criteria, warm-up, explicit teaching, turn and talk, a hinge question with a reveal slide, a mini whiteboard check, the activity, Choose your challenge, and Discuss and Connect. Teacher notes are in every slide's notes.",
+  worksheetsPara: `Every lesson has a Support, Core and Extension worksheet on the same maths (students see ${LVS.names.join(", ")}), each with a teaching box at the top. The answer key is the same pages with the answers written in.`,
+  credits: "Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Syllabus content paraphrased from the NSW Mathematics K-10 Syllabus © NESA. This resource is not endorsed by NESA or the NSW Department of Education.",
+  heading: `${UNIT.title}: ${UNIT.subtitle} | ${UNIT.stage} NSW Maths Unit | Slides, Differentiated Worksheets, Assessment`,
+  titles: [`${UNIT.subtitle} ${UNIT.stage} NSW Maths Unit | Fractions on a Number Line | Differentiated`, "Fractions as Lengths Unit | Year 3 and 4 NSW | Slides, Worksheets, Assessment", `${UNIT.stage} Fractions Unit | Number Lines and Fraction Strips | NSW Syllabus`],
+  description: `Teach fractions as lengths and numbers on a number line with a complete, ready-to-teach ${L.length}-lesson unit written for the NSW Mathematics K-10 Syllabus (${UNIT.subtitle}). Every lesson comes with editable teaching slides, three levels of worksheets and answer keys, so every student works on the same maths at the right level of challenge.`,
+  extraIncluded: [`${nAssess}-question assessment with a student self-check and an A to E marking rubric`, "A 5-question pre-test to plan your groups", "Printable exit ticket slips for every lesson"],
+  everyLesson: ["Learning intention and success criteria", "Warm-up that revisits earlier learning", "Explicit teaching (I do, We do, You do) with fraction strips and number lines", "Turn and talk, a hinge question with a reveal slide, and a mini whiteboard check", `Differentiated at 3 levels: Support, Core and Extension versions of the same task (students see ${LVS.names.join(", ")}, marked with dots, never ability labels)`, "Discuss and Connect, and an exit ticket", "Teacher notes in the slide notes"],
+  whyItWorks: ["Every worksheet, card set, game board and strip the slides mention is included. You supply string, rulers, scissors and dice.", "Differentiated in every lesson, not just the test", "Built on Australian research (CESE What Works Best, AERO) and the NSW syllabus", "Australian spelling throughout"],
+  formats: "PowerPoint slides (open in Google Slides), Word teacher guide, PDF worksheets in colour and black and white, PDF answer key, assessment, exit tickets, flip book, word wall and posters.",
+  tags: "fractions, number line, fraction strips, unit fractions, fraction wall, stage 2, year 3, year 4, NSW syllabus, partitioned fractions, differentiated, maths unit, australian",
+  price: "Single unit: A$15 to A$19 (TpT US$9 to US$12). Bundle with the next fractions unit for a 20% saving.",
+  evidence: null,
+};
+const SUBV = { lessons: L.length, skills: (UNIT.skills || []).length, themes: nThemes, worksheets: nWs, assess: nAssess, slides: nSlides };
+const SUB = v => typeof v === "string" ? v.replace(/\{(\w+)\}/g, (m, k) => SUBV[k] != null ? SUBV[k] : m) : Array.isArray(v) ? v.map(SUB) : v;
+const COPY = Object.fromEntries(Object.entries(Object.assign({}, DEF, UNIT.copy || {})).map(([k, v]) => [k, SUB(v)]));
 
 const tiles = [
   `<div class="tile">
@@ -126,27 +147,6 @@ const pcss = css + `
 .ul li { margin-left: 6mm; }
 .cover1 img { width: 100%; border-radius: 4mm; }
 `;
-// Product copy: maths defaults below; a unit can override any field with "copy": {...}
-const DEF = {
-  hook: ["teach fractions as lengths and number lines, the way the NSW syllabus asks?", "have a ready lesson for every day, with slides, worksheets and a test that all match?", "challenge your strugglers and your high flyers in the same lesson?", "mark in minutes with answer keys already written in?"],
-  tileClaim: "Same maths, every student challenged",
-  insideLesson: "Learning intention and success criteria, warm-up, explicit teaching, turn and talk, a hinge question with a reveal slide, a mini whiteboard check, the activity, Choose your challenge, and Discuss and Connect. Teacher notes are in every slide's notes.",
-  worksheetsPara: `Every lesson has a Support, Core and Extension worksheet on the same maths (students see ${LVS.names.join(", ")}), each with a teaching box at the top. The answer key is the same pages with the answers written in.`,
-  credits: "Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Syllabus content paraphrased from the NSW Mathematics K-10 Syllabus © NESA. This resource is not endorsed by NESA or the NSW Department of Education.",
-  heading: `${UNIT.title}: ${UNIT.subtitle} | ${UNIT.stage} NSW Maths Unit | Slides, Differentiated Worksheets, Assessment`,
-  titles: [`${UNIT.subtitle} ${UNIT.stage} NSW Maths Unit | Fractions on a Number Line | Differentiated`, "Fractions as Lengths Unit | Year 3 and 4 NSW | Slides, Worksheets, Assessment", `${UNIT.stage} Fractions Unit | Number Lines and Fraction Strips | NSW Syllabus`],
-  description: `Teach fractions as lengths and numbers on a number line with a complete, ready-to-teach ${L.length}-lesson unit written for the NSW Mathematics K-10 Syllabus (${UNIT.subtitle}). Every lesson comes with editable teaching slides, three levels of worksheets and answer keys, so every student works on the same maths at the right level of challenge.`,
-  extraIncluded: [`${nAssess}-question assessment with a student self-check and an A to E marking rubric`, "A 5-question pre-test to plan your groups", "Printable exit ticket slips for every lesson"],
-  everyLesson: ["Learning intention and success criteria", "Warm-up that revisits earlier learning", "Explicit teaching (I do, We do, You do) with fraction strips and number lines", "Turn and talk, a hinge question with a reveal slide, and a mini whiteboard check", `Differentiated at 3 levels: Support, Core and Extension versions of the same task (students see ${LVS.names.join(", ")}, marked with dots, never ability labels)`, "Discuss and Connect, and an exit ticket", "Teacher notes in the slide notes"],
-  whyItWorks: ["Every worksheet, card set, game board and strip the slides mention is included. You supply string, rulers, scissors and dice.", "Differentiated in every lesson, not just the test", "Built on Australian research (CESE What Works Best, AERO) and the NSW syllabus", "Australian spelling throughout"],
-  formats: "PowerPoint slides (open in Google Slides), Word teacher guide, PDF worksheets in colour and black and white, PDF answer key, assessment, exit tickets, flip book, word wall and posters.",
-  tags: "fractions, number line, fraction strips, unit fractions, fraction wall, stage 2, year 3, year 4, NSW syllabus, partitioned fractions, differentiated, maths unit, australian",
-  price: "Single unit: A$15 to A$19 (TpT US$9 to US$12). Bundle with the next fractions unit for a 20% saving.",
-  evidence: null,
-};
-const SUBV = { lessons: L.length, skills: (UNIT.skills || []).length, themes: nThemes, worksheets: nWs, assess: nAssess, slides: nSlides };
-const SUB = v => typeof v === "string" ? v.replace(/\{(\w+)\}/g, (m, k) => SUBV[k] != null ? SUBV[k] : m) : Array.isArray(v) ? v.map(SUB) : v;
-const COPY = Object.fromEntries(Object.entries(Object.assign({}, DEF, UNIT.copy || {})).map(([k, v]) => [k, SUB(v)]));
 const ev = COPY.evidence || [
   ["Explicit teaching", "I do, We do, You do with mini whiteboard checks every lesson (CESE What Works Best 2025; AERO)."],
   ["Fractions as lengths", "Strips and number lines, not just pizzas, so students see fractions as numbers (Clarke, Roche and Mitchell)."],
