@@ -1,14 +1,14 @@
 // Builds a complete, ready-to-list product from one unit file.
-// usage: node build.js units/<id>.json [--theme ocean] [--slide-themes all|pastel,boho] [--skip-listing]
-// Themes: ocean, pastel, gumleaf, boho, creamgold, blushsage, blushnavy
+// usage: node build.js units/<id>.json [--theme sunshine] [--slide-themes all|pastel,boho] [--skip-listing]
+// Themes: sunshine, rainbow, ocean, pastel, gumleaf, boho, creamgold, blushsage, blushnavy
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
 
 const args = process.argv.slice(2);
 const unitFile = args.find(a => a.endsWith(".json"));
-if (!unitFile) { console.log("usage: node build.js units/<id>.json [--theme ocean] [--slide-themes all]"); process.exit(1); }
-const theme = (args[args.indexOf("--theme") + 1] && args.includes("--theme")) ? args[args.indexOf("--theme") + 1] : "ocean";
+if (!unitFile) { console.log("usage: node build.js units/<id>.json [--theme sunshine] [--slide-themes all]"); process.exit(1); }
+const theme = (args[args.indexOf("--theme") + 1] && args.includes("--theme")) ? args[args.indexOf("--theme") + 1] : "sunshine";
 const K = require("./src/kit.js");
 if (!K.THEMES[theme]) { console.log("unknown theme " + theme + ". Use: " + K.THEME_KEYS.join(", ")); process.exit(1); }
 const stArg = args.includes("--slide-themes") ? args[args.indexOf("--slide-themes") + 1] : "";
@@ -72,14 +72,14 @@ const licence = `${UNIT.title}: licence and credits
 One licence covers one teacher and their own students. Please do not share, resell or upload this resource or any part of it.
 
 Pictures: Microsoft Fluent Emoji, MIT licence (https://github.com/microsoft/fluentui-emoji). Photos: Pexels, Pexels Licence (https://www.pexels.com/license/); photographers are listed on the last slide.
-Fonts: Nunito Sans and Edu NSW ACT Foundation, SIL Open Font License 1.1 (full licence in Fonts_Licence.txt).
+Fonts: Nunito Sans, Fredoka and Edu NSW ACT Foundation, SIL Open Font License 1.1 (full licence in Fonts_Licence.txt).
 ${UNIT.subject === "english" ? `Syllabus outcomes: NSW English K-10 Syllabus, NSW Education Standards Authority.${UNIT.departmentUnit ? ` Designed to accompany the NSW Department of Education ${UNIT.departmentUnit} (© State of New South Wales (Department of Education), 2023, CC BY 4.0).` : ""}${UNIT.mentorText ? `\nYou need a copy of ${UNIT.mentorText.title} by ${UNIT.mentorText.author}. No text or pictures from the book are reproduced; slides show page references so you can read from your own copy.` : ""}` : "Syllabus outcomes and content: NSW Mathematics K-10 Syllabus, NSW Education Standards Authority."} Not endorsed by NESA or the NSW Department of Education.
 
 If the slides show a different font, install Nunito Sans (free, Google Fonts).
 `;
 fs.writeFileSync(path.join(DIR, "Read_Me_First.txt"), licence);
 const F = p => fs.readFileSync(path.join(__dirname, "assets", "fonts", p), "utf8");
-fs.writeFileSync(path.join(DIR, "Fonts_Licence.txt"), "Nunito Sans\n\n" + F("OFL-NunitoSans.txt") + "\n\n----------\n\nEdu NSW ACT Foundation\n\n" + F("OFL-EduNSWACTFoundation.txt"));
+fs.writeFileSync(path.join(DIR, "Fonts_Licence.txt"), "Nunito Sans\n\n" + F("OFL-NunitoSans.txt") + "\n\n----------\n\nFredoka\n\n" + F("OFL-Fredoka.txt") + "\n\n----------\n\nEdu NSW ACT Foundation\n\n" + F("OFL-EduNSWACTFoundation.txt"));
 const files = fs.readdirSync(DIR).filter(f => !f.startsWith(".") && f !== "Listing");
 run("zip", ["-qr", path.join(DIR, "Listing", `${t}_PRODUCT.zip`), ...files], { cwd: DIR });
 console.log("\nDone: " + path.relative(__dirname, DIR));

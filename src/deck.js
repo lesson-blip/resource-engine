@@ -8,7 +8,7 @@ const V = require("./visuals.js");
 
 const UNIT = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
 const OUT = process.argv[3];
-const THEME_KEY = process.argv[4] || "ocean";
+const THEME_KEY = process.argv[4] || "sunshine";
 if (!K.THEMES[THEME_KEY]) { console.error("unknown theme " + THEME_KEY + ". Use one of: " + K.THEME_KEYS.join(", ")); process.exit(1); }
 const T = K.THEMES[THEME_KEY];
 V.setTheme(T);
@@ -23,7 +23,7 @@ const LTAG = PART === "A" ? "Skill" : "Lesson";
 const lessonName = ls => `${LTAG} ${ls.n}`;
 const LVS = K.levels(UNIT);
 // Visual style: "clean" (default) or "cosy" (paper, washi tape, polaroids, hand-drawn doodles, friendly heading font)
-const STYLE = process.env.DECK_STYLE || UNIT.style || "clean", COSY = /^cosy/.test(STYLE), PLUS = STYLE === "cosyplus";
+const STYLE = process.env.DECK_STYLE || UNIT.style || "cosyplus", COSY = /^cosy/.test(STYLE), PLUS = STYLE === "cosyplus";
 const CZ = COSY ? require("./cosy.js") : null;
 const HF = COSY ? "Fredoka" : K.FONT;   // heading font
 const HW_SCALE = COSY ? 1.1 : 1;        // Fredoka runs wider than Nunito Sans: measure headings narrower
@@ -136,7 +136,6 @@ async function header(slide, title, ctx, mode) {
   let pt = 28; while (pt > 18 && K.linesFor(title, tw / HW_SCALE, pt, true, 0.5) > 1) pt--;
   box(slide, title, { x, y: 0.4, w: tw, h: 0.8, fontSize: pt, bold: true, sh: true, margin: [4, 16, 4, 16], fontFace: HF });
   if (COSY) await deco(slide, await CZ.washi(COL[UC], 1.0, 0.3, -8), x - 0.25, 0.22);
-  if (PLUS) await deco(slide, await CZ.doodle("star", COL.lav, 0.34, 0.34, title.length), x + tw - 0.3, 0.2);
   if (mode) {
     const [ic, c] = MODE[mode];
     box(slide, mode, { x: W - M - mw, y: 0.4, w: mw, h: 0.8, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL[c], align: "right", margin: [2, 14, 2, 2] });
@@ -145,11 +144,11 @@ async function header(slide, title, ctx, mode) {
 }
 function footer(slide, ctx) {
   const label = ctx && ctx.ls ? `${UNIT.title} · ${lessonName(ctx.ls)}` : UNIT.title;
-  const lw = Math.min(6, K.textW(label, 11, false) + 0.45);
-  box(slide, label, { x: M, y: 6.92, w: lw, h: 0.34, fontSize: 11, color: COL.muted, fillColor: "FFFFFF", align: "center", margin: 1 });
+  const lw = Math.min(6, K.textW(label, 12, false) + 0.45);
+  box(slide, label, { x: M, y: 6.92, w: lw, h: 0.34, fontSize: 12, color: COL.muted, fillColor: "FFFFFF", align: "center", margin: 1 });
   legend(slide);
   const ph = phaseOf(ctx);
-  if (ph) box(slide, ph, { x: M + lw + 0.12, y: 6.92, w: K.textW(ph, 11, true) + 0.45, h: 0.34, fontSize: 11, bold: true, color: COL[UC], fillColor: TINT[UC], align: "center", margin: 1 });
+  if (ph) box(slide, ph, { x: M + lw + 0.12, y: 6.92, w: K.textW(ph, 12, true) + 0.45, h: 0.34, fontSize: 12, bold: true, color: COL[UC], fillColor: TINT[UC], align: "center", margin: 1 });
   box(slide, [{ text: "Menu", options: { hyperlink: { slide: MENU_SLIDE, tooltip: "Back to the lesson map" }, color: COL.navy, bold: true } }],
     { x: W - M - 1.3, y: 6.88, w: 1.3, h: 0.4, fontSize: 13, align: "center", fillColor: TINT.sky, margin: 2 });
 }
@@ -1276,7 +1275,7 @@ async function cosyHero(slide) {
   if (hp) {
     const pol = await CZ.polaroid(hp, 5.1, 4.7, -3);
     const px = W - M - pol.w + 0.1, py = 0.75;
-    slide.addImage({ path: pol.path, x: px, y: py, w: pol.w, h: pol.h });
+    slide.addImage({ path: (await CZ.onPaper(pol, THEME_KEY, "cover", px, py)).path, x: px, y: py, w: pol.w, h: pol.h });
     await deco(slide, await CZ.washi(COL.lav, 1.6, 0.42, 4), px + pol.w / 2 - 0.85, py - 0.05);
   }
   const kicker = `${UNIT.stage} ${ENGLISH ? "English" : "Maths"} · ${UNIT.years}`;
@@ -1313,7 +1312,7 @@ async function cosyTitle(slide, it, photoKey) {
   const { ls } = it;
   const pol = await CZ.polaroid(photoKey || ls.photo, 5.3, 4.0, 2.5);
   const px = W - M - pol.w + 0.05, py = 1.2;
-  slide.addImage({ path: pol.path, x: px, y: py, w: pol.w, h: pol.h });
+  slide.addImage({ path: (await CZ.onPaper(pol, THEME_KEY, ENGLISH ? "cover" : "title", px, py)).path, x: px, y: py, w: pol.w, h: pol.h });
   await deco(slide, await CZ.washi(COL[UC], 1.5, 0.4, -4), px + pol.w / 2 - 0.8, py - 0.02);
   const lx = M + 0.25, lw = px - lx - 0.45;
   box(slide, lessonName(ls), { x: lx, y: 1.55, w: 1.9, h: 0.58, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center", fontFace: HF });
@@ -1325,8 +1324,9 @@ async function cosyTitle(slide, it, photoKey) {
   let y = 2.35 + th + 0.6;
   if (ls.materials && ls.materials.length) {
     const t = "You need: " + ls.materials.join(", ");
-    const hmax = 6.6 - y, pt = fitPt([t], lw - 0.6, hmax - 0.4, 18, 12, false, 0.3);
-    const h = Math.min(hmax, K.hFor(t, lw - 0.6, pt, false, 0.3) + 0.35);
+    const hmax = 6.6 - y, tH = p => K.linesFor(t, lw - 0.75, p, false, 0.1) * p * K.LH / 72;
+    let pt = 20; while (pt > 12 && tH(pt) + 0.5 > hmax) pt--;
+    const h = Math.min(hmax, tH(pt) + 0.5);
     const st = await CZ.sticky(T.tints.sky, lw - 0.1, h, PLUS ? -2 : -1);
     slide.addImage({ path: st.path, x: lx, y, w: st.w, h: st.h });
     box(slide, t, { x: lx + (st.w - lw + 0.1) / 2 + 0.2, y: y + (st.h - h) / 2 + 0.1, w: lw - 0.5, h: h - 0.2, fontSize: pt, fill: { type: "none" }, margin: [2, 6, 2, 6], rectRadius: 0 });

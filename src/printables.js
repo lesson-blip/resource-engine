@@ -11,7 +11,7 @@ const K = require("./kit.js");
 const UNIT = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
 const OUT = path.resolve(process.argv[3] || "dist");
 fs.mkdirSync(OUT, { recursive: true });
-const T = K.THEMES[process.argv[4] || "ocean"];
+const T = K.THEMES[process.argv[4] || "sunshine"];
 V.setTheme(T);
 const C = Object.fromEntries(Object.entries(T.roles).map(([k, v]) => [k, "#" + v]));
 const TI = Object.fromEntries(Object.entries(T.tints).map(([k, v]) => [k, "#" + v]));

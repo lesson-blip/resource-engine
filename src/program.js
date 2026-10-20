@@ -8,7 +8,7 @@ const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthT
 
 const UNIT = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
 const OUT = process.argv[3];
-const T = K.THEMES[process.argv[4] || "ocean"];
+const T = K.THEMES[process.argv[4] || "sunshine"];
 const PART = process.argv[5] || "";
 const ENGLISH = UNIT.subject === "english";
 const LESSONS = PART === "A" ? (UNIT.skills || []) : UNIT.lessons;

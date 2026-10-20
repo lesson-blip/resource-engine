@@ -12,7 +12,7 @@ const WORK = path.join(DIR, ".work");
 const OUT = path.join(DIR, "Listing");
 fs.mkdirSync(OUT, { recursive: true });
 fs.mkdirSync(WORK, { recursive: true });
-const T = K.THEMES[process.argv[4] || "ocean"], UC = UNIT.colour || "teal";
+const T = K.THEMES[process.argv[4] || "sunshine"], UC = UNIT.colour || "teal";
 const C = Object.fromEntries(Object.entries(T.roles).map(([k, v]) => [k, "#" + v]));
 const TI = Object.fromEntries(Object.entries(T.tints).map(([k, v]) => [k, "#" + v]));
 const FILE = f => "file://" + f;

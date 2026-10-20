@@ -14,8 +14,9 @@ const hex = c => (c.startsWith("#") ? c : "#" + c);
 const key = (...a) => path.join(OUT, a.join("_").replace(/[^\w.-]+/g, "") + ".png");
 
 // rotate a PNG buffer about its centre with a transparent background, return {path, w, h} in inches
-async function rotated(buf, deg, f) {
-  const r = await sharp(buf).rotate(deg, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+async function rotated(buf, deg, f, palette = true) {
+  // flat artwork (tape, notes, frames) compresses well as palette PNG; photos keep full colour
+  const r = await sharp(buf).rotate(deg, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png(palette ? { palette: true, quality: 92, effort: 8 } : {}).toBuffer();
   fs.writeFileSync(f, r);
   const m = await sharp(r).metadata();
   return { path: f, w: m.width / PX, h: m.height / PX };
@@ -36,7 +37,7 @@ async function noise(W, H) {
 // Paper background: warm off-white tinted by the theme, faint graph-paper grid, grain, soft corner washes.
 async function paper(theme, kind = "content") {
   const PLUS = process.env.DECK_STYLE === "cosyplus";
-  const t = K.THEMES[theme], f = key("paper3", theme, kind, PLUS ? "plus" : "");
+  const t = K.THEMES[theme], f = key("paper3", theme, kind, PLUS ? "plus" : "").replace(/\.png$/, ".jpg");
   if (fs.existsSync(f)) return f;
   const W = 1920, H = 1080, g = 36; // 0.25 in squares at 144 px/in
   const gridCol = (t.pattern && t.pattern.colour) || t.bg.a;
@@ -48,7 +49,7 @@ async function paper(theme, kind = "content") {
     <radialGradient id="b" cx="0" cy="1" r="0.7"><stop offset="0" stop-color="${t.bg.b}" stop-opacity="0.75"/><stop offset="1" stop-color="${t.bg.b}" stop-opacity="0"/></radialGradient></defs>
     <rect width="${W}" height="${H}" fill="#FBF8F2"/><rect width="${W}" height="${H}" fill="${t.bg.base}" fill-opacity="0.55"/>
     <rect width="${W}" height="${H}" fill="url(#a)"/><rect width="${W}" height="${H}" fill="url(#b)"/>${grid}</svg>`;
-  await sharp(Buffer.from(svg)).composite([{ input: await noise(W, H), tile: true }]).png().toFile(f);
+  await sharp(Buffer.from(svg)).composite([{ input: await noise(W, H), tile: true }]).jpeg({ quality: 86, chromaSubsampling: "4:4:4" }).toFile(f);
   return f;
 }
 
@@ -76,7 +77,7 @@ async function polaroid(photoKey, w, h, deg = -2.5, caption = "") {
     <rect x="${sh}" y="${sh}" width="${FW}" height="${FH}" rx="4" fill="#FFFFFF"/>
     ${caption ? `<text x="${sh + FW / 2}" y="${sh + pad + PH + bot * 0.62}" font-family="Edu NSW ACT Foundation" font-size="${Math.round(0.24 * PX)}" fill="#3A4256" text-anchor="middle">${caption}</text>` : ""}</svg>`;
   const buf = await sharp(Buffer.from(frame)).composite([{ input: img, left: sh + pad, top: sh + pad }]).png().toBuffer();
-  return rotated(buf, deg, f);
+  return rotated(buf, deg, f, false);
 }
 
 // Sticky note: square-ish paper with a slight gradient and a curled-corner shadow. Text goes on top as a clear text box.
@@ -156,3 +157,17 @@ function roughCurveSvg(pointsIn, colour, strokeIn, px, seed = 4) {
   return g.toPaths(d).map(p => `<path d="${p.d}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`).join("");
 }
 module.exports.roughCurveSvg = roughCurveSvg;
+
+// Flatten a transparent picture onto the slide's paper so it can be stored as a small JPEG.
+// x, y in inches on a 13.333 x 7.5 in slide; kind = the paper used by that slide's master.
+async function onPaper(img, theme, kind, x, y) {
+  const f = img.path.replace(/\.png$/, `_on_${theme}_${kind}_${x.toFixed(2)}_${y.toFixed(2)}.jpg`);
+  if (!fs.existsSync(f)) {
+    const bg = await paper(theme, kind), m = await sharp(img.path).metadata();
+    const S = 1920 / 13.333, left = Math.round(x * S), top = Math.round(y * S), w = Math.round(img.w * S), h = Math.round(img.h * S);
+    const crop = await sharp(bg).extract({ left: Math.max(0, left), top: Math.max(0, top), width: Math.min(w, 1920 - Math.max(0, left)), height: Math.min(h, 1080 - Math.max(0, top)) }).resize(m.width, m.height, { fit: "fill" }).toBuffer();
+    await sharp(crop).composite([{ input: img.path }]).jpeg({ quality: 84 }).toFile(f);
+  }
+  return { path: f, w: img.w, h: img.h };
+}
+module.exports.onPaper = onPaper;

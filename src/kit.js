@@ -18,7 +18,7 @@ fs.mkdirSync(CACHE, { recursive: true });
 // kept inside the top corners (x < 2.6 in or x > 10.7 in, y < 2 in), which those slides never use.
 const THEMES = {
   sunshine: {
-    name: "Sunshine", blurb: "Warm coral, sunny yellow, mint and sky", text: "2E2B3F", muted: "6B6878", card: "FFFFFF",
+    name: "Sunshine", blurb: "Warm coral, sunny yellow, mint and sky", text: "3A3438", muted: "6E6670", card: "FFFFFF",
     roles: { teal: "E0604F", mint: "2E9467", sky: "2F80C8", indigo: "8257C9", lav: "D2507F" },
     tints: { teal: "FDE6E0", mint: "DFF4E9", sky: "E1EFFB", indigo: "FFF3C4", lav: "FCE4EE" },
     bg: { base: "#FFFBF1", a: "#FFE7A8", b: "#CDEBFF" }, pattern: { kind: "dots", colour: "#F3DFB5" }, deco: { kind: "pics", pics: ["sun", "rainbow"] },
@@ -110,7 +110,7 @@ function photoCredits() { try { return JSON.parse(fs.readFileSync(path.join(PHOT
 function resources(unit) { const m = {}; let n = 0; for (const l of unit.lessons || []) for (const p of l.printables || []) m[p.id] = ++n; let a = 0; for (const l of unit.skills || []) for (const p of l.printables || []) m[p.id] = "A" + (++a); return m; }
 const ENGLISH_BLURBS = ["An easier way into the same task. Use the word bank, sentence starters or a drawing.", "Where everyone aims to be. Try it on your own first.", "Ready for more? Add detail, explain your choices or try a new technique."];
 const levels = unit => { const L = LEVEL_STYLES[(unit && unit.levelStyle) || "plain"] || LEVEL_STYLES.plain; return unit && unit.subject === "english" ? Object.assign({}, L, { blurbs: ENGLISH_BLURBS }) : L; };
-const THEME_KEYS = ["ocean", "pastel", "gumleaf", "boho", "creamgold", "blushsage", "blushnavy"];
+const THEME_KEYS = ["sunshine", "rainbow", "ocean", "pastel", "gumleaf", "boho", "creamgold", "blushsage", "blushnavy"];
 
 function lum(hex) { const c = hex.replace("#", "").match(/../g).map(h => parseInt(h, 16) / 255).map(v => v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; }
 function contrast(a, b) { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); }
