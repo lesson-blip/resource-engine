@@ -162,12 +162,7 @@ async function header(slide, title, ctx, mode) {
   if (rt) box(slide, rt, { x: W - M - (mode ? mw + 0.15 : 0) - rw, y: 0.52, w: rw, h: 0.56, fontSize: 14, bold: true, color: "FFFFFF", fillColor: COL.indigo, align: "center", margin: 1 });
   let pt = 28; while (pt > 18 && K.linesFor(title, tw / HW_SCALE, pt, true, 0.5) > 1) pt--;
   box(slide, title, { x, y: 0.4, w: tw, h: 0.8, fontSize: pt, bold: true, sh: true, margin: [4, 16, 4, 16], fontFace: HF });
-  if (COSY && !HUMAN) await deco(slide, await CZ.washi(COL[UC], 1.0, 0.3, -8), x - 0.25, 0.22);
-  if (HUMAN) {
-    const tc = pick([UC, UC, "sky", "mint", "lav"], 2), side = rnd(3) < 0.7 ? "left" : "right", tw0 = 0.85 + rnd(4) * 0.4, ang = (side === "left" ? -1 : 1) * (5 + rnd(5) * 7);
-    await deco(slide, await CZ.washi(COL[tc], tw0, 0.3, Math.round(ang)), side === "left" ? x - 0.25 : x + tw - tw0 + 0.15, 0.2);
-    if (rnd(6) < 0.3) await deco(slide, await CZ.doodle(pick(["star", "sparkle", "swirl"], 7), COL[pick(["lav", "sky", "mint"], 8)], 0.34, 0.34, SLIDE_N), side === "left" ? x + tw - 0.32 : x + 0.2, 0.16);
-  }
+
   if (mode) {
     const [ic, c] = MODE[mode];
     box(slide, mode, { x: W - M - mw, y: 0.4, w: mw, h: 0.8, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL[c], align: "right", margin: [2, 14, 2, 2] });
@@ -387,12 +382,10 @@ async function menuMountain(slide) {
   for (const [i, w] of weeks.entries()) {
     const x = M + i * colW + 0.11, c = cols[i % 5], [px, py] = pts[i];
     box(slide, labels[i], { x, y: py - bh / 2, w: cw, h: bh, fontSize: bpt, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center", margin: 1, fontFace: HF });
-    if (PLUS && i !== peak) await deco(slide, await CZ.washi(COL[c], 0.7, 0.24, i % 2 ? 9 : -9), x + (i % 2 ? cw - 0.6 : -0.12), py - bh / 2 - 0.12);
     if (PLUS && i === 0) {
       box(slide, "Start here!", { x: x + 0.05, y: py - bh / 2 - 0.95, w: 1.6, h: 0.5, fontSize: 18, hw: true, color: COL[c], fill: { type: "none" }, margin: 0, rectRadius: 0 });
       await deco(slide, await CZ.doodle("arrow", COL[c], 0.75, 0.55, 2), x + 1.5, py - bh / 2 - 0.75);
     }
-    if (COSY && i === peak) { await deco(slide, await CZ.doodle("sparkle", COL.indigo, 0.42, 0.42, 7), x - 0.5, py - 0.3); await deco(slide, await CZ.washi(COL[c], 0.8, 0.26, -12), x - 0.18, py - bh / 2 - 0.12); }
     let y = top;
     LESSONS.filter(l => l.week === w).forEach(l => {
       box(slide, [{ text: `${l.n}  `, options: { bold: true, color: COL[c], fontSize: pt + 1, fontFace: HF } }, { text: l.menu || l.title, options: { bold: true, color: COL.navy, fontSize: pt } }],
@@ -414,7 +407,6 @@ R.cover = async (slide) => {
   const hw = bx0 - 0.25 - M;
   const head = style === "wall" ? "Lesson wall" : `${PART === "A" ? "Skills" : "Lesson"} map`;
   const showT = K.textW(head + "   ", 26, true) + K.textW(UNIT.title, 16, false) + 0.7 < hw;
-  if (COSY) await deco(slide, await CZ.washi(COL[UC], 1.0, 0.3, -8), M - 0.25, 0.22);
   box(slide, [{ text: head + "   ", options: { fontSize: 26, bold: true, fontFace: HF } }, { text: showT ? UNIT.title : "", options: { fontSize: 16, color: COL.muted } }],
     { x: M, y: 0.4, w: hw, h: 0.8, sh: true, margin: [4, 18, 4, 18] });
   if (style === "wall") return menuWall(slide);
@@ -624,6 +616,7 @@ R.warmup = async (slide, s, it) => {
   box(slide, s.prompt, { x: M + 0.9, y: 1.55, w: pw, h: ph, fontSize: 23, bold: true, sh: true });
   box(slide, "5 minutes", { x: RIGHT - 1.6, y: 1.55, w: 1.6, h: 0.6, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL.lav, align: "center" });
   let y0 = 1.55 + ph + 0.3; const n = s.items.length;
+  if (HUMAN) { const nt = pick(["Ready, set, go!", "Quick as you can!", "Off you go!"], 17), nh = K.linesFor(nt, 1.6 * 0.95, 20, false, 0.1) * 20 * 1.5 / 72 + 0.1; if (y0 >= 2.22 + nh + 0.08) await scribble(slide, nt, RIGHT - 1.65, 2.2, 1.65, COL.lav); }
   const wide = s.visual && (await visAR(s.visual)) > 2.6;
   if (wide) { await placeVisual(slide, s.visual, M, y0 - 0.1, RIGHT - M, 1.2); y0 += 1.25; }
   const side = s.visual && !wide, cols = side ? 1 : n <= 2 ? 1 : 2;
@@ -1323,18 +1316,12 @@ async function cosyHero(slide) {
   let tpt = 52; while (tpt > 32 && K.linesFor(title, (lw - 0.6) / HW_SCALE, tpt, true, 0.6) > 2) tpt--;
   const th = neededH(title, lw / HW_SCALE, { fontSize: tpt, bold: true, margin: [10, 24, 10, 24] }) + 0.1;
   box(slide, title, { x: lx, y: 1.5, w: lw, h: th, fontSize: tpt, bold: true, sh: true, margin: [10, 24, 10, 24], fontFace: HF, tilt: -1.2 });
-  await deco(slide, await CZ.washi(COL[UC], 1.2, 0.34, -10), lx - 0.3, 1.3);
   if (PLUS) {
-    await deco(slide, await CZ.washi(COL.sky, 1.0, 0.3, 12), lx + lw - 0.75, 1.32);
     const second = [UNIT.heroPhoto2, ...(ENGLISH ? ["reading_pair", "reading", "kids_bench"] : []), ...LESSONS.map(l => l.photo)].find(k => k && K.hasPhoto(k) && k !== hp);
-    if (second) { const p2 = await CZ.polaroid(second, 2.2, 1.65, 7); slide.addImage({ path: p2.path, x: W - M - p2.w - 0.1, y: 7.42 - p2.h, w: p2.w, h: p2.h, altText: "deco" }); await deco(slide, await CZ.washi(COL.mint, 0.9, 0.28, -15), W - M - p2.w + 0.55, 7.42 - p2.h - 0.08); }
-    await deco(slide, await CZ.doodle("swirl", COL.mint, 0.5, 0.5, 4), lx + lw + 0.05, 5.0);
+    if (second) { const p2 = await CZ.polaroid(second, 2.2, 1.65, 7); slide.addImage({ path: p2.path, x: W - M - p2.w - 0.1, y: 7.42 - p2.h, w: p2.w, h: p2.h, altText: "deco" }); }
     await deco(slide, await CZ.doodle("arrow", COL[UC], 1.3, 0.75, 6), lx + 4.45, 6.15);
-    await deco(slide, await CZ.doodle("star", COL.sky, 0.32, 0.32, 12), lx + 4.6, 0.62);
   }
   await deco(slide, await CZ.doodle("underline", COL[UC], 3.4, 0.4, 5), lx + 0.4, 1.5 + th + 0.02);
-  await deco(slide, await CZ.doodle("sparkle", COL.indigo, 0.5, 0.5, 2), lx + lw - 0.25, 1.05);
-  await deco(slide, await CZ.doodle("star", COL.lav, 0.38, 0.38, 9), lx + lw - 0.75, 0.85);
   const kids = (UNIT.heroKids && (UNIT.heroKids[PART === "A" ? "A" : "B"] || UNIT.heroKids)) || UNIT.heroLine && (UNIT.heroLine[PART === "A" ? "A" : "B"] || UNIT.heroLine) || UNIT.subtitle;
   const sy = 1.5 + th + 0.55, sw = 5.4, shh = Math.min(2.6, 6.0 - sy);
   const st = await CZ.sticky(T.tints.indigo, sw, shh, PLUS ? -2.5 : -1.5);
@@ -1357,7 +1344,6 @@ async function cosyTitle(slide, it, photoKey) {
   let tpt = 44; while (tpt > 26 && K.linesFor(ls.title, (lw - 0.5) / HW_SCALE, tpt, true, 0.5) > 2) tpt--;
   const th = neededH(ls.title, lw / HW_SCALE, { fontSize: tpt, bold: true, margin: [8, 20, 8, 20] }) + 0.1;
   box(slide, ls.title, { x: lx, y: 2.35, w: lw, h: th, fontSize: tpt, bold: true, sh: true, margin: [8, 20, 8, 20], fontFace: HF, tilt: -1 });
-  if (PLUS) { await deco(slide, await CZ.doodle("sparkle", COL.indigo, 0.5, 0.5, ls.n + 3), lx + lw - 0.2, 1.75); await deco(slide, await CZ.doodle("star", COL.lav, 0.34, 0.34, ls.n), lx + lw - 0.75, 1.62); await deco(slide, await CZ.washi(COL.sky, 0.9, 0.28, 10), lx + lw - 0.6, 2.2); }
   await deco(slide, await CZ.doodle("underline", COL[UC], 2.6, 0.36, ls.n), lx + 0.35, 2.35 + th + 0.02);
   let y = 2.35 + th + 0.6;
   if (ls.materials && ls.materials.length) {
@@ -1385,20 +1371,22 @@ async function cosyModel(slide, s, it) {
   const linesAt = p => parts.reduce((n, q) => n + (q.label ? 1 : 0) * 0 + K.linesFor((q.label ? q.label + ":  " : "") + plain(q.text), tw * 0.95, p, false, 0.1), 0);
   while (pt > 13) { L = Math.round(pt * 1.25 * 1.45); if (linesAt(pt) * L / 72 + inset + 0.15 <= ph) break; pt--; }
   const pitch = L / 72, first = inset + pitch * 0.82 + 0.04;
+  const textH = Math.min(ph, linesAt(pt) * L / 72 + inset + 0.12);
   slide.addImage({ path: await CZ.lined(pw, ph, pitch, first, mg), x: px, y, w: pw + 0.08 * 1, h: ph + 0.08, altText: "underlay" });
-  if (PLUS) { await deco(slide, await CZ.washi(COL.lav, 1.1, 0.32, -35), px - 0.32, y - 0.12); await deco(slide, await CZ.washi(COL.sky, 1.1, 0.32, 35), px + pw - 0.75, y - 0.12); }
-  const usedH = linesAt(pt) * L / 72 + inset;
-  if (HUMAN && ph - usedH > 0.95) {
+  const usedH = textH;
+  if (HUMAN && ph - usedH > 0.85) {
     const marked = parts.some(q => /\[\w+:/.test(q.text));
-    await scribble(slide, marked ? pick(["Notice the coloured words!", "See my describing words?"], 15) : pick(["Read it with me!", "How did I start?"], 15), RIGHT - 3.6, y + ph - 0.7, 3.2, COL[UC], { kind: "arrow:flop:flip", x: RIGHT - 4.45, y: y + ph - 0.95, w: 0.8, h: 0.5 });
-  } else if (PLUS) await deco(slide, await CZ.doodle("sparkle", COL.indigo, 0.42, 0.42, 9), px + pw - 0.55, BOTTOM - 0.6);
+    const adj = parts.some(q => /\[adj:/.test(q.text)), verb = parts.some(q => /\[verb:/.test(q.text));
+    const note = !marked ? pick(["Read it with me!", "How did I start?"], 15) : adj && !verb ? pick(["Notice the coloured words!", "See my describing words?"], 15) : verb && !adj ? pick(["Notice the coloured words!", "Spot my action verbs!"], 15) : "Notice the coloured words!";
+    await scribble(slide, note, RIGHT - 3.6, y + usedH + 0.12, 3.2, COL[UC], { kind: "arrow:flop:flip", x: RIGHT - 4.45, y: y + usedH + 0.02, w: 0.8, h: 0.5 });
+  }
   const runs = [];
   parts.forEach((q, i) => {
     if (q.label) runs.push({ text: q.label + ":  ", options: { fontFace: HF, fontSize: Math.round(pt * 0.75), bold: true, color: COL[cols[i % 5]] } });
     const r = rich(q.text);
     r.forEach((x, j) => runs.push({ text: K.clean(x.text), options: Object.assign({ fontFace: K.HW, fontSize: Math.round(pt * 1.25), color: COL.navy }, x.options, j === r.length - 1 && i < parts.length - 1 ? { breakLine: true } : {}) }));
   });
-  slide.addText(runs, { x: tx, y, w: tw, h: ph, valign: "top", margin: [inset * 72, 0, 0, 0], lineSpacing: L, paraSpaceBefore: 0, paraSpaceAfter: 0, fontFace: K.HW, color: COL.navy });
+  slide.addText(runs, { x: tx, y, w: tw, h: textH, valign: "top", margin: [inset * 72, 0, 0, 0], lineSpacing: L, paraSpaceBefore: 0, paraSpaceAfter: 0, fontFace: K.HW, color: COL.navy });
   s._notes = s.notes || "Think aloud as you write: say why you chose each word and sentence. Students watch first, then help with the next sentence.";
 }
 
@@ -1467,7 +1455,7 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
         await fn(slide, s, item);
         RIGHT = W - M;
         const ps = pics.length === 1 ? 2.0 : 1.7, tot = pics.length * ps + (pics.length - 1) * 0.35, top = TOP + (BOTTOM - TOP - tot) / 2;
-        pics.forEach((k, i) => slide.addImage({ path: K.img(k), x: W - M - 2.2 + (2.2 - ps) / 2, y: top + i * (ps + 0.35), w: ps, h: ps }));
+        pics.forEach((k, i) => slide.addImage({ path: K.img(k), x: W - M - 2.2 + (2.2 - ps) / 2, y: top + i * (ps + 0.35), w: ps, h: ps, rotate: HUMAN ? Math.round((rnd(20 + i) - 0.5) * 16) : 0 }));
       } else await fn(slide, s, item);
       if (s.type === "discuss" && !keyVisual(item.ls) && !s.visual) { const pf = nextPerson(); if (pf) { const meta = await require("sharp")(pf).metadata(); let ph = 3.4, pw = ph * meta.width / meta.height; if (pw > 2.4) { pw = 2.4; ph = pw * meta.height / meta.width; } slide.addImage({ path: pf, x: W - M - pw, y: BOTTOM - ph, w: pw, h: ph }); } }
       footer(slide, item);
