@@ -115,8 +115,10 @@ function roughSvg(drawables, W, H) {
   const paths = drawables(g).flatMap(d => g.toPaths(d));
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">${paths.map(p => `<path d="${p.d}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" fill="${p.fill || "none"}" stroke-linecap="round" stroke-linejoin="round"/>`).join("")}</svg>`;
 }
-async function doodle(kind, colour, w, h, seed = 3) {
-  const f = key("doodle", kind, colour, w, h, seed);
+async function doodle(kind0, colour, w, h, seed = 3) {
+  // kind may carry transforms: "arrow:flop" (mirror left-right), "arrow:flip" (mirror top-bottom)
+  const [kind, ...tf] = kind0.split(":");
+  const f = key("doodle", kind0, colour, w, h, seed);
   if (fs.existsSync(f)) { const m = await sharp(f).metadata(); return { path: f, w: m.width / PX, h: m.height / PX }; }
   const W = Math.round(w * PX), H = Math.round(h * PX), c = hex(colour);
   const o = { stroke: c, strokeWidth: Math.max(3, Math.round(0.035 * PX)), roughness: 1.6, bowing: 1.4, seed };
@@ -129,7 +131,10 @@ async function doodle(kind, colour, w, h, seed = 3) {
     if (kind === "swirl") { const pts = []; for (let i = 0; i < 40; i++) { const a = i * 0.45, rr = 4 + i * Math.min(W, H) / 90; pts.push([W / 2 + rr * Math.cos(a), H / 2 + rr * Math.sin(a)]); } return [g.curve(pts, o)]; }
     return [];
   }, W, H);
-  await sharp(Buffer.from(svg)).png().toFile(f);
+  let im = sharp(Buffer.from(svg));
+  if (tf.includes("flop")) im = im.flop();
+  if (tf.includes("flip")) im = im.flip();
+  await im.png({ palette: true }).toFile(f);
   return { path: f, w, h };
 }
 

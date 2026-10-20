@@ -27,6 +27,32 @@ const STYLE = process.env.DECK_STYLE || UNIT.style || "cosyplus", COSY = /^cosy/
 const CZ = COSY ? require("./cosy.js") : null;
 const HF = COSY ? "Fredoka" : K.FONT;   // heading font
 const HW_SCALE = COSY ? 1.1 : 1;        // Fredoka runs wider than Nunito Sans: measure headings narrower
+// ---- human touch (cosy plus): kid-friendly headings, varied decoration, handwritten teacher notes ----
+const HUMAN = PLUS;
+let SLIDE_N = 0;
+const rnd = k => { const x = Math.sin(SLIDE_N * 9301.7 + k * 497.3) * 43758.5453; return x - Math.floor(x); };
+const pick = (arr, k = 1) => arr[Math.floor(rnd(k) * arr.length) % arr.length];
+const VOICE = [
+  [/^Learning intention and success criteria$/, "What are we learning today?"],
+  [/^Discuss and connect$/, "Let's talk about it!"],
+  [/^Exit ticket$/, "Exit ticket: show me what you know"],
+  [/^Choose your challenge$/, "Pick your challenge!"],
+  [/^Check your answers$/, "How did you go?"],
+  [/^Check: (.+)$/, "Let's check: $1"],
+  [/^Word: (.+)$/, "New word: $1"],
+  [/^Activity: (.+)$/, "Your turn: $1"],
+  [/^I do: (.+)$/, "Watch me: $1"],
+  [/^We do: (.+)$/, "Let's try it together: $1"],
+  [/^Turn and talk$/, "Turn and talk!"],
+];
+const voice = t => { if (!HUMAN || !t) return t; for (const [re, to] of VOICE) if (re.test(t)) return t.replace(re, to); return t; };
+// a handwritten note straight on the paper, slightly tilted, with an optional hand-drawn arrow
+async function scribble(slide, text, x, y, w, colour, arrow) {
+  const pt = 20, h = K.linesFor(text, w * 0.95, pt, false, 0.1) * pt * 1.25 * 1.2 / 72 + 0.1;
+  box(slide, text, { x, y, w, h, fontSize: pt, hw: true, color: colour, fill: { type: "none" }, margin: 0, rectRadius: 0, tilt: -3 });
+  if (arrow) await deco(slide, await CZ.doodle(arrow.kind, colour, arrow.w || 0.8, arrow.h || 0.5, SLIDE_N), arrow.x, arrow.y, arrow.w || 0.8, arrow.h || 0.5);
+  return h;
+}
 async function deco(slide, img, x, y, w, h) { slide.addImage({ path: img.path || img, x, y, w: w || img.w, h: h || img.h, altText: "deco" }); }
 const RES = K.resources(UNIT);
 const PHASE = { lessonTitle: "Beginning the lesson", lisc: "Beginning the lesson", warmup: "Beginning the lesson", reallife: "Beginning the lesson", reveal: "Beginning the lesson", discuss: "Concluding the lesson", exit: "Concluding the lesson" };
@@ -124,6 +150,7 @@ async function placeVisual(slide, v, x, y, w, h, align = "center") {
 // ---------- chrome ----------
 const MODE = { "I do": ["ido", "sky"], "We do": ["wedo", "mint"], "You do": ["youdo", "lav"] };
 async function header(slide, title, ctx, mode) {
+  title = voice(title);
   let x = M;
   if (ctx && ctx.ls) {
     box(slide, lessonName(ctx.ls), { x, y: 0.4, w: 1.45, h: 0.8, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center", margin: 2, fontFace: HF });
@@ -135,7 +162,12 @@ async function header(slide, title, ctx, mode) {
   if (rt) box(slide, rt, { x: W - M - (mode ? mw + 0.15 : 0) - rw, y: 0.52, w: rw, h: 0.56, fontSize: 14, bold: true, color: "FFFFFF", fillColor: COL.indigo, align: "center", margin: 1 });
   let pt = 28; while (pt > 18 && K.linesFor(title, tw / HW_SCALE, pt, true, 0.5) > 1) pt--;
   box(slide, title, { x, y: 0.4, w: tw, h: 0.8, fontSize: pt, bold: true, sh: true, margin: [4, 16, 4, 16], fontFace: HF });
-  if (COSY) await deco(slide, await CZ.washi(COL[UC], 1.0, 0.3, -8), x - 0.25, 0.22);
+  if (COSY && !HUMAN) await deco(slide, await CZ.washi(COL[UC], 1.0, 0.3, -8), x - 0.25, 0.22);
+  if (HUMAN) {
+    const tc = pick([UC, UC, "sky", "mint", "lav"], 2), side = rnd(3) < 0.7 ? "left" : "right", tw0 = 0.85 + rnd(4) * 0.4, ang = (side === "left" ? -1 : 1) * (5 + rnd(5) * 7);
+    await deco(slide, await CZ.washi(COL[tc], tw0, 0.3, Math.round(ang)), side === "left" ? x - 0.25 : x + tw - tw0 + 0.15, 0.2);
+    if (rnd(6) < 0.3) await deco(slide, await CZ.doodle(pick(["star", "sparkle", "swirl"], 7), COL[pick(["lav", "sky", "mint"], 8)], 0.34, 0.34, SLIDE_N), side === "left" ? x + tw - 0.32 : x + 0.2, 0.16);
+  }
   if (mode) {
     const [ic, c] = MODE[mode];
     box(slide, mode, { x: W - M - mw, y: 0.4, w: mw, h: 0.8, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL[c], align: "right", margin: [2, 14, 2, 2] });
@@ -573,7 +605,8 @@ R.lisc = async (slide, it) => {
   slide.addImage({ data: await K.icon("target", COL.sky), x: M, y: 1.6, w: 0.62, h: 0.62 });
   box(slide, "Learning intention", { x: M + 0.75, y: 1.6, w: lw - 0.75, h: 0.62, fontSize: 20, bold: true, color: "FFFFFF", fillColor: COL.sky });
   box(slide, ls.li, { x: M, y: 2.4, w: lw, h: Math.max(2.4, K.hFor(ls.li, lw, 24, false, 0.5)), fontSize: 24, fillColor: TINT.sky, margin: [10, 18, 10, 18] });
-  slide.addImage({ path: K.img("writing_hand"), x: M + lw / 2 - 0.6, y: 5.15, w: 1.2, h: 1.2 });
+  if (HUMAN) await scribble(slide, pick(["We will check these at the end!", "Keep these in mind today!", "Can you do these by the end?"], 11), M + 0.3, 5.35, lw - 1.3, COL[UC], { kind: "arrow", x: M + lw - 1.05, y: 5.25, w: 0.85, h: 0.55 });
+  else slide.addImage({ path: K.img("writing_hand"), x: M + lw / 2 - 0.6, y: 5.15, w: 1.2, h: 1.2 });
   slide.addImage({ data: await K.icon("list", COL.mint), x: rx, y: 1.6, w: 0.62, h: 0.62 });
   box(slide, "Success criteria", { x: rx + 0.75, y: 1.6, w: rw - 0.75, h: 0.62, fontSize: 20, bold: true, color: "FFFFFF", fillColor: COL.mint });
   const pt = fitPt(ls.sc, rw, (BOTTOM - 2.4 - 0.16 * (ls.sc.length - 1)) / ls.sc.length, 26, 16);
@@ -606,7 +639,9 @@ R.warmup = async (slide, s, it) => {
 R.definition = async (slide, s, it) => {
   await header(slide, `Word: ${s.term}`, it, s.mode || "I do");
   const lw = s.visual ? 6.4 : RIGHT - M;
-  box(slide, s.term, { x: M, y: 1.6, w: Math.min(lw, K.textW(s.term, 40, true) + 1), h: 1.0, fontSize: 40, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center" });
+  const termW = Math.min(lw, K.textW(s.term, 40, true) + 1);
+  box(slide, s.term, { x: M, y: 1.6, w: termW, h: 1.0, fontSize: 40, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center", tilt: -1.5 });
+  if (HUMAN && lw - termW > 3.4) await scribble(slide, pick(["Say it with me!", "Ooh, a new word!", "Try it in a sentence!"], 12), M + termW + 1.15, 1.72, 2.6, COL[UC], { kind: "arrow:flop", x: M + termW + 0.2, y: 1.8, w: 0.85, h: 0.55 });
   const mh = Math.max(1.3, K.hFor(s.means, lw, 26, false, 0.4));
   box(slide, s.means, { x: M, y: 2.85, w: lw, h: mh, fontSize: 26, sh: true, margin: [10, 18, 10, 18] });
   if (s.example) {
@@ -705,6 +740,7 @@ R.talk = async (slide, s, it) => {
   const ts = Math.max(1.3, Math.min(2.4, BOTTOM - ty));
   slide.addText([{ text: `${sec}`, options: { fontSize: Math.round(48 * ts / 2.4), bold: true, breakLine: true } }, { text: "seconds", options: { fontSize: Math.round(16 * Math.max(0.8, ts / 2.4)) } }],
     { shape: pres.shapes.OVAL, x: tx, y: ty, w: ts, h: ts, fill: { color: TINT.lav }, line: { color: COL.lav, width: 6 }, fontFace: K.FONT, color: COL.lav, align: "center", valign: "middle", margin: 0 });
+  if (HUMAN && !s.visual && ty + ts + 1.0 < BOTTOM) await scribble(slide, pick(["Partner A goes first!", "Use your partner's name!", "Listen, then add on!"], 13), tx - 0.1, ty + ts + 0.25, ts + 0.3, COL.lav);
   if (s.visual) await placeVisual(slide, s.visual, M + lw + 0.35, 1.6, RIGHT - M - lw - 0.35, BOTTOM - 1.6);
   else { const tt = "Think on your own first. Then share with your partner. Be ready to share your partner's idea."; box(slide, tt, { x: M + 1.0, y: 1.6 + ph + 0.35, w: lw - 1.0, h: Math.max(1.1, neededH(tt, lw - 1.0, { fontSize: 20, margin: [6, 12, 6, 12] }) + 0.05), fontSize: 20, fillColor: TINT.teal }); }
 };
@@ -860,7 +896,8 @@ R.discuss = async (slide, s, it) => {
 R.exit = async (slide, it) => {
   const ex = it.ls.exitTicket || [];
   await header(slide, "Exit ticket", it, "You do");
-  pill(slide, "On your own. Hand it in before you go.", M, TOP + 0.05, "lav", 15);
+  const pw0 = pill(slide, "On your own. Hand it in before you go.", M, TOP + 0.05, "lav", 15);
+  if (HUMAN) await scribble(slide, pick(["Do your best. It's not a test!", "Show me what you know!", "Take your time!"], 14), M + pw0 + 0.4, TOP - 0.02, 4.2, COL.lav);
   const n = ex.length, cw = (RIGHT - M - 0.3 * (n - 1)) / n;
   for (let i = 0; i < n; i++) {
     const x = M + i * (cw + 0.3), y = TOP + 0.75, q = ex[i];
@@ -1261,6 +1298,7 @@ async function cosyActivity(slide, s, it) {
     slide.addText(runs, { x: rx + (st.w - rw + 0.1) / 2 + 0.22, y: y + (st.h - h) / 2 + 0.12, w: rw - 0.55, h: h - 0.24, fontFace: K.FONT, valign: "middle", margin: 2 });
     y += st.h + 0.25;
   }
+  if (HUMAN && (!thumb || BOTTOM - y <= 1.8) && BOTTOM - y > 0.8) await scribble(slide, pick(["You've got this!", "Check the success criteria!", "Ask three before me!"], 16), rx + 0.2, y + 0.05, rw - 0.3, COL[UC]);
   if (thumb && BOTTOM - y > 1.8) {
     const ps = await CZ.paperShot(thumb, rw - 0.4, BOTTOM - y - 0.45, PLUS ? -4 : -2.5);
     const px = rx + (rw - ps.w) / 2;
@@ -1348,7 +1386,12 @@ async function cosyModel(slide, s, it) {
   while (pt > 13) { L = Math.round(pt * 1.25 * 1.45); if (linesAt(pt) * L / 72 + inset + 0.15 <= ph) break; pt--; }
   const pitch = L / 72, first = inset + pitch * 0.82 + 0.04;
   slide.addImage({ path: await CZ.lined(pw, ph, pitch, first, mg), x: px, y, w: pw + 0.08 * 1, h: ph + 0.08, altText: "underlay" });
-  if (PLUS) { await deco(slide, await CZ.washi(COL.lav, 1.1, 0.32, -35), px - 0.32, y - 0.12); await deco(slide, await CZ.washi(COL.sky, 1.1, 0.32, 35), px + pw - 0.75, y - 0.12); await deco(slide, await CZ.doodle("sparkle", COL.indigo, 0.42, 0.42, 9), px + pw - 0.55, BOTTOM - 0.6); }
+  if (PLUS) { await deco(slide, await CZ.washi(COL.lav, 1.1, 0.32, -35), px - 0.32, y - 0.12); await deco(slide, await CZ.washi(COL.sky, 1.1, 0.32, 35), px + pw - 0.75, y - 0.12); }
+  const usedH = linesAt(pt) * L / 72 + inset;
+  if (HUMAN && ph - usedH > 0.95) {
+    const marked = parts.some(q => /\[\w+:/.test(q.text));
+    await scribble(slide, marked ? pick(["Notice the coloured words!", "See my describing words?"], 15) : pick(["Read it with me!", "How did I start?"], 15), RIGHT - 3.6, y + ph - 0.7, 3.2, COL[UC], { kind: "arrow:flop:flip", x: RIGHT - 4.45, y: y + ph - 0.95, w: 0.8, h: 0.5 });
+  } else if (PLUS) await deco(slide, await CZ.doodle("sparkle", COL.indigo, 0.42, 0.42, 9), px + pw - 0.55, BOTTOM - 0.6);
   const runs = [];
   parts.forEach((q, i) => {
     if (q.label) runs.push({ text: q.label + ":  ", options: { fontFace: HF, fontSize: Math.round(pt * 0.75), bold: true, color: COL[cols[i % 5]] } });
@@ -1404,6 +1447,7 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
   const people = Object.keys(UNIT.people || {}).map(k => path.join(PDIR, k + ".png")).filter(f => fs.existsSync(f));
   let pi = 0; const nextPerson = () => people.length ? people[pi++ % people.length] : null;
   for (const item of plan) {
+    SLIDE_N++;
     const slide = pres.addSlide({ masterName: item.kind === "cover" || item.kind === "hero" ? "Cover" : item.kind === "lessonTitle" ? (ENGLISH ? "Cover" : "Title") : "Content" });
     if (item.kind === "content") {
       const s = item.s, fn = R[s.type];
