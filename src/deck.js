@@ -1309,7 +1309,7 @@ R.credits = async (slide) => {
     const lg = CLIPMAP.artists[a] && CLIPMAP.artists[a].logo, f = lg && path.join(K.ASSETS, "clipart", lg);
     if (!f || !fs.existsSync(f) || y + 0.95 > BOTTOM + 0.1) continue;
     const m = await require("sharp")(f).metadata(), h = 0.9, w = Math.min(2.4, h * m.width / m.height);
-    slide.addImage({ path: f, x: lx, y, w, h: w * m.height / m.width, hyperlink: a === "creative-clips" ? { url: "https://www.teacherspayteachers.com/Store/Krista-Wallden" } : { url: "https://www.smartartsforkids.com/" } });
+    slide.addImage({ path: f, x: lx, y, w, h: w * m.height / m.width, hyperlink: CLIPMAP.artists[a].url ? { url: CLIPMAP.artists[a].url } : undefined });
     lx += w + 0.3;
   }
   footer(slide);

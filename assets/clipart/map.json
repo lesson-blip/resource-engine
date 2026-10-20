@@ -2,11 +2,23 @@
   "artists": {
     "creative-clips": {
       "credit": "Creative Clips Clipart by Krista Wallden (teacherspayteachers.com/Store/Krista-Wallden)",
-      "logo": "creative-clips/Creative Clips Clipart Logo.png"
+      "logo": "creative-clips/Creative Clips Clipart Logo.png",
+      "url": "https://www.teacherspayteachers.com/Store/Krista-Wallden"
     },
     "smartarts": {
       "credit": "Smart Arts for Kids (smartartsforkids.com)",
-      "logo": "smartarts/SmartArtsForKids Logo Circle.png"
+      "logo": "smartarts/SmartArtsForKids Logo Circle.png",
+      "url": "https://www.smartartsforkids.com/"
+    },
+    "prince-padania": {
+      "credit": "Clip art by Prince Padania (teacherspayteachers.com/Store/Prince-Padania)",
+      "logo": "prince-padania/Prince_Padania_TOU_Logo1.png",
+      "url": "https://www.teacherspayteachers.com/Store/Prince-Padania"
+    },
+    "joyful-hands": {
+      "credit": "Base ten blocks by Joyful Hands Products (teacherspayteachers.com/Store/Joyful-Hands-Products)",
+      "logo": "joyful-hands/Joyful Hands Products Logo.png",
+      "url": "https://www.teacherspayteachers.com/Store/Joyful-Hands-Products"
     }
   },
   "map": {
@@ -72,6 +84,24 @@
       "creative-clips/Owl_2.png",
       "creative-clips/Owl_3.png",
       "creative-clips/Owl_4.png"
+    ],
+    "deciduous_tree": [
+      "prince-padania/tree_color.png"
+    ],
+    "evergreen_tree": [
+      "prince-padania/tree_color.png"
+    ],
+    "base_ten_1": [
+      "joyful-hands/Base Ten Blocks_1s yellow.png"
+    ],
+    "base_ten_10": [
+      "joyful-hands/Base Ten Blocks_10s blue.png"
+    ],
+    "base_ten_100": [
+      "joyful-hands/Base Ten Blocks_100s orange.png"
+    ],
+    "base_ten_1000": [
+      "joyful-hands/Base Ten Blocks_1000s purple.png"
     ]
   }
 }
