@@ -96,7 +96,8 @@ async function photo(key, w, h, r = 0.18, opt = {}) {
 }
 function photoCredits() { try { return JSON.parse(fs.readFileSync(path.join(PHOTOS, "credits.json"), "utf8")); } catch (e) { return {}; } }
 function resources(unit) { const m = {}; let n = 0; for (const l of unit.lessons || []) for (const p of l.printables || []) m[p.id] = ++n; let a = 0; for (const l of unit.skills || []) for (const p of l.printables || []) m[p.id] = "A" + (++a); return m; }
-const levels = unit => LEVEL_STYLES[(unit && unit.levelStyle) || "plain"] || LEVEL_STYLES.plain;
+const ENGLISH_BLURBS = ["An easier way into the same task. Use the word bank, sentence starters or a drawing.", "Where everyone aims to be. Try it on your own first.", "Ready for more? Add detail, explain your choices or try a new technique."];
+const levels = unit => { const L = LEVEL_STYLES[(unit && unit.levelStyle) || "plain"] || LEVEL_STYLES.plain; return unit && unit.subject === "english" ? Object.assign({}, L, { blurbs: ENGLISH_BLURBS }) : L; };
 const THEME_KEYS = ["ocean", "pastel", "gumleaf", "boho", "creamgold", "blushsage", "blushnavy"];
 
 function lum(hex) { const c = hex.replace("#", "").match(/../g).map(h => parseInt(h, 16) / 255).map(v => v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; }

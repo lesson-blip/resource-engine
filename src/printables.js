@@ -92,8 +92,11 @@ async function gamePage(p, ls, key) {
 async function cardsPage(p, ls, key) {
   const hasVis = p.cards.some(c => c.visual);
   let cs = "";
-  for (const c of p.cards) cs += `<div class="card ${hasVis ? "tall" : ""}">${c.visual ? await vis(c.visual, 28) : ""}<div class="ct">${fr(c.text || "")}</div></div>`;
-  return `<section class="page multi" data-foot="Lesson ${ls.n} · ${esc(p.title)}">${header({ title: p.title, sub: `Resource ${RES[p.id]} · Lesson ${ls.n} · Cut out the cards`, pic: "scissors", name: false })}
+  // heading cards: flagged with heading:true, or (for sorts) the first cards before the first longer word when they are short graphemes/labels
+  const heads = new Set(p.cards.map((c, i) => c.heading ? i : -1).filter(i => i >= 0));
+  if (!heads.size && /sort/i.test(p.title + " " + (p.instructions || ""))) { for (let i = 0; i < p.cards.length; i++) { const t = (p.cards[i].text || "").trim(); if (i < 8 && (t.length <= 4 || /^[A-Z][a-z]+( [a-z]+)?$/.test(t) && i < 4) && !p.cards[i].visual) heads.add(i); else break; } }
+  for (const [i, c] of p.cards.entries()) cs += `<div class="card ${hasVis ? "tall" : ""} ${heads.has(i) ? "head" : ""}">${c.visual ? await vis(c.visual, 28) : ""}<div class="ct">${fr(c.text || "")}</div></div>`;
+  return `<section class="page multi" data-foot="${PART_LABEL(ls)} · ${esc(p.title)}">${header({ title: p.title, sub: `Resource ${RES[p.id]} · ${PART_LABEL(ls)} · Cut out the cards${heads.size ? ". Coloured cards are headings." : ""}`, pic: "scissors", name: false })}
     ${p.instructions ? `<p class="intro">${fr(p.instructions)}</p>` : ""}<div class="cards ${hasVis ? "c3" : "c4"}">${cs}</div></section>`;
 }
 
@@ -121,10 +124,16 @@ function organiserPage(p, ls, key) {
     return page(head("national_park") + `<div class="smap"><div class="smdraw"><span class="oq">Draw the places in the story. Label them with words from the book.${d.key ? ` Include: ${d.key.map(esc).join(", ")}.` : ""}</span></div><div class="smev">${[1, 2, 3, 4, 5, 6].map(i => `<div class="obox b-${OCOL[(i - 1) % 5]}-l"><b>${i}</b>${lines(2)}</div>`).join("")}</div></div>`);
   }
   if (T === "arc") {
-    const pos = [[8, 82], [22, 62], [40, 40], [60, 14], [76, 44], [88, 76]], names = d.stages || ["Orientation", "Complication", "Rising events", "Climax", "Falling events", "Resolution"];
-    const pick = names.length === 5 ? [0, 2, 3, 4, 5] : [0, 1, 2, 3, 4, 5];
-    const st = names.map((n, i) => [n, ...pos[pick[i]]]);
-    return page(head("snow_capped_mountain") + `<div class="arc"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="2,96 30,70 62,18 80,52 98,96" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 1.5"/></svg>${st.map(([h, x, y], i) => `<div class="abox b-${OCOL[i % 5]}-l" style="left:${x - 8}%;top:${y - 6}%"><b>${h}</b>${lines(3)}</div>`).join("")}</div>`);
+    const poster = !!d.poster;
+    const parts = poster ? (d.stages || ["Orientation", "Rising action", "Climax", "Falling action", "Resolution"]).map(n => [n, (d.meanings || {})[n] || ({ "Orientation": "Who, where, when, and a hint of trouble.", "Rising action": "Tries to fix the problem. Tension builds.", "Climax": "The most exciting or scary moment.", "Falling action": "Things start to settle.", "Resolution": "How it ends. The problem is solved (or not)." })[n] || ""])
+      : [["Orientation", ""], ["Problem", ""], ["Try 1 (it fails)", ""], ["Try 2 (it fails)", ""], ["Climax", ""], ["Resolution", ""]];
+    const n = parts.length, W = 186, H = 228, bw = poster ? 52 : 56, bh = poster ? 46 : 58;
+    const peak = poster ? 2 : 4;
+    const pos = parts.map((p, i) => { const x = 4 + i * (W - bw - 8) / (n - 1); const t = i <= peak ? i / peak : 1 - (i - peak) / (n - 1 - peak) * 0.75; return [x, (H - bh - 6) * (1 - t) + 2]; });
+    const pts = pos.map(([x, y]) => `${x + bw / 2},${y + bh / 2}`).join(" ");
+    const boxes = parts.map(([h, m], i) => `<div class="abox b-${OCOL[i % 5]}-l" style="left:${pos[i][0]}mm;top:${pos[i][1]}mm;width:${bw}mm;height:${bh}mm"><b>${esc(h)}</b>${m ? `<p class="pn">${esc(m)}</p>` : lines(5)}</div>`).join("");
+    const types = poster ? "" : `<div class="obox b-lav-l"><b>My resolution type:</b> ${["Happy", "Funny", "Surprise", "Lesson", "Cliffhanger", "Circular"].map(t => `<span class="chk"><i class="cb"></i> ${t}</span>`).join(" &nbsp; ")}</div>`;
+    return page(header({ title: p.title, sub: poster ? "Freytag's pyramid · " + sub : sub, pic: "snow_capped_mountain", name: !poster }) + `<div class="arc" style="height:${H}mm"><svg viewBox="0 0 ${W} ${H}" style="width:${W}mm;height:${H}mm"><polyline points="${pts}" fill="none" stroke="#9FB1C5" stroke-width="1.2" stroke-dasharray="3 2"/></svg>${boxes}</div>${types}`);
   }
   if (T === "adjectiveSort") {
     const ex = d.examples || ["three", "rich", "chicken"];
@@ -161,6 +170,7 @@ function organiserPage(p, ls, key) {
   }
   if (T === "writing") {
     const cr = d.criteria || ls.sc || [];
+    if (d.draw) return page(head("artist_palette") + `<div class="drawbox"><span class="oq">${esc(d.drawPrompt || "Draw here. Label 4 key words from the text and 2 of your own.")}</span></div><div class="wlines">${lines(d.lines || 4)}</div><div class="obox b-mint-l"><b>Check</b>${cr.map(c => `<p class="chk"><i class="cb"></i> ${fr(c)}</p>`).join("")}</div>`);
     if (d.model) return page(head("fountain_pen") + d.model.map(m => `<div class="hwrow"><div class="hwm">${esc(m)}</div><div class="hwl"></div><div class="hwl"></div></div>`).join("") + `<div class="obox b-mint-l"><b>Check my handwriting</b>${cr.map(c => `<p class="chk"><i class="cb"></i> ${fr(c)}</p>`).join("")}</div>`);
     return page(head("memo") + `${d.plan ? `<div class="obox b-lav-l"><b>My plan</b>${lines(3)}</div>` : ""}<div class="wlines">${lines(d.lines || 14)}</div><div class="obox b-mint-l"><b>Check my writing</b>${cr.map(c => `<p class="chk"><i class="cb"></i> ${fr(c)}</p>`).join("")}</div>`);
   }
@@ -276,9 +286,9 @@ async function posters() {
   }
   let h = `<section class="page poster" data-foot="Poster">${header({ title: "Choose your challenge", sub: "Every lesson has three levels. You can change level at any time.", pic: LVS.marker === "chillies" ? "hot_pepper" : "bullseye", name: false })}
     ${[0, 1, 2].map(i => [LVS.names[i], i + 1, ["mint", "sky", "indigo"][i], LVS.blurbs[i]]).map(([n, k, c, t]) => `<div class="pfact b-${c}-l"><div class="pfh">${peppers(k)}<b>${n}</b></div><p>${t}</p></div>`).join("")}
-    <div class="pfact b-lav-l"><div class="pfh"><b>Stuck?</b></div><p>Read it again. Draw it. Use materials. Try a smaller number. Ask a partner.</p></div></section>`;
-  h += `<section class="page poster" data-foot="Poster">${header({ title: "Watch out for these", sub: UNIT.title, pic: "warning", name: false })}
-    ${UNIT.misconceptions.map((m, i) => `<div class="pfact b-${["teal", "sky", "mint", "indigo", "lav"][i % 5]}-l"><p class="think">Some people think: ${fr(m.think)}</p><p><b>Remember:</b> ${fr(m.fix)}</p></div>`).join("")}</section>`;
+    <div class="pfact b-lav-l"><div class="pfh"><b>Stuck?</b></div><p>${UNIT.subject === "english" ? "Reread the model. Say your sentence to a partner first. Use the word bank. Write one sentence at a time." : "Read it again. Draw it. Use materials. Try a smaller number. Ask a partner."}</p></div></section>`;
+  if (UNIT.subject !== "english" || UNIT.misconceptions.some(m => m.student)) h += `<section class="page poster" data-foot="Poster">${header({ title: "Watch out for these", sub: UNIT.title, pic: "warning", name: false })}
+    ${UNIT.misconceptions.filter(m => UNIT.subject !== "english" || m.student).map((m, i) => `<div class="pfact b-${["teal", "sky", "mint", "indigo", "lav"][i % 5]}-l">${m.student ? `<p><b>Watch out:</b> ${fr(m.student)}</p>` : `<p class="think">Some people think: ${fr(m.think)}</p><p><b>Remember:</b> ${fr(m.fix)}</p>`}</div>`).join("")}</section>`;
   for (const { ls, disp } of big) {
     if (!disp) continue;
     const rows = disp.type === "definition" ? [{ label: disp.term, text: disp.means }] : disp.type === "anchor" ? disp.points.slice(0, 6).map(p => { const m = p.match(/^([^:]{2,24}):\s*(.+)$/); return m ? { label: m[1], text: m[2] } : { label: "", text: p }; }) : (disp.rows || disp.steps || []).slice(0, 3);
@@ -337,6 +347,7 @@ h2 { font-size: 13pt; color: ${C[UC]}; margin-top: 2mm; }
 .pq { padding-bottom: 1mm; }
 .pa { flex: 1; min-width: 22mm; border-bottom: 1.3px solid #9FB1C5; height: 8mm; position: relative; }
 .ans { font-family: HW, NS; color: #3A6EA5; font-size: 13.5pt; line-height: 1.15; position: absolute; left: 2mm; right: 0; bottom: 0.6mm; }
+.pa .ans, .keynote .ans { position: static; display: block; } .part .pa { min-width: 0; }
 .keynote { position: relative; height: 8mm; }
 .tbl { border-collapse: collapse; width: 100%; font-size: 11pt; }
 .tbl th { background: ${TI[UC]}; padding: 1.8mm; border: 1.2px solid #9FB1C5; }
@@ -356,7 +367,7 @@ h2 { font-size: 13pt; color: ${C[UC]}; margin-top: 2mm; }
 .card { border: 1.4px dashed #9FB1C5; min-height: 30mm; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5mm; padding: 2.5mm; text-align: center; break-inside: avoid; }
 .card.tall { min-height: 50mm; }
 .mk { font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; } .m-adj { color: ${C.sky}; } .m-verb { color: ${C.teal}; } .m-adv { color: ${C.lav}; } .m-noun { color: ${C.indigo}; } .m-conj { color: ${C.mint}; }
-.bw .mk { color: #000; }
+.bw .mk { color: #000; } .poster .mk, .trait .mk, .obox .mk { text-decoration: none; }
 .og2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; } .og2 .wide { grid-column: span 2; }
 .obox { border-left: 2.5mm solid; border-radius: 3.5mm; padding: 3mm 5mm; } .obox b { font-size: 13pt; } .obox .ln { height: 10mm; }
 .oq { color: #${T.muted}; font-size: 10.5pt; } .oq.w { color: #fff; opacity: .9; }
@@ -365,10 +376,10 @@ h2 { font-size: 13pt; color: ${C[UC]}; margin-top: 2mm; }
 .otbl.vocab td { height: 18mm; vertical-align: top; } .otbl.vocab .small { font-size: 9.5pt; color: #${T.muted}; } .otbl.vocab th { width: auto; }
 .ans2 { font-family: HW, NS; color: #3A6EA5; font-size: 13pt; }
 .smap { display: grid; grid-template-columns: 1.4fr 1fr; gap: 4mm; flex: 1; } .smdraw { border: 2px dashed #9FB1C5; border-radius: 4mm; padding: 3mm; min-height: 200mm; } .smev { display: flex; flex-direction: column; gap: 3mm; } .smev .obox .ln { height: 9mm; }
-.arc { position: relative; height: 215mm; color: #9FB1C5; } .arc svg { position: absolute; inset: 0; width: 100%; height: 100%; } .abox { position: absolute; width: 44mm; background: #fff; border-left: 2.5mm solid; border-radius: 3mm; padding: 2mm 3mm; color: #222; box-shadow: 0 1px 4px #0002; } .abox b { font-size: 11pt; } .abox .ln { height: 8mm; }
+.arc { position: relative; height: 215mm; color: #9FB1C5; } .arc svg { position: absolute; inset: 0; width: 100%; height: 100%; } .abox { position: absolute; background: #fff; border-left: 2.5mm solid; border-radius: 3mm; padding: 2mm 3mm; color: #222; box-shadow: 0 1px 4px #0002; overflow: hidden; } .abox b { font-size: 12pt; } .abox .ln { height: 8.5mm; } .arc svg { position: absolute; left: 0; top: 0; }
 .traits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5mm; } .trait { border-left: 2mm solid; border-radius: 2.5mm; padding: 1.8mm 3mm; } .trait b { display: block; font-size: 12pt; } .trait span { font-size: 9.5pt; color: #444; }
 .tagg { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; } .tagc { border: 1.6px dashed #9FB1C5; border-radius: 4mm; padding: 3mm; display: flex; flex-direction: column; gap: 2mm; height: 118mm; justify-content: space-around; } .tagc div { color: #fff; border-radius: 3mm; padding: 3mm; font-size: 12.5pt; } .tagc i { display: block; opacity: .9; }
-.wlines .ln { height: 11mm; } .tg { font-size: 12pt; margin: 2mm 0 1mm; color: #${T.text}; } .pn { font-size: 10.5pt; margin: 0.8mm 0; }
+.wlines .ln { height: 11mm; } .card.head { background: ${C[UC]}; } .card.head .ct { color: #fff; font-weight: 800; } .bw .card.head { background: #333; } .drawbox { border: 2px dashed #9FB1C5; border-radius: 4mm; height: 150mm; padding: 3mm; } .tg { font-size: 12pt; margin: 2mm 0 1mm; color: #${T.text}; } .pn { font-size: 10.5pt; margin: 0.8mm 0; }
 .hwrow { margin-bottom: 3mm; } .hwm { font-family: HW, NS; font-size: 20pt; color: #3A6EA5; border-bottom: 1.2px solid #C9D4E0; padding-bottom: 1mm; } .hwl { height: 13mm; border-bottom: 1.3px solid #9FB1C5; background: linear-gradient(transparent 49%, #E3EAF2 49%, #E3EAF2 51%, transparent 51%); } .chk { font-size: 11.5pt; margin: 1mm 0; }
 .teach.stack { flex-direction: column; align-items: stretch; } .teach.stack .vis { max-width: none; justify-content: center; }
 .slips { gap: 0; padding-top: 8mm; }

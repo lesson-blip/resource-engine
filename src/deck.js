@@ -61,7 +61,7 @@ function rich(str) {
     const m = rest.match(MARK);
     if (!m) { out.push({ text: rest, options: {} }); break; }
     if (m.index) out.push({ text: rest.slice(0, m.index), options: {} });
-    if (m[1]) { USED_TAGS.add(m[1]); out.push({ text: m[2], options: { bold: true, color: COL[TAGC[m[1]][0]], underline: { style: "sng", color: COL[TAGC[m[1]][0]] } } }); }
+    if (m[1]) { USED_TAGS.add(m[1]); out.push({ text: m[2], options: { bold: true, color: COL[TAGC[m[1]][0]] } }); }
     else out.push({ text: m[3], options: { bold: true } });
     rest = rest.slice(m.index + m[0].length);
   }
@@ -598,6 +598,7 @@ R.discuss = async (slide, s, it) => {
   const kv = s.visual || (it && it.ls && keyVisual(it.ls));
   let R0 = RIGHT;
   if (kv) { const nw = 4.3; R0 = RIGHT - nw - 0.35; await placeVisual(slide, { kind: "notebook", inner: kv }, R0 + 0.35, TOP + 0.1, nw, BOTTOM - TOP - 0.1); }
+  else if (Object.keys(UNIT.people || {}).length) R0 = RIGHT - 2.6;   // room for the student cut-out
   const qs = s.questions, aw = R0 - M - 1.0, gap = 0.2;
   let pt = 28, rh, ch;
   while (true) {
@@ -881,6 +882,7 @@ for (const ls of LESSONS) {
   if (ls.reallife) plan.push({ kind: "content", ls, s: Object.assign({ type: "reallife" }, ls.reallife) });
   for (const s of ls.slides) {
     if (s.type === "reveal") { s.steps.forEach((_, k) => plan.push({ kind: "content", ls, s: Object.assign({}, s), step: k })); continue; }
+    if (s.type === "model" && s.parts && s.parts.length > 4) { const h = Math.ceil(s.parts.length / 2); plan.push({ kind: "content", ls, s: Object.assign({}, s, { title: s.title + " (1 of 2)", parts: s.parts.slice(0, h) }), _split: 1 }, { kind: "content", ls, s: Object.assign({}, s, { title: s.title + " (2 of 2)", intro: null, parts: s.parts.slice(h) }), _split: 1 }); continue; }
     plan.push({ kind: "content", ls, s });
     if (s.type === "hinge") plan.push({ kind: "content", ls, s: Object.assign({}, s, { type: "hingeReveal" }) });
     if (s.type === "cfu") plan.push({ kind: "content", ls, s: Object.assign({}, s, { type: "cfuReveal" }) });
@@ -933,7 +935,7 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
         const ps = pics.length === 1 ? 2.0 : 1.7, tot = pics.length * ps + (pics.length - 1) * 0.35, top = TOP + (BOTTOM - TOP - tot) / 2;
         pics.forEach((k, i) => slide.addImage({ path: K.img(k), x: W - M - 2.2 + (2.2 - ps) / 2, y: top + i * (ps + 0.35), w: ps, h: ps }));
       } else await fn(slide, s, item);
-      if (s.type === "discuss" && !keyVisual(item.ls) && !s.visual) { const pf = nextPerson(); if (pf) { const meta = await require("sharp")(pf).metadata(); const ph = 3.4, pw = ph * meta.width / meta.height; slide.addImage({ path: pf, x: W - M - pw, y: BOTTOM - ph, w: pw, h: ph }); } }
+      if (s.type === "discuss" && !keyVisual(item.ls) && !s.visual) { const pf = nextPerson(); if (pf) { const meta = await require("sharp")(pf).metadata(); let ph = 3.4, pw = ph * meta.width / meta.height; if (pw > 2.4) { pw = 2.4; ph = pw * meta.height / meta.width; } slide.addImage({ path: pf, x: W - M - pw, y: BOTTOM - ph, w: pw, h: ph }); } }
       footer(slide, item);
       const notes = [s.notes || DEFAULT_NOTES[s.type], s._notes].filter(Boolean).join("\n\n");
       if (notes) slide.addNotes(K.clean(notes));
