@@ -66,3 +66,12 @@ Plain teacher voice. No em dashes or heavy dashes. No hype words. Short sentence
 - Wide pictures sit full width under the question; square ones sit beside it.
 - Discuss and connect shows the lesson's key picture in a notebook. Activity slides show a picture of the actual Resource page.
 - Area models (shapes, pattern blocks, tangrams) connect to the main model; in a lengths unit they never replace strips and number lines.
+
+## 11. Opening slides and subject-specific lesson menus
+- Slide 1 is a title page: photo, stage and subject tag, title, one-line description, four number cards, one button to the menu. No floating emoji.
+- Slide 2 is the lesson menu, drawn in a style that matches the unit's concept. Every Menu button returns here. Labels are plain text with a clear clickable hotspot over each lesson, so words never split in previews.
+- Styles (unit field `menu`; defaults chosen from the subject and title):
+  - `wall` fraction units: a 1 whole bar, then rows of halves, thirds, quarters; each brick is a lesson.
+  - `mountain` narrative units: a story mountain across the top (`menuStages`, `menuPeak`), with each week's lessons underneath.
+  - `trail` everything else, and Component A decks: a snaking path with numbered stops by week.
+- New subjects get their own style before release (ideas: a number line for whole number, a life cycle for science, a timeline for history, a compass map for geography).

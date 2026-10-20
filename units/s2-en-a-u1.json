@@ -14427,5 +14427,13 @@
         "a week"
       ]
     ]
-  }
+  },
+  "menuStages": [
+    "Orientation",
+    "Complication",
+    "Rising action",
+    "Climax",
+    "Resolution"
+  ],
+  "menuPeak": 4
 }

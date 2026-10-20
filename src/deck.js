@@ -46,9 +46,10 @@ function neededH(text, w, o) {
   const mh = (mt[1] + mt[3]) / 72 + 0.06, mv = (mt[0] + mt[2]) / 72;
   let paras = [];
   if (typeof text === "string") paras = text.split("\n").map(t => ({ t, pt: o.fontSize, b: !!o.bold }));
-  else { let cur = { t: "", pt: 0, b: false }; text.forEach(r => { const ro = r.options || {}; cur.t += r.text; cur.pt = Math.max(cur.pt, ro.fontSize || o.fontSize); cur.b = cur.b || !!(ro.bold || o.bold); if (ro.breakLine) { paras.push(cur); cur = { t: "", pt: 0, b: false }; } }); if (cur.t) paras.push(cur); }
+  else { let cur = { t: "", pt: 0, b: false, wsum: 0 }; text.forEach(r => { const ro = r.options || {}; const rp = ro.fontSize || o.fontSize; cur.t += r.text; cur.wsum += r.text.length * rp; cur.pt = Math.max(cur.pt, rp); cur.b = cur.b || !!(ro.bold || o.bold); if (ro.breakLine) { paras.push(cur); cur = { t: "", pt: 0, b: false, wsum: 0 }; } }); if (cur.t) paras.push(cur); }
   let h = mv;
-  for (const p of paras) h += K.linesFor(p.t || " ", w, p.pt || o.fontSize, p.b, mh) * (p.pt || o.fontSize) * K.LH / 72;
+  // mixed sizes in one paragraph: wrap at the character-weighted size, line height at the largest size
+  for (const p of paras) { const lp = p.wsum && p.t.length ? p.wsum / p.t.length : (p.pt || o.fontSize); h += K.linesFor(p.t || " ", w, lp, p.b, mh) * (p.pt || o.fontSize) * K.LH / 72; }
   return h;
 }
 // colour markup for grammar: [adj:word] [verb:word] [adv:phrase] [noun:word] [conj:word] and **bold**
@@ -248,17 +249,117 @@ async function clearPng() {
   if (!fs.existsSync(out)) await require("sharp")({ create: { width: 4, height: 4, channels: 4, background: { r: 255, g: 255, b: 255, alpha: 0 } } }).png().toFile(out);
   return out;
 }
+// ---------- subject-specific lesson menus ----------
+// UNIT.menu picks the style: "wall" (fraction wall), "mountain" (story mountain), "trail" (snaking path).
+// Default: fractions units get the wall, narrative units the mountain, everything else the trail. Component A decks use the trail.
+function menuStyle() {
+  if (PART === "A") return (UNIT.menuA || "trail");
+  if (UNIT.menu) return UNIT.menu;
+  const t = `${UNIT.title} ${UNIT.subtitle} ${UNIT.concept || ""}`.toLowerCase();
+  if (!ENGLISH && /fraction/.test(t)) return "wall";
+  if (ENGLISH && /narrative/.test(t)) return "mountain";
+  return "trail";
+}
+function hotspot(slide, hot, l, x, y, w, h) {
+  slide.addImage({ path: hot, x, y, w, h, altText: "hotspot", hyperlink: { slide: lessonStart[l.id], tooltip: l.title } });
+}
+// one font size for a set of labels, words never split
+function labelPt(names, w, maxLines, start = 18, min = 11) {
+  const words = names.join(" ").split(/\s+/);
+  let pt = start;
+  while (pt > min && (Math.max(...names.map(t => K.linesFor(t, w - 0.24, pt, true, 0.15))) > maxLines || !words.every(wd => K.textW(wd, pt, true) * 1.02 < w - 0.24))) pt--;
+  return pt;
+}
+
+// Fraction wall: a "1 whole" bar, then rows of halves, thirds, quarters... Each brick is a lesson.
+async function menuWall(slide) {
+  const n = LESSONS.length, rows = [];
+  let d = 2, left = n;
+  while (left > 0) { const k = left - d < d + 1 && left - d !== 0 ? left : Math.min(d, left); rows.push(k); left -= k; d++; }
+  const y0 = 1.45, wallW = W - 2 * M, gap = 0.08;
+  const wholeH = 0.62, rh = Math.min(1.45, (6.95 - y0 - wholeH - gap * rows.length) / rows.length);
+  const cols = ["teal", "sky", "mint", "indigo", "lav"];
+  box(slide, [{ text: "1 whole  ", options: { bold: true, color: "FFFFFF" } }, { text: `${UNIT.title}: ${n} lessons`, options: { color: "FFFFFF" } }],
+    { x: M, y: y0, w: wallW, h: wholeH, fontSize: 18, fillColor: COL.navy, align: "center", margin: 2, rectRadius: 0.08 });
+  const hot = await clearPng();
+  let i = 0, y = y0 + wholeH + gap;
+  const names = LESSONS.map(l => l.menu || l.title);
+  const minW = Math.min(...rows.map(k => (wallW - gap * (k - 1)) / k));
+  const pt = labelPt(names, minW - 0.1, 2, 18, 12);
+  rows.forEach((k, r) => {
+    const bw = (wallW - gap * (k - 1)) / k, c = cols[r % 5];
+    for (let j = 0; j < k; j++, i++) {
+      const l = LESSONS[i], x = M + j * (bw + gap);
+      box(slide, [
+        { text: `1/${k}`, options: { fontSize: 13, bold: true, color: COL[c], breakLine: true } },
+        { text: `${l.n}  `, options: { fontSize: pt + 6, bold: true, color: COL[c] } },
+        { text: l.menu || l.title, options: { fontSize: pt, bold: true, color: COL.navy } }],
+        { x, y, w: bw, h: rh, fontSize: pt, fillColor: TINT[c], line: { color: COL[c], width: 1.5 }, align: "center", valign: "middle", margin: [4, 8, 4, 8], rectRadius: 0.08 });
+      hotspot(slide, hot, l, x, y, bw, rh);
+    }
+    y += rh + gap;
+  });
+  slide.addNotes(`Lesson wall. The unit is built like a fraction wall: one whole, then halves, thirds and quarters. Click any brick to jump to that lesson. Every slide has a Menu button that brings you back here.\n\nAsk the class: which row has the biggest pieces? How many quarters make the whole bar?\n\n${UNIT.fit || ""}`);
+}
+
+// Story mountain: a narrative arc across the top (one marker per week, climbing to the climax and down to the
+// resolution), with that week's lessons in a column under each marker.
+async function menuMountain(slide) {
+  const weeks = [...new Set(LESSONS.map(l => l.week))].sort((a, b) => a - b), G = weeks.length;
+  const colW = (W - 2 * M) / G, cw = colW - 0.22;
+  const peak = UNIT.menuPeak ? weeks.indexOf(UNIT.menuPeak) : Math.floor(G / 2);
+  const hiY = 1.62, loY = 2.85, baseY = 3.2, bh = 0.46;
+  const pts = weeks.map((w, i) => [M + i * colW + colW / 2, hiY + (loY - hiY) * Math.pow(Math.abs(i - peak) / ((i < peak ? peak : G - 1 - peak) || 1), 1.15)]);
+  const S = 120, line = [[M - 0.2, baseY + 0.1], ...pts, [W - M + 0.2, baseY + 0.1]];
+  let d = `M ${line[0][0] * S} ${line[0][1] * S}`;
+  for (let i = 1; i < line.length; i++) { const [px, py] = line[i - 1], [x, y] = line[i], mx = (px + x) / 2; d += ` C ${mx * S} ${py * S} ${mx * S} ${y * S} ${x * S} ${y * S}`; }
+  const fill = d + ` L ${(W - M + 0.2) * S} ${(baseY + 0.1) * S} Z`;
+  const col = COL[UC];
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${Math.round(W * S)}" height="${7.5 * S}">
+   <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#${col}" stop-opacity="0.26"/><stop offset="1" stop-color="#${col}" stop-opacity="0.04"/></linearGradient></defs>
+   <path d="${fill}" fill="url(#g)"/>
+   <path d="${d}" fill="none" stroke="#${col}" stroke-opacity="0.55" stroke-width="${0.07 * S}" stroke-linecap="round"/>
+   ${pts.map(([x, y]) => `<line x1="${x * S}" y1="${(y + bh / 2) * S}" x2="${x * S}" y2="${(baseY + 0.32) * S}" stroke="#${col}" stroke-opacity="0.45" stroke-width="${0.03 * S}" stroke-dasharray="${0.08 * S} ${0.07 * S}"/>`).join("")}
+  </svg>`;
+  const out = path.join(__dirname, "..", ".cache", `mountain_${THEME_KEY}_${G}_${peak}.png`);
+  await require("sharp")(Buffer.from(svg)).png().toFile(out);
+  slide.addImage({ path: out, x: 0, y: 0, w: W, h: 7.5, altText: "underlay" });
+  const hot = await clearPng(), cols = ["teal", "sky", "mint", "indigo", "lav"];
+  const stages = UNIT.menuStages || [];
+  const labels = weeks.map((w, i) => stages[i] ? `Week ${w} · ${stages[i]}` : `Week ${w}`);
+  const bpt = labelPt(labels, cw, 1, 15, 10);
+  const per = Math.max(...weeks.map(w => LESSONS.filter(l => l.week === w).length));
+  const top = baseY + 0.4, cg = 0.1, ch = Math.min(0.85, (6.95 - top - cg * (per - 1)) / per);
+  const names = LESSONS.map(l => l.menu || l.title);
+  const pt = labelPt(names.map((t, i) => `${LESSONS[i].n}  ${t}`), cw, ch > 0.75 ? 2 : 1, 17, 11);
+  weeks.forEach((w, i) => {
+    const x = M + i * colW + 0.11, c = cols[i % 5], [px, py] = pts[i];
+    box(slide, labels[i], { x, y: py - bh / 2, w: cw, h: bh, fontSize: bpt, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center", margin: 1 });
+    let y = top;
+    LESSONS.filter(l => l.week === w).forEach(l => {
+      box(slide, [{ text: `${l.n}  `, options: { bold: true, color: COL[c], fontSize: pt + 1 } }, { text: l.menu || l.title, options: { bold: true, color: COL.navy, fontSize: pt } }],
+        { x, y, w: cw, h: ch, fontSize: pt - 1, fillColor: "FFFFFF", sh: true, margin: [2, 10, 2, 10] });
+      hotspot(slide, hot, l, x, y, cw, ch);
+      y += ch + cg;
+    });
+  });
+  slide.addNotes(`Lesson map, drawn as a story mountain. The unit builds like a narrative: it starts with the orientation, climbs through the complication to the climax and comes down to the resolution, the same shape students study and write. Click any lesson to jump to it. Every slide has a Menu button that brings you back here.\n\n${UNIT.fit || ""}`);
+}
+
 R.cover = async (slide) => {
+  const style = menuStyle();
   // header: unit name, then quick links
   const btns = [["At a glance", "glance", "teal"], ["How it works", "howto", "sky"], ["Word wall", "wordwall", "mint"], ["Toolkit", "toolkit", "lav"], ["Title page", "hero", "indigo"]].filter(b => b[1] === "hero" || anchor[b[1]]);
   const bw = 1.42, bg = 0.1, bx0 = W - M - btns.length * bw - (btns.length - 1) * bg;
   btns.forEach(([t, k, c], i) => box(slide, [{ text: t, options: { hyperlink: { slide: k === "hero" ? 1 : anchor[k], tooltip: t }, color: COL.navy, bold: true } }],
     { x: bx0 + i * (bw + bg), y: 0.5, w: bw, h: 0.6, fontSize: 13, fillColor: TINT[c], align: "center", margin: 2 }));
   const hw = bx0 - 0.25 - M;
-  const head = `${PART === "A" ? "Skills" : "Lesson"} map`;
+  const head = style === "wall" ? "Lesson wall" : `${PART === "A" ? "Skills" : "Lesson"} map`;
   const showT = K.textW(head + "   ", 26, true) + K.textW(UNIT.title, 16, false) + 0.7 < hw;
   box(slide, [{ text: head + "   ", options: { fontSize: 26, bold: true } }, { text: showT ? UNIT.title : "", options: { fontSize: 16, color: COL.muted } }],
     { x: M, y: 0.4, w: hw, h: 0.8, sh: true, margin: [4, 18, 4, 18] });
+  if (style === "wall") return menuWall(slide);
+  if (style === "mountain" && LESSONS.every(l => l.week)) return menuMountain(slide);
   // groups: weeks, or even chunks of up to 4
   let groups;
   if (LESSONS.every(l => l.week)) groups = [...new Set(LESSONS.map(l => l.week))].sort((a, b) => a - b).map(w => ({ label: `Week ${w}`, ls: LESSONS.filter(l => l.week === w) }));
