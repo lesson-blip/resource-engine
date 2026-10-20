@@ -91,35 +91,35 @@
   "outcomes": [
     {
       "code": "EN2-OLC-01",
-      "text": "Communicates with familiar audiences by interacting, listening and presenting, following agreed protocols"
+      "text": "communicates with familiar audiences for social and learning purposes, by interacting, understanding and presenting"
     },
     {
       "code": "EN2-VOCAB-01",
-      "text": "Builds and uses new vocabulary through talk, reading and writing, and by defining and analysing words"
+      "text": "builds knowledge and use of Tier 1, Tier 2 and Tier 3 vocabulary through interacting, wide reading and writing, and by defining and analysing words"
     },
     {
       "code": "EN2-REFLU-01",
-      "text": "Reads with accuracy, automaticity, rate and prosody that suit the purpose and meaning"
+      "text": "sustains independent reading with accuracy, automaticity, rate and prosody suited to purpose, audience and meaning"
     },
     {
       "code": "EN2-RECOM-01",
-      "text": "Understands texts using knowledge of structure and language, and monitors understanding"
+      "text": "reads and comprehends texts for wide purposes using knowledge of text structures and language, and by monitoring comprehension"
     },
     {
       "code": "EN2-SPELL-01",
-      "text": "Uses sound, letter pattern and word part knowledge to spell, and explains the strategies used"
+      "text": "selects, applies and describes appropriate phonological, orthographic and morphological generalisations and strategies when spelling in a range of contexts"
     },
     {
       "code": "EN2-HANDW-01",
-      "text": "Forms legible letters with consistent size, slope and spacing to build handwriting fluency"
+      "text": "forms legible joined letters to develop handwriting fluency"
     },
     {
       "code": "EN2-CWT-01",
-      "text": "Plans, creates and revises imaginative texts using text features, grammar, punctuation and word choice"
+      "text": "plans, creates and revises written texts for imaginative purposes, using text features, sentence-level grammar, punctuation and word-level language for a target audience"
     },
     {
       "code": "EN2-UARL-01",
-      "text": "Describes how ideas are represented in literature and uses similar representations in own texts"
+      "text": "identifies and describes how ideas are represented in literature and strategically uses similar representations when creating texts"
     }
   ],
   "content": [
@@ -871,9 +871,9 @@
             "locator": "Chapter 1, pp 1 to 5: from 'Down in the valley' to the end of the chapter (about 245 words)",
             "prompts": {
               "synopsis": [
-                "The opening chapter.",
-                "It sets up the valley and its three farms and introduces Boggis, Bunce and Bean.",
-                "It is part of the orientation, and it makes us dislike the farmers straight away."
+                "Chapter 1 builds the world of the story: one valley, three farms, three unpleasant owners.",
+                "Each farmer gets a short portrait in the same pattern.",
+                "By the end, readers are firmly on the fox's side before he has even appeared."
               ],
               "structure": [
                 "Setting: the valley and its farms",
@@ -1195,11 +1195,11 @@
                   "parts": [
                     {
                       "q": "a ___ pumpkin",
-                      "answer": "Answers will vary: look for a describing adjective such as huge or orange"
+                      "answer": "e.g. huge, orange"
                     },
                     {
                       "q": "a ___ fox",
-                      "answer": "Answers will vary: look for an adjective such as sly or hungry"
+                      "answer": "e.g. sly, hungry"
                     }
                   ]
                 },
@@ -1451,7 +1451,7 @@
         "Character trait bank (one per pair, plus one enlarged)",
         "group copies of Chapters 2 and 3",
         "sticky notes",
-        "a large drawing of a fox for the board",
+        "the Mr Fox trait wall slide (fox photo) on the board",
         "Traits and evidence worksheet"
       ],
       "slides": [
@@ -1509,7 +1509,7 @@
         {
           "type": "mentor",
           "title": "Mr Fox at the start of Chapter 3",
-          "locator": "Chapter 3, pp 10 to 12: from 'Mr Fox crept up' to the gunshots",
+          "locator": "Chapter 3, pp 10 to 12: from the start of the chapter to the gunshots",
           "task": "Compare Mr Fox here with Mr Fox in Chapter 2.",
           "questions": [
             "What stays the same about Mr Fox?",
@@ -1639,7 +1639,7 @@
             "In your group, choose 3 traits from the trait bank.",
             "Find evidence for each one in Chapter 2 or 3.",
             "Write each trait and its evidence on a sticky note.",
-            "Stick your notes around our big Mr Fox."
+            "Stick your notes around the fox on our trait wall slide."
           ],
           "resource": "Character trait bank",
           "time": "15 min",
@@ -2069,7 +2069,7 @@
           ]
         }
       ],
-      "teacherNotes": "Assessment task 2: observe the trait detective groups and collect the mini reviews (EN2-UARL-01: characters identified through familiar, individual or group characteristics). Mrs Fox's warnings to her husband are good evidence that he can be overconfident. Students may quote short phrases from the text as evidence in their own writing, which is fine for classroom use. Keep the sticky notes around the big fox on display for Lesson 10.",
+      "teacherNotes": "Assessment task 2: observe the trait detective groups and collect the mini reviews (EN2-UARL-01: characters identified through familiar, individual or group characteristics). Mrs Fox's warnings to her husband are good evidence that he can be overconfident. Students may quote short phrases from the text as evidence in their own writing, which is fine for classroom use. Go back to the trait wall slide for the activity. At the end, move the sticky notes onto chart paper and keep them on display for Lesson 10.",
       "exitTicket": [
         {
           "q": "Name one trait of Mr Fox and give evidence.",
@@ -2082,7 +2082,17 @@
           "visual": null
         }
       ],
-      "photo": "fox"
+      "photo": "fox",
+      "reallife": {
+        "title": "Our Mr Fox trait wall",
+        "items": [
+          {
+            "photo": "fox",
+            "caption": "Keep this slide on the board. Stick your trait notes around the fox, each with evidence from the book."
+          }
+        ],
+        "question": "What is Mr Fox like on the inside? How do you know?"
+      }
     },
     {
       "id": "l5",
@@ -2518,8 +2528,8 @@
           "questions": [
             "The fox waited behind the shed.",
             "The fox waited until dark.",
-            "The fox waited very patiently.",
-            "The fox waited for his chance."
+            "The fox waited with great patience.",
+            "The fox waited to grab a hen."
           ],
           "answers": [
             "Where",
@@ -3023,7 +3033,7 @@
             },
             {
               "label": "Step 3",
-              "text": "She [verb:stretched] the string [adv:across the doorway] and tied it tight [adv:to a rusty nail]."
+              "text": "She [verb:stretched] the string [adv:across the doorway] and tied it tight [adv:to a bent nail]."
             },
             {
               "label": "Step 4",
@@ -3031,7 +3041,7 @@
             },
             {
               "label": "Step 5",
-              "text": "[adv:With a sly grin], Pip [verb:crouched] behind the hay bales with Biscuit, and they [verb:waited] for the thief."
+              "text": "Then Pip [verb:blew out] her lantern, [verb:crouched] [adv:behind the hay bales] with Biscuit, and [verb:waited]."
             }
           ],
           "mode": "I do",
@@ -3045,14 +3055,14 @@
           "options": [
             "Pip set a trap.",
             "Pip put cans on a string.",
-            "Slowly, Pip stretched the string",
+            "Slowly, Pip tied the string.",
             "Pip was a farmer with a dog."
           ],
           "answer": 2,
           "why": [
             "This tells us, but gives no small steps or detail.",
-            "Better, but there is no adverbial phrase to slow it down.",
-            "Right. A slow how word and a strong verb make us picture it.",
+            "Better, but put is a weak verb and nothing slows the moment down.",
+            "Right. A slow how word and a precise verb help us picture each step.",
             "This is a character fact, not part of the event."
           ],
           "mode": "You do"
@@ -3214,7 +3224,7 @@
             },
             {
               "label": "5",
-              "text": "He [verb:spotted] something thin and shiny [adv:near the ground]."
+              "text": "He [verb:spotted] a thin line of string [adv:near the ground]."
             }
           ],
           "mode": "I do",
@@ -3243,7 +3253,7 @@
             },
             {
               "label": "Danger",
-              "text": "Something thin and shiny [verb:glinted] [adv:in the moonlight], just above the ground."
+              "text": "A thin line of string [verb:glinted] [adv:in the moonlight], just above the ground."
             }
           ],
           "mode": "I do",
@@ -3471,7 +3481,7 @@
       ],
       "materials": [
         "Fantastic Mr Fox",
-        "A3 Story map page (one per group)",
+        "Story map page, printed at A3 (one per group)",
         "Setting cards (for Get started groups)",
         "coloured pencils",
         "class Somebody, Wanted, But, So, Then chart"
@@ -3590,7 +3600,7 @@
             },
             {
               "visual": null,
-              "label": "Badger has doubts"
+              "label": "Mrs Fox is worried"
             }
           ],
           "mode": "We do",
@@ -3883,17 +3893,17 @@
           "rows": [
             {
               "label": "Too little",
-              "text": "This is Pip's shed. She keeps stuff in it.",
+              "text": "Pip's shed had food.",
               "color": "sky"
             },
             {
               "label": "Too much",
-              "text": "This is Pip's magnificent, marvellous, gigantic, wonderful shed of lovely, tasty, yummy food.",
+              "text": "Pip's huge, giant, enormous, massive shed was full of yummy, tasty, delicious, lovely food.",
               "color": "mint"
             },
             {
               "label": "Just right",
-              "text": "This is Pip's [adj:enormous] Pumpkin Shed, piled [adv:to the rafters] with [adj:ripe], [adj:orange] pumpkins.",
+              "text": "Pip's [adj:enormous] Pumpkin Shed was piled [adv:to the rafters] with [adj:ripe], [adj:orange] pumpkins.",
               "color": "lav"
             }
           ],
@@ -3907,14 +3917,14 @@
           "visual": null,
           "options": [
             "The shed had food.",
-            "The huge, giant, massive shed",
+            "The huge, giant, big shed.",
             "The draughty shed held pears.",
             "Shed. Pears. Food."
           ],
           "answer": 2,
           "why": [
             "Too little: we cannot picture anything.",
-            "Too much: three words that mean the same thing.",
+            "Too much: three words that mean the same thing, and it is not a full sentence.",
             "Right. One precise adjective and a clear picture.",
             "Not a sentence, and no description."
           ],
@@ -4076,7 +4086,7 @@
             "Badger and his family",
             "Bunce's",
             "Mr Fox",
-            "Answers will vary: e.g. loyal, hungry, careful, honest"
+            "Answers will vary: e.g. loyal, careful, honest, worried"
           ],
           "mode": "You do"
         },
@@ -4186,7 +4196,7 @@
             "I think ___ because ___",
             "I agree with ___ and I want to add ___",
             "I see your point, but ___",
-            "Think of your family, Badger. ___"
+            "Badger, your cubs need ___"
           ],
           "blank": 0,
           "mode": "We do",
@@ -4635,15 +4645,15 @@
                   "parts": [
                     {
                       "q": "see",
-                      "answer": "Answers will vary: look for a sight, e.g. rows of shiny jars"
+                      "answer": "e.g. shiny jars"
                     },
                     {
                       "q": "hear",
-                      "answer": "Answers will vary: look for a sound, e.g. a creaking floorboard"
+                      "answer": "e.g. a creaking floorboard"
                     },
                     {
                       "q": "smell",
-                      "answer": "Answers will vary: look for a smell, e.g. smoky ham"
+                      "answer": "e.g. smoky ham"
                     }
                   ]
                 },
@@ -4809,7 +4819,7 @@
         {
           "type": "warmup",
           "title": "Warm-up: Sentence types",
-          "prompt": "Write declarative, exclamatory or compound.",
+          "prompt": "Write: simple statement, exclamation or compound sentence.",
           "items": [
             "The cellar was cold.",
             "What a lot of jars!",
@@ -4817,10 +4827,10 @@
             "How dark it is!"
           ],
           "answers": [
-            "declarative",
-            "exclamatory",
-            "compound",
-            "exclamatory"
+            "simple statement",
+            "exclamation",
+            "compound sentence (also accept declarative)",
+            "exclamation"
           ],
           "mode": "You do"
         },
@@ -4835,7 +4845,7 @@
         },
         {
           "type": "anchor",
-          "title": "Anchor chart: the narrative arc",
+          "title": "Narrative arc (Freytag's pyramid)",
           "points": [
             "Orientation: meet the characters and setting",
             "Rising action: problems and tries build up",
@@ -4851,7 +4861,7 @@
           "type": "definition",
           "term": "climax",
           "means": "The most exciting or tense point of a story, just before things start to settle.",
-          "example": "Pip's lantern swings towards the crates where the foxes are hiding.",
+          "example": "Biscuit pads straight towards the crate where the foxes are hiding.",
           "mode": "I do",
           "notes": "Tension at the climax makes the reader wonder: what will happen next?"
         },
@@ -4904,7 +4914,7 @@
           "yes": [
             {
               "visual": null,
-              "label": "The footsteps came closer."
+              "label": "The latch rattled again."
             },
             {
               "visual": null,
@@ -4952,27 +4962,27 @@
           "parts": [
             {
               "label": "Warning",
-              "text": "[adv:Suddenly], the shed door [verb:creaked]. Nobody moved."
+              "text": "[adv:Suddenly], the latch rattled! Badger froze with a pear in his paw."
             },
             {
               "label": "Closer",
-              "text": "A yellow glow of lantern light [verb:crept] [adv:across the floor]. Heavy boots [verb:thudded] [adv:closer and closer]."
+              "text": "A yellow circle of lantern light [verb:swept] [adv:across the shelves]. Someone was humming."
             },
             {
               "label": "Hide",
-              "text": "Mr Fox pointed at a tall stack of crates. 'Hide!' he hissed. They [verb:squeezed] [adv:behind the crates] and held their breath."
+              "text": "Mr Fox and the Small Foxes [verb:dived] [adv:into an empty pumpkin crate]. Badger squashed himself [adv:under the bench]."
             },
             {
               "label": "Who is it?",
-              "text": "[adv:Through a crack], they saw Farmer Pip in the doorway, and Biscuit was sniffing [adv:at her heels]."
+              "text": "It was Farmer Pip in her dressing gown, and Biscuit was trotting [adv:beside her]."
             },
             {
               "label": "Closer still",
-              "text": "Pip [verb:lifted] the lantern high. She took three slow steps [adv:towards the crates]."
+              "text": "Biscuit's nose [verb:twitched]. She padded [adv:straight towards the crate]."
             }
           ],
           "mode": "I do",
-          "notes": "Point out each small step and the one compound sentence. Stop at the most tense moment: the ending comes next lesson."
+          "notes": "Point out each small step, the exclamation in the first part and the compound sentence in the Who is it? part. Stop at the most tense moment: the ending comes next lesson."
         },
         {
           "type": "hinge",
@@ -4982,14 +4992,14 @@
           "options": [
             "Pip came in.",
             "Pip came in and it was night.",
-            "Heavy boots thudded closer.",
+            "Paws padded closer and closer.",
             "Pip is a farmer."
           ],
           "answer": 2,
           "why": [
             "One quick action, no detail to slow it down.",
             "Extra detail, but nothing gets closer or more dangerous.",
-            "Right. A strong verb and danger getting closer.",
+            "Right. A precise verb, and the danger keeps getting closer.",
             "A character fact, not part of the action."
           ],
           "mode": "You do"
@@ -5266,7 +5276,7 @@
           }
         }
       ],
-      "teacherNotes": "Copy extracts from your own copy of the book under your school's statutory licence and include the required notice on each copy. The Narrative arc poster is our version of a Freytag's pyramid display. The new character in the model is Farmer Pip herself, with her dog Biscuit, walking into the Pumpkin Shed. Students choose any character who could walk into their own storehouse. Keep this writing for Lesson 14.",
+      "teacherNotes": "Copy extracts from your own copy of the book under your school's statutory licence and include the required notice on each copy. The Narrative arc poster is our version of a Freytag's pyramid display. The new character in the model is Farmer Pip herself, in her dressing gown with her dog Biscuit, walking into the Pumpkin Shed while the animals are still inside. Students choose any character who could walk into their own storehouse. Keep this writing for Lesson 14.",
       "exitTicket": [
         {
           "q": "Write a very short sentence that builds tension.",
@@ -5345,7 +5355,7 @@
             "Why is the last sentence so short?",
             "How do you feel when you read it?"
           ],
-          "example": "The door [verb:banged]. The footsteps [verb:faded].",
+          "example": "The barking grew [adv:fainter and fainter]. Then there was only rain.",
           "mode": "We do",
           "notes": "The author shows the danger leaving through sounds and movement rather than telling us."
         },
@@ -5355,7 +5365,7 @@
           "yes": [
             {
               "visual": null,
-              "label": "The footsteps faded away."
+              "label": "The barking grew fainter."
             },
             {
               "visual": null,
@@ -5377,7 +5387,7 @@
             },
             {
               "visual": null,
-              "label": "Pip reached for the shelf."
+              "label": "Pip tapped the lid."
             }
           ],
           "mode": "We do",
@@ -5404,27 +5414,27 @@
           "parts": [
             {
               "label": "Danger closer",
-              "text": "Biscuit's nose [verb:twitched]. She growled softly [adv:at the crates]."
+              "text": "Biscuit sniffed the crate [adv:from end to end]. A low growl rumbled [adv:in her throat]."
             },
             {
               "label": "Animals react",
-              "text": "Badger trembled [adv:beside Mr Fox]. Nobody breathed."
+              "text": "[adv:Inside the crate], the Smallest Fox squeezed his eyes shut. Nobody moved a whisker."
             },
             {
               "label": "Dialogue",
-              "text": "'What is it, girl?' muttered Pip. She reached for the crate [adv:right above their heads]."
+              "text": "'Probably just a possum,' yawned Pip. She tapped the lid [adv:with the lantern]."
             },
             {
               "label": "Near miss",
-              "text": "She grabbed two pears and dropped them [adv:into her apron]."
+              "text": "The lid wobbled. A pumpkin rolled off the top and thumped [adv:onto the floor]!"
             },
             {
               "label": "Distraction",
-              "text": "[adv:All of a sudden], a mouse darted [adv:across the floor], and Biscuit raced after it. 'Biscuit! Come back!' Pip stomped out [adv:after her dog]."
+              "text": "[adv:Just then], the wind banged the shed door, and Biscuit raced outside, barking. 'Biscuit! Come back here!' Pip hurried [adv:after her dog]."
             },
             {
               "label": "Safe",
-              "text": "The door banged. The footsteps faded. 'Now!' whispered Mr Fox. 'Grab your pears and run!'"
+              "text": "The barking grew fainter and fainter. Soon there was only the sound of rain. 'That was close,' breathed Mr Fox."
             }
           ],
           "mode": "I do",
@@ -5436,16 +5446,16 @@
           "question": "Which sentence shows the danger has gone?",
           "visual": null,
           "options": [
-            "Pip lifted the lantern.",
+            "Pip tapped the lid.",
             "Biscuit growled.",
-            "The footsteps faded.",
-            "Badger trembled."
+            "The barking grew fainter.",
+            "Nobody moved a whisker."
           ],
           "answer": 2,
           "why": [
             "Pip is still in the shed, so the danger is close.",
             "This raises the tension.",
-            "Right. Fading footsteps tell us she is walking away.",
+            "Right. Fainter barking tells us Biscuit and Pip are moving away.",
             "This shows fear. The danger is still there."
           ],
           "mode": "You do"
@@ -5499,7 +5509,7 @@
             "The door slammed shut behind her.",
             "The light swung towards them.",
             "At last, all was quiet.",
-            "Heavy breathing came closer."
+            "Biscuit sniffed the crate."
           ],
           "answers": [
             "release",
@@ -5539,11 +5549,11 @@
           }
         }
       ],
-      "teacherNotes": "Assessment task 5: collect the completed three-part scenes from Lessons 12 to 14 (EN2-CWT-01: exclamatory sentences, adverbial phrases and compound sentences). Copy extracts from your own copy of the book under your school's statutory licence and include the required notice on each copy. In the model, Pip is distracted when Biscuit chases a mouse, so she leaves without finding the animals. Students can use any reason for the danger to leave.",
+      "teacherNotes": "Assessment task 5: collect the completed three-part scenes from Lessons 12 to 14 (EN2-CWT-01: exclamatory sentences, adverbial phrases and compound sentences). Copy extracts from your own copy of the book under your school's statutory licence and include the required notice on each copy. In the model, the wind bangs the door and Biscuit runs off barking, so Pip leaves without finding the animals. Students can use any reason for the danger to leave.",
       "exitTicket": [
         {
           "q": "Write a short sentence that shows danger has left.",
-          "answer": "Answers will vary: e.g. The door slammed shut. / The footsteps faded.",
+          "answer": "Answers will vary: e.g. The shed door banged shut. / The barking grew fainter.",
           "visual": null
         },
         {
@@ -5597,7 +5607,7 @@
           "type": "definition",
           "term": "resolution",
           "means": "The end of a narrative, where the problem is solved or the story is wrapped up.",
-          "example": "The foxes are safe, and Pip never finds out where her pears went.",
+          "example": "The foxes are safe, and Pip never catches the pear thief.",
           "mode": "I do"
         },
         {
@@ -5849,7 +5859,7 @@
       ],
       "materials": [
         "Fantastic Mr Fox",
-        "Narrative arc planner (one each, plus one enlarged)",
+        "Narrative arc planner (Freytag's pyramid), one each, plus one enlarged",
         "Resolution types poster",
         "mini whiteboards"
       ],
@@ -5967,7 +5977,7 @@
             },
             {
               "label": "Climax",
-              "text": "They dig uphill to Farmer Pip's Pumpkin Shed, and Biscuit wakes up!"
+              "text": "They dig uphill to Farmer Pip's Pumpkin Shed again, but now Biscuit sleeps inside it!"
             },
             {
               "label": "Resolution",
@@ -6013,7 +6023,7 @@
             "Pick your type of resolution.",
             "Tell your plan to a partner."
           ],
-          "resource": "Narrative arc planner",
+          "resource": "Narrative arc planner (Freytag's pyramid)",
           "time": "25 min",
           "mode": "You do",
           "notes": "Students may plan and write in pairs or alone."
@@ -6048,7 +6058,7 @@
           "id": "l16-arc",
           "kind": "organiser",
           "template": "arc",
-          "title": "Narrative arc planner",
+          "title": "Narrative arc planner (Freytag's pyramid)",
           "data": {
             "stages": [
               "Orientation",
@@ -6061,7 +6071,7 @@
           }
         }
       ],
-      "teacherNotes": "Assessment task 6: collect the arc planners and observe the partner talk (EN2-CWT-01: orientation, complication, resolution structure; EN2-UARL-01: how narratives set up expectations with familiar characters and situations). The model sequel is ours: rain floods the tunnels, and the animals dig uphill to Farmer Pip's Pumpkin Shed, where her kelpie Biscuit nearly gives them away. Keep the enlarged plan for Lessons 17 to 19.",
+      "teacherNotes": "Assessment task 6: collect the arc planners and observe the partner talk (EN2-CWT-01: orientation, complication, resolution structure; EN2-UARL-01: how narratives set up expectations with familiar characters and situations). The model sequel is ours: rain floods the tunnels, and the animals dig uphill to Farmer Pip's Pumpkin Shed, where Pip has left her kelpie Biscuit on guard since their last visit, and Biscuit nearly gives them away. Keep the enlarged plan for Lessons 17 to 19.",
       "exitTicket": [
         {
           "q": "What problem starts your sequel?",
@@ -6197,7 +6207,7 @@
             },
             {
               "label": "More setting",
-              "text": "The tunnels to the three farms were [adj:wide] and [adj:dry]. Up above, the farmers still sat by the hole, [adj:wet] and [adj:grumpy]."
+              "text": "The tunnels to the three farms were [adj:wide] and [adj:dry]. Up above, the farmers still sat by the hole, [adj:cold] and [adj:grumpy]."
             },
             {
               "label": "New character",
@@ -6349,7 +6359,7 @@
           }
         }
       ],
-      "teacherNotes": "Students use their arc planners from Lesson 16. Our model orientation sets up the flood that drives the complication tomorrow and introduces Farmer Pip as a neighbouring farmer. Work with a targeted small group to co-write orientations from their plans if needed. Keep the model on display all week.",
+      "teacherNotes": "Students use their arc planners from Lesson 16. Our model orientation sets up the flood that drives the complication tomorrow and brings back Farmer Pip from Lessons 12 to 14. Work with a targeted small group to co-write orientations from their plans if needed. Keep the model on display all week.",
       "exitTicket": [
         {
           "q": "Write the time phrase from your orientation.",
@@ -6445,7 +6455,7 @@
               "text": "Muddy water was gushing [adv:into every passage], and the way to the farms was gone."
             }
           ],
-          "mode": "I do",
+          "mode": "We do",
           "notes": "Write this as an interactive session: students suggest verbs and adverbial phrases."
         },
         {
@@ -6470,7 +6480,7 @@
               "text": "[adv:By the third day], the storerooms were empty. Everyone was hungry again."
             }
           ],
-          "mode": "I do",
+          "mode": "We do",
           "notes": "Point out the compound sentences with but: each one is a So and a But."
         },
         {
@@ -6480,11 +6490,11 @@
           "parts": [
             {
               "label": "An idea",
-              "text": "Then Mr Fox remembered something. Over the hill stood Farmer Pip's Pumpkin Shed, high and dry."
+              "text": "Then Mr Fox remembered the Pumpkin Shed over the hill, high and dry. But since their last visit, Pip had left Biscuit on guard inside."
             },
             {
               "label": "Action",
-              "text": "'Grab your shovels!' he shouted. They dug uphill [adv:all night]."
+              "text": "'Get your shovels!' he shouted. They dug uphill [adv:all night]."
             },
             {
               "label": "Slow steps",
@@ -6495,7 +6505,7 @@
               "text": "Her ear [verb:twitched]. Her eyes [verb:opened]."
             }
           ],
-          "mode": "I do",
+          "mode": "We do",
           "notes": "Stop at the climax. The resolution comes tomorrow."
         },
         {
@@ -6718,7 +6728,7 @@
               "text": "And every night, Farmer Pip counted her pumpkins and scratched her head, because a few were always missing."
             }
           ],
-          "mode": "I do",
+          "mode": "We do",
           "notes": "Write as an interactive session. Check it against the success criteria together. Point out the variety of sentences and the capital letters for names."
         },
         {
@@ -7157,7 +7167,7 @@
         {
           "type": "definition",
           "term": "long vowel /ee/",
-          "means": "A long vowel sound, like the sound in me and tree. The letter says its name.",
+          "means": "A long vowel sound, like the sound in me and tree.",
           "example": "tree, beast, theme, valley, me, happy",
           "mode": "I do",
           "notes": "Say each example and stretch the /ee/. Students put a hand up when they hear it."
@@ -7201,7 +7211,7 @@
             },
             {
               "label": "y",
-              "text": "happy, cherry, berry, baby, candy, sunny, puppy, lady, story, muddy. y says /ee/ at the end of a longer word.",
+              "text": "happy, cherry, berry, baby, lolly, sunny, puppy, lady, story, muddy. y says /ee/ at the end of a longer word.",
               "color": "lav"
             }
           ],
@@ -7435,7 +7445,7 @@
             },
             {
               "label": "Consonant + y: y to i, add es",
-              "text": "berry, berries; baby, babies; cherry, cherries; candy, candies; pony, ponies",
+              "text": "berry, berries; baby, babies; cherry, cherries; lolly, lollies; pony, ponies",
               "color": "mint"
             },
             {
@@ -7470,13 +7480,13 @@
           "prompt": "Write the plural.",
           "questions": [
             "jockey",
-            "candy",
+            "lolly",
             "inquiry",
             "refugee"
           ],
           "answers": [
             "jockeys",
-            "candies",
+            "lollies",
             "inquiries",
             "refugees"
           ],
@@ -7544,7 +7554,7 @@
               "visual": null
             },
             {
-              "text": "candy",
+              "text": "lolly",
               "visual": null
             },
             {
@@ -7566,7 +7576,7 @@
           ]
         }
       ],
-      "teacherNotes": "An inflected suffix is a bound morpheme added to the end of a base word, for example to show more than one. The y rule depends on the letter before the y. Sample words: baby, babies; candy, candies; cherry, cherries; berry, berries; inquiry, inquiries; jockey, jockeys; monkey, monkeys."
+      "teacherNotes": "An inflected suffix is a bound morpheme added to the end of a base word, for example to show more than one. The y rule depends on the letter before the y. Sample words: baby, babies; lolly, lollies; cherry, cherries; berry, berries; inquiry, inquiries; jockey, jockeys; monkey, monkeys."
     },
     {
       "id": "a3",
@@ -7768,17 +7778,17 @@
                 "means": "covered thickly"
               },
               {
-                "word": "valleys",
-                "locator": "Ch 1, p 1",
-                "base": "valley",
+                "word": "turkeys",
+                "locator": "Ch 1, p 4",
+                "base": "turkey",
                 "suffix": "-s",
-                "means": "low land between hills"
+                "means": "more than one turkey"
               }
             ]
           }
         }
       ],
-      "teacherNotes": "This uses the Chapter 1 fluency passage (pp 1 to 5). The vocabulary table answer key shows base words and suffixes. Note that beastly means nasty or unpleasant, not strong. -y can join nouns and verbs to make adjectives; -est usually joins one syllable adjectives to mean the most."
+      "teacherNotes": "This uses the Chapter 1 fluency passage (pp 1 to 5). The vocabulary table answer key shows base words and suffixes. Note that beastly means nasty or unpleasant, not strong. -y can join nouns and verbs to make adjectives; -est usually joins one syllable adjectives to mean the most. Cleverest is an exception: clever has two syllables but still takes -est."
     },
     {
       "id": "a4",
@@ -8053,7 +8063,7 @@
           "rows": [
             {
               "label": "ee",
-              "text": "tree, sleep, speed, evening, teeth, sleeping, sweetheart, street",
+              "text": "tree, sleep, speed, sheep, teeth, sleeping, sweetheart, street",
               "color": "sky"
             },
             {
@@ -8125,7 +8135,7 @@
               "visual": null
             },
             {
-              "text": "speedy",
+              "text": "freezing",
               "visual": null
             },
             {
@@ -8465,7 +8475,7 @@
             {
               "level": "Extend",
               "teach": {
-                "text": "Some plurals break the rules: one sheep, two sheep; one mouse, two mice.",
+                "text": "Some plurals break the rules: one child, two children; one tooth, two teeth.",
                 "visual": null
               },
               "items": [
@@ -8882,7 +8892,7 @@
               "r n m h p b k",
               "barn  him  pink  bump",
               "Who can hear the hens in the barn?",
-              "Mr Fox can, but he is not hungry."
+              "Mr Fox can."
             ]
           }
         }
@@ -9757,7 +9767,7 @@
         {
           "type": "cfu",
           "title": "Show me: which type?",
-          "prompt": "Write declarative, exclamatory or compound.",
+          "prompt": "Write: simple statement, exclamation or compound sentence.",
           "questions": [
             "Hooray, we found it!",
             "The cellar was dark.",
@@ -9765,10 +9775,10 @@
             "The jars were on the shelf, and the door was shut."
           ],
           "answers": [
-            "exclamatory",
-            "declarative",
-            "exclamatory",
-            "compound"
+            "exclamation",
+            "simple statement",
+            "exclamation",
+            "compound sentence (also accept declarative)"
           ],
           "visual": null,
           "mode": "You do"
@@ -9807,18 +9817,18 @@
           "id": "a12-cards",
           "kind": "cards",
           "title": "Sentence type sort",
-          "instructions": "Sort each card: declarative, exclamatory or compound.",
+          "instructions": "Sort each card: simple statement, exclamation or compound sentence.",
           "cards": [
             {
-              "text": "declarative",
+              "text": "simple statement",
               "visual": null
             },
             {
-              "text": "exclamatory",
+              "text": "exclamation",
               "visual": null
             },
             {
-              "text": "compound",
+              "text": "compound sentence",
               "visual": null
             },
             {
@@ -9893,7 +9903,7 @@
           }
         }
       ],
-      "teacherNotes": "Exclamatory sentences emphasise a point or express strong emotion such as surprise, excitement or fear. A compound sentence can also be exclamatory. Adverbial phrases often contain a prepositional phrase, such as with joy or through the gap."
+      "teacherNotes": "Exclamatory sentences emphasise a point or express strong emotion such as surprise, excitement or fear. A compound sentence can also be exclamatory. Adverbial phrases often contain a prepositional phrase, such as with joy or through the gap. A compound sentence can also be declarative or exclamatory; in this sort we are looking for the joining word."
     },
     {
       "id": "a13",
@@ -9970,7 +9980,7 @@
           "rows": [
             {
               "label": "ay",
-              "text": "they, today, way, yesterday, away, stay, play, tray",
+              "text": "today, way, yesterday, away, stay, play, tray, delay",
               "color": "sky"
             },
             {
@@ -9982,6 +9992,11 @@
               "label": "ai and aigh",
               "text": "tail, wait, rain, paint; straight",
               "color": "lav"
+            },
+            {
+              "label": "ey",
+              "text": "they, grey, prey",
+              "color": "indigo"
             }
           ],
           "mode": "I do"
@@ -10372,7 +10387,7 @@
             },
             {
               "label": "paused",
-              "text": "pause, drop e, + ed: stopped for a moment. 1 syllable.",
+              "text": "pause + d: stopped for a moment. 1 syllable.",
               "color": "mint"
             },
             {
@@ -10888,7 +10903,7 @@
             },
             {
               "label": "Short vowel + one consonant",
-              "text": "Double it: begin, beginning; grin, grinning",
+              "text": "In a short word, or when the last part is stressed, double it: grin, grinning; begin, beginning. Not: visit, visiting.",
               "color": "lav"
             },
             {
@@ -11237,17 +11252,17 @@
           "title": "Our sentence toolkit",
           "rows": [
             {
-              "label": "Declarative",
-              "text": "States a fact: The tunnel flooded.",
+              "label": "Simple statement",
+              "text": "One idea that states a fact: The tunnel flooded.",
               "color": "sky"
             },
             {
-              "label": "Exclamatory",
+              "label": "Exclamation",
               "text": "Shows strong feeling: What a disaster!",
               "color": "mint"
             },
             {
-              "label": "Compound",
+              "label": "Compound sentence",
               "text": "Joins two ideas: It rained, so the tunnel flooded.",
               "color": "lav"
             },
@@ -11292,9 +11307,9 @@
             "Find the adverbial phrase: For three days, they waited."
           ],
           "answers": [
-            "exclamatory",
-            "declarative",
-            "compound",
+            "exclamation",
+            "simple statement",
+            "compound sentence (also accept declarative)",
             "For three days (when)"
           ],
           "visual": null,
@@ -11321,7 +11336,7 @@
             },
             {
               "label": "Copy",
-              "text": "It rained for 7 days and 7 nights. Pip had 365 pumpkins.",
+              "text": "It rained for 7 days and 7 nights. Pip grew 3000 pumpkins.",
               "color": "indigo"
             }
           ],
@@ -11334,18 +11349,18 @@
           "id": "a20-cards",
           "kind": "cards",
           "title": "Sentence type sort: the sequel",
-          "instructions": "Sort each sentence: declarative, exclamatory or compound. Then underline any adverbial phrase.",
+          "instructions": "Sort each sentence: simple statement, exclamation or compound sentence. Then underline any adverbial phrase.",
           "cards": [
             {
-              "text": "declarative",
+              "text": "simple statement",
               "visual": null
             },
             {
-              "text": "exclamatory",
+              "text": "exclamation",
               "visual": null
             },
             {
-              "text": "compound",
+              "text": "compound sentence",
               "visual": null
             },
             {
@@ -11402,12 +11417,12 @@
             "model": [
               "1 2 3 4 5 6 7 8 9 0",
               "It rained for 7 days and 7 nights.",
-              "Pip had 365 pumpkins and 12 crates of pears."
+              "Pip grew 3000 pumpkins and 12 crates of pears."
             ]
           }
         }
       ],
-      "teacherNotes": "This skill links directly to Lesson 20 (revising and editing). Students bring their sequel drafts and use the toolkit to check for a variety of sentences."
+      "teacherNotes": "This skill links directly to Lesson 20 (revising and editing). Students bring their sequel drafts and use the toolkit to check for a variety of sentences. A compound sentence can also be a statement or an exclamation; in the sort we are looking for the joining word."
     }
   ],
   "assessment": {
@@ -11458,7 +11473,7 @@
               },
               {
                 "q": "Setting",
-                "answer": "a burrow under an old gum tree"
+                "answer": "a burrow under a gum tree"
               },
               {
                 "q": "Time",
@@ -11466,7 +11481,7 @@
               },
               {
                 "q": "Hint of a problem",
-                "answer": "She is hungry and the grass near home has all been eaten."
+                "answer": "the grass is all eaten"
               }
             ]
           },
@@ -11494,20 +11509,20 @@
         "heading": "Sentences and punctuation",
         "items": [
           {
-            "q": "Write declarative, exclamatory or compound.",
+            "q": "Write: simple statement, exclamation or compound sentence.",
             "visual": null,
             "parts": [
               {
                 "q": "The wombat dug a hole.",
-                "answer": "declarative"
+                "answer": "simple statement"
               },
               {
                 "q": "What a mess you have made!",
-                "answer": "exclamatory"
+                "answer": "exclamation"
               },
               {
                 "q": "It rained, so the creek rose.",
-                "answer": "compound"
+                "answer": "compound sentence (also accept declarative)"
               }
             ]
           },
@@ -11530,10 +11545,10 @@
             "answer": "Farmer Pip lives at Bluegum Creek Farm."
           },
           {
-            "q": "Add speech marks: Hide! whispered Mr Fox.",
+            "q": "Add speech marks: Over here! called Badger.",
             "visual": null,
             "lines": 1,
-            "answer": "'Hide!' whispered Mr Fox."
+            "answer": "'Over here!' called Badger."
           }
         ]
       },
@@ -11648,6 +11663,12 @@
             "visual": null,
             "lines": 1,
             "answer": "tail"
+          },
+          {
+            "q": "Which is the correct spelling: valley, vally or vallee?",
+            "visual": null,
+            "lines": 1,
+            "answer": "valley"
           }
         ]
       },
@@ -11748,28 +11769,28 @@
     ],
     "hook": [
       "teach the NSW Stage 2 Year A Unit 1 without building every slide yourself?",
-      "have Component A skills and Component B lessons ready for every day, all matching?",
+      "have short Component A skill lessons and full Component B lessons ready to teach, all matching?",
       "get strong narrative writing from every student, with models and success criteria?",
       "mark the sequel in minutes with a ready A to E rubric?"
     ],
     "tileClaim": "Every lesson ready, every student writing",
-    "insideLesson": "Learning intention and success criteria, a review of earlier chapters, a slow reveal or mentor text slide with page references for your copy, explicit grammar teaching with colour-coded examples, model writing in the NSW handwriting font, turn and talk, the activity with three levels, co-constructed success criteria, Tell Ask Give peer feedback, reflection and an exit ticket. Teacher notes are in every slide.",
-    "worksheetsPara": "Writing and grammar worksheets come in three levels (Get started, Main task, Go further) with a teaching box at the top. The answer key shows answers in the NSW handwriting font, and graphic organisers and planners are included for every writing task.",
+    "insideLesson": "Every Component B lesson has a learning intention and success criteria, a warm-up that revisits earlier learning, explicit teaching with examples and non-examples, an activity with three levels (Get started, Main task, Go further), Discuss and Connect, and an exit ticket. Most lessons also have turn and talk, a slow reveal or mentor text slide with chapter and page references (Puffin edition; may differ in other editions), and a hinge question or mini whiteboard check. Writing lessons add model writing in the NSW handwriting font, co-constructed success criteria and, in the drafting lessons, Tell, Ask, Give peer feedback. Teacher notes are in the slide notes.",
+    "worksheetsPara": "7 grammar, character and spelling worksheets come in three levels (Get started, Main task, Go further), 21 pages in all, each with a teaching box at the top. The answer key shows answers in the NSW handwriting font. Over 30 graphic organisers, planners and writing pages support the reading and writing tasks.",
     "credits": "Pictures: Microsoft Fluent Emoji (MIT licence) and photos from Pexels. Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Designed to accompany the NSW Department of Education Stage 2 Year A English Unit 1 (© State of New South Wales (Department of Education), 2023, CC BY 4.0). Syllabus outcomes © NESA. You need a copy of Fantastic Mr Fox by Roald Dahl; no text or pictures from the book are included. Not endorsed by NESA or the NSW Department of Education.",
-    "description": "A complete, ready-to-teach companion for the NSW Department of Education Stage 2 Year A English Unit 1 (Narrative, with the mentor text Fantastic Mr Fox by Roald Dahl). You get editable slides for all {lessons} Component B lessons and {skills} Component A skill lessons, three-level worksheets, graphic organisers, an assessment and a rubric, all written in plain teacher language for Years 3 and 4.",
+    "description": "A ready-to-teach companion for the NSW Department of Education Stage 2 Year A English Unit 1 (Narrative, with the mentor text Fantastic Mr Fox by Roald Dahl). You get editable slides for all {lessons} Component B lessons, plus {skills} short, explicit Component A skill lessons (15 to 20 minutes each) to anchor your Component A block, 7 worksheets in three levels, graphic organisers, an assessment and a rubric, all written in plain teacher language for Years 3 and 4.",
     "included": [
       "{lessons} Component B lessons on editable slides, in {themes} colour themes",
-      "{skills} Component A skill lessons: spelling, morphology, vocabulary, grammar, punctuation, fluency and handwriting",
-      "{worksheets} differentiated worksheets in 3 levels with an answer key",
+      "{skills} short, explicit Component A skill lessons (15 to 20 minutes) to anchor your Component A block: spelling, morphology, vocabulary, grammar, punctuation, fluency and handwriting. They support the Department's Component A rather than replace all of it.",
+      "7 differentiated worksheets in 3 levels (21 pages) with an answer key, plus 30+ organisers, planners and writing pages",
       "Graphic organisers: orientation planner, story map, Somebody Wanted But So Then, narrative arc planner, adjective sort, trait bank and more",
-      "Close-reading planners and vocabulary tables with page references",
-      "Model writing for every writing lesson, a sequel rubric and exit tickets"
+      "Close-reading planners and vocabulary tables with chapter and page references (Puffin edition; may differ in other editions)",
+      "Model writing in the NSW handwriting font in 13 lessons, a sequel rubric and exit tickets"
     ],
     "tileIncluded": [
       "{lessons} lessons + {skills} skills",
-      "{worksheets} worksheets in 3 levels",
-      "Organisers and planners",
-      "Model writing every lesson",
+      "7 worksheets in 3 levels",
+      "30+ organisers and planners",
+      "Model writing in 13 lessons",
       "Assessment and rubric",
       "Teacher guide"
     ],
@@ -11781,13 +11802,12 @@
     ],
     "everyLesson": [
       "Learning intention and success criteria",
-      "Slow reveal or mentor text slides with exact page references for your own copy of the book",
-      "Explicit grammar teaching with colour-coded examples (adjectives, verbs, adverbial phrases, conjunctions)",
-      "Model writing in the NSW handwriting font",
-      "Turn and talk, with check questions where there is a right answer",
-      "Three levels for the main task: Get started, Main task, Go further",
-      "Co-constructed success criteria and Tell, Ask, Give peer feedback",
-      "Reflection and an exit ticket"
+      "A warm-up that revisits earlier learning",
+      "Explicit teaching with examples and non-examples",
+      "A main task in three levels: Get started, Main task, Go further",
+      "Discuss and Connect, and an exit ticket",
+      "Most lessons also include turn and talk and a slow reveal or mentor text slide with chapter and page references (Puffin edition; may differ in other editions)",
+      "Writing lessons also include model writing in the NSW handwriting font and co-constructed success criteria; drafting lessons add Tell, Ask, Give peer feedback"
     ],
     "whyItWorks": [
       "Follows the Department unit week by week, so it slots straight into your program",
@@ -11796,7 +11816,7 @@
       "Built on the NSW English K-10 Syllabus and Australian research",
       "Australian spelling throughout"
     ],
-    "formats": "PowerPoint slides for Component A and Component B (open in Google Slides), Word teacher guide, PDF worksheets and organisers in colour and black and white, PDF answer key, assessment, exit tickets, word wall and posters.",
+    "formats": "PowerPoint slides for Component A and Component B (open in Google Slides), Word teacher guide, PDF worksheets and organisers in colour and black and white, PDF answer key, assessment, exit tickets, word wall and posters for key lessons.",
     "tags": "NSW English, stage 2, year 3, year 4, unit 1, narrative, characterisation, Fantastic Mr Fox, Roald Dahl, component A, component B, novel study, narrative writing, australian",
     "price": "Single unit: A$22 to A$28 (TpT US$18 to US$22). Term 1 bundle with Units 2 and 3: about US$50.",
     "evidence": [
@@ -11829,13 +11849,13 @@
   "guide": {
     "subjectName": "NSW English",
     "inPack": [
-      "Component B slides for 20 lessons and Component A slides for 20 skill lessons (PowerPoint, also opens in Google Slides). Teacher notes are in the slide notes.",
-      "Worksheets in three levels: Support, Core and Extension (students see Get started, Main task, Go further), in colour and black and white.",
+      "Component B slides for 20 lessons and Component A slides for 20 short skill lessons (15 to 20 minutes each) that support the Department's Component A block rather than replace all of it (PowerPoint, also opens in Google Slides). Teacher notes are in the slide notes.",
+      "7 worksheets in three levels: Support, Core and Extension (students see Get started, Main task, Go further), in colour and black and white.",
       "Graphic organisers, close-reading planners, vocabulary tables, word banks and writing pages.",
       "An answer key, a pre-test, an assessment with self-check, and an A to E rubric for the narrative sequel.",
       "Exit tickets, a word wall and posters.",
       "This guide: how a lesson runs, differentiation, the evidence, and notes for every lesson.",
-      "You need a copy of Fantastic Mr Fox by Roald Dahl. Slides give chapter and page references (Puffin paperback); page numbers may differ in other editions."
+      "You need a copy of Fantastic Mr Fox by Roald Dahl. Slides give chapter and page references (Puffin paperback); page numbers may differ in other editions. Page numbers follow the Puffin edition used by the Department; some Department references differ by a page between Components A and B."
     ],
     "routine": [
       [

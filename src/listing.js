@@ -23,7 +23,7 @@ const find = re => fs.readdirSync(DIR).find(f => re.test(f));
 
 // ---------- counts for claims ----------
 const L = UNIT.lessons;
-const nWs = L.reduce((a, l) => a + (l.printables || []).filter(p => p.kind === "worksheet").reduce((b, p) => b + p.levels.length, 0), 0);
+const nWs = [...L, ...(UNIT.skills || [])].reduce((a, l) => a + (l.printables || []).filter(p => p.kind === "worksheet").length, 0);
 const nGames = L.reduce((a, l) => a + (l.printables || []).filter(p => p.kind !== "worksheet").length, 0);
 const nSlides = Number(fs.readFileSync(path.join(WORK, "slidecount.txt"), "utf8"));
 const nAssess = UNIT.assessment.sections.reduce((a, s) => a + s.items.length, 0);
@@ -106,7 +106,7 @@ const tiles = [
     <div class="pg" style="width:600px; left:40px; top:430px; transform:rotate(-3deg)"><img src="${S[6]}"></div>
     <div class="pg" style="width:420px; left:150px; top:690px; transform:rotate(2deg)"><img src="${S[7]}"></div>
     <div class="pill" style="background:${C.indigo}; left:50px; top:350px">Slides + worksheets + test</div>
-    <div class="banner">${L.length} lessons · ${nWs} levelled worksheets</div></div>`,
+    <div class="banner">${(UNIT.skills || []).length ? `${L.length} lessons + ${UNIT.skills.length} skills` : `${L.length} lessons`} · ${nWs} worksheets × 3 levels</div></div>`,
   `<div class="tile">
     <div class="h2">What's included</div>
     <ul class="check">${tileIncluded.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
