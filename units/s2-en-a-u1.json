@@ -14435,5 +14435,9 @@
     "Climax",
     "Resolution"
   ],
-  "menuPeak": 4
+  "menuPeak": 4,
+  "heroKids": {
+    "B": "This term we are reading Fantastic Mr Fox by Roald Dahl. Get ready to meet three mean farmers and one very clever fox. Then you will write a story of your own!",
+    "A": "Every day we will practise the skills that make great readers and writers: spelling, word parts, sentences and reading with expression."
+  }
 }
