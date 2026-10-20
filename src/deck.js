@@ -872,7 +872,7 @@ async function gridSlide(slide, s, it, head, rows, opts = {}) {
   let x = M; head.forEach((h, i) => { box(slide, h, { x, y, w: cws[i], h: 0.6, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL[(opts.cols || ORG)[i % 5]], align: "center", margin: 2 }); x += cws[i] + gap; });
   y += 0.72;
   const nr = rows.length, rh = Math.min(1.5, (BOTTOM - y - gap * (nr - 1)) / nr);
-  const pt = fitPt(rows.flat().map(t => cellText(t) || "x"), Math.min(...cws), rh, 20, 12);
+  const pt = fitPt(rows.flat().map(t => cellText(t) || "x"), Math.min(...cws), rh, 24, 13);
   rows.forEach((r, ri) => { x = M; r.forEach((c, ci) => { const t = cellText(c); box(slide, t, { x, y: y + ri * (rh + gap), w: cws[ci], h: rh, fontSize: pt, fillColor: ci === 0 && opts.firstColTint ? TINT[(opts.cols || ORG)[0]] : (ri % 2 ? TINT.sky : "FFFFFF"), sh: ri % 2 === 0, valign: "middle", bold: ci === 0 && opts.firstColBold }); x += cws[ci] + gap; }); });
 }
 R.tchart = async (slide, s, it) => {
