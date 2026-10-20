@@ -326,5 +326,189 @@
   "url": "https://www.pexels.com/photo/girl-in-red-shirt-sitting-beside-a-girl-in-blue-button-up-shirt-8364020/",
   "alt": "Two young children in a classroom interact while reading a book together.",
   "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "ducks": {
+  "id": 28505047,
+  "photographer": "Diana ✨",
+  "photographer_url": "https://www.pexels.com/@didsss",
+  "url": "https://www.pexels.com/photo/close-up-of-white-ducks-in-outdoor-pen-28505047/",
+  "alt": "A close-up of white ducks with orange bills in an outdoor enclosure, conveying tranquility.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "geese_yard": {
+  "id": 32980686,
+  "photographer": "Holger Rockenmayer",
+  "photographer_url": "https://www.pexels.com/@frischluft",
+  "url": "https://www.pexels.com/photo/group-of-geese-walking-near-rustic-barn-32980686/",
+  "alt": "A flock of geese strolling on a sunny day near a traditional farmhouse, showcasing rural life.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "orchard": {
+  "id": 28387801,
+  "photographer": "Mark Stebnicki",
+  "photographer_url": "https://www.pexels.com/@nc-farm-bureau-mark",
+  "url": "https://www.pexels.com/photo/an-apple-tree-with-red-apples-on-it-28387801/",
+  "alt": "A picturesque orchard with ripe apples on tree branches along a dirt path.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "shovel": {
+  "id": 8993781,
+  "photographer": "Riccardo Falconi",
+  "photographer_url": "https://www.pexels.com/@falcons",
+  "url": "https://www.pexels.com/photo/photo-of-a-person-digging-8993781/",
+  "alt": "Close-up of a person's foot on a shovel in the garden, emphasizing soil work.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "excavator": {
+  "id": 36102634,
+  "photographer": "Jeffry Surianto",
+  "photographer_url": "https://www.pexels.com/@andromeda99",
+  "url": "https://www.pexels.com/photo/yellow-excavator-on-construction-site-in-countryside-36102634/",
+  "alt": "Yellow excavator on a rural construction site on a sunny day.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "hay_shed": {
+  "id": 31912802,
+  "photographer": "Valentin Cvetanoski",
+  "photographer_url": "https://www.pexels.com/@valentin-cvetanoski-2147958923",
+  "url": "https://www.pexels.com/photo/rustic-barn-with-hay-in-ohrid-macedonia-31912802/",
+  "alt": "Charming rustic barn with hay bales in Ohrid, North Macedonia, under a vibrant spring sky.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "open_book": {
+  "id": 34042183,
+  "photographer": "N G",
+  "photographer_url": "https://www.pexels.com/@oceanofstars",
+  "url": "https://www.pexels.com/photo/open-book-with-chapter-two-exposed-34042183/",
+  "alt": "An open book showing chapter two on a white background, ideal for literary themes.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "pencils": {
+  "id": 37121878,
+  "photographer": "TLK GentooExpressions",
+  "photographer_url": "https://www.pexels.com/@gentooexpressions",
+  "url": "https://www.pexels.com/photo/school-supplies-flat-lay-with-pencils-and-notebook-37121878/",
+  "alt": "A neat arrangement of yellow pencils, eraser, ruler, and spiral notebook on a flat surface, perfect for educational themes.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "notepad": {
+  "id": 6991795,
+  "photographer": "DS stories",
+  "photographer_url": "https://www.pexels.com/@ds-stories",
+  "url": "https://www.pexels.com/photo/a-beige-notebook-beside-a-broken-pencil-6991795/",
+  "alt": "Empty notebook with two blue pencils on a pastel split background - perfect for mockups.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "child_writing": {
+  "id": 5905476,
+  "photographer": "Katerina Holmes",
+  "photographer_url": "https://www.pexels.com/@katerina-holmes",
+  "url": "https://www.pexels.com/photo/crop-faceless-girl-doing-homework-and-taking-notes-in-notebook-5905476/",
+  "alt": "High angle crop unrecognizable schoolgirl sitting at desk with stationery and doing homework",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "writing_hands": {
+  "id": 207756,
+  "photographer": "Pixabay",
+  "photographer_url": "https://www.pexels.com/@pixabay",
+  "url": "https://www.pexels.com/photo/white-graphing-notebook-207756/",
+  "alt": "Close-up of a student writing math equations in a notebook with a pencil indoors.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "kid_writing": {
+  "id": 33168451,
+  "photographer": "Quí Trần",
+  "photographer_url": "https://www.pexels.com/@micae",
+  "url": "https://www.pexels.com/photo/focused-young-boy-writing-in-classroom-33168451/",
+  "alt": "A young boy intently writing in a classroom setting, concentrating on his task.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "kid_thinking": {
+  "id": 6157274,
+  "photographer": "cottonbro studio",
+  "photographer_url": "https://www.pexels.com/@cottonbro",
+  "url": "https://www.pexels.com/photo/a-boy-biting-a-pencil-6157274/",
+  "alt": "A thoughtful child holding a pencil while drawing indoors with warm lighting.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "reading_pair": {
+  "id": 18650478,
+  "photographer": "school projects",
+  "photographer_url": "https://www.pexels.com/@school-projects-749994697",
+  "url": "https://www.pexels.com/photo/two-children-reading-in-a-classroom-18650478/",
+  "alt": "Two young children reading together in a bright classroom in Gurugram, India.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "notebook_pen": {
+  "id": 4709832,
+  "photographer": "cottonbro studio",
+  "photographer_url": "https://www.pexels.com/@cottonbro",
+  "url": "https://www.pexels.com/photo/woman-in-white-shirt-holding-pen-writing-on-white-paper-4709832/",
+  "alt": "A young musician writes music notes in a notebook beside a saxophone, practicing creativity.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "book_pages": {
+  "id": 39921634,
+  "photographer": "azra melek",
+  "photographer_url": "https://www.pexels.com/@melek",
+  "url": "https://www.pexels.com/photo/open-pages-of-turkish-text-in-natural-light-39921634/",
+  "alt": "Open books with Turkish text arranged neatly under natural light.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "girl_notebook": {
+  "id": 13779221,
+  "photographer": "Maria Turkmani",
+  "photographer_url": "https://www.pexels.com/@mariaturkmani",
+  "url": "https://www.pexels.com/photo/close-up-shot-of-a-kid-writing-on-notebook-using-a-pencil-13779221/",
+  "alt": "A child wearing glasses writes in a lined notebook with a yellow pencil on a green table.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "kids_bench": {
+  "id": 8466783,
+  "photographer": "Anastasia  Shuraeva",
+  "photographer_url": "https://www.pexels.com/@anastasia-shuraeva",
+  "url": "https://www.pexels.com/photo/children-sitting-in-the-classroom-8466783/",
+  "alt": "Four girls sitting indoors reading books, fostering a love for learning and education.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "reading_group": {
+  "id": 10643465,
+  "photographer": "Ron Lach",
+  "photographer_url": "https://www.pexels.com/@ron-lach",
+  "url": "https://www.pexels.com/photo/thai-school-girls-studying-together-10643465/",
+  "alt": "Group of children engaging in collaborative learning in a school setting, focused on a book.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "pencil_pot": {
+  "id": 5748810,
+  "photographer": "Skyler Ewing",
+  "photographer_url": "https://www.pexels.com/@skyler-ewing-266953",
+  "url": "https://www.pexels.com/photo/colored-pencils-on-table-with-notebook-5748810/",
+  "alt": "Set of multicolored pencils in cup holder placed on table with eraser on copybook and ripe red apple on black background",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "colour_pencils": {
+  "id": 6193660,
+  "photographer": "KATRIN  BOLOVTSOVA",
+  "photographer_url": "https://www.pexels.com/@ekaterina-bolovtsova",
+  "url": "https://www.pexels.com/photo/colorful-pencils-lying-next-to-notebook-6193660/",
+  "alt": "Colorful pencils arranged on a table with a notebook and glasses, ideal for education and creativity themes.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "teacher_reading": {
+  "id": 8342271,
+  "photographer": "Mikhail Nilov",
+  "photographer_url": "https://www.pexels.com/@mikhail-nilov",
+  "url": "https://www.pexels.com/photo/photo-of-women-reading-a-book-8342271/",
+  "alt": "A family enjoys reading together at a library, promoting literacy and togetherness.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
+ },
+ "boy_writing2": {
+  "id": 9872283,
+  "photographer": "Ron Lach",
+  "photographer_url": "https://www.pexels.com/@ron-lach",
+  "url": "https://www.pexels.com/photo/young-boy-learning-to-write-9872283/",
+  "alt": "A young boy intensely writing indoors, capturing a moment of concentration.",
+  "licence": "Pexels License (https://www.pexels.com/license/)"
  }
 }
