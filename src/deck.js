@@ -861,7 +861,7 @@ R.venn = async (slide, s, it) => {
   box(slide, "Both", { x: M + w / 2 - 0.7, y, w: 1.4, h: 0.5, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL.mint, align: "center", margin: 1 });
   box(slide, s.right, { x: M + w - cw / 2 - lw / 2 + 0.9, y, w: lw, h: 0.5, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL.lav, align: "center", margin: 1 });
   const it2 = s.items || {}, ov = 2 * cw - w;
-  const col = (items, x, ww) => { const t = (items && items.length) ? items.map(i => "• " + i).join("\n") : TYPE_HERE; const pt = fitPt([t], ww, h * 0.62, 18, 11); box(slide, t, { x, y: y + 0.6 + h * 0.16, w: ww, h: h * 0.68, fontSize: pt, fill: { color: "FFFFFF", transparency: 100 }, valign: "middle", align: "center", margin: [6, 8, 6, 8], color: items && items.length ? COL.navy : COL.muted }); };
+  const col = (items, x, ww) => { items = (items || []).map(i => i && i.trim() ? i : "______________"); const t = items.length ? items.map(i => "• " + i).join("\n") : TYPE_HERE; const pt = fitPt([t], ww, h * 0.62, 18, 11); box(slide, t, { x, y: y + 0.6 + h * 0.16, w: ww, h: h * 0.68, fontSize: pt, fill: { color: "FFFFFF", transparency: 100 }, valign: "middle", align: "center", margin: [6, 8, 6, 8], color: items && items.length ? COL.navy : COL.muted }); };
   col(it2.left, M + 0.5, w - cw - 0.7); col(it2.both, M + w - cw + 0.1, ov - 0.2); col(it2.right, M + cw + 0.2, w - cw - 0.7);
   s._notes = s.notes || "Fill the diagram with the class. Click into a box and type. Ideas true for both go in the middle.";
 };
@@ -933,11 +933,11 @@ R.sort = async (slide, s, it) => {
   const ins = s.prompt || "Drag each card to the right group. (Edit mode)";
   y = orgIntro(slide, Object.assign({}, s, { prompt: ins }), y); slide.addImage({ data: await K.icon("hand", COL[UC]), x: M, y: TOP + 0.08, w: 0.6, h: 0.6 });
   const hs = s.headings, n = hs.length, gap = 0.2, w = RIGHT - M, cw = (w - gap * (n - 1)) / n;
-  const cards = s.cards || [], cardRows = Math.ceil(cards.length / Math.min(6, cards.length || 1)), per = Math.min(6, cards.length || 1);
-  const cardH = 0.62, zoneH = BOTTOM - y - 0.6 - cardRows * (cardH + 0.12) - 0.2;
+  const cards = s.cards || [], longest = Math.max(0, ...cards.map(c => c.length)), per = Math.min(longest > 22 ? 4 : longest > 14 ? 5 : 6, cards.length || 1), cardRows = Math.ceil(cards.length / per);
+  const cardH = longest > 22 ? 0.78 : 0.66, zoneH = BOTTOM - y - 0.6 - cardRows * (cardH + 0.12) - 0.2;
   hs.forEach((h, i) => { const x = M + i * (cw + gap); box(slide, h, { x, y, w: cw, h: 0.55, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL[ORG[i % 5]], align: "center", margin: 1 }); slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: y + 0.62, w: cw, h: zoneH, fill: { color: TINT[ORG[i % 5]] }, line: { color: COL[ORG[i % 5]], width: 1.5, dashType: "dash" }, rectRadius: 0.15 }); });
   const cy0 = y + 0.62 + zoneH + 0.2, cwid = (w - 0.12 * (per - 1)) / per;
-  const pt = fitPt(cards, cwid, cardH, 17, 10, true, 0.15);
+  const pt = fitPt(cards, cwid, cardH, 20, 12, true, 0.15);
   cards.forEach((c, i) => box(slide, c, { x: M + (i % per) * (cwid + 0.12), y: cy0 + Math.floor(i / per) * (cardH + 0.12), w: cwid, h: cardH, fontSize: pt, bold: true, fillColor: "FFFFFF", align: "center", sh: true, line: { color: COL.muted, width: 1 }, margin: 2 }));
   const ans = s.answers ? "Answers: " + Object.entries(s.answers).map(([k, v]) => `${k}: ${v.join(", ")}`).join(". ") : "";
   s._notes = [s.notes || "In edit mode, students come to the board and drag a card into a group, saying why. Close without saving to reset.", ans].filter(Boolean).join("\n\n");
