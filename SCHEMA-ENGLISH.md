@@ -69,3 +69,13 @@ Templates:
 - `resolutionTypes` poster: six endings with one-line meanings in `data.types`.
 - `writing` writing page with a success criteria checklist: `data.criteria` [..], `data.lines` (default 14), `data.plan` true adds a small planning box.
 Worksheets (kind `worksheet`, three levels) also work for English: items with `lines` and `answer` such as "Answers will vary: look for ...".
+
+## Organiser slides (live on the board; boxes are editable; give content to make a worked example, or leave cells "" for the class to fill)
+- `{"type":"venn","title":"...","prompt":"...","left":"Mr Fox","right":"Badger","items":{"left":["..."],"both":["..."],"right":["..."]}}`
+- `{"type":"tchart","title":"...","prompt":"...","headers":["A","B"],"rows":[["",""]],"blank":4}`
+- `{"type":"table","title":"...","headers":["Farmer","Farm","Looks"],"firstColWidth":0.2,"rows":[["Boggis","",""]]}`
+- `{"type":"charmap","title":"Character map: ...","centre":"Mr Fox","photo":"PHOTO_KEY_OPTIONAL","spokes":[{"label":"Clever","text":"evidence or empty"}]}` up to 6 spokes
+- `{"type":"mountain","title":"Story mountain","stages":[{"label":"Orientation","text":""}],"peak":3}` 4 to 6 stages
+- `{"type":"flow","title":"...","steps":[{"label":"Try 1","text":"..."}]}` 3 to 8 steps
+- Drag and drop (edit mode): `{"type":"sort","title":"...","prompt":"...","headings":["A","B","C"],"cards":["..."],"answers":{"A":["..."]}}` up to 12 cards; `{"type":"strips","title":"Put the events in order","items":["in the correct order"]}` (shown shuffled, answer in notes)
+- `pics` (1 to 2 Fluent image keys) now also work on definition, anchor, criteria and mentor slides.

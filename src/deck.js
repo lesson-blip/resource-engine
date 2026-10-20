@@ -833,6 +833,129 @@ R.tag = async (slide, s, it) => {
   box(slide, "Use our success criteria. Listen, then say thank you.", { x: M, y: BOTTOM - 0.6, w: RIGHT - M, h: 0.6, fontSize: 18, fillColor: TINT.mint, align: "center" });
   s._notes = s.notes || "Model one round of Tell, Ask, Give with a student's permission before pairs begin. Give students time to revise straight after.";
 };
+// ---------- organiser slides (typed into live, or used as worked examples) ----------
+// underlay drawings (circles, connector lines, arcs) are pictures behind the text boxes; finalize ignores them for overlap checks
+async function underlay(slide, svgBody, x, y, w, h) {
+  const px = 144, W2 = Math.round(w * px), H2 = Math.round(h * px);
+  const f = path.join(K.CACHE, "ul_" + K.hash(svgBody + W2 + H2 + THEME_KEY) + ".png");
+  if (!fs.existsSync(f)) await require("sharp")(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W2}" height="${H2}" viewBox="0 0 ${w} ${h}">${svgBody}</svg>`)).png().toFile(f);
+  slide.addImage({ path: f, x, y, w, h, altText: "underlay" });
+}
+const ORG = ["teal", "sky", "mint", "indigo", "lav"];
+const TYPE_HERE = "Type here";
+function cellText(t) { return t == null || t === "" ? "" : t; }
+function orgIntro(slide, s, y) {
+  if (!s.prompt) return y;
+  const h = Math.max(0.6, K.hFor(s.prompt, RIGHT - M - 0.8, 20, true, 0.3));
+  box(slide, s.prompt, { x: M + 0.8, y, w: RIGHT - M - 0.8, h, fontSize: 20, bold: true, sh: true });
+  return y + h + 0.2;
+}
+async function orgIcon(slide, y, h) { slide.addImage({ data: await K.icon("list", COL[UC]), x: M, y: y + 0.03, w: 0.6, h: 0.6 }); }
+R.venn = async (slide, s, it) => {
+  await header(slide, s.title, it, s.mode || "We do");
+  let y = TOP + 0.05; if (s.prompt) { await orgIcon(slide, y); y = orgIntro(slide, s, y); }
+  const h = BOTTOM - y - 0.6, w = RIGHT - M, cw = w * 0.63, r1 = `#${COL.sky}`, r2 = `#${COL.lav}`;
+  await underlay(slide, `<ellipse cx="${cw / 2}" cy="${h / 2}" rx="${cw / 2 - 0.03}" ry="${h / 2 - 0.03}" fill="${r1}" fill-opacity="0.13" stroke="${r1}" stroke-width="0.04"/><ellipse cx="${w - cw / 2}" cy="${h / 2}" rx="${cw / 2 - 0.03}" ry="${h / 2 - 0.03}" fill="${r2}" fill-opacity="0.13" stroke="${r2}" stroke-width="0.04"/>`, M, y + 0.6, w, h);
+  const lw = 2.6;
+  box(slide, s.left, { x: M + cw / 2 - lw / 2 - 0.9, y, w: lw, h: 0.5, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL.sky, align: "center", margin: 1 });
+  box(slide, "Both", { x: M + w / 2 - 0.7, y, w: 1.4, h: 0.5, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL.mint, align: "center", margin: 1 });
+  box(slide, s.right, { x: M + w - cw / 2 - lw / 2 + 0.9, y, w: lw, h: 0.5, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL.lav, align: "center", margin: 1 });
+  const it2 = s.items || {}, ov = 2 * cw - w;
+  const col = (items, x, ww) => { const t = (items && items.length) ? items.map(i => "• " + i).join("\n") : TYPE_HERE; const pt = fitPt([t], ww, h * 0.62, 18, 11); box(slide, t, { x, y: y + 0.6 + h * 0.16, w: ww, h: h * 0.68, fontSize: pt, fill: { color: "FFFFFF", transparency: 100 }, valign: "middle", align: "center", margin: [6, 8, 6, 8], color: items && items.length ? COL.navy : COL.muted }); };
+  col(it2.left, M + 0.5, w - cw - 0.7); col(it2.both, M + w - cw + 0.1, ov - 0.2); col(it2.right, M + cw + 0.2, w - cw - 0.7);
+  s._notes = s.notes || "Fill the diagram with the class. Click into a box and type. Ideas true for both go in the middle.";
+};
+async function gridSlide(slide, s, it, head, rows, opts = {}) {
+  await header(slide, s.title, it, s.mode || "We do");
+  let y = TOP + 0.05; if (s.prompt) { await orgIcon(slide, y); y = orgIntro(slide, s, y); }
+  const n = head.length, gap = 0.12, w = RIGHT - M, cws = opts.widths || head.map(() => (w - gap * (n - 1)) / n);
+  let x = M; head.forEach((h, i) => { box(slide, h, { x, y, w: cws[i], h: 0.6, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL[(opts.cols || ORG)[i % 5]], align: "center", margin: 2 }); x += cws[i] + gap; });
+  y += 0.72;
+  const nr = rows.length, rh = Math.min(1.5, (BOTTOM - y - gap * (nr - 1)) / nr);
+  const pt = fitPt(rows.flat().map(t => cellText(t) || "x"), Math.min(...cws), rh, 20, 12);
+  rows.forEach((r, ri) => { x = M; r.forEach((c, ci) => { const t = cellText(c); box(slide, t, { x, y: y + ri * (rh + gap), w: cws[ci], h: rh, fontSize: pt, fillColor: ci === 0 && opts.firstColTint ? TINT[(opts.cols || ORG)[0]] : (ri % 2 ? TINT.sky : "FFFFFF"), sh: ri % 2 === 0, valign: "middle", bold: ci === 0 && opts.firstColBold }); x += cws[ci] + gap; }); });
+}
+R.tchart = async (slide, s, it) => {
+  const rows = s.rows && s.rows.length ? s.rows : Array.from({ length: s.blank || 4 }, () => ["", ""]);
+  await gridSlide(slide, s, it, s.headers || ["", ""], rows, { cols: ["mint", "lav"] });
+  s._notes = s.notes || "Sort ideas into the two columns with the class. Click into a box to type.";
+};
+R.table = async (slide, s, it) => {
+  const rows = s.rows && s.rows.length ? s.rows : Array.from({ length: s.blank || 4 }, () => s.headers.map(() => ""));
+  const w = RIGHT - M, n = s.headers.length, first = s.firstColWidth || 0;
+  const widths = first ? [first * w, ...Array(n - 1).fill((w - first * w - 0.12 * (n - 1)) / (n - 1))] : null;
+  await gridSlide(slide, s, it, s.headers, rows, { widths, firstColBold: true, firstColTint: true });
+  s._notes = s.notes || "Complete the table together. Students copy or complete their own on the matching page.";
+};
+R.charmap = async (slide, s, it) => {
+  await header(slide, s.title, it, s.mode || "We do");
+  let y = TOP + 0.05; if (s.prompt) { await orgIcon(slide, y); y = orgIntro(slide, s, y); }
+  const h = BOTTOM - y, w = RIGHT - M, sp = (s.spokes || []).slice(0, 6), n = sp.length || 6;
+  const cx = w / 2, cy = h / 2, bw = 3.5, bh = Math.min(1.45, (h - 0.3) / 3 - 0.15);
+  const pos = Array.from({ length: n }, (_, i) => { const col = i % 2 ? 1 : 0, row = Math.floor(i / 2), rows = Math.ceil(n / 2); return [col ? w - bw : 0, rows === 1 ? cy - bh / 2 : row * (h - bh) / (rows - 1)]; });
+  const lines = pos.map(([px, py]) => `<line x1="${cx}" y1="${cy}" x2="${px + bw / 2}" y2="${py + bh / 2}" stroke="#${COL[UC]}" stroke-width="0.035" stroke-dasharray="0.12 0.08"/>`).join("");
+  await underlay(slide, lines, M, y, w, h);
+  const ct = s.centre || "";
+  if (s.photo && K.hasPhoto(s.photo)) { const ps = Math.min(2.6, h - 1.0); slide.addImage({ path: await K.photo(s.photo, ps, ps, ps / 2), x: M + cx - ps / 2, y: y + cy - ps / 2 - 0.35, w: ps, h: ps }); box(slide, ct, { x: M + cx - 1.6, y: y + cy + ps / 2 - 0.25, w: 3.2, h: 0.6, fontSize: 22, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center", margin: 1 }); }
+  else box(slide, ct, { x: M + cx - 1.6, y: y + cy - 0.55, w: 3.2, h: 1.1, fontSize: 26, bold: true, color: "FFFFFF", fillColor: COL[UC], align: "center" });
+  pos.forEach(([px, py], i) => { const t = sp[i] ? [{ text: sp[i].label, options: { bold: true, color: COL[ORG[i % 5]], breakLine: true } }, { text: sp[i].text || TYPE_HERE, options: { color: sp[i].text ? COL.navy : COL.muted } }] : [{ text: TYPE_HERE, options: { color: COL.muted } }];
+    box(slide, t, { x: M + px, y: y + py, w: bw, h: bh, fontSize: fitPt([(sp[i] && (sp[i].label + " " + (sp[i].text || ""))) || "x"], bw, bh, 17, 11), fillColor: TINT[ORG[i % 5]], valign: "top", margin: [5, 10, 5, 10] }); });
+  s._notes = s.notes || "Build the map with the class: a trait or idea in each box, with evidence from the text.";
+};
+R.mountain = async (slide, s, it) => {
+  await header(slide, s.title, it, s.mode || "We do");
+  let y = TOP + 0.05; if (s.prompt) { await orgIcon(slide, y); y = orgIntro(slide, s, y); }
+  const st = s.stages, n = st.length, h = BOTTOM - y, w = RIGHT - M, bw = (w - 0.15 * (n - 1)) / n, bh = Math.min(1.75, h * 0.42);
+  const peak = s.peak != null ? s.peak : Math.max(1, n - 2);
+  const ys = st.map((_, i) => { const t = i <= peak ? i / peak : 1 - (i - peak) / Math.max(1, n - 1 - peak); return (h - bh) * (1 - t); });
+  await underlay(slide, `<polyline points="${st.map((_, i) => `${i * (bw + 0.15) + bw / 2},${ys[i] + bh / 2}`).join(" ")}" fill="none" stroke="#${COL[UC]}" stroke-width="0.05" stroke-dasharray="0.16 0.1"/>`, M, y, w, h);
+  st.forEach((t, i) => box(slide, [{ text: t.label, options: { bold: true, color: COL[ORG[i % 5]], breakLine: true } }, { text: t.text || TYPE_HERE, options: { color: t.text ? COL.navy : COL.muted } }], { x: M + i * (bw + 0.15), y: y + ys[i], w: bw, h: bh, fontSize: fitPt(st.map(x => x.label + " " + (x.text || "x")), bw, bh, 16, 10), fillColor: TINT[ORG[i % 5]], valign: "top", sh: true, margin: [5, 8, 5, 8] }));
+  s._notes = s.notes || "Place each event on the mountain: tension rises to the climax, then falls to the resolution.";
+};
+R.flow = async (slide, s, it) => {
+  await header(slide, s.title, it, s.mode || "We do");
+  let y = TOP + 0.05; if (s.prompt) { await orgIcon(slide, y); y = orgIntro(slide, s, y); }
+  const st = s.steps, n = st.length, perRow = n > 4 ? Math.ceil(n / 2) : n, rows = Math.ceil(n / perRow), gap = 0.55, w = RIGHT - M;
+  const bw = (w - gap * (perRow - 1)) / perRow, h = BOTTOM - y, bh = Math.min(2.2, (h - 0.5 * (rows - 1)) / rows);
+  let arrows = "";
+  const P = i => { const r = Math.floor(i / perRow), c = r % 2 ? perRow - 1 - (i % perRow) : i % perRow; return [c * (bw + gap), r * (bh + 0.5)]; };
+  for (let i = 0; i < n - 1; i++) { const [x1, y1] = P(i), [x2, y2] = P(i + 1); if (y1 === y2) { const l = x2 > x1, ax = l ? x1 + bw + 0.08 : x1 - 0.08, bx = l ? x2 - 0.08 : x2 + bw + 0.08, ay = y1 + bh / 2; arrows += `<line x1="${ax}" y1="${ay}" x2="${bx}" y2="${ay}" stroke="#${COL[UC]}" stroke-width="0.05"/><path d="M${bx},${ay} l${l ? -0.15 : 0.15},-0.1 l0,0.2 z" fill="#${COL[UC]}"/>`; } else { const ax = x1 + bw / 2; arrows += `<line x1="${ax}" y1="${y1 + bh + 0.06}" x2="${ax}" y2="${y2 - 0.06}" stroke="#${COL[UC]}" stroke-width="0.05"/><path d="M${ax},${y2 - 0.06} l-0.1,-0.15 l0.2,0 z" fill="#${COL[UC]}"/>`; } }
+  await underlay(slide, arrows, M, y, w, h);
+  const pt = fitPt(st.map(t => (t.label || "") + " " + (t.text || t)), bw, bh, 18, 11);
+  st.forEach((t, i) => { const [px, py] = P(i), lab = t.label || String(i + 1), tx = typeof t === "string" ? t : (t.text || TYPE_HERE);
+    box(slide, [{ text: lab, options: { bold: true, color: COL[ORG[i % 5]], breakLine: true } }, { text: tx, options: { color: tx === TYPE_HERE ? COL.muted : COL.navy } }], { x: M + px, y: y + py, w: bw, h: bh, fontSize: pt, fillColor: TINT[ORG[i % 5]], valign: "top", sh: true, margin: [6, 10, 6, 10] }); });
+  s._notes = s.notes || "Read the chain in order. Each box leads to the next.";
+};
+// drag-and-drop sort: drop zones under headings, movable cards underneath
+R.sort = async (slide, s, it) => {
+  await header(slide, s.title || "Sort it", it, s.mode || "We do");
+  let y = TOP + 0.05;
+  const ins = s.prompt || "Drag each card to the right group. (Edit mode)";
+  y = orgIntro(slide, Object.assign({}, s, { prompt: ins }), y); slide.addImage({ data: await K.icon("hand", COL[UC]), x: M, y: TOP + 0.08, w: 0.6, h: 0.6 });
+  const hs = s.headings, n = hs.length, gap = 0.2, w = RIGHT - M, cw = (w - gap * (n - 1)) / n;
+  const cards = s.cards || [], cardRows = Math.ceil(cards.length / Math.min(6, cards.length || 1)), per = Math.min(6, cards.length || 1);
+  const cardH = 0.62, zoneH = BOTTOM - y - 0.6 - cardRows * (cardH + 0.12) - 0.2;
+  hs.forEach((h, i) => { const x = M + i * (cw + gap); box(slide, h, { x, y, w: cw, h: 0.55, fontSize: 18, bold: true, color: "FFFFFF", fillColor: COL[ORG[i % 5]], align: "center", margin: 1 }); slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: y + 0.62, w: cw, h: zoneH, fill: { color: TINT[ORG[i % 5]] }, line: { color: COL[ORG[i % 5]], width: 1.5, dashType: "dash" }, rectRadius: 0.15 }); });
+  const cy0 = y + 0.62 + zoneH + 0.2, cwid = (w - 0.12 * (per - 1)) / per;
+  const pt = fitPt(cards, cwid, cardH, 17, 10, true, 0.15);
+  cards.forEach((c, i) => box(slide, c, { x: M + (i % per) * (cwid + 0.12), y: cy0 + Math.floor(i / per) * (cardH + 0.12), w: cwid, h: cardH, fontSize: pt, bold: true, fillColor: "FFFFFF", align: "center", sh: true, line: { color: COL.muted, width: 1 }, margin: 2 }));
+  const ans = s.answers ? "Answers: " + Object.entries(s.answers).map(([k, v]) => `${k}: ${v.join(", ")}`).join(". ") : "";
+  s._notes = [s.notes || "In edit mode, students come to the board and drag a card into a group, saying why. Close without saving to reset.", ans].filter(Boolean).join("\n\n");
+};
+// movable sentence strips for sequencing
+R.strips = async (slide, s, it) => {
+  await header(slide, s.title || "Put them in order", it, s.mode || "We do");
+  let y = TOP + 0.05;
+  y = orgIntro(slide, Object.assign({}, s, { prompt: s.prompt || "Drag the strips into the right order. (Edit mode)" }), y); slide.addImage({ data: await K.icon("hand", COL[UC]), x: M, y: TOP + 0.08, w: 0.6, h: 0.6 });
+  const st = s.items, n = st.length, sh = Math.min(0.75, (BOTTOM - y - 0.12 * (n - 1)) / n), sw = (RIGHT - M) * 0.78;
+  const pt = fitPt(st, sw - 0.3, sh, 20, 12);
+  const order = s.shuffle || st.map((_, i) => i).sort((a, b) => ((a * 7 + 3) % n) - ((b * 7 + 3) % n));
+  order.forEach((k, i) => box(slide, st[k], { x: M + (i % 2 ? 0.6 : 0), y: y + i * (sh + 0.12), w: sw, h: sh, fontSize: pt, fillColor: TINT[ORG[k % 5]], sh: true, margin: [3, 14, 3, 14] }));
+  s._notes = [s.notes || "In edit mode students drag strips into order. Close without saving to reset.", "Correct order: " + st.map((t, i) => `${i + 1}) ${t}`).join("  ")].join("\n\n");
+};
+
+R.tplVenn = async (slide) => { await R.venn(slide, { title: "Type your title here", left: "Type here", right: "Type here" }, null); footer(slide); slide.addNotes("Template: Venn diagram. Duplicate the slide and type into the boxes."); };
+R.tplTchart = async (slide) => { await R.tchart(slide, { title: "Type your title here", headers: ["Type here", "Type here"], blank: 4 }, null); footer(slide); slide.addNotes("Template: T-chart. Duplicate the slide and type into the boxes."); };
 R.tplMentor = async (slide) => {
   await header(slide, "Type your title here", null, "We do");
   pasteFrame(slide, M, TOP + 0.05, 6.1, BOTTOM - TOP - 0.05, "Chapter __, p __: the passage beginning ...", `Paste or type the passage from ${BOOK()} here.`);
@@ -893,7 +1016,7 @@ const TOOLS = { fractionStrips: "toolStrips", numberLine: "toolLine", counters: 
 const tools = (UNIT.toolkit || []).filter(t => TOOLS[t]);
 if (tools.length) { anchor.toolkit = plan.length + 1; tools.forEach(t => plan.push({ kind: TOOLS[t] })); }
 anchor.templates = plan.length + 1;
-plan.push(...(ENGLISH ? ["tplText", "tplTwo", "tplMentor", "tplTalk", "tplLevels"] : ["tplText", "tplTwo", "tplGrid", "tplTalk", "tplLevels"]).map(k => ({ kind: k })));
+plan.push(...(ENGLISH ? ["tplText", "tplTwo", "tplMentor", "tplVenn", "tplTchart", "tplTalk", "tplLevels"] : ["tplText", "tplTwo", "tplGrid", "tplTalk", "tplLevels"]).map(k => ({ kind: k })));
 plan.push({ kind: "credits" });
 
 // ---------- build ----------
@@ -907,7 +1030,7 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
   pres.defineSlideMaster({ title: "Content", background: { path: await K.themeBackground(THEME_KEY, "content") }, objects: [] });
   pres.defineSlideMaster({ title: "Cover", background: { path: await K.themeBackground(THEME_KEY, "cover") }, objects: [] });
   pres.defineSlideMaster({ title: "Title", background: { path: await K.themeBackground(THEME_KEY, "title") }, objects: [] });
-  const SIMPLE = new Set(["rows", "talk", "discuss", "warmup"]);
+  const SIMPLE = new Set(["rows", "talk", "discuss", "warmup", "definition", "anchor", "criteria", "mentor"]);
   // cut-out photos of students beside talk and discussion slides (unit.people, cut out by src/photos.js)
   const PEOPLE_ON = new Set(["talk"]);
   const PDIR = path.join(K.ASSETS, "photos", "people");

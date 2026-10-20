@@ -180,7 +180,7 @@ const fa = require("react-icons/fa6");
 const ICONS = {
   ido: fa.FaPersonChalkboard, wedo: fa.FaPeopleGroup, youdo: fa.FaPencil, target: fa.FaBullseye, list: fa.FaListCheck,
   timer: fa.FaStopwatch, comments: fa.FaComments, link: fa.FaLink, box: fa.FaBoxOpen, clock: fa.FaClock, check: fa.FaCheck,
-  xmark: fa.FaXmark, board: fa.FaChalkboard, question: fa.FaQuestion, bulb: fa.FaLightbulb, home: fa.FaHouse, star: fa.FaStar, eye: fa.FaEye,
+  xmark: fa.FaXmark, board: fa.FaChalkboard, hand: fa.FaHandPointer, question: fa.FaQuestion, bulb: fa.FaLightbulb, home: fa.FaHouse, star: fa.FaStar, eye: fa.FaEye,
 };
 const iconCache = {};
 async function icon(name, color, fg = "FFFFFF") {

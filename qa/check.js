@@ -10,7 +10,7 @@ const IMG = path.join(__dirname, "..", "assets", "img");
 const errs = [], warns = [], qa = [];
 const E = (w, m) => errs.push(`${w}: ${m}`), Wn = (w, m) => warns.push(`${w}: ${m}`);
 const KINDS = new Set(["fractionStrip", "fractionWall", "numberLine", "collection", "array", "barModel", "grid", "compass", "angle", "angleSet", "pvChart", "decimalGrid", "mab", "jug", "cubes", "money", "algorithm", "roundLine", "figure", "ribbon", "ruler", "stripStack", "shapeSet", "patternBlocks", "tangram", "notebook"]);
-const TYPES = new Set(["reveal", "mentor", "anchor", "model", "criteria", "tag", "reallife", "warmup", "definition", "rows", "visual", "worked", "examples", "talk", "hinge", "cfu", "activity", "levels", "discuss", "display"]);
+const TYPES = new Set(["venn", "tchart", "table", "charmap", "mountain", "flow", "sort", "strips", "reveal", "mentor", "anchor", "model", "criteria", "tag", "reallife", "warmup", "definition", "rows", "visual", "worked", "examples", "talk", "hinge", "cfu", "activity", "levels", "discuss", "display"]);
 const dash = /[—–]/;
 
 function visual(v, w) {

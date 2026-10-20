@@ -30,7 +30,7 @@ for n in sorted(z.namelist(), key=lambda s:(len(s),s)):
     x=z.read(n).decode()
     rects=[]
     for blk in re.findall(r'<p:(?:sp|pic)>.*?</p:(?:sp|pic)>',x,re.S):
-        if 'prst="line"' in blk: continue
+        if 'prst="line"' in blk or 'descr="underlay' in blk: continue
         o=re.search(r'<a:off x="(\d+)" y="(\d+)"/><a:ext cx="(\d+)" cy="(\d+)"/>',blk)
         if not o: continue
         a,b,c,d=[int(v)/E for v in o.groups()]
