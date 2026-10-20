@@ -2,8 +2,25 @@ import zipfile, sys, re, shutil
 src=sys.argv[1]; tmp=src+'.tmp'
 zin=zipfile.ZipFile(src); names=[n for n in zin.namelist() if not n.endswith('/')]
 names.sort(key=lambda n: 0 if n=='[Content_Types].xml' else 1)
+# de-duplicate identical media (the same photo or icon used on many slides) and point every slide at one copy
+import hashlib
+canon={}; drop={}
+for n in names:
+    if n.startswith('ppt/media/'):
+        h=hashlib.md5(zin.read(n)).hexdigest()
+        if h in canon: drop[n]=canon[h]
+        else: canon[h]=n
 with zipfile.ZipFile(tmp,'w',zipfile.ZIP_DEFLATED) as zout:
-    for n in names: zout.writestr(n, zin.read(n))
+    for n in names:
+        if n in drop: continue
+        data=zin.read(n)
+        if drop and n.endswith('.rels'):
+            x=data.decode()
+            for d,c in drop.items():
+                x=x.replace('../media/'+d.split('/')[-1]+'"','../media/'+c.split('/')[-1]+'"')
+            data=x.encode()
+        zout.writestr(n, data)
+if drop: print('media deduped', len(drop))
 shutil.move(tmp,src)
 # overlap check
 z=zipfile.ZipFile(src); E=914400; bad=0

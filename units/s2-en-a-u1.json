@@ -11818,7 +11818,13 @@
       ]
     ],
     "extraLabel": "Organisers",
-    "extrasBanner": "Organisers, planners and posters"
+    "extrasBanner": "Organisers, planners and posters",
+    "wsPages": [
+      7,
+      8,
+      9,
+      1
+    ]
   },
   "guide": {
     "subjectName": "NSW English",
