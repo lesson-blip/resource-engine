@@ -1288,7 +1288,7 @@ async function cosyHero(slide) {
   await deco(slide, await CZ.washi(COL[UC], 1.2, 0.34, -10), lx - 0.3, 1.3);
   if (PLUS) {
     await deco(slide, await CZ.washi(COL.sky, 1.0, 0.3, 12), lx + lw - 0.75, 1.32);
-    const second = ["reading_pair", "reading", "kids_bench"].find(k => K.hasPhoto(k) && k !== hp);
+    const second = [UNIT.heroPhoto2, ...(ENGLISH ? ["reading_pair", "reading", "kids_bench"] : []), ...LESSONS.map(l => l.photo)].find(k => k && K.hasPhoto(k) && k !== hp);
     if (second) { const p2 = await CZ.polaroid(second, 2.2, 1.65, 7); slide.addImage({ path: p2.path, x: W - M - p2.w - 0.1, y: 7.42 - p2.h, w: p2.w, h: p2.h, altText: "deco" }); await deco(slide, await CZ.washi(COL.mint, 0.9, 0.28, -15), W - M - p2.w + 0.55, 7.42 - p2.h - 0.08); }
     await deco(slide, await CZ.doodle("swirl", COL.mint, 0.5, 0.5, 4), lx + lw + 0.05, 5.0);
     await deco(slide, await CZ.doodle("arrow", COL[UC], 1.3, 0.75, 6), lx + 4.45, 6.15);
