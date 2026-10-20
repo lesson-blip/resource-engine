@@ -40,8 +40,8 @@ function pages(pdf, prefix, list, dpi = 110) {
 }
 const deckPdf = path.relative(DIR, path.join(WORK, "deck.pdf"));
 const wsPdf = find(/_Worksheets_Colour\.pdf$/), keyPdf = find(/_Answer_Key\.pdf$/), asPdf = find(/_Assessment\.pdf$/), fbPdf = find(/_Flip_Book\.pdf$/) || find(/_Component_A_Printables\.pdf$/) || find(/_Worksheets_Colour\.pdf$/), wwPdf = find(/_Word_Wall\.pdf$/), poPdf = find(/_Posters\.pdf$/);
-// the first lesson starts at slide 4; pick a spread of slide types from lesson 1
-const S = pages(deckPdf, "s", [1, 4, 5, 7, 8, 10, 11, 12, 13, 15, 16], 110);
+// slide 1 is the title, 2 the lesson map; the first lesson starts at slide 5
+const S = pages(deckPdf, "s", [2, 5, 6, 8, 9, 11, 12, 13, 14, 16, 17], 110);
 const TPL = (UNIT.templates || []).length;
 const WS = pages(wsPdf, "w", (UNIT.copy && UNIT.copy.wsPages) || [2 + TPL, 3 + TPL, 4 + TPL, 1]);
 const KEY = pages(keyPdf, "k", [3]);

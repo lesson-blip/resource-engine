@@ -14385,5 +14385,47 @@
     "farm_valley",
     "wood_hill",
     "orchard"
-  ]
+  ],
+  "heroLine": {
+    "B": "A Fantastic Mr Fox companion to NSW Year A Unit 1",
+    "A": "Daily skills for Year A Unit 1: Fantastic Mr Fox"
+  },
+  "heroStats": {
+    "B": [
+      [
+        "20",
+        "lessons"
+      ],
+      [
+        "5",
+        "weeks"
+      ],
+      [
+        "3",
+        "levels"
+      ],
+      [
+        "55",
+        "printables"
+      ]
+    ],
+    "A": [
+      [
+        "20",
+        "skill lessons"
+      ],
+      [
+        "5",
+        "weeks"
+      ],
+      [
+        "6",
+        "focus areas"
+      ],
+      [
+        "4",
+        "a week"
+      ]
+    ]
+  }
 }

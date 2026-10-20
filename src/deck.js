@@ -140,7 +140,7 @@ function footer(slide, ctx) {
   legend(slide);
   const ph = phaseOf(ctx);
   if (ph) box(slide, ph, { x: M + lw + 0.12, y: 6.92, w: K.textW(ph, 11, true) + 0.45, h: 0.34, fontSize: 11, bold: true, color: COL[UC], fillColor: TINT[UC], align: "center", margin: 1 });
-  box(slide, [{ text: "Menu", options: { hyperlink: { slide: 1, tooltip: "Back to the lesson menu" }, color: COL.navy, bold: true } }],
+  box(slide, [{ text: "Menu", options: { hyperlink: { slide: MENU_SLIDE, tooltip: "Back to the lesson map" }, color: COL.navy, bold: true } }],
     { x: W - M - 1.3, y: 6.88, w: 1.3, h: 0.4, fontSize: 13, align: "center", fillColor: TINT.sky, margin: 2 });
 }
 
@@ -184,35 +184,121 @@ const plan = [];
 const lessonStart = {};
 const anchor = {};
 
+// Slide 1: the hero. Says at a glance what the product is (subject, stage, unit, what is inside).
+const MENU_SLIDE = 2;
+function heroStats() {
+  const o = UNIT.heroStats && (UNIT.heroStats[PART === "A" ? "A" : "B"] || (Array.isArray(UNIT.heroStats) ? UNIT.heroStats : null));
+  if (o) return o;
+  const weeks = new Set(LESSONS.map(l => l.week).filter(Boolean)).size;
+  const ws = LESSONS.reduce((n, l) => n + (l.printables || []).filter(p => p.kind === "worksheet").length, 0);
+  const st = [[String(LESSONS.length), PART === "A" ? "skill lessons" : "lessons"]];
+  if (weeks) st.push([String(weeks), "weeks"]);
+  if (PART !== "A") st.push(["3", "levels"]);
+  if (ws) st.push([String(ws), ws === 1 ? "worksheet" : "worksheets"]);
+  if (st.length < 4 && LESSONS.some(l => l.exitTicket && l.exitTicket.length)) st.push([String(LESSONS.filter(l => l.exitTicket && l.exitTicket.length).length), "exit tickets"]);
+  return st.slice(0, 4);
+}
+R.hero = async (slide) => {
+  const hp = [UNIT.heroPhoto, UNIT.coverPhoto].find(k => k && K.hasPhoto(k));
+  const px = 6.75, py = 0.45, pw = W - M - px, ph = 6.6;
+  if (hp) slide.addImage({ path: await K.photo(hp, pw, ph, 0.35), x: px, y: py, w: pw, h: ph });
+  const lx = M + 0.1, lw = (hp ? px - 0.35 : W - M) - lx;
+  const kicker = `${UNIT.stage} ${ENGLISH ? "English" : "Maths"} · ${UNIT.years}`;
+  pill(slide, kicker, lx, py, UC, 15, 0.46);
+  const title = PART === "A" && ENGLISH ? `${UNIT.title}: Component A` : UNIT.title;
+  const TM = [8, 22, 8, 22];
+  let tpt = 46; while (tpt > 30 && K.linesFor(title, lw - 0.55, tpt, true, 0.6) > 2) tpt--;
+  const th = neededH(title, lw, { fontSize: tpt, bold: true, margin: TM }) + 0.05;
+  let y = py + 0.66;
+  box(slide, title, { x: lx, y, w: lw, h: th, fontSize: tpt, bold: true, sh: true, margin: TM });
+  y += th + 0.18;
+  const sub = UNIT.heroLine ? (UNIT.heroLine[PART === "A" ? "A" : "B"] || (typeof UNIT.heroLine === "string" ? UNIT.heroLine : UNIT.subtitle)) : UNIT.subtitle;
+  const sh = neededH(sub, lw, { fontSize: 19, margin: [6, 22, 6, 22] }) + 0.05;
+  box(slide, sub, { x: lx, y, w: lw, h: sh, fontSize: 19, color: COL.navy, fillColor: TINT[UC], margin: [6, 22, 6, 22] });
+  y += sh + 0.25;
+  const st = heroStats(), gap = 0.16, cw = (lw - gap) / 2, rows = Math.ceil(st.length / 2), bh = 0.66;
+  const chH = Math.min(0.9, (py + ph - bh - 0.2 - y - gap * (rows - 1)) / rows), cols = ["teal", "sky", "mint", "indigo"];
+  st.forEach(([n, t], i) => box(slide, [
+    { text: n + "  ", options: { fontSize: 28, bold: true, color: COL[cols[i % 4]] } },
+    { text: t, options: { fontSize: 17, bold: true, color: COL.navy } }],
+    { x: lx + (i % 2) * (cw + gap), y: y + Math.floor(i / 2) * (chH + gap), w: cw, h: chH, fontSize: 17, fillColor: "FFFFFF", sh: true, margin: [2, 16, 2, 16] }));
+  box(slide, [{ text: `Open the ${LTAG.toLowerCase()} map  ›`, options: { hyperlink: { slide: MENU_SLIDE, tooltip: "Lesson map" }, color: "FFFFFF", bold: true } }],
+    { x: lx, y: py + ph - bh, w: lw, h: bh, fontSize: 20, fillColor: COL[UC], align: "center", margin: 2 });
+  slide.addNotes(`Title slide. Click Open the ${LTAG.toLowerCase()} map to see every ${LTAG.toLowerCase()} and jump straight to it. Every slide has a Menu button that brings you back to the map.\n\n${UNIT.fit || ""}`);
+};
+
+// Slide 2: the lesson map. A path through the unit with a clickable stop for every lesson, grouped by week.
+async function trailPng(stops, turns, colour) {
+  const S = 120, w = Math.round(W * S), h = Math.round(7.5 * S);
+  let d = `M ${stops[0][0] * S} ${stops[0][1] * S}`;
+  for (let i = 1; i < stops.length; i++) {
+    const [x0, y0] = stops[i - 1], [x1, y1] = stops[i], t = turns[i];
+    if (t) d += ` C ${x0 * S} ${(y0 + t) * S} ${x1 * S} ${(y1 + t) * S} ${x1 * S} ${y1 * S}`;
+    else d += ` L ${x1 * S} ${y1 * S}`;
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">
+    <path d="${d}" fill="none" stroke="#${colour}" stroke-opacity="0.22" stroke-width="${0.34 * S}" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="${d}" fill="none" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="${0.045 * S}" stroke-dasharray="${0.16 * S} ${0.14 * S}" stroke-linecap="round"/></svg>`;
+  const out = path.join(__dirname, "..", ".cache", `trail_${THEME_KEY}_${PART || "B"}_${stops.length}.png`);
+  await require("sharp")(Buffer.from(svg)).png().toFile(out);
+  return out;
+}
+async function clearPng() {
+  const out = path.join(__dirname, "..", ".cache", "clear.png");
+  if (!fs.existsSync(out)) await require("sharp")({ create: { width: 4, height: 4, channels: 4, background: { r: 255, g: 255, b: 255, alpha: 0 } } }).png().toFile(out);
+  return out;
+}
 R.cover = async (slide) => {
-  // Opening slide: a real photo (UNIT.coverPhoto) beside the title, never floating emoji.
-  const bxL = W - M - 2 * 1.36 - 0.1 - 0.25;
-  const cp = UNIT.coverPhoto && K.hasPhoto(UNIT.coverPhoto) ? UNIT.coverPhoto : null;
-  const pw = cp ? 2.45 : 0, tx = M + (cp ? pw + 0.2 : 0), tw = bxL - tx;
-  if (cp) slide.addImage({ path: await K.photo(cp, pw, 1.35, 0.2), x: M, y: 0.4, w: pw, h: 1.35 });
-  let tpt = 40; while (tpt > 24 && K.linesFor(UNIT.title, tw - 0.5, tpt, true, 0.6) > 1) tpt--;
-  const sub = `${UNIT.subtitle} · ${UNIT.stage} · ${UNIT.years}`;
-  let spt = 16; while (spt > 11 && K.linesFor(sub, tw - 0.5, spt, false, 0.3) > 1) spt--;
-  box(slide, [
-    { text: UNIT.title, options: { fontSize: tpt, bold: true, breakLine: true } },
-    { text: sub, options: { fontSize: spt, color: COL.muted } },
-  ], { x: tx, y: 0.4, w: tw, h: 1.35, sh: true, margin: [6, 20, 6, 20] });
-  const btns = [["At a glance", "glance", "teal"], ["How it works", "howto", "sky"], ["Word wall", "wordwall", "mint"], ["Toolkit", "toolkit", "lav"]].filter(b => anchor[b[1]]);
-  const bw = 1.36, bx0 = W - M - 2 * bw - 0.1;
-  btns.forEach(([t, k, c], i) => box(slide, [{ text: t, options: { hyperlink: { slide: anchor[k], tooltip: t }, color: COL.navy, bold: true } }],
-    { x: bx0 + (i % 2) * (bw + 0.1), y: 0.45 + Math.floor(i / 2) * 0.7, w: bw, h: 0.55, fontSize: 12, fillColor: TINT[c], align: "center", margin: 2 }));
-  if (LESSONS.length > 10 && LESSONS.every(l => l.week)) return coverWeeks(slide);
-  const ls = LESSONS, half = Math.ceil(ls.length / 2), colW = (W - 2 * M - 0.3) / 2;
-  const rowH = Math.min(0.9, (6.75 - 2.05 - 0.14 * (half - 1)) / half);
-  ls.forEach((l, i) => {
-    const c = i < half ? 0 : 1, r = i % half;
-    const x = M + c * (colW + 0.3), y = 2.05 + r * (rowH + 0.14);
-    box(slide, `${l.n}`, { x, y, w: 0.75, h: rowH, fontSize: 20, bold: true, color: "FFFFFF", fillColor: COL[["teal", "sky", "mint", "indigo", "lav"][i % 5]], align: "center", margin: 1 });
-    const tw = colW - 0.9;
-    let pt = 19; while (pt > 14 && K.linesFor(l.title, tw, pt, true, 0.3) > 1) pt--;
-    box(slide, [{ text: l.title, options: { hyperlink: { slide: lessonStart[l.id], tooltip: l.title }, color: COL.navy, bold: true } }], { x: x + 0.9, y, w: tw, h: rowH, fontSize: pt, fillColor: "FFFFFF", sh: true, margin: [2, 12, 2, 12] });
+  // header: unit name, then quick links
+  const btns = [["At a glance", "glance", "teal"], ["How it works", "howto", "sky"], ["Word wall", "wordwall", "mint"], ["Toolkit", "toolkit", "lav"], ["Title page", "hero", "indigo"]].filter(b => b[1] === "hero" || anchor[b[1]]);
+  const bw = 1.42, bg = 0.1, bx0 = W - M - btns.length * bw - (btns.length - 1) * bg;
+  btns.forEach(([t, k, c], i) => box(slide, [{ text: t, options: { hyperlink: { slide: k === "hero" ? 1 : anchor[k], tooltip: t }, color: COL.navy, bold: true } }],
+    { x: bx0 + i * (bw + bg), y: 0.5, w: bw, h: 0.6, fontSize: 13, fillColor: TINT[c], align: "center", margin: 2 }));
+  const hw = bx0 - 0.25 - M;
+  const head = `${PART === "A" ? "Skills" : "Lesson"} map`;
+  const showT = K.textW(head + "   ", 26, true) + K.textW(UNIT.title, 16, false) + 0.7 < hw;
+  box(slide, [{ text: head + "   ", options: { fontSize: 26, bold: true } }, { text: showT ? UNIT.title : "", options: { fontSize: 16, color: COL.muted } }],
+    { x: M, y: 0.4, w: hw, h: 0.8, sh: true, margin: [4, 18, 4, 18] });
+  // groups: weeks, or even chunks of up to 4
+  let groups;
+  if (LESSONS.every(l => l.week)) groups = [...new Set(LESSONS.map(l => l.week))].sort((a, b) => a - b).map(w => ({ label: `Week ${w}`, ls: LESSONS.filter(l => l.week === w) }));
+  else { const g = Math.ceil(LESSONS.length / 4), per = Math.ceil(LESSONS.length / g); groups = []; for (let i = 0; i < LESSONS.length; i += per) groups.push({ label: null, ls: LESSONS.slice(i, i + per) }); }
+  const G = groups.length, colW = (W - 2 * M) / G, per = Math.max(...groups.map(g => g.ls.length));
+  const hasLab = groups.some(g => g.label);
+  const yTop = hasLab ? 2.78 : 2.2, yBot = hasLab ? 6.0 : 6.05, dia = 0.6, step = per > 1 ? (yBot - yTop) / (per - 1) : 0;
+  const cols = ["teal", "sky", "mint", "indigo", "lav"];
+  const stops = [], turns = [];
+  groups.forEach((g, gi) => {
+    const cx = M + gi * colW + 0.1 + dia / 2;
+    g.ls.forEach((l, j) => {
+      const r = gi % 2 ? g.ls.length - 1 - j : j;   // snake: down, then up
+      g.ls[j]._pos = [cx, yTop + r * step];
+    });
+    g.ls.forEach((l, j) => { stops.push(l._pos); turns.push(j === 0 && gi > 0 ? (gi % 2 ? 1.1 : -1.1) : 0); });
   });
-  slide.addNotes(`Lesson menu. Click a lesson to jump to it. Every slide has a Menu button in the bottom right to come back here.\n\n${UNIT.fit || ""}`);
+  slide.addImage({ path: await trailPng(stops, turns, COL[UC]), x: 0, y: 0, w: W, h: 7.5, altText: "underlay" });
+  // Labels are plain text so they wrap by word everywhere; a clear clickable hotspot sits over each stop.
+  const dot = dia, lx0 = 0.1 + dot + 0.1, lw = colW - lx0 - 0.06;
+  const names = LESSONS.map(l => l.menu || l.title);
+  const lines = pt => Math.max(...names.map(t => K.linesFor(t, lw - 0.24, pt, true, 0.15)));
+  const words = names.join(" ").split(/\s+/);
+  const wordFits = pt => words.every(wd => K.textW(wd, pt, true) * 1.02 < lw - 0.24);
+  let lpt = 17; while (lpt > 11 && (lines(lpt) > 2 || !wordFits(lpt))) lpt--;
+  const lh = lines(lpt) > 1 ? Math.min(step - 0.2 || 0.9, 0.3 + 2 * lpt / 72 * 1.25) : 0.6;
+  const hot = await clearPng();
+  groups.forEach((g, gi) => {
+    const c = cols[gi % 5], x0 = M + gi * colW;
+    if (g.label) box(slide, g.label, { x: x0 + 0.12, y: 1.42, w: colW - 0.3, h: 0.44, fontSize: 16, bold: true, color: "FFFFFF", fillColor: COL[c], align: "center", margin: 1 });
+    g.ls.forEach(l => {
+      const [cx, cy] = l._pos;
+      slide.addText(String(l.n), { shape: pres.shapes.OVAL, x: cx - dot / 2, y: cy - dot / 2, w: dot, h: dot, fill: { color: COL[c] }, line: { color: "FFFFFF", width: 2.5 }, fontFace: K.FONT, fontSize: 19, bold: true, color: "FFFFFF", align: "center", valign: "middle", margin: 0,
+        shadow: { type: "outer", color: "6F87A3", opacity: 0.2, blur: 8, offset: 2, angle: 90 } });
+      box(slide, l.menu || l.title, { x: cx - dot / 2 + lx0 - 0.1, y: cy - lh / 2, w: lw, h: lh, fontSize: lpt, bold: true, fillColor: "FFFFFF", sh: true, margin: [2, 8, 2, 8] });
+      slide.addImage({ path: hot, x: cx - dot / 2 - 0.02, y: cy - Math.max(lh, dot) / 2, w: lx0 - 0.1 + lw + 0.04, h: Math.max(lh, dot), altText: "hotspot", hyperlink: { slide: lessonStart[l.id], tooltip: l.title } });
+      delete l._pos;
+    });
+  });
+  slide.addNotes(`${PART === "A" ? "Skills" : "Lesson"} map. Click any number or name to jump to that ${LTAG.toLowerCase()}. Every slide has a Menu button in the bottom right that brings you back here.\n\n${UNIT.fit || ""}`);
 };
 
 async function coverWeeks(slide) {
@@ -1009,7 +1095,7 @@ const DEFAULT_NOTES = {
 };
 
 // ---------- plan ----------
-plan.push({ kind: "cover" });
+plan.push({ kind: "hero" }, { kind: "cover" });
 anchor.glance = plan.length + 1; plan.push({ kind: "glance" });
 anchor.howto = plan.length + 1; plan.push({ kind: "howto" });
 anchor.wordwall = plan.length + 1;
@@ -1052,7 +1138,7 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
   const people = Object.keys(UNIT.people || {}).map(k => path.join(PDIR, k + ".png")).filter(f => fs.existsSync(f));
   let pi = 0; const nextPerson = () => people.length ? people[pi++ % people.length] : null;
   for (const item of plan) {
-    const slide = pres.addSlide({ masterName: item.kind === "cover" ? "Cover" : item.kind === "lessonTitle" ? (ENGLISH ? "Cover" : "Title") : "Content" });
+    const slide = pres.addSlide({ masterName: item.kind === "cover" || item.kind === "hero" ? "Cover" : item.kind === "lessonTitle" ? (ENGLISH ? "Cover" : "Title") : "Content" });
     if (item.kind === "content") {
       const s = item.s, fn = R[s.type];
       if (!fn) throw new Error("no renderer " + s.type);
