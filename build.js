@@ -52,6 +52,12 @@ if (extraThemes.length) {
 }
 fs.writeFileSync(path.join(WORK, "themes.json"), JSON.stringify([theme, ...extraThemes]));
 
+step("Unit of work");
+for (const part of HAS_A ? ["", "A"] : [""]) {
+  const pf = path.join(DIR, `${t}_${part ? "Component_A_" : ""}Unit_of_Work.docx`);
+  run("node", [path.join(__dirname, "src", "program.js"), unitFile, pf, theme, part]);
+  run("python3", ["/mnt/skills/public/pptx/scripts/office/soffice.py", "--headless", "--convert-to", "pdf", "--outdir", DIR, pf]);
+}
 step("Teacher guide");
 run("node", [path.join(__dirname, "src", "guide.js"), unitFile, path.join(DIR, `${t}_Teacher_Guide.docx`), theme]);
 if (!args.includes("--skip-listing")) {

@@ -97,6 +97,8 @@ const DEF = {
 };
 const SUBV = { lessons: L.length, skills: (UNIT.skills || []).length, themes: nThemes, worksheets: nWs, assess: nAssess, slides: nSlides };
 const SUB = v => typeof v === "string" ? v.replace(/\{(\w+)\}/g, (m, k) => SUBV[k] != null ? SUBV[k] : m) : Array.isArray(v) ? v.map(SUB) : v;
+const HAS_UOW = fs.readdirSync(DIR).some(f => /_Unit_of_Work\.(docx|pdf)$/.test(f));
+if (HAS_UOW && !included.some(i => /unit of work/i.test(i))) included.push("Written unit of work in NSW program format (editable Word and PDF), with linked lesson navigation");
 const COPY = Object.fromEntries(Object.entries(Object.assign({}, DEF, UNIT.copy || {})).map(([k, v]) => [k, SUB(v)]));
 
 const tiles = [
