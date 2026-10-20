@@ -53,6 +53,57 @@ async function scribble(slide, text, x, y, w, colour, arrow) {
   if (arrow) await deco(slide, await CZ.doodle(arrow.kind, colour, arrow.w || 0.8, arrow.h || 0.5, SLIDE_N), arrow.x, arrow.y, arrow.w || 0.8, arrow.h || 0.5);
   return h;
 }
+// ---- licensed clip art (assets/clipart/map.json): replaces matching emoji keys; flattened into the slide background ----
+const CLIPMAP = (() => { try { return JSON.parse(fs.readFileSync(path.join(K.ASSETS, "clipart", "map.json"), "utf8")); } catch (e) { return null; } })();
+const CLIP_ON = !!CLIPMAP && process.env.DECK_CLIPART !== "0" && UNIT.clipart !== false;
+const CLIP_USED = new Set();
+let FLAT = null;
+function clipFor(key) {
+  if (!CLIP_ON || !CLIPMAP.map[key] || !CLIPMAP.map[key].length) return null;
+  const l = CLIPMAP.map[key], f = l[Math.floor(rnd(30 + l.length) * l.length) % l.length];
+  CLIP_USED.add(f.split("/")[0]);
+  return path.join(K.ASSETS, "clipart", f);
+}
+// place an emoji picture, or the licensed clip art for it (queued to be flattened into the background)
+function picture(slide, key, o) {
+  const c = clipFor(key);
+  if (c) { (FLAT = FLAT || []).push(Object.assign({ path: c }, o)); return; }
+  slide.addImage(Object.assign({ path: K.img(key) }, o));
+}
+// a background set after a slide's links can share their relationship id; give each slide background its own id
+async function fixBgRels(file) {
+  const JSZip = require("jszip"), zip = await JSZip.loadAsync(fs.readFileSync(file));
+  let changed = 0;
+  for (const n of Object.keys(zip.files).filter(n => /^ppt\/slides\/slide\d+\.xml$/.test(n))) {
+    let x = await zip.file(n).async("string");
+    const m = x.match(/<p:bg>[\s\S]*?r:embed="(rId\d+)"[\s\S]*?<\/p:bg>/);
+    if (!m) continue;
+    const rn = n.replace("slides/", "slides/_rels/") + ".rels";
+    let r = await zip.file(rn).async("string");
+    const same = [...r.matchAll(new RegExp(`<Relationship Id="${m[1]}"[^>]*/>`, "g"))];
+    if (same.length < 2) continue;
+    const bgRel = same.find(e => /Slide-\d+-image/.test(e[0]) || /image/.test(e[0]) && /\.jpe?g"/.test(e[0]));
+    if (!bgRel) continue;
+    r = r.replace(bgRel[0], bgRel[0].replace(`Id="${m[1]}"`, 'Id="rIdBg1"'));
+    x = x.replace(m[0], m[0].replace(`r:embed="${m[1]}"`, 'r:embed="rIdBg1"'));
+    zip.file(rn, r); zip.file(n, x); changed++;
+  }
+  if (changed) fs.writeFileSync(file, await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" }));
+}
+async function flatten(slide, bgPath) {
+  const S = 1920 / W, comp = [];
+  for (const it of FLAT) {
+    const bw = Math.round(it.w * S), bh = Math.round(it.h * S);
+    let buf = await require("sharp")(it.path).resize(bw, bh, { fit: "inside" }).png().toBuffer();
+    if (it.rotate) buf = await require("sharp")(buf).rotate(it.rotate, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+    const m = await require("sharp")(buf).metadata();
+    comp.push({ input: buf, left: Math.round(it.x * S + bw / 2 - m.width / 2), top: Math.round(it.y * S + bh / 2 - m.height / 2) });
+  }
+  const f = path.join(K.CACHE, "flat_" + K.hash(bgPath + JSON.stringify(FLAT)) + ".jpg");
+  if (!fs.existsSync(f)) await require("sharp")(bgPath).resize(1920, 1080).composite(comp).jpeg({ quality: 88 }).toFile(f);
+  slide.background = { path: f };
+  FLAT = null;
+}
 async function deco(slide, img, x, y, w, h) { slide.addImage({ path: img.path || img, x, y, w: w || img.w, h: h || img.h, altText: "deco" }); }
 const RES = K.resources(UNIT);
 const PHASE = { lessonTitle: "Beginning the lesson", lisc: "Beginning the lesson", warmup: "Beginning the lesson", reallife: "Beginning the lesson", reveal: "Beginning the lesson", discuss: "Concluding the lesson", exit: "Concluding the lesson" };
@@ -598,7 +649,7 @@ R.lisc = async (slide, it) => {
   box(slide, "Learning intention", { x: M + 0.75, y: 1.6, w: lw - 0.75, h: 0.62, fontSize: 20, bold: true, color: "FFFFFF", fillColor: COL.sky });
   box(slide, ls.li, { x: M, y: 2.4, w: lw, h: Math.max(2.4, K.hFor(ls.li, lw, 24, false, 0.5)), fontSize: 24, fillColor: TINT.sky, margin: [10, 18, 10, 18] });
   if (HUMAN) await scribble(slide, pick(["We will check these at the end!", "Keep these in mind today!", "Can you do these by the end?"], 11), M + 0.3, 5.35, lw - 1.3, COL[UC], { kind: "arrow", x: M + lw - 1.05, y: 5.25, w: 0.85, h: 0.55 });
-  else slide.addImage({ path: K.img("writing_hand"), x: M + lw / 2 - 0.6, y: 5.15, w: 1.2, h: 1.2 });
+  else picture(slide, "writing_hand", { x: M + lw / 2 - 0.6, y: 5.15, w: 1.2, h: 1.2 });
   slide.addImage({ data: await K.icon("list", COL.mint), x: rx, y: 1.6, w: 0.62, h: 0.62 });
   box(slide, "Success criteria", { x: rx + 0.75, y: 1.6, w: rw - 0.75, h: 0.62, fontSize: 20, bold: true, color: "FFFFFF", fillColor: COL.mint });
   const pt = fitPt(ls.sc, rw, (BOTTOM - 2.4 - 0.16 * (ls.sc.length - 1)) / ls.sc.length, 26, 16);
@@ -1241,15 +1292,26 @@ R.credits = async (slide) => {
   const t1 = "This resource is for use by one teacher in their own classroom. Please buy an additional licence for each extra teacher. You may not share, resell or upload this resource or any part of it.";
   const cr = K.photoCredits(), used = Object.keys(UNIT.photos || {}).filter(k => cr[k]);
   const names = [...new Set(used.map(k => cr[k].photographer.replace(/^https?:\/\/(www\.)?/, "").replace(/\.com\/?$/, "").replace(/\/$/, "").replace(/[^\p{Script=Latin}\s.'-]/gu, "").replace(/\s+/g, " ").trim()).filter(Boolean))];
-  const t2 = "Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans and Edu NSW ACT Foundation (SIL Open Font License). Diagrams drawn for this resource." + (names.length ? ` Photos from Pexels (pexels.com, Pexels Licence) by ${names.join(", ")}.` : "");
+  const clipCredit = [...CLIP_USED].map(a => CLIPMAP.artists[a] && CLIPMAP.artists[a].credit).filter(Boolean);
+  const t2 = (clipCredit.length ? `Clip art: ${clipCredit.join("; ")}. ` : "") + "Pictures: Microsoft Fluent Emoji (MIT licence). Fonts: Nunito Sans, Fredoka and Edu NSW ACT Foundation (SIL Open Font License). Diagrams drawn for this resource." + (names.length ? ` Photos from Pexels (pexels.com, Pexels Licence) by ${names.join(", ")}.` : "");
   const t3 = ENGLISH
     ? `Syllabus outcomes: NSW English K-10 Syllabus © NSW Education Standards Authority (NESA). ${UNIT.departmentUnit ? `Designed to accompany the NSW Department of Education ${UNIT.departmentUnit} (© State of New South Wales (Department of Education), 2023, CC BY 4.0). ` : ""}${UNIT.mentorText ? `You need a copy of ${UNIT.mentorText.title} by ${UNIT.mentorText.author}; no text from the book is reproduced here. ` : ""}Not endorsed by NESA or the NSW Department of Education.`
     : `Syllabus outcomes and content: NSW Mathematics K-10 Syllabus © NSW Education Standards Authority (NESA). ${UNIT.fit ? UNIT.fit + "." : ""} Not endorsed by NESA or the NSW Department of Education.`;
   let y = TOP + 0.1;
   const ts = [[t1, "teal"], [t2, "sky"], [t3, "lav"]];
   let cpt = 20; const hs = p => ts.map(([t]) => neededH(t, RIGHT - M, { fontSize: p, margin: [6, 12, 6, 12] }) + 0.06);
-  while (cpt > 11 && hs(cpt).reduce((a, b) => a + b, 0) + 0.5 > BOTTOM - y) cpt--;
+  const logoRoom = CLIP_USED.size ? 1.15 : 0;   // clip art artists ask for their logo beside the credit
+  while (cpt > 10 && hs(cpt).reduce((a, b) => a + b, 0) + 0.5 + logoRoom > BOTTOM - y) cpt--;
   hs(cpt).forEach((h, i) => { box(slide, ts[i][0], { x: M, y, w: RIGHT - M, h, fontSize: cpt, fillColor: TINT[ts[i][1]] }); y += h + 0.25; });
+  // clip art artists ask for their logo with the credit
+  let lx = M;
+  for (const a of CLIP_USED) {
+    const lg = CLIPMAP.artists[a] && CLIPMAP.artists[a].logo, f = lg && path.join(K.ASSETS, "clipart", lg);
+    if (!f || !fs.existsSync(f) || y + 0.95 > BOTTOM + 0.1) continue;
+    const m = await require("sharp")(f).metadata(), h = 0.9, w = Math.min(2.4, h * m.width / m.height);
+    slide.addImage({ path: f, x: lx, y, w, h: w * m.height / m.width, hyperlink: a === "creative-clips" ? { url: "https://www.teacherspayteachers.com/Store/Krista-Wallden" } : { url: "https://www.smartartsforkids.com/" } });
+    lx += w + 0.3;
+  }
   footer(slide);
 };
 
@@ -1425,6 +1487,7 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
 
 (async () => {
   const BG = COSY ? CZ.paper : K.themeBackground;
+  let PREV = null;
   pres.defineSlideMaster({ title: "Content", background: { path: await BG(THEME_KEY, "content") }, objects: [] });
   pres.defineSlideMaster({ title: "Cover", background: { path: await BG(THEME_KEY, "cover") }, objects: [] });
   pres.defineSlideMaster({ title: "Title", background: { path: await BG(THEME_KEY, "title") }, objects: [] });
@@ -1436,7 +1499,10 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
   let pi = 0; const nextPerson = () => people.length ? people[pi++ % people.length] : null;
   for (const item of plan) {
     SLIDE_N++;
-    const slide = pres.addSlide({ masterName: item.kind === "cover" || item.kind === "hero" ? "Cover" : item.kind === "lessonTitle" ? (ENGLISH ? "Cover" : "Title") : "Content" });
+    if (FLAT && PREV) await flatten(PREV.slide, PREV.bg);
+    const masterName = item.kind === "cover" || item.kind === "hero" ? "Cover" : item.kind === "lessonTitle" ? (ENGLISH ? "Cover" : "Title") : "Content";
+    const slide = pres.addSlide({ masterName });
+    PREV = { slide, bg: await BG(THEME_KEY, masterName.toLowerCase()) };
     if (item.kind === "content") {
       const s = item.s, fn = R[s.type];
       if (!fn) throw new Error("no renderer " + s.type);
@@ -1455,7 +1521,7 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
         await fn(slide, s, item);
         RIGHT = W - M;
         const ps = pics.length === 1 ? 2.0 : 1.7, tot = pics.length * ps + (pics.length - 1) * 0.35, top = TOP + (BOTTOM - TOP - tot) / 2;
-        pics.forEach((k, i) => slide.addImage({ path: K.img(k), x: W - M - 2.2 + (2.2 - ps) / 2, y: top + i * (ps + 0.35), w: ps, h: ps, rotate: HUMAN ? Math.round((rnd(20 + i) - 0.5) * 16) : 0 }));
+        pics.forEach((k, i) => picture(slide, k, { x: W - M - 2.2 + (2.2 - ps) / 2, y: top + i * (ps + 0.35), w: ps, h: ps, rotate: HUMAN ? Math.round((rnd(20 + i) - 0.5) * 16) : 0 }));
       } else await fn(slide, s, item);
       if (s.type === "discuss" && !keyVisual(item.ls) && !s.visual) { const pf = nextPerson(); if (pf) { const meta = await require("sharp")(pf).metadata(); let ph = 3.4, pw = ph * meta.width / meta.height; if (pw > 2.4) { pw = 2.4; ph = pw * meta.height / meta.width; } slide.addImage({ path: pf, x: W - M - pw, y: BOTTOM - ph, w: pw, h: ph }); } }
       footer(slide, item);
@@ -1466,7 +1532,9 @@ pres.subject = `${UNIT.stage} ${ENGLISH ? "English" : "mathematics"}`;
     } else await R[item.kind](slide, item);
     void 0;
   }
+  if (FLAT && PREV) await flatten(PREV.slide, PREV.bg);
   await pres.writeFile({ fileName: OUT });
+  await fixBgRels(OUT);
   await require("./theme.js").applyTheme(OUT, T);
   console.log(`deck ${path.basename(OUT)}: ${plan.length} slides, theme ${THEME_KEY}, fit warnings ${FIT_WARN}`);
 })().catch(e => { console.error(e); process.exit(1); });

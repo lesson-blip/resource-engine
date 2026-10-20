@@ -1,0 +1,77 @@
+{
+  "artists": {
+    "creative-clips": {
+      "credit": "Creative Clips Clipart by Krista Wallden (teacherspayteachers.com/Store/Krista-Wallden)",
+      "logo": "creative-clips/Creative Clips Clipart Logo.png"
+    },
+    "smartarts": {
+      "credit": "Smart Arts for Kids (smartartsforkids.com)",
+      "logo": "smartarts/SmartArtsForKids Logo Circle.png"
+    }
+  },
+  "map": {
+    "pencil": [
+      "creative-clips/Pencil_Blue.png",
+      "creative-clips/Pencil_Green.png",
+      "creative-clips/Pencil_Pink.png",
+      "creative-clips/Pencil_Purple.png",
+      "creative-clips/Pencil_R.Blue.png",
+      "creative-clips/Pencil_Red.png",
+      "creative-clips/Pencil_Yellow.png"
+    ],
+    "memo": [
+      "creative-clips/Pencil_Blue.png",
+      "creative-clips/Pencil_Green.png",
+      "creative-clips/Pencil_Pink.png",
+      "creative-clips/Pencil_Purple.png",
+      "creative-clips/Pencil_R.Blue.png",
+      "creative-clips/Pencil_Red.png",
+      "creative-clips/Pencil_Yellow.png"
+    ],
+    "writing_hand": [
+      "creative-clips/Pencil_Blue.png",
+      "creative-clips/Pencil_Green.png",
+      "creative-clips/Pencil_Pink.png",
+      "creative-clips/Pencil_Purple.png",
+      "creative-clips/Pencil_R.Blue.png",
+      "creative-clips/Pencil_Red.png",
+      "creative-clips/Pencil_Yellow.png"
+    ],
+    "busts_in_silhouette": [
+      "creative-clips/derived/pair_1.png",
+      "creative-clips/derived/pair_2.png",
+      "creative-clips/derived/pair_3.png",
+      "creative-clips/derived/pair_4.png"
+    ],
+    "grinning_face": [
+      "creative-clips/Kid Face_1_1.png",
+      "creative-clips/Kid Face_1_2.png",
+      "creative-clips/Kid Face_1_3.png",
+      "creative-clips/Kid Face_1_4.png",
+      "creative-clips/Kid Face_2_1.png",
+      "creative-clips/Kid Face_2_2.png",
+      "creative-clips/Kid Face_2_3.png",
+      "creative-clips/Kid Face_2_4.png",
+      "creative-clips/Kid Face_3_1.png",
+      "creative-clips/Kid Face_3_2.png",
+      "creative-clips/Kid Face_3_3.png",
+      "creative-clips/Kid Face_3_4.png",
+      "creative-clips/Kid Face_4_1.png",
+      "creative-clips/Kid Face_4_2.png",
+      "creative-clips/Kid Face_4_3.png",
+      "creative-clips/Kid Face_4_4.png"
+    ],
+    "thinking_face": [
+      "creative-clips/Owl_1.png",
+      "creative-clips/Owl_2.png",
+      "creative-clips/Owl_3.png",
+      "creative-clips/Owl_4.png"
+    ],
+    "light_bulb": [
+      "creative-clips/Owl_1.png",
+      "creative-clips/Owl_2.png",
+      "creative-clips/Owl_3.png",
+      "creative-clips/Owl_4.png"
+    ]
+  }
+}
